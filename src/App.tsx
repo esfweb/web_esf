@@ -1,0 +1,1442 @@
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Shield,
+  Heart,
+  Phone,
+  Mail,
+  Clock,
+  MapPin,
+  Menu,
+  X,
+  Check,
+  Award,
+  Users,
+  Briefcase,
+  TrendingUp,
+  Stethoscope,
+  Activity,
+  DollarSign,
+  ChevronRight,
+  ShieldCheck,
+  ChevronDown,
+  Lock,
+  Percent,
+  Sparkles,
+  ArrowUp,
+  MessageCircle
+} from "lucide-react";
+import { translations, TranslationSet } from "./translations";
+import QuizCard from "./components/QuizCard";
+
+// Count-up stats helper component with intersection detection
+interface AnimatedStatProps {
+  num: string;
+  label: string;
+  icon: React.ReactNode;
+}
+
+function AnimatedStat({ num, label, icon }: AnimatedStatProps) {
+  const [count, setCount] = useState<number>(0);
+  const elementRef = useRef<HTMLDivElement>(null);
+  const target = parseInt(num.replace(/\D/g, ""), 10) || 0;
+
+  useEffect(() => {
+    const el = elementRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          let startTimestamp: number | null = null;
+          const duration = 1500; // 1.5 seconds animation
+          const step = (timestamp: number) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            setCount(Math.floor(progress * target));
+            if (progress < 1) {
+              window.requestAnimationFrame(step);
+            } else {
+              setCount(target);
+            }
+          };
+          window.requestAnimationFrame(step);
+          observer.disconnect(); // Animate only once
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target]);
+
+  const suffix = num.replace(/[0-9]/g, "");
+
+  return (
+    <div
+      ref={elementRef}
+      className="flex flex-col items-center justify-center text-center p-6 bg-white rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] transition-all hover:shadow-[0_12px_40px_rgba(18,32,51,0.06)] hover:-translate-y-1 duration-300"
+    >
+      <div className="w-12 h-12 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple mb-3.5">
+        {icon}
+      </div>
+      <div className="text-3xl md:text-3.5xl font-extrabold text-brand-navy tracking-tight">
+        {count}
+        {suffix}
+      </div>
+      <div className="text-[10px] md:text-xs font-bold text-brand-slate mt-2 tracking-wider uppercase">
+        {label}
+      </div>
+    </div>
+  );
+}
+
+// Subtle 3D Tilt Wrapper for service cards
+interface TiltCardProps {
+  children: React.ReactNode;
+  popular?: boolean;
+  popularLabel?: string;
+}
+
+function TiltCard({ children, popular, popularLabel }: TiltCardProps) {
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setCoords({ x, y });
+  };
+
+  const transformStyle = isHovered
+    ? {
+        transform: `perspective(1000px) rotateY(${coords.x * 6}deg) rotateX(${coords.y * -6}deg) translateY(-4px)`,
+        boxShadow: `0 20px 35px rgba(18, 32, 51, 0.05)`,
+      }
+    : {
+        transform: `perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(0)`,
+        boxShadow: `0 8px 30px rgba(18, 32, 51, 0.02)`,
+      };
+
+  return (
+    <div
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setCoords({ x: 0, y: 0 });
+      }}
+      style={transformStyle}
+      className="relative rounded-3xl p-8 bg-white border border-slate-100 transition-all duration-300 ease-out flex flex-col justify-between h-full group"
+    >
+      {popular && (
+        <span className="absolute top-4 right-4 bg-brand-gold text-white text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full shadow-sm z-15 animate-pulse">
+          ✨ {popularLabel}
+        </span>
+      )}
+      {children}
+    </div>
+  );
+}
+
+// Expandable Service Item with tooltips for catalogue section (Utiliza el verde suave #7FA89B como check de bienestar)
+interface ServiceItemProps {
+  label: string;
+  desc: string;
+}
+
+function ServiceItem({ label, desc }: ServiceItemProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div
+      className="relative p-3.5 rounded-2xl bg-[#F3F3F4] hover:bg-brand-purple-light border border-transparent hover:border-brand-purple/10 transition-all duration-300 cursor-pointer"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      <div className="flex items-center gap-3">
+        <div className="w-5 h-5 bg-brand-sage-light rounded-full flex items-center justify-center text-brand-sage text-[11px] flex-shrink-0 font-bold border border-brand-sage/20">
+          ✓
+        </div>
+        <span className="text-sm font-semibold text-brand-navy hover:text-brand-purple transition-colors tracking-tight">
+          {label}
+        </span>
+        <span className="ml-auto text-brand-slate hover:text-brand-purple transition text-[10px] block md:hidden">
+          {isOpen ? <X className="w-3 h-3 text-brand-purple" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        </span>
+      </div>
+
+      {/* Touch friendly accordion explanation for mobile */}
+      {isOpen && (
+        <div className="mt-2 pl-8 pr-2 text-[12px] text-brand-slate leading-relaxed block md:hidden animate-fade-in-up">
+          {desc}
+        </div>
+      )}
+
+      {/* Absolute floating box on desktop hover */}
+      <div className="hidden md:block absolute left-1/2 bottom-full mb-3 translate-x-1/2 w-64 p-3.5 bg-brand-navy text-white text-xs rounded-2xl shadow-xl border border-white/10 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+        <div className="relative">
+          <p className="leading-relaxed font-normal text-white/90">{desc}</p>
+          <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-brand-navy"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
+  // Localization setup from localStorage
+  const [lang, setLang] = useState<"en" | "es">(() => {
+    const saved = localStorage.getItem("eversafe_lang");
+    if (saved === "es" || saved === "en") return saved;
+    return "en";
+  });
+
+  const t: TranslationSet = translations[lang];
+
+  const toggleLanguage = () => {
+    const nextLang = lang === "en" ? "es" : "en";
+    setLang(nextLang);
+    localStorage.setItem("eversafe_lang", nextLang);
+  };
+
+  // Scroll trigger detection to change header look
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  const [showToTop, setShowToTop] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+
+      if (window.scrollY > 400) {
+        setShowToTop(true);
+      } else {
+        setShowToTop(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Sticky Active Nav Items via Intersection Observer
+  const [activeSection, setActiveSection] = useState<string>("home");
+  const sectionIds = ["home", "services", "about", "contact"];
+
+  useEffect(() => {
+    const options = { rootMargin: "-30% 0px -40% 0px" };
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, options);
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) observer.unobserve(el);
+      });
+    };
+  }, [lang]);
+
+  // Mobile menu display status
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+
+  // Quote Form captures
+  const [fullName, setFullName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [consent, setConsent] = useState<boolean>(false);
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const [formError, setFormError] = useState<string>("");
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!fullName.trim() || fullName.trim().length < 3) {
+      setFormError(t.contactForm.errName);
+      return;
+    }
+    if (!email.trim() || !email.includes("@")) {
+      setFormError(t.contactForm.errEmail);
+      return;
+    }
+    const cleanPhone = phone.replace(/\D/g, "");
+    if (cleanPhone.length < 10) {
+      setFormError(t.contactForm.errPhone);
+      return;
+    }
+    if (!consent) {
+      setFormError(t.contactForm.errConsent);
+      return;
+    }
+
+    // Success response
+    setFormError("");
+    setFormSubmitted(true);
+
+    // Save lead backup in localStorage for demonstration and reliability backings
+    const oldLeads = JSON.parse(localStorage.getItem("eversafe_leads") || "[]");
+    const newLead = { fullName, email, phone, message, date: new Date().toISOString() };
+    localStorage.setItem("eversafe_leads", JSON.stringify([...oldLeads, newLead]));
+  };
+
+  const handlePreFillMessage = (serviceName: string) => {
+    const textEN = `Hi Mary Rivera, I would like to get a personalized quote for "${serviceName}". Please contact me with options.`;
+    const textES = `Hola Mary Rivera, me gustaría recibir una cotización para "${serviceName}". Por favor contácteme con detalles.`;
+    setMessage(lang === "en" ? textEN : textES);
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Chat Popup Trigger Widget status
+  const [chatOpened, setChatOpened] = useState<boolean>(false);
+  const [showNotificationBubble, setShowNotificationBubble] = useState<boolean>(true);
+
+  // Floating button multi-contact tray trigger
+  const [floatOpen, setFloatOpen] = useState<boolean>(false);
+
+  return (
+    <div className="min-h-screen bg-white text-brand-navy selection:bg-brand-purple-light selection:text-brand-purple font-sans overflow-x-hidden">
+      
+      {/* 1. TOP BAR (Sleek deep navy background with clean tracking text) */}
+      <div className="w-full bg-brand-navy text-white text-xs py-2.5 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-2 z-55 relative border-b border-white/5 font-sans">
+        <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-1 font-medium text-white/90">
+          <a
+            href="mailto:mary@eversafefinancial.com"
+            className="flex items-center gap-1.5 hover:text-brand-gold transition-colors"
+          >
+            <Mail className="w-3.5 h-3.5 text-brand-purple" />
+            mary@eversafefinancial.com
+          </a>
+          <a
+            href="tel:7273596196"
+            className="flex items-center gap-1.5 hover:text-brand-gold transition-colors font-semibold"
+          >
+            <Phone className="w-3.5 h-3.5 text-brand-purple" />
+            (727) 359-6196
+          </a>
+        </div>
+        <div className="flex items-center gap-5">
+          {/* Social Links */}
+          <div className="flex items-center gap-3 text-white/70">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-brand-gold transition-colors"
+              aria-label="Instagram Link"
+            >
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+              </svg>
+            </a>
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-brand-gold transition-colors"
+              aria-label="Facebook Link"
+            >
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+              </svg>
+            </a>
+          </div>
+
+          <div className="h-4 w-[1px] bg-white/10"></div>
+
+          {/* Bilingual Toggle Button */}
+          <button
+            onClick={toggleLanguage}
+            className="flex items-center gap-2 focus:outline-none hover:text-brand-gold group cursor-pointer transition-colors font-bold tracking-wider"
+          >
+            <span className="text-[10px] uppercase bg-white/10 px-2 py-0.5 rounded-md border border-white/15 group-hover:border-brand-gold">
+              {lang === "en" ? "ES" : "EN"}
+            </span>
+            <span className="text-[10px] font-semibold text-white/80 group-hover:text-white">
+              {lang === "en" ? "Español" : "English"}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* 2. HEADER / NAVBAR (Pure white, subtle slim bottom border, high-contrast) */}
+      <header
+        className={`sticky top-0 w-full z-40 transition-all duration-300 ${
+          scrolled
+            ? "bg-white/95 backdrop-blur-md shadow-[0_4px_20px_rgba(18,32,51,0.03)] py-3 border-b border-slate-100"
+            : "bg-white py-4 border-b border-slate-100"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
+          {/* Brand Logo */}
+          <a href="#home" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 bg-brand-purple rounded-2xl flex items-center justify-center text-white shadow-md shadow-brand-purple/10 transition duration-300 group-hover:scale-105 overflow-hidden">
+              <img
+                src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781557001/Logo1x1_PNG_Principal_iepovj.png"
+                alt="EverSafe Financial Logo"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <span className="text-lg md:text-xl font-bold font-sans tracking-tight text-brand-navy flex items-center gap-1">
+                EverSafe <span className="text-brand-purple">Financial</span>
+              </span>
+              <span className="block text-[8px] uppercase tracking-widest font-extrabold text-brand-slate -mt-1 flex items-center gap-1">
+                <span>By Mary Rivera · LLC</span>
+                <span className="text-brand-sage ml-1">★ Licensed</span>
+              </span>
+            </div>
+          </a>
+
+          {/* Main Desktop Menu */}
+          <nav className="hidden md:flex items-center gap-8">
+            {[
+              { id: "home", label: t.nav.home },
+              { id: "services", label: t.nav.services },
+              { id: "about", label: t.nav.about },
+              { id: "contact", label: t.nav.contact }
+            ].map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`text-xs md:text-sm font-bold tracking-wider uppercase transition duration-200 relative py-1.5 block ${
+                  activeSection === item.id
+                    ? "text-brand-purple"
+                    : "text-brand-slate hover:text-brand-purple"
+                }`}
+              >
+                {item.label}
+                {activeSection === item.id && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-purple rounded-full"></span>
+                )}
+              </a>
+            ))}
+          </nav>
+
+          {/* Quick CTA Navbar button (Dorado premium #C9A227 o morada de marca, pero no ambos) */}
+          <div className="hidden md:block">
+            <a
+              href="#contact"
+              className="bg-brand-purple hover:bg-brand-purple-hover text-white font-bold py-2.5 px-6 rounded-2xl text-xs md:text-sm tracking-wide transition duration-300 shadow-sm shadow-brand-purple/15"
+            >
+              ⭐ {t.nav.cta}
+            </a>
+          </div>
+
+          {/* Hamburger trigger on mobile */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden flex items-center justify-center p-2 rounded-xl border border-slate-200 text-brand-navy hover:bg-brand-gray-soft transition focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation Panel */}
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-100 shadow-lg px-6 py-6 space-y-4 animate-fade-in-up">
+            <div className="flex flex-col gap-3">
+              {[
+                { id: "home", label: t.nav.home },
+                { id: "services", label: t.nav.services },
+                { id: "about", label: t.nav.about },
+                { id: "contact", label: t.nav.contact }
+              ].map((item) => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`py-2 text-sm font-bold uppercase tracking-wider transition ${
+                    activeSection === item.id ? "text-brand-purple pl-1 border-l-4 border-brand-purple" : "text-brand-slate pl-1"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+            <a
+              href="#contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full bg-brand-purple text-white font-bold py-3 px-4 rounded-xl text-center text-sm shadow-md"
+            >
+              ⭐ {t.nav.cta}
+            </a>
+          </div>
+        )}
+      </header>
+
+      {/* 3. HERO SECTION (Re-imagined: Broad, pure white and light gray background, high design hierarchy, editorial feel) */}
+      <section
+        id="home"
+        className="relative bg-white pt-16 pb-20 md:py-28 px-4 md:px-8 overflow-hidden bg-hero-pattern border-b border-slate-100"
+      >
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-[#F3F3F4]/50 pointer-events-none rounded-l-[120px] hidden lg:block"></div>
+        <div className="absolute left-10 top-10 w-96 h-96 bg-brand-purple/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+          
+          {/* Column 1: Info and Badges */}
+          <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+            
+            {/* Compliance Badge */}
+            <div className="inline-flex items-center gap-2 bg-brand-purple-light px-4 py-1.5 rounded-full border border-brand-purple/10 shadow-sm text-xs text-brand-purple tracking-wide font-semibold animate-float mx-auto lg:mx-0">
+              <Award className="w-3.5 h-3.5 text-brand-purple flex-shrink-0" />
+              <span className="text-[10px] md:text-xs uppercase tracking-widest">{t.hero.badge.split(" · ")[1]} · Licensed Florida Advisor</span>
+            </div>
+
+            <div className="space-y-4">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#8C49B1]">Firmas Financieras de Clase Mundial</span>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-sans leading-[1.08] text-brand-navy tracking-tight">
+                {t.hero.title}
+              </h1>
+            </div>
+            
+            <p className="text-base md:text-lg text-brand-slate font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              {t.hero.subtitle}
+            </p>
+
+            {/* Direct Calls - Primary CTA in Premium Gold (#C9A227) */}
+            <div className="flex flex-col sm:flex-row gap-3.5 justify-center lg:justify-start pt-2">
+              <a
+                href="tel:7273596196"
+                className="bg-brand-gold hover:bg-[#B08B1F] text-white font-bold py-4 px-8 rounded-2xl text-sm transition-all duration-300 text-center shadow-md shadow-brand-gold/15"
+              >
+                {t.hero.ctaPhone}
+              </a>
+              <a
+                href="#iul-explainer"
+                className="bg-white hover:bg-brand-purple-light text-brand-purple font-bold py-4 px-8 rounded-2xl text-sm border border-brand-purple/20 transition-all duration-300 text-center"
+              >
+                {t.hero.ctaIUL}
+              </a>
+            </div>
+
+            {/* Verification highlights */}
+            <div className="grid grid-cols-3 gap-4 pt-8 border-t border-slate-100 max-w-md mx-auto lg:mx-0">
+              <div className="text-center lg:text-left">
+                <span className="block text-[10px] text-brand-purple font-bold uppercase tracking-widest">Experience</span>
+                <span className="block text-base md:text-lg font-extrabold text-brand-navy mt-1">4+ Success Years</span>
+              </div>
+              <div className="text-center lg:text-left">
+                <span className="block text-[10px] text-brand-purple font-bold uppercase tracking-widest">Assistance</span>
+                <span className="block text-base md:text-lg font-extrabold text-brand-navy mt-1">Full Bilingual</span>
+              </div>
+              <div className="text-center lg:text-left">
+                <span className="block text-[10px] text-brand-purple font-bold uppercase tracking-widest">A+ Rating</span>
+                <span className="block text-base md:text-lg font-extrabold text-brand-navy mt-1">Top Carriers</span>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Column 2: Interactive Dynamic Quiz */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <QuizCard t={t} />
+          </div>
+
+        </div>
+      </section>
+
+      {/* 4. STATS BAR (white background with extremely sleek borders) */}
+      <section className="bg-white py-12 px-4 md:px-8 border-b border-slate-100 relative z-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <AnimatedStat
+              num={t.stats.years.num}
+              label={t.stats.years.label}
+              icon={<Award className="w-5.5 h-5.5" />}
+            />
+            <AnimatedStat
+              num={t.stats.families.num}
+              label={t.stats.families.label}
+              icon={<Users className="w-5.5 h-5.5" />}
+            />
+            <AnimatedStat
+              num={t.stats.products.num}
+              label={t.stats.products.label}
+              icon={<Briefcase className="w-5.5 h-5.5" />}
+            />
+            <AnimatedStat
+              num={t.stats.states.num}
+              label={t.stats.states.label}
+              icon={<MapPin className="w-5.5 h-5.5" />}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* 5. CORE FOCUS SERVICES (Soft gray background #F3F3F4 as requested, clean headers) */}
+      <section id="services" className="py-24 px-4 md:px-8 bg-brand-gray-soft relative">
+        <div className="max-w-7xl mx-auto space-y-16">
+          
+          <div className="text-center space-y-4 max-w-3xl mx-auto">
+            <span className="text-xs uppercase tracking-widest font-bold text-brand-purple bg-brand-purple-light px-4 py-1.5 rounded-full inline-block">
+              🛡️ {t.core.title}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold font-sans text-brand-navy tracking-tight leading-normal">
+              {t.core.title === "Core Services" ? "Your Strategic Protection Portfolio" : "Planificación de Protección Estratégica"}
+            </h2>
+            <p className="text-sm md:text-base text-brand-slate leading-relaxed">
+              {t.core.subtitle}
+            </p>
+          </div>
+
+          {/* 3 Columns Core focus cards (Styled with white backgrounds and navy buttons for high authority feeling) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            {/* Card 1: IUL */}
+            <TiltCard popular popularLabel={t.core.popular}>
+              <div className="space-y-6">
+                <div className="w-12 h-12 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/10">
+                  🗄️
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg md:text-xl font-bold font-sans text-brand-navy">
+                    {t.core.iulTitle}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                    {t.core.iulDesc}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => handlePreFillMessage(t.core.iulTitle)}
+                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-colors text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <span>{t.core.cta}</span>
+                <ChevronRight className="w-4 h-4 text-brand-gold group-hover:translate-x-1 transition-transform" />
+              </button>
+            </TiltCard>
+
+            {/* Card 2: Obamacare (Suave acento verde #7FA89B para bienestar) */}
+            <TiltCard>
+              <div className="space-y-6">
+                <div className="w-12 h-12 bg-brand-sage-light rounded-2xl flex items-center justify-center text-brand-sage text-2xl shadow-sm border border-brand-sage/20">
+                  🏥
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg md:text-xl font-bold font-sans text-brand-navy">
+                    {t.core.obamacareTitle}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                    {t.core.obamacareDesc}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => handlePreFillMessage(t.core.obamacareTitle)}
+                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-colors text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <span>{t.core.cta}</span>
+                <ChevronRight className="w-4 h-4 text-brand-gold group-hover:translate-x-1 transition-transform" />
+              </button>
+            </TiltCard>
+
+            {/* Card 3: Medicare */}
+            <TiltCard>
+              <div className="space-y-6">
+                <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center text-brand-navy text-2xl shadow-sm border border-slate-200">
+                  ⚕️
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg md:text-xl font-bold font-sans text-brand-navy">
+                    {t.core.medicareTitle}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                    {t.core.medicareDesc}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => handlePreFillMessage(t.core.medicareTitle)}
+                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-colors text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <span>{t.core.cta}</span>
+                <ChevronRight className="w-4 h-4 text-brand-gold group-hover:translate-x-1 transition-transform" />
+              </button>
+            </TiltCard>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 6. ALL SERVICES (Catálogo Completo - Fondo blanco para rythym contrast, high elegancy) */}
+      <section className="py-24 px-4 md:px-8 bg-white border-y border-slate-100 relative">
+        <div className="max-w-7xl mx-auto space-y-16">
+          
+          <div className="text-center space-y-4 max-w-3xl mx-auto">
+            <span className="text-xs uppercase tracking-widest font-semibold text-brand-purple bg-brand-purple-light px-4 py-1.5 rounded-full inline-block">
+              💼 {t.allServices.title}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold font-sans text-brand-navy tracking-tight">
+              {t.allServices.title}
+            </h2>
+            <p className="text-sm md:text-base text-brand-slate leading-relaxed">
+              {t.allServices.subtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            
+            {/* Column 1: Life & Financial Security */}
+            <div className="space-y-6 bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-[0_4px_20px_rgba(18,32,51,0.02)]">
+              <h3 className="text-lg font-bold text-brand-navy font-sans flex items-center gap-2.5 pb-4 border-b border-slate-100">
+                <span className="text-xl">💰</span>
+                {t.allServices.groupLife}
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <ServiceItem label={t.allServices.kidsSavings} desc={t.allServices.kidsSavingsDesc} />
+                <ServiceItem label={t.allServices.finalExpenses} desc={t.allServices.finalExpensesDesc} />
+                <ServiceItem label={t.allServices.mortgageProt} desc={t.allServices.mortgageProtDesc} />
+                <ServiceItem label={t.allServices.accidental} desc={t.allServices.accidentalDesc} />
+                <ServiceItem label={t.allServices.taxFreeRet} desc={t.allServices.taxFreeRetDesc} />
+                <ServiceItem label={t.allServices.rollover} desc={t.allServices.rolloverDesc} />
+                <ServiceItem label={t.allServices.annuities} desc={t.allServices.annuitiesDesc} />
+              </div>
+            </div>
+
+            {/* Column 2: Health & Wellness (Utiliza el verde suave como acento salud) */}
+            <div className="space-y-6 bg-brand-sage-light p-6 md:p-8 rounded-3xl border border-brand-sage/10">
+              <h3 className="text-lg font-bold text-brand-navy font-sans flex items-center gap-2.5 pb-4 border-b border-brand-sage/20">
+                <span className="text-xl">🏥</span>
+                {t.allServices.groupHealth}
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <ServiceItem label={t.allServices.obamacare} desc={t.allServices.obamacareDescWeb} />
+                <ServiceItem label={t.allServices.dentalVision} desc={t.allServices.dentalVisionDesc} />
+                <ServiceItem label={t.allServices.hospitalInd} desc={t.allServices.hospitalIndDesc} />
+                <ServiceItem label={t.allServices.medicare} desc={t.allServices.medicareDescWeb} />
+                <ServiceItem label={t.allServices.privateHealth} desc={t.allServices.privateHealthDesc} />
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 7. WHY CHOOSE US (Soft gray background #F3F3F4 to maintain alternating rhythms) */}
+      <section className="py-24 px-4 md:px-8 bg-brand-gray-soft relative">
+        <div className="max-w-7xl mx-auto space-y-16">
+          
+          <div className="text-center space-y-4 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-extrabold font-sans text-brand-navy tracking-tight">
+              {t.whyChoose.title}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            {/* Box 1 */}
+            <div className="bg-white p-7 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
+              <div className="w-10 h-10 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-lg font-bold">
+                🤝
+              </div>
+              <h3 className="text-sm font-bold text-brand-navy">{t.whyChoose.serviceTitle}</h3>
+              <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">{t.whyChoose.serviceDesc}</p>
+            </div>
+
+            {/* Box 2 */}
+            <div className="bg-white p-7 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
+              <div className="w-10 h-10 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-lg font-bold">
+                🌐
+              </div>
+              <h3 className="text-sm font-bold text-brand-navy">{t.whyChoose.bilingualTitle}</h3>
+              <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">{t.whyChoose.bilingualDesc}</p>
+            </div>
+
+            {/* Box 3 */}
+            <div className="bg-white p-7 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
+              <div className="w-10 h-10 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-lg font-bold">
+                📊
+              </div>
+              <h3 className="text-sm font-bold text-brand-navy">{t.whyChoose.guidanceTitle}</h3>
+              <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">{t.whyChoose.guidanceDesc}</p>
+            </div>
+
+            {/* Box 4 */}
+            <div className="bg-white p-7 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
+              <div className="w-10 h-10 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-lg font-bold">
+                🛡️
+              </div>
+              <h3 className="text-sm font-bold text-brand-navy">{t.whyChoose.coverageTitle}</h3>
+              <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">{t.whyChoose.coverageDesc}</p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 8. ABOUT SECTION (Mary Rivera commitment with pure white and refined human avatar layout) */}
+      <section id="about" className="py-24 px-4 md:px-8 bg-white relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Left Photo Circle Premium Rendering */}
+            <div className="lg:col-span-5 flex justify-center relative">
+              <div className="relative group w-72 h-72 md:w-80 md:h-80">
+                {/* Decorative delicate brand-purple frame */}
+                <div className="absolute -inset-2 bg-gradient-to-tr from-brand-purple to-brand-gold rounded-full blur pointer-events-none opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                
+                {/* Main graphic container */}
+                <div className="relative w-full h-full bg-brand-navy border-4 border-white shadow-2xl rounded-full overflow-hidden select-none">
+                  <img
+                    src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781556892/MaryRivera_Fotografia_f7ntap.webp"
+                    alt="Mary Rivera - licensed Florida agent"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-top transition duration-500 scale-100 group-hover:scale-105"
+                  />
+                  {/* Verified badge */}
+                  <span className="absolute top-4 left-1/2 -translate-x-1/2 bg-brand-gold text-white font-extrabold text-[9px] tracking-widest uppercase px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-md whitespace-nowrap z-10">
+                    <ShieldCheck className="w-3.5 h-3.5 text-white fill-brand-gold" />
+                    BILINGUAL
+                  </span>
+
+                  {/* Gentle gradient overlay for label legibility */}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand-navy via-brand-navy/65 to-transparent pt-12 pb-5 text-center">
+                    <p className="text-sm font-bold tracking-wide font-sans text-brand-gold uppercase">
+                      Mary Rivera
+                    </p>
+                    <p className="text-[10px] text-white/90 tracking-wider font-semibold uppercase mt-0.5 px-4 truncate">
+                      {t.about.badge}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Information */}
+            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+              <span className="text-xs uppercase tracking-widest font-extrabold text-white bg-brand-purple px-4 py-1.5 rounded-full inline-block">
+                🏆 {lang === "en" ? "Meet Your Advisor" : "Conoce a tu asesora"}
+              </span>
+              
+              <h2 className="text-3xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight leading-tight">
+                {t.about.titleLabel}
+              </h2>
+              
+              <p className="text-sm md:text-base text-brand-slate leading-relaxed font-normal">
+                {t.about.bio}
+              </p>
+
+              <div className="pt-4">
+                <a
+                  href="tel:7273596196"
+                  className="bg-brand-gold hover:bg-[#B08B1F] text-white font-black py-4 px-8 rounded-2xl text-sm transition-all tracking-wider inline-flex items-center gap-2 shadow-sm shadow-brand-gold/10"
+                >
+                  {t.about.cta}
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 9. IUL EXPLAINER (Redesigned: High Authority Deep Navy Blue Background #122033 to build supreme corporate trust) */}
+      <section id="iul-explainer" className="py-24 bg-brand-navy text-white px-4 md:px-8 relative overflow-hidden">
+        {/* Abstract Light Background Overlays */}
+        <div className="absolute top-0 right-10 w-96 h-96 bg-brand-purple/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto space-y-16 relative z-10">
+          
+          <div className="text-center space-y-4 max-w-3xl mx-auto">
+            <span className="text-xs uppercase tracking-widest font-bold text-brand-gold bg-white/10 py-1.5 px-4 rounded-full inline-block border border-white/10">
+              💡 {lang === "en" ? "BUILD RETIREMENT SAFELY" : "CONSTRUYE TU RETIRO SEGURO"}
+            </span>
+            <h2 className="text-3.5xl md:text-4.5xl font-extrabold font-sans text-white tracking-tight leading-tight">
+              {t.iulExplainer.title}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            {/* Box 1 (Traditional Savings) */}
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-xl text-rose-400">
+                  ❌
+                </div>
+                <h3 className="text-base font-bold text-white font-sans">{t.iulExplainer.colSavingsTitle}</h3>
+                <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">{t.iulExplainer.colSavingsDesc}</p>
+              </div>
+              <div className="text-[10px] text-rose-300 font-bold tracking-wider uppercase bg-rose-950/20 py-1.5 text-center rounded-xl border border-rose-900/10">
+                Low Return / Taxed
+              </div>
+            </div>
+
+            {/* Box 2 (401K Account) */}
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-xl text-rose-400">
+                  ❌
+                </div>
+                <h3 className="text-base font-bold text-white font-sans">{t.iulExplainer.col401kTitle}</h3>
+                <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">{t.iulExplainer.col401kDesc}</p>
+              </div>
+              <div className="text-[10px] text-rose-300 font-bold tracking-wider uppercase bg-rose-950/20 py-1.5 text-center rounded-xl border border-rose-900/10">
+                Market Risk / Fees
+              </div>
+            </div>
+
+            {/* Box 3 (INDEX UNIVERSAL LIFE - Accented with luxury gold outline and badge choice) */}
+            <div className={`p-8 rounded-3xl bg-white/10 border-2 border-brand-gold flex flex-col justify-between space-y-6 relative`}>
+              <div className="absolute top-2 right-2 w-12 h-12 bg-brand-gold/10 rounded-full blur-xl pointer-events-none"></div>
+
+              <div className="space-y-4">
+                <div className="w-10 h-10 rounded-2xl bg-brand-gold text-brand-navy flex items-center justify-center text-sm font-black shadow-md shadow-brand-gold/20 select-none">
+                  ✓
+                </div>
+                <h3 className="text-base font-bold text-brand-gold font-sans flex items-center gap-1.5">
+                  {t.iulExplainer.colIulTitle}
+                </h3>
+                <p className="text-xs sm:text-sm text-white font-normal leading-relaxed">{t.iulExplainer.colIulDesc}</p>
+              </div>
+              <div className="text-[11px] text-brand-navy font-bold tracking-widest uppercase bg-brand-gold py-2 text-center rounded-xl shadow-sm animate-pulse">
+                🏆 Winner Choice
+              </div>
+            </div>
+
+          </div>
+
+          <div className="text-center pt-4">
+            <button
+              onClick={() => {
+                document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-brand-gold hover:bg-[#B08B1F] text-brand-navy font-extrabold py-4 px-10 rounded-2xl text-sm transition-all tracking-wider inline-flex items-center gap-2 shadow-lg shadow-brand-gold/20 cursor-pointer"
+            >
+              ⭐ {t.iulExplainer.cta}
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 10. CONTACT / FREE QUOTE (Soft gray background, highly guided clear form with brand-purple action) */}
+      <section id="contact" className="py-24 px-4 md:px-8 bg-brand-gray-soft relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            {/* Column 1: Contact Detail Info */}
+            <div className="lg:col-span-5 space-y-8 text-center lg:text-left flex flex-col justify-center">
+              <div>
+                <span className="text-xs uppercase tracking-widest font-extrabold text-white bg-brand-purple px-4 py-1.5 rounded-full inline-block mb-3.5">
+                  📞 {lang === "en" ? "GET IN TOUCH" : "MÉTODOS DE CONTACTO"}
+                </span>
+                <h2 className="text-3.5xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight">
+                  {lang === "en" ? "Always Safe, Always There" : "Puntos de Contacto Confiables"}
+                </h2>
+              </div>
+
+              {/* Direct Info list */}
+              <div className="space-y-4">
+                
+                {/* Email item */}
+                <div className="inline-flex lg:flex items-center gap-4 text-left">
+                  <div className="w-12 h-12 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-brand-purple flex-shrink-0">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">Email Address</span>
+                    <a href="mailto:mary@eversafefinancial.com" className="text-sm md:text-base font-bold text-brand-navy hover:text-brand-purple transition-all hover:underline">
+                      mary@eversafefinancial.com
+                    </a>
+                  </div>
+                </div>
+
+                {/* Telephone */}
+                <div className="inline-flex lg:flex items-center gap-4 text-left">
+                  <div className="w-12 h-12 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-brand-purple flex-shrink-0">
+                    <Phone className="w-5 h-5 text-brand-purple" />
+                  </div>
+                  <div>
+                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">Bilingual Phone Service</span>
+                    <a href="tel:7273596196" className="text-sm md:text-base font-bold text-brand-navy hover:text-brand-purple transition-all hover:underline">
+                      (727) 359-6196
+                    </a>
+                  </div>
+                </div>
+
+                {/* Hours line */}
+                <div className="inline-flex lg:flex items-center gap-4 text-left">
+                  <div className="w-12 h-12 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-brand-purple flex-shrink-0">
+                    <Clock className="w-5 h-5 text-brand-purple" />
+                  </div>
+                  <div className="text-sm text-brand-navy font-normal">
+                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">{t.contactForm.hoursTitle}</span>
+                    <p className="font-semibold text-brand-navy">{t.contactForm.hoursWeek}</p>
+                    <p className="font-semibold text-brand-navy">{t.contactForm.hoursSat}</p>
+                    <p className="text-brand-slate text-xs">{t.contactForm.hoursSun}</p>
+                  </div>
+                </div>
+
+                {/* Service areas */}
+                <div className="inline-flex lg:flex items-center gap-4 text-left">
+                  <div className="w-12 h-12 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-brand-purple flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-brand-purple" />
+                  </div>
+                  <div>
+                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">{t.contactForm.areaLabel}</span>
+                    <p className="text-sm font-semibold text-brand-navy">{t.contactForm.areaValue}</p>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Spanish Help indicator */}
+              {lang === "es" && (
+                <div className="p-4 bg-brand-purple-light border border-brand-purple/10 rounded-2xl text-center md:text-left">
+                  <p className="text-brand-purple font-bold text-sm flex items-center justify-center lg:justify-start gap-2">
+                    💬 {t.contactForm.bilingualHelp}
+                  </p>
+                </div>
+              )}
+
+              {/* LLC License registration references mapping the exact business parameters */}
+              <div className="p-4 rounded-xl border border-slate-200 text-[10px] text-brand-slate leading-normal bg-white/60">
+                <span className="font-bold uppercase tracking-wider block text-brand-slate mb-1">Company Disclosures:</span>
+                EverSafe Financial LLC is a legally registered Limited Liability Company in Pinellas Park, Florida 33782.
+                Formed on October 12, 2023. Backed by licensed agent Mary Rivera. All products subject to underwriting guidelines.
+              </div>
+
+            </div>
+
+            {/* Column 2: Free Quote dynamic Form (Pure white, sleek corporate inputs context) */}
+            <div className="lg:col-span-7 bg-white p-6 md:p-10 rounded-3xl border border-slate-100 shadow-[0_12px_40px_rgba(18,32,51,0.02)]">
+              {formSubmitted ? (
+                <div className="py-12 text-center space-y-4">
+                  {/* Sage Green validation indicator checking */}
+                  <div className="w-16 h-16 bg-brand-sage-light rounded-full border border-brand-sage text-3xl flex items-center justify-center text-brand-sage mx-auto mb-4 animate-bounce">
+                    ✓
+                  </div>
+                  <h3 className="text-xl font-bold text-brand-navy font-sans">
+                    {t.contactForm.successTitle}
+                  </h3>
+                  <p className="text-brand-slate text-sm max-w-sm mx-auto">
+                    {t.contactForm.successDesc}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFormSubmitted(false);
+                      setFullName("");
+                      setEmail("");
+                      setPhone("");
+                      setMessage("");
+                      setConsent(false);
+                    }}
+                    className="mt-6 px-6 py-2.5 bg-brand-purple hover:bg-brand-purple-hover text-white text-xs font-bold rounded-xl uppercase tracking-wider transition-colors cursor-pointer"
+                  >
+                    🔄 Send Another Inquiry / Enviar Otro Mensaje
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-bold font-sans text-brand-navy tracking-tight">
+                      {t.contactForm.title}
+                    </h3>
+                    <p className="text-xs md:text-sm text-brand-slate mt-1.5">
+                      {t.contactForm.subtitle}
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleContactSubmit} className="space-y-4 text-left">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Name input */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5">
+                          {t.contactForm.nameLabel} <span className="text-rose-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          placeholder="Elizabeth Bennett"
+                          className="w-full bg-[#F3F3F4] focus:bg-white border border-transparent focus:border-brand-purple focus:ring-1 focus:ring-brand-purple/20 rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-200 text-brand-navy placeholder:text-brand-slate/40"
+                        />
+                      </div>
+
+                      {/* Email input */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5">
+                          {t.contactForm.emailLabel} <span className="text-rose-500">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="client@mail.com"
+                          className="w-full bg-[#F3F3F4] focus:bg-white border border-transparent focus:border-brand-purple focus:ring-1 focus:ring-brand-purple/20 rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-200 text-brand-navy placeholder:text-brand-slate/40"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Telephone */}
+                    <div>
+                      <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5">
+                        {t.contactForm.phoneLabel} <span className="text-rose-500">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="(727) 359-6196"
+                        className="w-full bg-[#F3F3F4] focus:bg-white border border-transparent focus:border-brand-purple focus:ring-1 focus:ring-brand-purple/20 rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-200 text-brand-navy placeholder:text-brand-slate/40"
+                      />
+                    </div>
+
+                    {/* Detailed Message block */}
+                    <div>
+                      <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5">
+                        {t.contactForm.messageLabel}
+                      </label>
+                      <textarea
+                        rows={4}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder={t.contactForm.placeholderMessage}
+                        className="w-full bg-[#F3F3F4] focus:bg-white border border-transparent focus:border-brand-purple focus:ring-1 focus:ring-brand-purple/20 rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-200 text-brand-navy placeholder:text-brand-slate/40"
+                      ></textarea>
+                    </div>
+
+                    {/* Checkbox Consent block */}
+                    <div className="flex items-start gap-3 bg-brand-purple-light/50 p-3.5 rounded-xl border border-brand-purple/5">
+                      <input
+                        type="checkbox"
+                        required
+                        id="contact-consent"
+                        checked={consent}
+                        onChange={(e) => setConsent(e.target.checked)}
+                        className="mt-1 w-4 h-4 rounded border-slate-300 text-brand-purple focus:ring-brand-purple accent-brand-purple cursor-pointer"
+                      />
+                      <label htmlFor="contact-consent" className="text-[11px] leading-snug text-brand-slate select-none cursor-pointer">
+                        {t.contactForm.consentText}
+                      </label>
+                    </div>
+
+                    {formError && (
+                      <p className="text-rose-600 font-semibold text-xs border border-rose-100 bg-rose-50 p-3 rounded-xl">
+                        ⚠️ {formError}
+                      </p>
+                    )}
+
+                    {/* Submission button (Brand Purple acento estratégico #8C49B1) */}
+                    <button
+                      type="submit"
+                      className="w-full bg-brand-purple hover:bg-brand-purple-hover text-white font-bold py-3.5 px-6 rounded-2xl text-xs sm:text-sm transition tracking-wider duration-300 shadow-sm shadow-brand-purple/15 cursor-pointer text-center text-semibold uppercase"
+                    >
+                      🚀 {t.contactForm.btnSubmit}
+                    </button>
+
+                    {/* Small policy disclaimer links */}
+                    <div className="flex justify-center gap-4 text-[10px] text-brand-slate font-light pt-2">
+                      <span className="hover:underline cursor-pointer">Privacy Policy</span>
+                      <span>·</span>
+                      <span className="hover:underline cursor-pointer">Terms of Service</span>
+                    </div>
+
+                  </form>
+                </div>
+              )}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 11. FOOTER (Sleek deep navy #122033 for world-class finance look) */}
+      <footer className="bg-brand-navy text-white pt-16 pb-10 px-4 md:px-8 border-t border-white/5 relative">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10">
+          
+          {/* Column 1: Descriptor */}
+          <div className="md:col-span-5 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 bg-brand-purple rounded-xl flex items-center justify-center text-white overflow-hidden shadow-sm shadow-brand-purple/10">
+                <img
+                  src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781557001/Logo1x1_PNG_Principal_iepovj.png"
+                  alt="EverSafe Financial Logo"
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-base font-extrabold text-white tracking-wide">
+                EverSafe <span className="text-brand-purple">Financial</span>
+              </span>
+            </div>
+            <p className="text-xs text-brand-slate leading-relaxed max-w-sm">
+              {t.footer.about}
+            </p>
+          </div>
+
+          {/* Column 2: Direct Contact details */}
+          <div className="md:col-span-4 space-y-4">
+            <h4 className="text-xs uppercase tracking-widest text-[#8C49B1] font-bold">
+              {t.footer.contactUs}
+            </h4>
+            <ul className="space-y-2.5 text-xs text-brand-slate">
+              <li className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-brand-gold flex-shrink-0" />
+                <a href="tel:7273596196" className="hover:text-white transition-colors hover:underline">(727) 359-6196</a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-brand-gold flex-shrink-0" />
+                <a href="mailto:mary@eversafefinancial.com" className="hover:text-white transition-colors hover:underline">mary@eversafefinancial.com</a>
+              </li>
+              <li className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 font-bold inline-block text-brand-gold text-[10px]">
+                💬 {t.footer.bilingual}
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Contact hours details */}
+          <div className="md:col-span-3 space-y-4">
+            <h4 className="text-xs uppercase tracking-widest text-[#8C49B1] font-bold">
+              {t.footer.hours}
+            </h4>
+            <ul className="space-y-1.5 text-xs text-brand-slate font-mono">
+              <li>{t.contactForm.hoursWeek}</li>
+              <li>{t.contactForm.hoursSat}</li>
+              <li>{t.contactForm.hoursSun}</li>
+            </ul>
+            
+            {/* White SVGs for socials */}
+            <div className="flex items-center gap-4 pt-2 text-white/55">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
+                <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z" />
+                </svg>
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
+                <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Bottom Rights details */}
+        <div className="max-w-7xl mx-auto pt-10 mt-10 border-t border-white/5 text-center text-[11px] text-brand-slate space-y-2">
+          <p>{t.footer.rights}</p>
+          <div className="flex justify-center gap-4 text-brand-slate">
+            <span className="hover:underline cursor-pointer">Privacy Policy</span>
+            <span>·</span>
+            <span className="hover:underline cursor-pointer">Terms of Service</span>
+            <span>·</span>
+            <span className="hover:underline cursor-pointer">Licenses & Disclosures</span>
+          </div>
+        </div>
+      </footer>
+
+      {/* 12. BACK-TO-TOP BUTTON */}
+      {showToTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-24 right-5 md:right-8 bg-brand-navy hover:bg-brand-navy-light text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg border border-white/5 z-40 transition-all duration-300 transform scale-100 hover:scale-110 cursor-pointer animate-fade-in-up"
+          aria-label="Back to top"
+        >
+          <ArrowUp className="w-5 h-5 text-brand-gold animate-pulse" />
+        </button>
+      )}
+
+      {/* 13. FLOATING CTA DRAWERS (LLAMADA Y WHATSAPP) */}
+      <div className="fixed bottom-6 right-5 md:right-8 z-45 flex flex-col items-end gap-3 font-sans">
+        
+        {/* Ambient notification bubble above trigger */}
+        {showNotificationBubble && (
+          <div className="bg-brand-navy border border-white/10 text-white rounded-2xl py-2 px-3.5 shadow-xl text-xs flex items-center gap-2 relative max-w-xs animate-float">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-sage opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-sage"></span>
+            </span>
+            <p className="font-semibold text-[10px] md:text-xs">
+              {lang === "en" ? "Hi there! Have questions? Click here" : "¡Hola! ¿Dudas? Haz clic aquí"}
+            </p>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowNotificationBubble(false);
+              }}
+              className="hover:text-brand-gold ml-2 font-bold p-0.5 cursor-pointer"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+            <div className="absolute top-full right-5 border-8 border-transparent border-t-brand-navy"></div>
+          </div>
+        )}
+
+        {/* Contact Rollout Tray */}
+        {floatOpen && (
+          <div className="flex flex-col gap-2.5 items-end justify-end mb-1 animate-fade-in-up">
+            
+            {/* Call Now item */}
+            <a
+              href="tel:7273596196"
+              className="bg-brand-gold hover:bg-[#B08B1F] text-white px-4 py-2 border border-white/10 rounded-full text-xs font-bold shadow-md flex items-center gap-2 select-none hover:scale-105 transition"
+            >
+              <Phone className="w-4 h-4 text-white fill-white" />
+              <span>(727) 359-6196</span>
+            </a>
+
+            {/* WhatsApp Link button */}
+            <a
+              href="https://wa.me/17273596196"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#25D366] hover:bg-[#20ba5a] text-white px-4 py-2 border border-white/10 rounded-full text-xs font-bold shadow-md flex items-center gap-2 select-none hover:scale-105 transition"
+            >
+              <MessageCircle className="w-4 h-4 fill-white" />
+              <span>WhatsApp Direct</span>
+            </a>
+
+            {/* Chat Inbox Popup modal trigger */}
+            <button
+              onClick={() => {
+                setChatOpened(true);
+                setFloatOpen(false);
+              }}
+              className="bg-brand-purple hover:bg-brand-purple-hover text-white px-4 py-2 border border-white/10 rounded-full text-xs font-bold shadow-md flex items-center gap-2 hover:scale-105 transition cursor-pointer"
+            >
+              <Mail className="w-4 h-4 text-white" />
+              <span>{lang === "en" ? "Send Simple Inquiry" : "Consulta Directa"}</span>
+            </button>
+
+          </div>
+        )}
+
+        {/* Main Floating Trigger Button */}
+        <button
+          onClick={() => setFloatOpen(!floatOpen)}
+          className="bg-brand-purple hover:bg-brand-purple-hover text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl border border-white/10 cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-300 relative"
+          aria-label="Direct Support Tray"
+        >
+          {floatOpen ? (
+            <X className="w-6 h-6 text-brand-gold" />
+          ) : (
+            <Phone className="w-6 h-6 text-brand-gold animate-bounce" />
+          )}
+          {/* Pulsating validation sage green dot representing active state */}
+          <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-brand-sage border-2 border-brand-purple rounded-full"></span>
+        </button>
+
+      </div>
+
+      {/* 14. INBOX CHAT WIDGET MODAL WINDOW */}
+      {chatOpened && (
+        <div className="fixed inset-0 z-50 bg-brand-navy/30 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-slate-100 relative max-h-[90vh] overflow-y-auto animate-fade-in-up">
+            <button
+              onClick={() => setChatOpened(false)}
+              className="absolute top-4 right-4 text-brand-slate hover:text-brand-purple transition p-1"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 bg-brand-purple-light text-brand-purple rounded-full flex items-center justify-center text-3xl mx-auto shadow-sm">
+                💬
+              </div>
+              
+              <h3 className="text-xl font-bold font-sans text-brand-navy">
+                {lang === "en" ? "Need Immediate Assistance?" : "¿Necesitas Ayuda Inmediata?"}
+              </h3>
+              
+              <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-normal">
+                {lang === "en"
+                  ? "We understand that selecting insurance is personal. Call us or send an email directly to licensed agent Mary Rivera."
+                  : "Entendemos que seleccionar un seguro es algo personal. Llámanos o envíanos un correo directamente a la asesora Mary Rivera."}
+              </p>
+
+              <div className="bg-[#F3F3F4] p-4 rounded-2xl border border-slate-100 space-y-3.5 text-left font-sans">
+                
+                {/* Dial numbers */}
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center text-brand-purple">
+                    <Phone className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <span className="block text-[9px] uppercase font-bold text-brand-slate tracking-wider">Bilingual Phone</span>
+                    <a href="tel:7273596196" className="text-sm font-extrabold text-brand-navy hover:text-[#8C49B1] hover:underline transition-colors">
+                      (727) 359-6196
+                    </a>
+                  </div>
+                </div>
+
+                {/* Mail inbox details */}
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center text-brand-purple">
+                    <Mail className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <span className="block text-[9px] uppercase font-bold text-brand-slate tracking-wider">Direct Agency Email</span>
+                    <a href="mailto:mary@eversafefinancial.com" className="text-sm font-extrabold text-brand-navy hover:text-[#8C49B1] hover:underline transition-colors">
+                      mary@eversafefinancial.com
+                    </a>
+                  </div>
+                </div>
+
+                {/* WhatsApp button */}
+                <a
+                  href="https://wa.me/17273596196"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold py-2.5 px-3.5 rounded-xl text-xs text-center flex items-center justify-center gap-2 transform active:scale-95 transition-all mt-1"
+                >
+                  <MessageCircle className="w-4 h-4 fill-white text-white" />
+                  <span>Start WhatsApp Conversation</span>
+                </a>
+
+              </div>
+
+              <div className="pt-2 text-[10px] text-brand-slate font-semibold">
+                {lang === "en"
+                  ? "Average Response Rate: Less than 1 Hour"
+                  : "Tasa de Respuesta Promedio: Menos de 1 Hora"}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setChatOpened(false)}
+                className="w-full bg-brand-navy hover:bg-brand-navy-light text-white py-2.5 px-4 rounded-xl text-xs font-bold transition focus:outline-none cursor-pointer"
+              >
+                Close / Cerrar
+              </button>
+
+            </div>
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
+}

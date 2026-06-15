@@ -1,0 +1,6 @@
+{
+  "name": "EverSafe Financial",
+  "description": "Professional insurance services by Mary Rivera - expert solutions for Life, Health, Medicare, and IUL plans in Florida.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
