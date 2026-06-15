@@ -386,9 +386,9 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
           {/* Brand Logo */}
           <a href="#home" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-brand-purple rounded-2xl flex items-center justify-center text-white shadow-md shadow-brand-purple/10 transition duration-300 group-hover:scale-105 overflow-hidden">
+            <div className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-md border border-slate-100/80 transition duration-300 group-hover:scale-105 overflow-hidden">
               <img
-                src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781557001/Logo1x1_PNG_Principal_iepovj.png"
+                src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781556920/Logo1x1_Prinicpal_rvh4wz.png"
                 alt="EverSafe Financial Logo"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
@@ -1180,9 +1180,9 @@ export default function App() {
           {/* Column 1: Descriptor */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-brand-purple rounded-xl flex items-center justify-center text-white overflow-hidden shadow-sm shadow-brand-purple/10">
+              <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center overflow-hidden shadow-md">
                 <img
-                  src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781557001/Logo1x1_PNG_Principal_iepovj.png"
+                  src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781556920/Logo1x1_Prinicpal_rvh4wz.png"
                   alt="EverSafe Financial Logo"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover"
