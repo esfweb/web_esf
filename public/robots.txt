@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://esfweb.github.io/web_esf/sitemap.xml

@@ -1,0 +1,16 @@
+{
+  "name": "EverSafe Financial",
+  "short_name": "EverSafe",
+  "start_url": "/web_esf/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8c49b1",
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781557001/Logo1x1_PNG_Principal_iepovj.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -215,6 +215,7 @@ export default function App() {
   const [showToTop, setShowToTop] = useState<boolean>(false);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [shakeFloatingBtn, setShakeFloatingBtn] = useState<boolean>(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -390,7 +391,7 @@ export default function App() {
           {/* Social Links */}
           <div className="flex items-center gap-3 text-white/70">
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/eversafefinancial.llc/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transform hover:scale-125 active:scale-95 transition-all duration-300 display-inline-block"
@@ -401,7 +402,7 @@ export default function App() {
               </svg>
             </a>
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/eversafefinancial"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transform hover:scale-125 active:scale-95 transition-all duration-300 display-inline-block"
@@ -586,6 +587,12 @@ export default function App() {
             
             <p className="text-base md:text-lg text-white/95 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3">
               {t.hero.subtitle}
+            </p>
+
+            <p className="text-sm md:text-base text-white/90 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3 pt-1 border-l-2 border-[#00C2A8] pl-3.5">
+              {lang === "en"
+                ? "EverSafe Financial helps Florida families, individuals, and business owners compare life insurance, Medicare, ACA, retirement, and wealth protection solutions with bilingual support."
+                : "EverSafe Financial ayuda a familias, individuos y dueños de negocios en Florida a comparar soluciones de seguro de vida, Medicare, ACA, retiro y protección de patrimonio con soporte bilingüe."}
             </p>
 
             {/* Direct Calls - Primary CTA with hover + click feedback (K2) */}
@@ -906,6 +913,65 @@ export default function App() {
         </div>
       </section>
 
+      {/* 7.5. TARGET AUDIENCE & PREFERENCES (Who We Help & Why Contact Us) */}
+      <section className="py-20 px-4 md:px-8 bg-brand-gray-soft border-b border-slate-100 relative z-20">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
+          
+          {/* Who We Help block */}
+          <div className="space-y-6 bg-white p-8 md:p-10 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] transition-all duration-300 hover:shadow-lg">
+            <div className="space-y-2">
+              <span className="text-xs uppercase tracking-widest font-extrabold text-[#00C2A8] bg-[#00C2A8]/10 px-3 py-1 rounded-full inline-block">
+                👥 {t.whoWeHelp.title}
+              </span>
+              <h3 className="text-2xl md:text-3xl font-extrabold font-sans text-brand-navy tracking-tight">
+                {t.whoWeHelp.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                {t.whoWeHelp.subtitle}
+              </p>
+            </div>
+            
+            <ul className="space-y-4 pt-2">
+              {t.whoWeHelp.items.map((item, index) => (
+                <li key={index} className="flex items-start gap-3.5 text-xs sm:text-sm text-brand-navy font-semibold">
+                  <span className="w-5.5 h-5.5 bg-[#00C2A8]/15 rounded-full flex items-center justify-center text-[#001D1A] text-[11px] font-bold mt-0.5 flex-shrink-0 border border-[#00C2A8]/20">
+                    ✓
+                  </span>
+                  <span className="leading-relaxed font-sans">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Why Clients Contact Us block */}
+          <div className="space-y-6 bg-white p-8 md:p-10 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] transition-all duration-300 hover:shadow-lg">
+            <div className="space-y-2">
+              <span className="text-xs uppercase tracking-widest font-extrabold text-white bg-brand-purple px-3 py-1 rounded-full inline-block">
+                💡 {t.whyContactUs.title}
+              </span>
+              <h3 className="text-2xl md:text-3xl font-extrabold font-sans text-brand-navy tracking-tight">
+                {t.whyContactUs.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                {lang === "en" ? "Real solutions built on transparency, security, and proven coverage metrics." : "Soluciones reales construidas sobre transparencia, seguridad e indicadores probados."}
+              </p>
+            </div>
+
+            <ul className="space-y-4 pt-2">
+              {t.whyContactUs.items.map((item, index) => (
+                <li key={index} className="flex items-start gap-3.5 text-xs sm:text-sm text-brand-navy font-semibold">
+                  <span className="w-5.5 h-5.5 bg-brand-purple-light rounded-full flex items-center justify-center text-[#8C49B1] text-[11px] font-bold mt-0.5 flex-shrink-0 border border-brand-purple/10">
+                    ★
+                  </span>
+                  <span className="leading-relaxed font-sans">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
       {/* 8. ABOUT SECTION (Mary Rivera commitment with pure white and refined human avatar layout) */}
       <section id="about" className="py-24 px-4 md:px-8 bg-white relative">
         <div className="max-w-7xl mx-auto">
@@ -1071,6 +1137,72 @@ export default function App() {
         </div>
       </section>
 
+      {/* 9.5. FAQ SECTION (Interactive bilingual accordion with elegant transition effects) */}
+      <section id="faq" className="py-24 px-4 md:px-8 bg-white relative border-b border-slate-100">
+        <div className="max-w-4xl mx-auto">
+          
+          <div className="text-center space-y-3 mb-16">
+            <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple-light px-4 py-1.5 rounded-full inline-block">
+              ℹ️ {lang === "en" ? "Common Clarifications" : "Aclaraciones Comunes"}
+            </span>
+            <h2 className="text-3xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight">
+              {t.faq.title}
+            </h2>
+            <p className="text-xs sm:text-sm text-brand-slate max-w-xl mx-auto">
+              {lang === "en" 
+                ? "Find transparent answers to the questions families ask licensed advisor Mary Rivera about financial protection plans in Florida."
+                : "Encuentra respuestas transparentes a las preguntas que las familias le hacen a la asesora Mary Rivera sobre seguros y protección en Florida."}
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {t.faq.items.map((item, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <div 
+                  key={index} 
+                  className={`border rounded-2xl transition-all duration-300 overflow-hidden ${
+                    isOpen 
+                      ? "border-brand-purple bg-brand-purple-light/10 shadow-[0_4px_20px_rgba(140,73,177,0.06)]" 
+                      : "border-slate-100 bg-white hover:border-slate-300 hover:bg-slate-50/50"
+                  }`}
+                >
+                  <button
+                    onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                    className="w-full flex items-center justify-between p-5 md:p-6 text-left cursor-pointer focus:outline-none"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="text-sm md:text-base font-bold text-brand-navy pr-4">
+                      {item.q}
+                    </span>
+                    <span 
+                      className={`w-8 h-8 rounded-full border flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${
+                        isOpen 
+                          ? "bg-brand-purple text-white border-brand-purple rotate-180" 
+                          : "bg-slate-50 text-brand-slate border-slate-100"
+                      }`}
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </span>
+                  </button>
+
+                  <div 
+                    className={`transition-all duration-300 ease-in-out ${
+                      isOpen ? "max-h-[500px] border-t border-slate-10 border-dashed" : "max-h-0"
+                    }`}
+                  >
+                    <div className="p-5 md:p-6 text-xs sm:text-sm text-brand-slate leading-relaxed font-normal bg-white/40">
+                      {item.a}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+
       {/* 10. CONTACT / FREE QUOTE (Soft gray background, highly guided clear form with brand-purple action) */}
       <section id="contact" className="py-24 px-4 md:px-8 bg-brand-gray-soft relative">
         <div className="max-w-7xl mx-auto">
@@ -1083,7 +1215,7 @@ export default function App() {
                   📞 {lang === "en" ? "GET IN TOUCH" : "MÉTODOS DE CONTACTO"}
                 </span>
                 <h2 className="text-3.5xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight">
-                  {lang === "en" ? "Always Safe, Always There" : "Puntos de Contacto Confiables"}
+                  {lang === "en" ? "Let's Build Your Protection Plan — It's Free" : "Construyamos tu Plan de Protección — Es Gratis"}
                 </h2>
               </div>
 
@@ -1375,7 +1507,7 @@ export default function App() {
             {/* White SVGs for socials */}
             <div className="flex items-center gap-4 pt-2 text-white/55">
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/eversafefinancial.llc/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="hover:text-accent transform hover:scale-125 active:scale-95 transition-all duration-300 inline-block"
@@ -1385,7 +1517,7 @@ export default function App() {
                 </svg>
               </a>
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/eversafefinancial" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="hover:text-accent transform hover:scale-125 active:scale-95 transition-all duration-300 inline-block"

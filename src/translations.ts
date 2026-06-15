@@ -154,6 +154,19 @@ export interface TranslationSet {
     bilingual: string;
     rights: string;
   };
+  whoWeHelp: {
+    title: string;
+    subtitle: string;
+    items: string[];
+  };
+  whyContactUs: {
+    title: string;
+    items: string[];
+  };
+  faq: {
+    title: string;
+    items: { q: string; a: string }[];
+  };
 }
 
 export const translations: Record<"en" | "es", TranslationSet> = {
@@ -313,6 +326,55 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       bilingual: "Te Puedo Ayudar en Español • We Also Speak English",
       rights: "© 2025 EverSafe Financial LLC. All Rights Reserved. EverSafe Financial is an independent agency of licensed advisor Mary Rivera.",
     },
+    whoWeHelp: {
+      title: "Who We Help",
+      subtitle: "Helping individuals, families, and business owners across Florida navigate their financial protection journey.",
+      items: [
+        "Families seeking life insurance to shield their loved ones from uncertainty.",
+        "Individuals comparing Medicare Advantage, Supplements, and Part D options.",
+        "Clients exploring Obamacare (ACA) health plans for subsidized medical coverage.",
+        "People planning retirement protection with safe-money growth and tax-free distribution strategies.",
+        "Bilingual households who need dedicated, professional support in English and Spanish."
+      ]
+    },
+    whyContactUs: {
+      title: "Why Clients Contact Us",
+      items: [
+        "To receive direct, independent comparisons from the nation's top A-rated insurance carriers.",
+        "To custom-design retirement accumulation plans utilizing Index Universal Life (IUL).",
+        "To transition legacy accounts (401k/IRA Rollover) safely without penalty or loss risk.",
+        "To obtain clear, honest policy reviews with absolutely zero high-pressure sales tactics."
+      ]
+    },
+    faq: {
+      title: "Frequently Asked Questions",
+      items: [
+        {
+          q: "What types of insurance does EverSafe Financial help with?",
+          a: "We help clients compare life insurance, Medicare plans, ACA options, retirement strategies, and family financial protection solutions."
+        },
+        {
+          q: "Do you offer service in Spanish?",
+          a: "Yes. EverSafe Financial provides bilingual support in English and Spanish."
+        },
+        {
+          q: "How do I know which plan is right for me?",
+          a: "The right plan depends on your age, family situation, budget, health needs, and long-term goals. We help you compare options clearly."
+        },
+        {
+          q: "Is the quote really free?",
+          a: "Yes. Your quote request is free and comes with no obligation."
+        },
+        {
+          q: "Do you work with families and individuals?",
+          a: "Yes. We work with individuals, families, and people planning for retirement or long-term financial protection."
+        },
+        {
+          q: "How quickly will someone contact me?",
+          a: "After you submit your information, a licensed advisor will review it and follow up as soon as possible."
+        }
+      ]
+    },
   },
   es: {
     nav: {
@@ -469,6 +531,55 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       hours: "Horario de Oficina",
       bilingual: "Te Puedo Ayudar en Español • We Also Speak English",
       rights: "© 2025 EverSafe Financial LLC. Todos los derechos reservados. EverSafe Financial es la firma independiente de la asesora Mary Rivera.",
+    },
+    whoWeHelp: {
+      title: "A Quiénes Ayudamos",
+      subtitle: "Ayudamos a individuos, familias y dueños de negocios en Florida a navegar su camino de protección financiera.",
+      items: [
+        "Familias que buscan un seguro de vida para proteger a sus seres queridos de la incertidumbre.",
+        "Individuos que comparan opciones de Medicare Advantage, Suplementación y Parte D.",
+        "Clientes que exploran planes de salud de Obamacare (ACA) para cobertura médica subsidiada.",
+        "Personas que planifican su jubilación con crecimiento seguro y estrategias de retiros libres de impuestos.",
+        "Hogares bilingües que necesitan asistencia profesional dedicada tanto en inglés como en español."
+      ]
+    },
+    whyContactUs: {
+      title: "Por Qué Nos Contactan los Clientes",
+      items: [
+        "Para recibir comparaciones directas e independientes de las aseguradoras con clasificación A+ más grandes del país.",
+        "Para diseñar planes de acumulación de retiro a la medida utilizando Index Universal Life (IUL).",
+        "Para transferir cuentas antiguas (Rollover de 401k/IRA) sin penalidades ni riesgos de caída.",
+        "Para obtener revisiones de pólizas claras y honestas, con absoluta ausencia de tácticas de presión de venta."
+      ]
+    },
+    faq: {
+      title: "Preguntas Frecuentes",
+      items: [
+        {
+          q: "¿Con qué tipos de seguros ayuda EverSafe Financial?",
+          a: "Ayudamos a los clientes a comparar seguros de vida, planes de Medicare, opciones de ACA (Obamacare), estrategias de jubilación y soluciones de protección financiera familiar."
+        },
+        {
+          q: "¿Ofrecen servicio en español?",
+          a: "Sí. EverSafe Financial ofrece soporte bilingüe completo en inglés y español."
+        },
+        {
+          q: "¿Cómo sé cuál plan es el adecuado para mí?",
+          a: "El plan adecuado depende de su edad, situación familiar, presupuesto, necesidades de salud y metas a largo plazo. Le ayudamos a comparar opciones con total claridad."
+        },
+        {
+          q: "¿La cotización es realmente gratis?",
+          a: "Sí. Su solicitud de cotización es totalmente gratuita y no tiene ningún compromiso."
+        },
+        {
+          q: "¿Trabajan con familias e individuos?",
+          a: "Sí. Trabajamos con individuos, familias y personas que planifican su jubilación o buscan protección financiera a largo plazo."
+        },
+        {
+          q: "¿Qué tan rápido se pondrán en contacto conmigo?",
+          a: "Después de que envíe sus datos, un asesor autorizado los revisará y se comunicará con usted lo antes posible."
+        }
+      ]
     },
   },
 };

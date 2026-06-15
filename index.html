@@ -1,13 +1,230 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-US">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <meta name="theme-color" content="#8c49b1" />
+    
+    <!-- SEO and GEO Meta Tags -->
+    <title>Life Insurance & Financial Protection in Florida | EverSafe Financial</title>
+    <meta name="description" content="EverSafe Financial helps families and individuals in Florida compare life insurance, Medicare, ACA, retirement, and wealth protection options with bilingual support in English and Spanish." />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    
+    <!-- Canonical & Hreflang Tags -->
+    <link rel="canonical" href="https://esfweb.github.io/web_esf/" />
+    <link rel="alternate" hreflang="en-us" href="https://esfweb.github.io/web_esf/" />
+    <!-- <link rel="alternate" hreflang="es" href="https://esfweb.github.io/web_esf/es/" /> -->
+    <link rel="alternate" hreflang="x-default" href="https://esfweb.github.io/web_esf/" />
+
+    <!-- Favicon and Touch Icons -->
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781557001/Logo1x1_PNG_Principal_iepovj.png" />
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781557001/Logo1x1_PNG_Principal_iepovj.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://esfweb.github.io/web_esf/" />
+    <meta property="og:title" content="EverSafe Financial | Life Insurance & Financial Protection in Florida" />
+    <meta property="og:description" content="Bilingual insurance guidance for life, Medicare, ACA, retirement, and family protection in Florida." />
+    <meta property="og:image" content="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781566155/Branding-06_qmnktq.jpg" />
+    <meta property="og:image:alt" content="EverSafe Financial branding for life insurance and financial protection in Florida" />
+    <meta property="og:site_name" content="EverSafe Financial" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="EverSafe Financial | Life Insurance & Financial Protection in Florida" />
+    <meta name="twitter:description" content="Bilingual insurance guidance for life, Medicare, ACA, retirement, and family protection in Florida." />
+    <meta name="twitter:image" content="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781566155/Branding-06_qmnktq.jpg" />
+    <meta name="twitter:image:alt" content="EverSafe Financial branding for life insurance and financial protection in Florida" />
+
+    <!-- Structured Data JSON-LD Schemas (SEO + AEO + GEO Optimization) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://esfweb.github.io/web_esf/#organization",
+          "name": "EverSafe Financial",
+          "url": "https://esfweb.github.io/web_esf/",
+          "logo": "https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781557001/Logo1x1_PNG_Principal_iepovj.png",
+          "image": "https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781566155/Branding-06_qmnktq.jpg",
+          "description": "EverSafe Financial provides bilingual insurance and financial protection guidance for families and individuals in Florida.",
+          "email": "mary@eversafefinancial.com",
+          "telephone": "+17273596196",
+          "sameAs": [
+            "https://www.instagram.com/eversafefinancial.llc/",
+            "https://www.facebook.com/eversafefinancial"
+          ]
+        },
+        {
+          "@type": "InsuranceAgency",
+          "@id": "https://esfweb.github.io/web_esf/#agency",
+          "name": "EverSafe Financial",
+          "url": "https://esfweb.github.io/web_esf/",
+          "telephone": "+17273596196",
+          "email": "mary@eversafefinancial.com",
+          "image": "https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781566155/Branding-06_qmnktq.jpg",
+          "priceRange": "$$",
+          "areaServed": {
+            "@type": "State",
+            "name": "Florida"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Pinellas Park",
+            "addressRegion": "FL",
+            "addressCountry": "US"
+          },
+          "availableLanguage": ["English", "Spanish"],
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              "opens": "09:00",
+              "closes": "18:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Saturday"],
+              "opens": "10:00",
+              "closes": "14:00"
+            }
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://esfweb.github.io/web_esf/#person",
+          "name": "Mary Rivera",
+          "jobTitle": "Licensed Insurance Advisor",
+          "worksFor": {
+            "@id": "https://esfweb.github.io/web_esf/#organization"
+          },
+          "image": "https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560567/mary-rivera-insurance-advisor-florida-portrait.jpg_buwljo.jpg",
+          "knowsLanguage": ["English", "Spanish"],
+          "description": "Licensed insurance advisor helping families understand protection, Medicare, ACA and retirement options."
+        },
+        {
+          "@type": "Service",
+          "name": "Life Insurance",
+          "provider": {
+            "@id": "https://esfweb.github.io/web_esf/#agency"
+          },
+          "areaServed": {
+            "@type": "State",
+            "name": "Florida"
+          },
+          "availableLanguage": ["English", "Spanish"]
+        },
+        {
+          "@type": "Service",
+          "name": "Medicare Plans",
+          "provider": {
+            "@id": "https://esfweb.github.io/web_esf/#agency"
+          },
+          "areaServed": {
+            "@type": "State",
+            "name": "Florida"
+          },
+          "availableLanguage": ["English", "Spanish"]
+        },
+        {
+          "@type": "Service",
+          "name": "Obamacare (ACA) Plans",
+          "provider": {
+            "@id": "https://esfweb.github.io/web_esf/#agency"
+          },
+          "areaServed": {
+            "@type": "State",
+            "name": "Florida"
+          },
+          "availableLanguage": ["English", "Spanish"]
+        },
+        {
+          "@type": "Service",
+          "name": "Index Universal Life",
+          "provider": {
+            "@id": "https://esfweb.github.io/web_esf/#agency"
+          },
+          "areaServed": {
+            "@type": "State",
+            "name": "Florida"
+          },
+          "availableLanguage": ["English", "Spanish"]
+        },
+        {
+          "@type": "Service",
+          "name": "Retirement Planning",
+          "provider": {
+            "@id": "https://esfweb.github.io/web_esf/#agency"
+          },
+          "areaServed": {
+            "@type": "State",
+            "name": "Florida"
+          },
+          "availableLanguage": ["English", "Spanish"]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://esfweb.github.io/web_esf/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What types of insurance does EverSafe Financial help with?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We help clients compare life insurance, Medicare plans, ACA options, retirement strategies, and family financial protection solutions."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you offer service in Spanish?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. EverSafe Financial provides bilingual support in English and Spanish."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I know which plan is right for me?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The right plan depends on your age, family situation, budget, health needs, and long-term goals. We help you compare options clearly."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is the quote really free?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Your quote request is free and comes with no obligation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you work with families and individuals?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. We work with individuals, families, and people planning for retirement or long-term financial protection."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How quickly will someone contact me?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "After you submit your information, a licensed advisor will review it and follow up as soon as possible."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
