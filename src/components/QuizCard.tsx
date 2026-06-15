@@ -92,10 +92,10 @@ export default function QuizCard({ t }: QuizCardProps) {
       {/* Absolute high-end brand purple glow accent */}
       <div className="absolute -top-10 -right-10 w-24 h-24 bg-brand-purple/5 rounded-full blur-2xl pointer-events-none"></div>
 
-      {/* Progress Bar (Acento verde suave #7FA89B para progreso / bienestar) */}
-      <div className="w-full bg-[#F3F3F4] h-1.5 rounded-full mb-6 overflow-hidden">
+      {/* Progress Bar (Acento verde suave/teal para progreso) */}
+      <div className="w-full bg-secondary h-1.5 rounded-full mb-6 overflow-hidden">
         <div
-          className="bg-brand-sage h-full rounded-full transition-all duration-300"
+          className="bg-accent h-full rounded-full transition-all duration-300"
           style={{ width: `${progressPercent}%` }}
         ></div>
       </div>
@@ -316,8 +316,8 @@ export default function QuizCard({ t }: QuizCardProps) {
             <div className="space-y-5 animate-fade-in-up">
               {formSubmitted ? (
                 <div className="py-8 text-center space-y-4">
-                  {/* Sage Green Check box for wellness / validation */}
-                  <div className="w-16 h-16 bg-brand-sage-light rounded-full border-2 border-brand-sage flex items-center justify-center mx-auto text-3xl text-brand-sage animate-bounce">
+                  {/* Sage/Teal Check box for validation */}
+                  <div className="w-16 h-16 bg-accent-light/20 rounded-full border-2 border-accent flex items-center justify-center mx-auto text-3xl text-accent animate-bounce">
                     ✓
                   </div>
                   <h3 className="text-xl font-bold text-brand-navy font-sans">
@@ -329,18 +329,18 @@ export default function QuizCard({ t }: QuizCardProps) {
                   <button
                     type="button"
                     onClick={resetQuiz}
-                    className="mt-4 px-5 py-2.5 bg-[#F3F3F4] hover:bg-brand-purple-light hover:text-brand-purple rounded-xl text-xs font-semibold text-brand-slate tracking-wide uppercase transition-all"
+                    className="mt-4 px-5 py-2.5 bg-secondary hover:bg-brand-purple-light hover:text-brand-purple rounded-xl text-xs font-semibold text-brand-slate tracking-wide uppercase transition-all"
                   >
                     🔄 Test Again / Volver a evaluar
                   </button>
                 </div>
               ) : (
                 <div>
-                  {/* Results Diagnostic (Acentos de validacion verde suave / sage) */}
-                  <div className="p-4 rounded-2xl bg-brand-sage-light border border-brand-sage/25 mb-4">
+                  {/* Results Diagnostic (Acentos de validacion verde suave / sage / teal) */}
+                  <div className="p-4 rounded-2xl bg-accent-light/10 border border-accent/25 mb-4">
                     {isQualified ? (
                       <div>
-                        <h4 className="text-sm font-bold text-brand-sage flex items-center gap-1.5 uppercase tracking-wide">
+                        <h4 className="text-sm font-bold text-accent flex items-center gap-1.5 uppercase tracking-wide">
                           🌟 {t.quiz.qualifiedTitle}
                         </h4>
                         <p className="text-xs text-brand-slate-dark leading-relaxed mt-1.5">
@@ -374,7 +374,7 @@ export default function QuizCard({ t }: QuizCardProps) {
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="Mary Rivera Client"
-                        className="w-full bg-[#F3F3F4] border border-transparent rounded-xl px-3.5 py-2 text-sm text-brand-navy placeholder-brand-slate/40 focus:outline-none focus:border-brand-purple focus:bg-white transition-all"
+                        className="w-full bg-secondary border border-transparent rounded-xl px-3.5 py-2 text-sm text-brand-navy placeholder-brand-slate/40 focus:outline-none focus:border-brand-purple focus:bg-white transition-all"
                       />
                     </div>
 
@@ -389,7 +389,7 @@ export default function QuizCard({ t }: QuizCardProps) {
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="(727) 359-6196"
-                          className="w-full bg-[#F3F3F4] border border-transparent rounded-xl px-3.5 py-2 text-sm text-brand-navy placeholder-brand-slate/40 focus:outline-none focus:border-brand-purple focus:bg-white transition-all"
+                          className="w-full bg-secondary border border-transparent rounded-xl px-3.5 py-2 text-sm text-brand-navy placeholder-brand-slate/40 focus:outline-none focus:border-brand-purple focus:bg-white transition-all"
                         />
                       </div>
                       <div>
@@ -402,7 +402,7 @@ export default function QuizCard({ t }: QuizCardProps) {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="client@mail.com"
-                          className="w-full bg-[#F3F3F4] border border-transparent rounded-xl px-3.5 py-2 text-sm text-brand-navy placeholder-brand-slate/40 focus:outline-none focus:border-brand-purple focus:bg-white transition-all"
+                          className="w-full bg-secondary border border-transparent rounded-xl px-3.5 py-2 text-sm text-brand-navy placeholder-brand-slate/40 focus:outline-none focus:border-brand-purple focus:bg-white transition-all"
                         />
                       </div>
                     </div>
@@ -436,7 +436,7 @@ export default function QuizCard({ t }: QuizCardProps) {
                       </button>
                       <button
                         type="submit"
-                        className="flex-1 bg-brand-gold hover:bg-[#B08B1F] text-white transition-all font-bold py-2.5 px-3 rounded-xl text-xs sm:text-sm text-center shadow-md shadow-brand-gold/10"
+                        className="flex-1 bg-accent hover:bg-accent-dark text-white transition-all font-bold py-2.5 px-3 rounded-xl text-xs sm:text-sm text-center shadow-md shadow-accent/10"
                       >
                         {t.quiz.submitLead}
                       </button>

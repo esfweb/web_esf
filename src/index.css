@@ -5,21 +5,34 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-display: "Playfair Display", Georgia, serif;
 
-  --color-brand-purple: #8C49B1;
+  --color-primary: #8c49b1;
+  --color-primary-light: #a855f7;
+  --color-primary-dark: #6d3a8c;
+
+  --color-accent: #00C2A8;
+  --color-accent-light: #33d9c5;
+  --color-accent-dark: #009e88;
+
+  --color-secondary: #f3f3f4;
+  --color-surface: #FFFFFF;
+  --color-dark: #0d1b2a;
+
+  /* Mapeo heredado para compatibilidad y consistencia total */
+  --color-brand-purple: #8c49b1;
   --color-brand-purple-mid: #7A3F9C;
-  --color-brand-purple-hover: #673584;
-  --color-brand-purple-light: #F2EAFA;
+  --color-brand-purple-hover: #6d3a8c;
+  --color-brand-purple-light: #f3e8ff;
   --color-brand-purple-glow: #F6F0FC;
   --color-brand-navy: #122033;
   --color-brand-navy-light: #1E314B;
   --color-brand-slate: #667085;
   --color-brand-slate-dark: #344054;
-  --color-brand-gold: #C9A227;
-  --color-brand-gold-dark: #B08B1F;
-  --color-brand-gold-light: #FAF6E8;
-  --color-brand-sage: #7FA89B;
-  --color-brand-sage-light: #F1F6F4;
-  --color-brand-gray-soft: #F3F3F4;
+  --color-brand-gold: #00C2A8;
+  --color-brand-gold-dark: #009e88;
+  --color-brand-gold-light: #33d9c5;
+  --color-brand-sage: #00C2A8;
+  --color-brand-sage-light: #e6faf7;
+  --color-brand-gray-soft: #f3f3f4;
   --color-brand-white: #FFFFFF;
 
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;

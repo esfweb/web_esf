@@ -132,7 +132,7 @@ function TiltCard({ children, popular, popularLabel }: TiltCardProps) {
       className="relative rounded-3xl p-8 bg-white border border-slate-100 transition-all duration-300 ease-out flex flex-col justify-between h-full group"
     >
       {popular && (
-        <span className="absolute top-4 right-4 bg-brand-gold text-white text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full shadow-sm z-15 animate-pulse">
+        <span className="absolute top-4 right-4 bg-accent text-white text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full shadow-sm z-15 animate-pulse">
           ✨ {popularLabel}
         </span>
       )}
@@ -318,14 +318,14 @@ export default function App() {
         <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-1 font-medium text-white/90">
           <a
             href="mailto:mary@eversafefinancial.com"
-            className="flex items-center gap-1.5 hover:text-brand-gold transition-colors"
+            className="flex items-center gap-1.5 hover:text-accent transition-colors"
           >
             <Mail className="w-3.5 h-3.5 text-brand-purple" />
             mary@eversafefinancial.com
           </a>
           <a
             href="tel:7273596196"
-            className="flex items-center gap-1.5 hover:text-brand-gold transition-colors font-semibold"
+            className="flex items-center gap-1.5 hover:text-accent transition-colors font-semibold"
           >
             <Phone className="w-3.5 h-3.5 text-brand-purple" />
             (727) 359-6196
@@ -338,7 +338,7 @@ export default function App() {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-brand-gold transition-colors"
+              className="hover:text-accent transition-colors"
               aria-label="Instagram Link"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -349,7 +349,7 @@ export default function App() {
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-brand-gold transition-colors"
+              className="hover:text-accent transition-colors"
               aria-label="Facebook Link"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -363,9 +363,9 @@ export default function App() {
           {/* Bilingual Toggle Button */}
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-2 focus:outline-none hover:text-brand-gold group cursor-pointer transition-colors font-bold tracking-wider"
+            className="flex items-center gap-2 focus:outline-none hover:text-accent group cursor-pointer transition-colors font-bold tracking-wider"
           >
-            <span className="text-[10px] uppercase bg-white/10 px-2 py-0.5 rounded-md border border-white/15 group-hover:border-brand-gold">
+            <span className="text-[10px] uppercase bg-white/10 px-2 py-0.5 rounded-md border border-white/15 group-hover:border-accent">
               {lang === "en" ? "ES" : "EN"}
             </span>
             <span className="text-[10px] font-semibold text-white/80 group-hover:text-white">
@@ -486,38 +486,49 @@ export default function App() {
       {/* 3. HERO SECTION (Re-imagined: Broad, pure white and light gray background, high design hierarchy, editorial feel) */}
       <section
         id="home"
-        className="relative bg-white pt-16 pb-20 md:py-28 px-4 md:px-8 overflow-hidden bg-hero-pattern border-b border-slate-100"
+        className="relative bg-cover md:bg-top bg-center bg-no-repeat pt-16 pb-20 md:py-28 px-4 md:px-8 overflow-hidden border-b border-slate-100 min-h-[400px] md:min-h-[600px] flex items-center"
+        style={{
+          backgroundImage: "url('https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/insurance-advisor-florida-family-financial-protection.jpg_xpfdp2.jpg')"
+        }}
       >
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-[#F3F3F4]/50 pointer-events-none rounded-l-[120px] hidden lg:block"></div>
-        <div className="absolute left-10 top-10 w-96 h-96 bg-brand-purple/5 rounded-full blur-3xl pointer-events-none"></div>
+        {/* Dark overlay for legibility */}
+        <div className="absolute inset-0 bg-[#0d1b2a]/55 z-0" />
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+        {/* SEO Image for Crawler Compatibility with Alt Text */}
+        <img
+          src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/insurance-advisor-florida-family-financial-protection.jpg_xpfdp2.jpg"
+          alt="Licensed insurance advisor helping Florida family with financial protection plan"
+          referrerPolicy="no-referrer"
+          className="sr-only"
+        />
+
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10 w-full">
           
           {/* Column 1: Info and Badges */}
           <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
             
             {/* Compliance Badge */}
-            <div className="inline-flex items-center gap-2 bg-brand-purple-light px-4 py-1.5 rounded-full border border-brand-purple/10 shadow-sm text-xs text-brand-purple tracking-wide font-semibold animate-float mx-auto lg:mx-0">
-              <Award className="w-3.5 h-3.5 text-brand-purple flex-shrink-0" />
-              <span className="text-[10px] md:text-xs uppercase tracking-widest">{t.hero.badge.split(" · ")[1]} · Licensed Florida Advisor</span>
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/20 shadow-sm text-xs text-accent-light tracking-wide font-semibold animate-float mx-auto lg:mx-0">
+              <Award className="w-3.5 h-3.5 text-accent-light flex-shrink-0" />
+              <span className="text-[10px] md:text-xs uppercase tracking-widest text-white">{t.hero.badge.split(" · ")[1]} · Licensed Florida Advisor</span>
             </div>
 
             <div className="space-y-4">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#8C49B1]">Firmas Financieras de Clase Mundial</span>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-sans leading-[1.08] text-brand-navy tracking-tight">
+              <span className="text-xs font-semibold uppercase tracking-widest text-accent-light bg-accent/20 px-3 py-1 rounded-full inline-block">Firmas Financieras de Clase Mundial</span>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-sans leading-[1.08] text-white tracking-tight">
                 {t.hero.title}
               </h1>
             </div>
             
-            <p className="text-base md:text-lg text-brand-slate font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            <p className="text-base md:text-lg text-white/90 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
               {t.hero.subtitle}
             </p>
 
-            {/* Direct Calls - Primary CTA in Premium Gold (#C9A227) */}
+            {/* Direct Calls - Primary CTA in Deep Purple (#8c49b1) */}
             <div className="flex flex-col sm:flex-row gap-3.5 justify-center lg:justify-start pt-2">
               <a
                 href="tel:7273596196"
-                className="bg-brand-gold hover:bg-[#B08B1F] text-white font-bold py-4 px-8 rounded-2xl text-sm transition-all duration-300 text-center shadow-md shadow-brand-gold/15"
+                className="bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-2xl text-sm transition-all duration-300 text-center shadow-md shadow-primary/15"
               >
                 {t.hero.ctaPhone}
               </a>
@@ -530,26 +541,34 @@ export default function App() {
             </div>
 
             {/* Verification highlights */}
-            <div className="grid grid-cols-3 gap-4 pt-8 border-t border-slate-100 max-w-md mx-auto lg:mx-0">
+            <div className="grid grid-cols-3 gap-4 pt-8 border-t border-white/15 max-w-md mx-auto lg:mx-0">
               <div className="text-center lg:text-left">
-                <span className="block text-[10px] text-brand-purple font-bold uppercase tracking-widest">Experience</span>
-                <span className="block text-base md:text-lg font-extrabold text-brand-navy mt-1">4+ Success Years</span>
+                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">Experience</span>
+                <span className="block text-base md:text-lg font-extrabold text-white mt-1">4+ Success Years</span>
               </div>
               <div className="text-center lg:text-left">
-                <span className="block text-[10px] text-brand-purple font-bold uppercase tracking-widest">Assistance</span>
-                <span className="block text-base md:text-lg font-extrabold text-brand-navy mt-1">Full Bilingual</span>
+                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">Assistance</span>
+                <span className="block text-base md:text-lg font-extrabold text-white mt-1">Full Bilingual</span>
               </div>
               <div className="text-center lg:text-left">
-                <span className="block text-[10px] text-brand-purple font-bold uppercase tracking-widest">A+ Rating</span>
-                <span className="block text-base md:text-lg font-extrabold text-brand-navy mt-1">Top Carriers</span>
+                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">A+ Rating</span>
+                <span className="block text-base md:text-lg font-extrabold text-white mt-1">Top Carriers</span>
               </div>
             </div>
 
           </div>
 
-          {/* Column 2: Interactive Dynamic Quiz */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+          {/* Column 2: Interactive Dynamic Quiz & Mary Rivera photo */}
+          <div className="lg:col-span-5 flex flex-col md:flex-row lg:flex-col gap-6 items-center justify-center lg:justify-end">
             <QuizCard t={t} />
+            <div className="hidden md:block w-full max-w-xs">
+              <img
+                src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/mary-rivera-licensed-insurance-advisor-eversafe-financial.jpg_hgybkk.jpg"
+                alt="Mary Rivera - Licensed Insurance Advisor at EverSafe Financial Florida"
+                referrerPolicy="no-referrer"
+                className="rounded-2xl shadow-xl object-cover object-top w-full max-w-xs border-2 border-brand-purple"
+              />
+            </div>
           </div>
 
         </div>
@@ -623,14 +642,14 @@ export default function App() {
                 className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-colors text-center group flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>{t.core.cta}</span>
-                <ChevronRight className="w-4 h-4 text-brand-gold group-hover:translate-x-1 transition-transform" />
+                <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
               </button>
             </TiltCard>
 
-            {/* Card 2: Obamacare (Suave acento verde #7FA89B para bienestar) */}
+            {/* Card 2: Obamacare (Suave acento verde/teal para bienestar) */}
             <TiltCard>
               <div className="space-y-6">
-                <div className="w-12 h-12 bg-brand-sage-light rounded-2xl flex items-center justify-center text-brand-sage text-2xl shadow-sm border border-brand-sage/20">
+                <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
                   🏥
                 </div>
                 <div className="space-y-2">
@@ -648,7 +667,7 @@ export default function App() {
                 className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-colors text-center group flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>{t.core.cta}</span>
-                <ChevronRight className="w-4 h-4 text-brand-gold group-hover:translate-x-1 transition-transform" />
+                <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
               </button>
             </TiltCard>
 
@@ -673,7 +692,7 @@ export default function App() {
                 className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-colors text-center group flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>{t.core.cta}</span>
-                <ChevronRight className="w-4 h-4 text-brand-gold group-hover:translate-x-1 transition-transform" />
+                <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
               </button>
             </TiltCard>
 
@@ -737,9 +756,26 @@ export default function App() {
         </div>
       </section>
 
-      {/* 7. WHY CHOOSE US (Soft gray background #F3F3F4 to maintain alternating rhythms) */}
-      <section className="py-24 px-4 md:px-8 bg-brand-gray-soft relative">
-        <div className="max-w-7xl mx-auto space-y-16">
+      {/* 7. WHY CHOOSE US (Soft gray background #F3F3F4 with family background image overlay) */}
+      <section
+        className="py-24 px-4 md:px-8 bg-cover bg-center bg-no-repeat relative overflow-hidden"
+        style={{
+          backgroundImage: "url('https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/hispanic-family-financial-security-planning-florida.jpg_qtjlyr.jpg')"
+        }}
+      >
+        {/* Soft white/gray overlay for legibility as recommended */}
+        <div className="absolute inset-0 bg-[#F3F3F4]/90 z-0" />
+
+        {/* SEO Image with Alt text */}
+        <img
+          src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/hispanic-family-financial-security-planning-florida.jpg_qtjlyr.jpg"
+          alt="Happy Hispanic family reviewing financial security plan in Florida"
+          referrerPolicy="no-referrer"
+          loading="lazy"
+          className="sr-only"
+        />
+
+        <div className="max-w-7xl mx-auto space-y-16 relative z-10">
           
           <div className="text-center space-y-4 max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-extrabold font-sans text-brand-navy tracking-tight">
@@ -799,25 +835,26 @@ export default function App() {
             <div className="lg:col-span-5 flex justify-center relative">
               <div className="relative group w-72 h-72 md:w-80 md:h-80">
                 {/* Decorative delicate brand-purple frame */}
-                <div className="absolute -inset-2 bg-gradient-to-tr from-brand-purple to-brand-gold rounded-full blur pointer-events-none opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                <div className="absolute -inset-2 bg-gradient-to-tr from-primary to-accent rounded-full blur pointer-events-none opacity-20 group-hover:opacity-40 transition duration-500"></div>
                 
                 {/* Main graphic container */}
-                <div className="relative w-full h-full bg-brand-navy border-4 border-white shadow-2xl rounded-full overflow-hidden select-none">
+                <div className="relative w-full h-full bg-brand-navy border-4 border-[#8c49b1] shadow-2xl rounded-full overflow-hidden select-none">
                   <img
-                    src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781556892/MaryRivera_Fotografia_f7ntap.webp"
-                    alt="Mary Rivera - licensed Florida agent"
+                    src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560567/mary-rivera-insurance-advisor-florida-portrait.jpg_buwljo.jpg"
+                    alt="Mary Rivera Licensed Insurance Advisor EverSafe Financial Florida portrait"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
                     className="w-full h-full object-cover object-top transition duration-500 scale-100 group-hover:scale-105"
                   />
                   {/* Verified badge */}
-                  <span className="absolute top-4 left-1/2 -translate-x-1/2 bg-brand-gold text-white font-extrabold text-[9px] tracking-widest uppercase px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-md whitespace-nowrap z-10">
-                    <ShieldCheck className="w-3.5 h-3.5 text-white fill-brand-gold" />
+                  <span className="absolute top-4 left-1/2 -translate-x-1/2 bg-accent text-white font-extrabold text-[9px] tracking-widest uppercase px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-md whitespace-nowrap z-10">
+                    <ShieldCheck className="w-3.5 h-3.5 text-white fill-accent" />
                     BILINGUAL
                   </span>
 
                   {/* Gentle gradient overlay for label legibility */}
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand-navy via-brand-navy/65 to-transparent pt-12 pb-5 text-center">
-                    <p className="text-sm font-bold tracking-wide font-sans text-brand-gold uppercase">
+                    <p className="text-sm font-bold tracking-wide font-sans text-accent uppercase">
                       Mary Rivera
                     </p>
                     <p className="text-[10px] text-white/90 tracking-wider font-semibold uppercase mt-0.5 px-4 truncate">
@@ -845,7 +882,7 @@ export default function App() {
               <div className="pt-4">
                 <a
                   href="tel:7273596196"
-                  className="bg-brand-gold hover:bg-[#B08B1F] text-white font-black py-4 px-8 rounded-2xl text-sm transition-all tracking-wider inline-flex items-center gap-2 shadow-sm shadow-brand-gold/10"
+                  className="bg-transparent border-2 border-accent text-accent hover:bg-accent hover:text-white font-black py-4 px-8 rounded-2xl text-sm transition-all tracking-wider inline-flex items-center gap-2 shadow-sm shadow-accent/15"
                 >
                   {t.about.cta}
                 </a>
@@ -860,17 +897,28 @@ export default function App() {
       <section id="iul-explainer" className="py-24 bg-brand-navy text-white px-4 md:px-8 relative overflow-hidden">
         {/* Abstract Light Background Overlays */}
         <div className="absolute top-0 right-10 w-96 h-96 bg-brand-purple/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto space-y-16 relative z-10">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
-            <span className="text-xs uppercase tracking-widest font-bold text-brand-gold bg-white/10 py-1.5 px-4 rounded-full inline-block border border-white/10">
+            <span className="text-xs uppercase tracking-widest font-bold text-accent bg-white/10 py-1.5 px-4 rounded-full inline-block border border-white/10">
               💡 {lang === "en" ? "BUILD RETIREMENT SAFELY" : "CONSTRUYE TU RETIRO SEGURO"}
             </span>
             <h2 className="text-3.5xl md:text-4.5xl font-extrabold font-sans text-white tracking-tight leading-tight">
               {t.iulExplainer.title}
             </h2>
+          </div>
+
+          {/* IUL Growth Chart Visual */}
+          <div className="flex justify-center">
+            <img
+              src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/index-universal-life-insurance-growth-chart-concept.jpg_q5kxhk.jpg"
+              alt="Index Universal Life insurance growth chart concept - IUL financial protection"
+              referrerPolicy="no-referrer"
+              loading="lazy"
+              className="w-full max-w-md mx-auto rounded-2xl shadow-2xl opacity-90 mb-8"
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -903,20 +951,20 @@ export default function App() {
               </div>
             </div>
 
-            {/* Box 3 (INDEX UNIVERSAL LIFE - Accented with luxury gold outline and badge choice) */}
-            <div className={`p-8 rounded-3xl bg-white/10 border-2 border-brand-gold flex flex-col justify-between space-y-6 relative`}>
-              <div className="absolute top-2 right-2 w-12 h-12 bg-brand-gold/10 rounded-full blur-xl pointer-events-none"></div>
+            {/* Box 3 (INDEX UNIVERSAL LIFE - Accented with luxury template accent outline and badge choice) */}
+            <div className={`p-8 rounded-3xl bg-white/10 border-2 border-accent flex flex-col justify-between space-y-6 relative`}>
+              <div className="absolute top-2 right-2 w-12 h-12 bg-accent/10 rounded-full blur-xl pointer-events-none"></div>
 
               <div className="space-y-4">
-                <div className="w-10 h-10 rounded-2xl bg-brand-gold text-brand-navy flex items-center justify-center text-sm font-black shadow-md shadow-brand-gold/20 select-none">
+                <div className="w-10 h-10 rounded-2xl bg-accent text-brand-navy flex items-center justify-center text-sm font-black shadow-md shadow-accent/20 select-none">
                   ✓
                 </div>
-                <h3 className="text-base font-bold text-brand-gold font-sans flex items-center gap-1.5">
+                <h3 className="text-base font-bold text-accent font-sans flex items-center gap-1.5">
                   {t.iulExplainer.colIulTitle}
                 </h3>
                 <p className="text-xs sm:text-sm text-white font-normal leading-relaxed">{t.iulExplainer.colIulDesc}</p>
               </div>
-              <div className="text-[11px] text-brand-navy font-bold tracking-widest uppercase bg-brand-gold py-2 text-center rounded-xl shadow-sm animate-pulse">
+              <div className="text-[11px] text-brand-navy font-bold tracking-widest uppercase bg-accent py-2 text-center rounded-xl shadow-sm animate-pulse">
                 🏆 Winner Choice
               </div>
             </div>
@@ -928,7 +976,7 @@ export default function App() {
               onClick={() => {
                 document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="bg-brand-gold hover:bg-[#B08B1F] text-brand-navy font-extrabold py-4 px-10 rounded-2xl text-sm transition-all tracking-wider inline-flex items-center gap-2 shadow-lg shadow-brand-gold/20 cursor-pointer"
+              className="bg-accent hover:bg-accent-dark text-brand-navy font-extrabold py-4 px-10 rounded-2xl text-sm transition-all tracking-wider inline-flex items-center gap-2 shadow-lg shadow-accent/20 cursor-pointer"
             >
               ⭐ {t.iulExplainer.cta}
             </button>
@@ -1204,14 +1252,14 @@ export default function App() {
             </h4>
             <ul className="space-y-2.5 text-xs text-brand-slate">
               <li className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-brand-gold flex-shrink-0" />
+                <Phone className="w-3.5 h-3.5 text-accent flex-shrink-0" />
                 <a href="tel:7273596196" className="hover:text-white transition-colors hover:underline">(727) 359-6196</a>
               </li>
               <li className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-brand-gold flex-shrink-0" />
+                <Mail className="w-3.5 h-3.5 text-accent flex-shrink-0" />
                 <a href="mailto:mary@eversafefinancial.com" className="hover:text-white transition-colors hover:underline">mary@eversafefinancial.com</a>
               </li>
-              <li className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 font-bold inline-block text-brand-gold text-[10px]">
+              <li className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 font-bold inline-block text-accent text-[10px]">
                 💬 {t.footer.bilingual}
               </li>
             </ul>
@@ -1230,12 +1278,12 @@ export default function App() {
             
             {/* White SVGs for socials */}
             <div className="flex items-center gap-4 pt-2 text-white/55">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
                 <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z" />
                 </svg>
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
                 <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
                   <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
                 </svg>
@@ -1265,7 +1313,7 @@ export default function App() {
           className="fixed bottom-24 right-5 md:right-8 bg-brand-navy hover:bg-brand-navy-light text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg border border-white/5 z-40 transition-all duration-300 transform scale-100 hover:scale-110 cursor-pointer animate-fade-in-up"
           aria-label="Back to top"
         >
-          <ArrowUp className="w-5 h-5 text-brand-gold animate-pulse" />
+          <ArrowUp className="w-5 h-5 text-accent animate-pulse" />
         </button>
       )}
 
@@ -1276,8 +1324,8 @@ export default function App() {
         {showNotificationBubble && (
           <div className="bg-brand-navy border border-white/10 text-white rounded-2xl py-2 px-3.5 shadow-xl text-xs flex items-center gap-2 relative max-w-xs animate-float">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-sage opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-sage"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
             </span>
             <p className="font-semibold text-[10px] md:text-xs">
               {lang === "en" ? "Hi there! Have questions? Click here" : "¡Hola! ¿Dudas? Haz clic aquí"}
@@ -1287,7 +1335,7 @@ export default function App() {
                 e.stopPropagation();
                 setShowNotificationBubble(false);
               }}
-              className="hover:text-brand-gold ml-2 font-bold p-0.5 cursor-pointer"
+              className="hover:text-accent ml-2 font-bold p-0.5 cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -1302,7 +1350,7 @@ export default function App() {
             {/* Call Now item */}
             <a
               href="tel:7273596196"
-              className="bg-brand-gold hover:bg-[#B08B1F] text-white px-4 py-2 border border-white/10 rounded-full text-xs font-bold shadow-md flex items-center gap-2 select-none hover:scale-105 transition"
+              className="bg-accent hover:bg-accent-dark text-white px-4 py-2 border border-white/10 rounded-full text-xs font-bold shadow-md flex items-center gap-2 select-none hover:scale-105 transition"
             >
               <Phone className="w-4 h-4 text-white fill-white" />
               <span>(727) 359-6196</span>
@@ -1341,12 +1389,12 @@ export default function App() {
           aria-label="Direct Support Tray"
         >
           {floatOpen ? (
-            <X className="w-6 h-6 text-brand-gold" />
+            <X className="w-6 h-6 text-accent" />
           ) : (
-            <Phone className="w-6 h-6 text-brand-gold animate-bounce" />
+            <Phone className="w-6 h-6 text-accent animate-bounce" />
           )}
           {/* Pulsating validation sage green dot representing active state */}
-          <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-brand-sage border-2 border-brand-purple rounded-full"></span>
+          <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-accent border-2 border-brand-purple rounded-full"></span>
         </button>
 
       </div>
