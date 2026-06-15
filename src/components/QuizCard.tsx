@@ -61,7 +61,38 @@ export default function QuizCard({ t }: QuizCardProps) {
   // Check decision logic
   const isQualified = age === "18-55" && employed === "yes" && health === "none";
 
-  const handleLeadSubmit = (e: React.FormEvent) => {
+  const [isSubmittingQuiz, setIsSubmittingQuiz] = useState<boolean>(false);
+
+  const submitQuizLead = async (quizAnswers: any) => {
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: (import.meta as any).env?.VITE_WEB3FORMS_KEY || '7dc1994b-f9c9-449c-8f4c-18d4d133c452',
+          subject: "🎯 New Quiz Lead - EverSafe Financial",
+          from_name: "EverSafeFinancial Quiz",
+          name: quizAnswers.name,
+          phone: quizAnswers.phone,
+          email: quizAnswers.email,
+          age_range: quizAnswers.age,
+          employment: quizAnswers.employed,
+          health_issues: quizAnswers.health,
+          coverage_interest: quizAnswers.goal,
+          quiz_result: quizAnswers.result,
+          source: "Hero Quiz - EverSafeFinancial Website",
+          submitted_at: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
+        }),
+      });
+      const data = await response.json();
+      return data.success;
+    } catch (error) {
+      console.error('Quiz lead submission error:', error);
+      return false;
+    }
+  };
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || fullName.trim().length < 3) {
       setFormError(t.quiz.fullName + " is too short");
@@ -82,6 +113,38 @@ export default function QuizCard({ t }: QuizCardProps) {
     }
 
     setFormError("");
+    setIsSubmittingQuiz(true);
+
+    const answers = {
+      name: fullName,
+      phone: phone,
+      email: email,
+      age: age,
+      employed: employed,
+      health: health,
+      goal: goal,
+      result: isQualified ? "Qualified / Calificado" : "Unqualified / No Calificado"
+    };
+
+    try {
+      await submitQuizLead(answers);
+    } catch (err) {
+      console.error("Quiz submission failed:", err);
+    }
+
+    // Save lead backup in localStorage for demonstration and reliability backings
+    const oldLeads = JSON.parse(localStorage.getItem("eversafe_leads") || "[]");
+    const newLead = { 
+      fullName, 
+      email, 
+      phone, 
+      answers, 
+      source: "Hero Quiz", 
+      date: new Date().toISOString() 
+    };
+    localStorage.setItem("eversafe_leads", JSON.stringify([...oldLeads, newLead]));
+
+    setIsSubmittingQuiz(false);
     setFormSubmitted(true);
   };
 
@@ -436,9 +499,12 @@ export default function QuizCard({ t }: QuizCardProps) {
                       </button>
                       <button
                         type="submit"
-                        className="flex-1 bg-accent hover:bg-accent-dark text-white transition-all font-bold py-2.5 px-3 rounded-xl text-xs sm:text-sm text-center shadow-md shadow-accent/10"
+                        disabled={isSubmittingQuiz}
+                        className={`flex-1 text-white transition-all font-bold py-2.5 px-3 rounded-xl text-xs sm:text-sm text-center shadow-md shadow-accent/10 ${
+                          isSubmittingQuiz ? "bg-accent/50 cursor-not-allowed" : "bg-accent hover:bg-accent-dark"
+                        }`}
                       >
-                        {t.quiz.submitLead}
+                        {isSubmittingQuiz ? (t.quiz.submitLead === "Send Lead Data" ? "⏳ Sending..." : "⏳ Enviando...") : t.quiz.submitLead}
                       </button>
                     </div>
                   </form>

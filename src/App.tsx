@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { translations, TranslationSet } from "./translations";
 import QuizCard from "./components/QuizCard";
+import useWeb3Forms from "@web3forms/react";
 
 // Count-up stats helper component with intersection detection
 interface AnimatedStatProps {
@@ -265,7 +266,26 @@ export default function App() {
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [formError, setFormError] = useState<string>("");
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const [isSubmittingForm, setIsSubmittingForm] = useState<boolean>(false);
+
+  const { submit: submitContactForm } = useWeb3Forms({
+    access_key: (import.meta as any).env?.VITE_WEB3FORMS_KEY || "7dc1994b-f9c9-449c-8f4c-18d4d133c452",
+    settings: {
+      from_name: "EverSafeFinancial - New Lead",
+      subject: "🔥 New Quote Request - EverSafe Financial",
+    },
+    onSuccess: () => {
+      setIsSubmittingForm(false);
+      setFormError("");
+      setFormSubmitted(true);
+    },
+    onError: () => {
+      setIsSubmittingForm(false);
+      setFormError(lang === "en" ? "There was an error sending your query. Please try again or call us directly." : "Hubo un error al enviar tu consulta. Por favor intenta de nuevo o llámanos directamente.");
+    },
+  });
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!fullName.trim() || fullName.trim().length < 3) {
@@ -286,9 +306,21 @@ export default function App() {
       return;
     }
 
-    // Success response
     setFormError("");
-    setFormSubmitted(true);
+    setIsSubmittingForm(true);
+
+    try {
+      await submitContactForm({
+        name: fullName,
+        email: email,
+        phone: phone,
+        message: message || "Quote request",
+        source: "EverSafeFinancial - Quote Form",
+        submitted_at: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
+      });
+    } catch (err) {
+      console.error("Web3Forms submission error:", err);
+    }
 
     // Save lead backup in localStorage for demonstration and reliability backings
     const oldLeads = JSON.parse(localStorage.getItem("eversafe_leads") || "[]");
@@ -1200,9 +1232,12 @@ export default function App() {
                     {/* Submission button (Brand Purple acento estratégico #8C49B1) */}
                     <button
                       type="submit"
-                      className="w-full bg-brand-purple hover:bg-brand-purple-hover text-white font-bold py-3.5 px-6 rounded-2xl text-xs sm:text-sm transition tracking-wider duration-300 shadow-sm shadow-brand-purple/15 cursor-pointer text-center text-semibold uppercase"
+                      disabled={isSubmittingForm}
+                      className={`w-full text-white font-bold py-3.5 px-6 rounded-2xl text-xs sm:text-sm transition tracking-wider duration-300 shadow-sm shadow-brand-purple/15 cursor-pointer text-center text-semibold uppercase ${
+                        isSubmittingForm ? "bg-brand-purple/50 cursor-not-allowed" : "bg-brand-purple hover:bg-brand-purple-hover"
+                      }`}
                     >
-                      🚀 {t.contactForm.btnSubmit}
+                      {isSubmittingForm ? (lang === "en" ? "⏳ SENDING..." : "⏳ ENVIANDO...") : `🚀 ${t.contactForm.btnSubmit}`}
                     </button>
 
                     {/* Small policy disclaimer links */}
