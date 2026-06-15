@@ -34,9 +34,10 @@ interface AnimatedStatProps {
   num: string;
   label: string;
   icon: React.ReactNode;
+  microCopy: string;
 }
 
-function AnimatedStat({ num, label, icon }: AnimatedStatProps) {
+function AnimatedStat({ num, label, icon, microCopy }: AnimatedStatProps) {
   const [count, setCount] = useState<number>(0);
   const elementRef = useRef<HTMLDivElement>(null);
   const target = parseInt(num.replace(/\D/g, ""), 10) || 0;
@@ -76,7 +77,7 @@ function AnimatedStat({ num, label, icon }: AnimatedStatProps) {
   return (
     <div
       ref={elementRef}
-      className="flex flex-col items-center justify-center text-center p-6 bg-white rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] transition-all hover:shadow-[0_12px_40px_rgba(18,32,51,0.06)] hover:-translate-y-1 duration-300"
+      className="flex flex-col items-center justify-center text-center p-6 bg-white rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] transition-all hover:shadow-[0_12px_40px_rgba(18,32,51,0.06)] hover:-translate-y-1.5 duration-300"
     >
       <div className="w-12 h-12 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple mb-3.5">
         {icon}
@@ -85,9 +86,12 @@ function AnimatedStat({ num, label, icon }: AnimatedStatProps) {
         {count}
         {suffix}
       </div>
-      <div className="text-[10px] md:text-xs font-bold text-brand-slate mt-2 tracking-wider uppercase">
+      <div className="text-[10px] md:text-xs font-bold text-brand-navy mt-1 tracking-wider uppercase">
         {label}
       </div>
+      <p className="text-[10px] text-brand-slate/75 mt-1.5 italic font-medium max-w-[160px] leading-tight">
+        {microCopy}
+      </p>
     </div>
   );
 }
@@ -113,12 +117,14 @@ function TiltCard({ children, popular, popularLabel }: TiltCardProps) {
 
   const transformStyle = isHovered
     ? {
-        transform: `perspective(1000px) rotateY(${coords.x * 6}deg) rotateX(${coords.y * -6}deg) translateY(-4px)`,
-        boxShadow: `0 20px 35px rgba(18, 32, 51, 0.05)`,
+        transform: `perspective(1000px) rotateY(${coords.x * 6}deg) rotateX(${coords.y * -6}deg) translateY(-8px)`,
+        boxShadow: `0 20px 35px rgba(18, 32, 51, 0.08)`,
+        borderLeft: `4px solid #00C2A8`,
       }
     : {
         transform: `perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(0)`,
         boxShadow: `0 8px 30px rgba(18, 32, 51, 0.02)`,
+        borderLeft: `1px solid rgba(148, 163, 184, 0.1)`,
       };
 
   return (
@@ -153,26 +159,26 @@ function ServiceItem({ label, desc }: ServiceItemProps) {
 
   return (
     <div
-      className="relative p-3.5 rounded-2xl bg-[#F3F3F4] hover:bg-brand-purple-light border border-transparent hover:border-brand-purple/10 transition-all duration-300 cursor-pointer"
+      className="relative p-3.5 rounded-2xl bg-[#F3F3F4] border-l-4 border-l-transparent hover:border-l-[#00C2A8] hover:bg-white hover:-translate-y-2 hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group pill-hover"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
       onClick={() => setIsOpen(!isOpen)}
     >
-      <div className="flex items-center gap-3">
-        <div className="w-5 h-5 bg-brand-sage-light rounded-full flex items-center justify-center text-brand-sage text-[11px] flex-shrink-0 font-bold border border-brand-sage/20">
+      <div className="flex items-center gap-3 relative z-10">
+        <div className="w-5 h-5 bg-brand-sage-light rounded-full flex items-center justify-center text-brand-sage text-[11px] flex-shrink-0 font-bold border border-brand-sage/20 group-hover:bg-white transition-colors">
           ✓
         </div>
-        <span className="text-sm font-semibold text-brand-navy hover:text-brand-purple transition-colors tracking-tight">
+        <span className="text-sm font-semibold text-brand-navy hover:text-[#8C49B1] transition-colors tracking-tight">
           {label}
         </span>
-        <span className="ml-auto text-brand-slate hover:text-brand-purple transition text-[10px] block md:hidden">
-          {isOpen ? <X className="w-3 h-3 text-brand-purple" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        <span className="ml-auto text-brand-slate hover:text-[#8C49B1] transition text-[10px] block md:hidden">
+          {isOpen ? <X className="w-3 h-3 text-[#8C49B1]" /> : <ChevronDown className="w-3.5 h-3.5" />}
         </span>
       </div>
 
       {/* Touch friendly accordion explanation for mobile */}
       {isOpen && (
-        <div className="mt-2 pl-8 pr-2 text-[12px] text-brand-slate leading-relaxed block md:hidden animate-fade-in-up">
+        <div className="mt-2 pl-8 pr-2 text-[12px] text-brand-slate leading-relaxed block md:hidden animate-fade-in-up relative z-10">
           {desc}
         </div>
       )}
@@ -207,6 +213,8 @@ export default function App() {
   // Scroll trigger detection to change header look
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [showToTop, setShowToTop] = useState<boolean>(false);
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [shakeFloatingBtn, setShakeFloatingBtn] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -221,9 +229,24 @@ export default function App() {
       } else {
         setShowToTop(false);
       }
+
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScroll > 0) {
+        setScrollProgress((window.scrollY / totalScroll) * 100);
+      } else {
+        setScrollProgress(0);
+      }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShakeFloatingBtn(true);
+      setTimeout(() => setShakeFloatingBtn(false), 1000);
+    }, 6000);
+    return () => clearInterval(interval);
   }, []);
 
   // Sticky Active Nav Items via Intersection Observer
@@ -370,7 +393,7 @@ export default function App() {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-accent transition-colors"
+              className="hover:text-accent transform hover:scale-125 active:scale-95 transition-all duration-300 display-inline-block"
               aria-label="Instagram Link"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -381,7 +404,7 @@ export default function App() {
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-accent transition-colors"
+              className="hover:text-accent transform hover:scale-125 active:scale-95 transition-all duration-300 display-inline-block"
               aria-label="Facebook Link"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -448,16 +471,13 @@ export default function App() {
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                className={`text-xs md:text-sm font-bold tracking-wider uppercase transition duration-200 relative py-1.5 block ${
+                className={`text-xs md:text-sm font-bold tracking-wider uppercase transition duration-200 relative py-1.5 block nav-link ${
                   activeSection === item.id
-                    ? "text-brand-purple"
+                    ? "text-brand-purple active-nav"
                     : "text-brand-slate hover:text-brand-purple"
                 }`}
               >
                 {item.label}
-                {activeSection === item.id && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-purple rounded-full"></span>
-                )}
               </a>
             ))}
           </nav>
@@ -466,7 +486,7 @@ export default function App() {
           <div className="hidden md:block">
             <a
               href="#contact"
-              className="bg-brand-purple hover:bg-brand-purple-hover text-white font-bold py-2.5 px-6 rounded-2xl text-xs md:text-sm tracking-wide transition duration-300 shadow-sm shadow-brand-purple/15"
+              className="inline-block bg-brand-purple hover:bg-brand-purple-hover text-white font-bold py-2.5 px-6 rounded-2xl text-xs md:text-sm tracking-wide transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm hover:shadow-md shadow-brand-purple/15"
             >
               ⭐ {t.nav.cta}
             </a>
@@ -515,6 +535,12 @@ export default function App() {
         )}
       </header>
 
+      {/* K10: Scroll Progress Bar */}
+      <div 
+        className="fixed top-0 left-0 h-1 bg-[#00C2A8] z-50 transition-all duration-75" 
+        style={{ width: `${scrollProgress}%` }} 
+      />
+
       {/* 3. HERO SECTION (Re-imagined: Broad, pure white and light gray background, high design hierarchy, editorial feel) */}
       <section
         id="home"
@@ -540,51 +566,63 @@ export default function App() {
           <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
             
             {/* Compliance Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/20 shadow-sm text-xs text-accent-light tracking-wide font-semibold animate-float mx-auto lg:mx-0">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/20 shadow-sm text-xs text-accent-light tracking-wide font-semibold anim-1 mx-auto lg:mx-0">
               <Award className="w-3.5 h-3.5 text-accent-light flex-shrink-0" />
               <span className="text-[10px] md:text-xs uppercase tracking-widest text-white">{t.hero.badge.split(" · ")[1]} · Licensed Florida Advisor</span>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 anim-2">
               <span className="text-xs font-semibold uppercase tracking-widest text-accent-light bg-accent/20 px-3 py-1 rounded-full inline-block">Firmas Financieras de Clase Mundial</span>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-sans leading-[1.08] text-white tracking-tight">
                 {t.hero.title}
               </h1>
+              {/* A1 — HERO: SUBTÍTULO EMOCIONAL */}
+              <p className="text-sm md:text-base italic font-bold text-[#00C2A8] tracking-wide mt-2">
+                {lang === "en" 
+                  ? "Your family deserves more than a policy — they deserve a promise." 
+                  : "Tu familia merece más que una póliza — merece una promesa."}
+              </p>
             </div>
             
-            <p className="text-base md:text-lg text-white/90 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            <p className="text-base md:text-lg text-white/95 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3">
               {t.hero.subtitle}
             </p>
 
-            {/* Direct Calls - Primary CTA in Deep Purple (#8c49b1) */}
-            <div className="flex flex-col sm:flex-row gap-3.5 justify-center lg:justify-start pt-2">
+            {/* Direct Calls - Primary CTA with hover + click feedback (K2) */}
+            <div className="flex flex-col sm:flex-row gap-3.5 justify-center lg:justify-start pt-2 anim-4">
               <a
                 href="tel:7273596196"
-                className="bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-2xl text-sm transition-all duration-300 text-center shadow-md shadow-primary/15"
+                className="bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-2xl text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 text-center shadow-md hover:shadow-lg shadow-primary/15"
               >
                 {t.hero.ctaPhone}
               </a>
               <a
                 href="#iul-explainer"
-                className="bg-white hover:bg-brand-purple-light text-brand-purple font-bold py-4 px-8 rounded-2xl text-sm border border-brand-purple/20 transition-all duration-300 text-center"
+                className="bg-white hover:bg-brand-purple-light text-brand-purple font-bold py-4 px-8 rounded-2xl text-sm border border-brand-purple/20 transition-all transform hover:scale-105 active:scale-95 duration-300 text-center shadow-sm hover:shadow-md"
               >
                 {t.hero.ctaIUL}
               </a>
             </div>
 
-            {/* Verification highlights */}
-            <div className="grid grid-cols-3 gap-4 pt-8 border-t border-white/15 max-w-md mx-auto lg:mx-0">
+            {/* Verification highlights (A2 trust badges written with real persuasive details) */}
+            <div className="grid grid-cols-3 gap-4 pt-8 border-t border-white/15 max-w-md mx-auto lg:mx-0 anim-5">
               <div className="text-center lg:text-left">
-                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">Experience</span>
-                <span className="block text-base md:text-lg font-extrabold text-white mt-1">4+ Success Years</span>
+                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">{lang === "en" ? "Experience" : "Experiencia"}</span>
+                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1">
+                  {lang === "en" ? "4+ Years Protecting Families" : "4+ Años Protegiendo Familias"}
+                </span>
               </div>
               <div className="text-center lg:text-left">
-                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">Assistance</span>
-                <span className="block text-base md:text-lg font-extrabold text-white mt-1">Full Bilingual</span>
+                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">{lang === "en" ? "Assistance" : "Asistencia"}</span>
+                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1">
+                  {lang === "en" ? "English & Spanish Support" : "Soporte en Inglés y Español"}
+                </span>
               </div>
               <div className="text-center lg:text-left">
-                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">A+ Rating</span>
-                <span className="block text-base md:text-lg font-extrabold text-white mt-1">Top Carriers</span>
+                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">{lang === "en" ? "A+ Rating" : "Calificación A+"}</span>
+                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1">
+                  {lang === "en" ? "Partnered with Top Carriers" : "Asociados con Aseguradoras Principales"}
+                </span>
               </div>
             </div>
 
@@ -614,21 +652,25 @@ export default function App() {
               num={t.stats.years.num}
               label={t.stats.years.label}
               icon={<Award className="w-5.5 h-5.5" />}
+              microCopy={lang === "en" ? "Of unyielding integrity and Florida licensing" : "De inquebrantable integridad y certificación en Florida"}
             />
             <AnimatedStat
               num={t.stats.families.num}
               label={t.stats.families.label}
               icon={<Users className="w-5.5 h-5.5" />}
+              microCopy={lang === "en" ? "Protected with tailor-made financial safety nets" : "Protegidas con redes de seguridad financiera a medida"}
             />
             <AnimatedStat
               num={t.stats.products.num}
               label={t.stats.products.label}
               icon={<Briefcase className="w-5.5 h-5.5" />}
+              microCopy={lang === "en" ? "Leveraged to maximize cash growth & security" : "Aprovechados para maximizar crecimiento de efectivo y seguridad"}
             />
             <AnimatedStat
               num={t.stats.states.num}
               label={t.stats.states.label}
               icon={<MapPin className="w-5.5 h-5.5" />}
+              microCopy={lang === "en" ? "Expanding our shield of trust across the nation" : "Expandiendo nuestro escudo de confianza en la nación"}
             />
           </div>
         </div>
@@ -671,7 +713,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => handlePreFillMessage(t.core.iulTitle)}
-                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-colors text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>{t.core.cta}</span>
                 <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
@@ -696,7 +738,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => handlePreFillMessage(t.core.obamacareTitle)}
-                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-colors text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>{t.core.cta}</span>
                 <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
@@ -721,7 +763,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => handlePreFillMessage(t.core.medicareTitle)}
-                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-colors text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>{t.core.cta}</span>
                 <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
@@ -813,6 +855,12 @@ export default function App() {
             <h2 className="text-3xl md:text-4xl font-extrabold font-sans text-brand-navy tracking-tight">
               {t.whyChoose.title}
             </h2>
+            {/* A5 — HOOK PHRASE */}
+            <p className="text-xs sm:text-sm md:text-base italic font-bold text-brand-purple tracking-wide">
+              {lang === "en" 
+                ? "Choosing protection is a personal journey. We walk it by your side." 
+                : "Elegir protección es un camino personal. Lo caminamos a tu lado."}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -863,14 +911,14 @@ export default function App() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
-            {/* Left Photo Circle Premium Rendering */}
+             {/* Left Photo Circle Premium Rendering with hover dynamic glow ring K12 */}
             <div className="lg:col-span-5 flex justify-center relative">
               <div className="relative group w-72 h-72 md:w-80 md:h-80">
                 {/* Decorative delicate brand-purple frame */}
-                <div className="absolute -inset-2 bg-gradient-to-tr from-primary to-accent rounded-full blur pointer-events-none opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                <div className="absolute -inset-2 bg-gradient-to-tr from-primary to-accent rounded-full blur pointer-events-none opacity-20 group-hover:opacity-50 transition duration-500"></div>
                 
                 {/* Main graphic container */}
-                <div className="relative w-full h-full bg-brand-navy border-4 border-[#8c49b1] shadow-2xl rounded-full overflow-hidden select-none">
+                <div className="relative w-full h-full bg-brand-navy border-4 border-[#8c49b1] hover:ring-8 hover:ring-[#8c49b1]/30 hover:border-[#00C2A8] shadow-2xl rounded-full overflow-hidden select-none transition-all duration-500">
                   <img
                     src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560567/mary-rivera-insurance-advisor-florida-portrait.jpg_buwljo.jpg"
                     alt="Mary Rivera Licensed Insurance Advisor EverSafe Financial Florida portrait"
@@ -911,10 +959,10 @@ export default function App() {
                 {t.about.bio}
               </p>
 
-              <div className="pt-4">
+              <div className="pt-4 animate-pop-in">
                 <a
                   href="tel:7273596196"
-                  className="bg-transparent border-2 border-accent text-accent hover:bg-accent hover:text-white font-black py-4 px-8 rounded-2xl text-sm transition-all tracking-wider inline-flex items-center gap-2 shadow-sm shadow-accent/15"
+                  className="bg-transparent border-2 border-accent text-accent hover:bg-accent hover:text-white font-black py-4 px-8 rounded-2xl text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center gap-2 shadow-sm hover:shadow-md shadow-accent/15 cursor-pointer"
                 >
                   {t.about.cta}
                 </a>
@@ -940,6 +988,12 @@ export default function App() {
             <h2 className="text-3.5xl md:text-4.5xl font-extrabold font-sans text-white tracking-tight leading-tight">
               {t.iulExplainer.title}
             </h2>
+            {/* A6 — IUL DARK LINE */}
+            <p className="text-xs sm:text-sm md:text-base italic text-accent font-medium tracking-wider pt-1">
+              " {lang === "en" 
+                ? "The market changes. Our promise to protect your assets doesn't." 
+                : "El mercado cambia. Nuestra promesa de proteger tus activos no." } "
+            </p>
           </div>
 
           {/* IUL Growth Chart Visual */}
@@ -956,7 +1010,7 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
             {/* Box 1 (Traditional Savings) */}
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6 animate-pop-in">
               <div className="space-y-4">
                 <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-xl text-rose-400">
                   ❌
@@ -970,7 +1024,7 @@ export default function App() {
             </div>
 
             {/* Box 2 (401K Account) */}
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6 animate-pop-in">
               <div className="space-y-4">
                 <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-xl text-rose-400">
                   ❌
@@ -984,7 +1038,7 @@ export default function App() {
             </div>
 
             {/* Box 3 (INDEX UNIVERSAL LIFE - Accented with luxury template accent outline and badge choice) */}
-            <div className={`p-8 rounded-3xl bg-white/10 border-2 border-accent flex flex-col justify-between space-y-6 relative`}>
+            <div className={`p-8 rounded-3xl bg-white/10 border-2 border-accent flex flex-col justify-between space-y-6 relative animate-pop-in`}>
               <div className="absolute top-2 right-2 w-12 h-12 bg-accent/10 rounded-full blur-xl pointer-events-none"></div>
 
               <div className="space-y-4">
@@ -1008,7 +1062,7 @@ export default function App() {
               onClick={() => {
                 document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="bg-accent hover:bg-accent-dark text-brand-navy font-extrabold py-4 px-10 rounded-2xl text-sm transition-all tracking-wider inline-flex items-center gap-2 shadow-lg shadow-accent/20 cursor-pointer"
+              className="bg-accent hover:bg-[#e0b42c] text-brand-navy font-extrabold py-4 px-10 rounded-2xl text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center gap-2 shadow-lg hover:shadow-xl shadow-accent/20 cursor-pointer"
             >
               ⭐ {t.iulExplainer.cta}
             </button>
@@ -1150,7 +1204,7 @@ export default function App() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {/* Name input */}
                       <div>
-                        <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5">
+                        <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5 label-focus-transition">
                           {t.contactForm.nameLabel} <span className="text-rose-500">*</span>
                         </label>
                         <input
@@ -1159,13 +1213,13 @@ export default function App() {
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
                           placeholder="Elizabeth Bennett"
-                          className="w-full bg-[#F3F3F4] focus:bg-white border border-transparent focus:border-brand-purple focus:ring-1 focus:ring-brand-purple/20 rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-200 text-brand-navy placeholder:text-brand-slate/40"
+                          className="w-full bg-[#F3F3F4] border border-transparent focus:bg-white focus:border-brand-purple focus:ring-2 focus:ring-[#8C49B1]/30 focus:shadow-[0_0_15px_rgba(140,73,177,0.25)] rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 text-brand-navy placeholder:text-brand-slate/40"
                         />
                       </div>
 
                       {/* Email input */}
                       <div>
-                        <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5">
+                        <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5 label-focus-transition">
                           {t.contactForm.emailLabel} <span className="text-rose-500">*</span>
                         </label>
                         <input
@@ -1174,29 +1228,29 @@ export default function App() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="client@mail.com"
-                          className="w-full bg-[#F3F3F4] focus:bg-white border border-transparent focus:border-brand-purple focus:ring-1 focus:ring-brand-purple/20 rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-200 text-brand-navy placeholder:text-brand-slate/40"
+                          className="w-full bg-[#F3F3F4] border border-transparent focus:bg-white focus:border-brand-purple focus:ring-2 focus:ring-[#8C49B1]/30 focus:shadow-[0_0_15px_rgba(140,73,177,0.25)] rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 text-brand-navy placeholder:text-brand-slate/40"
                         />
                       </div>
                     </div>
 
                     {/* Telephone */}
                     <div>
-                      <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5">
+                      <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5 label-focus-transition">
                         {t.contactForm.phoneLabel} <span className="text-rose-500">*</span>
                       </label>
                       <input
-                        type="tel"
-                        required
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="(727) 359-6196"
-                        className="w-full bg-[#F3F3F4] focus:bg-white border border-transparent focus:border-brand-purple focus:ring-1 focus:ring-brand-purple/20 rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-200 text-brand-navy placeholder:text-brand-slate/40"
+                          type="tel"
+                          required
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          placeholder="(727) 359-6196"
+                          className="w-full bg-[#F3F3F4] border border-transparent focus:bg-white focus:border-brand-purple focus:ring-2 focus:ring-[#8C49B1]/30 focus:shadow-[0_0_15px_rgba(140,73,177,0.25)] rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 text-brand-navy placeholder:text-brand-slate/40"
                       />
                     </div>
 
                     {/* Detailed Message block */}
                     <div>
-                      <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5">
+                      <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5 label-focus-transition">
                         {t.contactForm.messageLabel}
                       </label>
                       <textarea
@@ -1204,7 +1258,7 @@ export default function App() {
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder={t.contactForm.placeholderMessage}
-                        className="w-full bg-[#F3F3F4] focus:bg-white border border-transparent focus:border-brand-purple focus:ring-1 focus:ring-brand-purple/20 rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-200 text-brand-navy placeholder:text-brand-slate/40"
+                        className="w-full bg-[#F3F3F4] border border-transparent focus:bg-white focus:border-brand-purple focus:ring-2 focus:ring-[#8C49B1]/30 focus:shadow-[0_0_15px_rgba(140,73,177,0.25)] rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 text-brand-navy placeholder:text-brand-slate/40"
                       ></textarea>
                     </div>
 
@@ -1224,21 +1278,28 @@ export default function App() {
                     </div>
 
                     {formError && (
-                      <p className="text-rose-600 font-semibold text-xs border border-rose-100 bg-rose-50 p-3 rounded-xl">
+                      <p className="text-rose-600 font-semibold text-xs border border-rose-100 bg-rose-50 p-3 rounded-xl animate-shake">
                         ⚠️ {formError}
                       </p>
                     )}
 
-                    {/* Submission button (Brand Purple acento estratégico #8C49B1) */}
+                    {/* Submission button (Brand Purple acento estratégico #8C49B1) with hover pop scale */}
                     <button
                       type="submit"
                       disabled={isSubmittingForm}
-                      className={`w-full text-white font-bold py-3.5 px-6 rounded-2xl text-xs sm:text-sm transition tracking-wider duration-300 shadow-sm shadow-brand-purple/15 cursor-pointer text-center text-semibold uppercase ${
+                      className={`w-full text-white font-bold py-3.5 px-6 rounded-2xl text-xs sm:text-sm transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg shadow-brand-purple/15 cursor-pointer text-center text-semibold uppercase ${
                         isSubmittingForm ? "bg-brand-purple/50 cursor-not-allowed" : "bg-brand-purple hover:bg-brand-purple-hover"
                       }`}
                     >
                       {isSubmittingForm ? (lang === "en" ? "⏳ SENDING..." : "⏳ ENVIANDO...") : `🚀 ${t.contactForm.btnSubmit}`}
                     </button>
+
+                    {/* A7 — DEBAJO DEL CONTACT SUBMIT BUTTON */}
+                    <p className="text-[10px] sm:text-xs text-center text-brand-purple font-semibold italic mt-1 pb-2">
+                      {lang === "en" 
+                        ? "🔒 Your data is fully protected and never shared. We respect your security." 
+                        : "🔒 Tus datos están completamente protegidos y nunca se comparten. Respetamos tu privacidad."}
+                    </p>
 
                     {/* Small policy disclaimer links */}
                     <div className="flex justify-center gap-4 text-[10px] text-brand-slate font-light pt-2">
@@ -1313,12 +1374,22 @@ export default function App() {
             
             {/* White SVGs for socials */}
             <div className="flex items-center gap-4 pt-2 text-white/55">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-accent transform hover:scale-125 active:scale-95 transition-all duration-300 inline-block"
+              >
                 <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z" />
                 </svg>
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+              <a 
+                href="https://facebook.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-accent transform hover:scale-125 active:scale-95 transition-all duration-300 inline-block"
+              >
                 <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
                   <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
                 </svg>
@@ -1417,10 +1488,10 @@ export default function App() {
           </div>
         )}
 
-        {/* Main Floating Trigger Button */}
+        {/* Main Floating Trigger Button (K1 premium pulse + shake feedback) */}
         <button
           onClick={() => setFloatOpen(!floatOpen)}
-          className="bg-brand-purple hover:bg-brand-purple-hover text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl border border-white/10 cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-300 relative"
+          className={`bg-brand-purple hover:bg-brand-purple-hover text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl border border-white/10 cursor-pointer transform hover:scale-110 active:scale-95 transition-all duration-300 relative ${shakeFloatingBtn ? 'animate-shake' : ''}`}
           aria-label="Direct Support Tray"
         >
           {floatOpen ? (
@@ -1429,7 +1500,7 @@ export default function App() {
             <Phone className="w-6 h-6 text-accent animate-bounce" />
           )}
           {/* Pulsating validation sage green dot representing active state */}
-          <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-accent border-2 border-brand-purple rounded-full"></span>
+          <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-accent border-2 border-brand-purple rounded-full animate-pulse"></span>
         </button>
 
       </div>
