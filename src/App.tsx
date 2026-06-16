@@ -30,6 +30,7 @@ import QuizCard from "./components/QuizCard";
 import useWeb3Forms from "@web3forms/react";
 import { PrivacyPolicy, TermsOfService } from "./components/LegalPages";
 import { WhyIulPage } from "./components/WhyIulPage";
+import { TestimonialsMiniSection } from "./components/TestimonialsMiniSection";
 
 // Count-up stats helper component with intersection detection
 interface AnimatedStatProps {
@@ -1307,6 +1308,14 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* REVIEWS SECTION */}
+      <TestimonialsMiniSection 
+        lang={lang} 
+        onQuoteClick={() => {
+          document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+        }} 
+      />
 
       {/* 9. IUL EXPLAINER (Redesigned: High Authority Deep Navy Blue Background #122033 to build supreme corporate trust) */}
       <section id="iul-explainer" className="py-24 bg-brand-navy text-white px-4 md:px-8 relative overflow-hidden reveal-init">
