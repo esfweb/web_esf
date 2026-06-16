@@ -165,20 +165,20 @@ function ServiceItem({ label, desc }: ServiceItemProps) {
       onClick={() => setIsOpen(!isOpen)}
     >
       <div className="flex items-center gap-3 relative z-10">
-        <div className="w-5 h-5 bg-brand-sage-light rounded-full flex items-center justify-center text-brand-sage text-[11px] flex-shrink-0 font-bold border border-brand-sage/20 group-hover:bg-white transition-colors">
+        <div className="w-5 h-5 bg-brand-sage-light rounded-full flex items-center justify-center text-brand-sage text-[11px] flex-shrink-0 font-bold border border-brand-sage/20 group-hover:bg-white group-hover:text-brand-purple transition-colors">
           ✓
         </div>
-        <span className="text-sm font-semibold text-brand-navy hover:text-[#8C49B1] transition-colors tracking-tight">
+        <span className="text-sm font-semibold text-brand-navy group-hover:text-white transition-colors tracking-tight">
           {label}
         </span>
-        <span className="ml-auto text-brand-slate hover:text-[#8C49B1] transition text-[10px] block md:hidden">
-          {isOpen ? <X className="w-3 h-3 text-[#8C49B1]" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        <span className="ml-auto text-brand-slate group-hover:text-white transition text-[10px] block md:hidden">
+          {isOpen ? <X className="w-3 h-3" /> : <ChevronDown className="w-3.5 h-3.5" />}
         </span>
       </div>
 
       {/* Touch friendly accordion explanation for mobile */}
       {isOpen && (
-        <div className="mt-2 pl-8 pr-2 text-[12px] text-brand-slate leading-relaxed block md:hidden animate-fade-in-up relative z-10">
+        <div className="mt-2 pl-8 pr-2 text-[12px] text-brand-slate group-hover:text-white/90 leading-relaxed block md:hidden animate-fade-in-up relative z-10">
           {desc}
         </div>
       )}
