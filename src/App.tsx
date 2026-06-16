@@ -28,6 +28,7 @@ import {
 import { translations, TranslationSet } from "./translations";
 import QuizCard from "./components/QuizCard";
 import useWeb3Forms from "@web3forms/react";
+import { PrivacyPolicy, TermsOfService } from "./components/LegalPages";
 
 // Count-up stats helper component with intersection detection
 interface AnimatedStatProps {
@@ -159,7 +160,7 @@ function ServiceItem({ label, desc }: ServiceItemProps) {
 
   return (
     <div
-      className="relative p-3.5 rounded-2xl bg-[#F3F3F4] border-l-4 border-l-transparent hover:border-l-[#00C2A8] hover:bg-white hover:-translate-y-2 hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group pill-hover"
+      className="relative p-3.5 rounded-2xl bg-[#F3F3F4] border-l-4 border-l-transparent hover:border-l-[#00C2A8] hover:bg-gradient-to-r hover:from-brand-purple hover:to-brand-purple-hover hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
       onClick={() => setIsOpen(!isOpen)}
@@ -210,12 +211,111 @@ export default function App() {
     localStorage.setItem("eversafe_lang", nextLang);
   };
 
+  const [currentView, setCurrentView] = useState<"home" | "privacy-policy" | "terms-of-service">("home");
+
+  // Handle URL hashes for single-page app sub-navigation (perfect for GitHub Pages compatibility)
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === "#privacy-policy" || hash === "#/privacy-policy") {
+        setCurrentView("privacy-policy");
+        window.scrollTo({ top: 0, behavior: "instant" });
+      } else if (hash === "#terms-of-service" || hash === "#/terms-of-service") {
+        setCurrentView("terms-of-service");
+        window.scrollTo({ top: 0, behavior: "instant" });
+      } else {
+        setCurrentView("home");
+      }
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    // Initial check on mount
+    handleHashChange();
+
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  // Sync SEO Metadata dynamically for excellent crawling
+  useEffect(() => {
+    if (currentView === "privacy-policy") {
+      document.title = "Privacy Policy | EverSafe Financial";
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.setAttribute('name', 'description');
+        document.head.appendChild(metaDesc);
+      }
+      metaDesc.setAttribute('content', 'Read the Privacy Policy of EverSafe Financial to understand how personal information is collected, used, and protected.');
+      
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
+      }
+      canonical.setAttribute('href', window.location.origin + "/#privacy-policy");
+    } else if (currentView === "terms-of-service") {
+      document.title = "Terms of Service | EverSafe Financial";
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.setAttribute('name', 'description');
+        document.head.appendChild(metaDesc);
+      }
+      metaDesc.setAttribute('content', 'Review the Terms of Service for using the EverSafe Financial website, including site usage, intellectual property, and limitations of liability.');
+      
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
+      }
+      canonical.setAttribute('href', window.location.origin + "/#terms-of-service");
+    } else {
+      document.title = lang === "en" 
+        ? "Licensed Florida Insurance Advisor | EverSafe Financial" 
+        : "Asesora de Seguros Autorizada en Florida | EverSafe Financial";
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', lang === "en" 
+          ? "Licensed Florida insurance advisor helping families find peace of mind with Life Insurance, Medicare, Health Plans, and Retirement Protection." 
+          : "Asesora de seguros con licencia en Florida ayudando a familias con Seguros de Vida, Medicare, planes médicos y jubilación segura.");
+      }
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) {
+        canonical.setAttribute('href', window.location.origin + "/");
+      }
+    }
+  }, [currentView, lang]);
+
+  const onBackToHome = () => {
+    window.location.hash = "home";
+    setCurrentView("home");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   // Scroll trigger detection to change header look
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [showToTop, setShowToTop] = useState<boolean>(false);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [shakeFloatingBtn, setShakeFloatingBtn] = useState<boolean>(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  // Reveal On Scroll Hook
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("reveal-visible");
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -45px 0px" });
+
+    const targets = document.querySelectorAll(".reveal-init");
+    targets.forEach((t) => observer.observe(t));
+
+    return () => observer.disconnect();
+  }, [lang]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -542,16 +642,18 @@ export default function App() {
         style={{ width: `${scrollProgress}%` }} 
       />
 
-      {/* 3. HERO SECTION (Re-imagined: Broad, pure white and light gray background, high design hierarchy, editorial feel) */}
+      {currentView === "home" ? (
+        <>
+          {/* 3. HERO SECTION (Re-imagined: Brand new World-Class responsive Hero layout with rich authority signaling) */}
       <section
         id="home"
-        className="relative bg-cover md:bg-top bg-center bg-no-repeat pt-16 pb-20 md:py-28 px-4 md:px-8 overflow-hidden border-b border-slate-100 min-h-[400px] md:min-h-[600px] flex items-center"
+        className="relative bg-cover md:bg-top bg-center bg-no-repeat pt-20 pb-28 md:py-32 px-4 md:px-8 overflow-hidden border-b border-slate-100 min-h-[450px] md:min-h-[650px] flex items-center spotlight-purple"
         style={{
           backgroundImage: "url('https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/insurance-advisor-florida-family-financial-protection.jpg_xpfdp2.jpg')"
         }}
       >
-        {/* Dark overlay for legibility */}
-        <div className="absolute inset-0 bg-[#0d1b2a]/55 z-0" />
+        {/* Dark sophisticated gradient overlay for breathing room and perfect text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/95 via-brand-navy/80 to-brand-navy/35 z-0" />
 
         {/* SEO Image for Crawler Compatibility with Alt Text */}
         <img
@@ -563,88 +665,117 @@ export default function App() {
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10 w-full">
           
-          {/* Column 1: Info and Badges */}
-          <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+          {/* Column 1: Info, Taglines, CTAs and Badges */}
+          <div className="lg:col-span-7 space-y-8 text-center lg:text-left reveal-init reveal-visible">
             
             {/* Compliance Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/20 shadow-sm text-xs text-accent-light tracking-wide font-semibold anim-1 mx-auto lg:mx-0">
-              <Award className="w-3.5 h-3.5 text-accent-light flex-shrink-0" />
-              <span className="text-[10px] md:text-xs uppercase tracking-widest text-white">{t.hero.badge.split(" · ")[1]} · Licensed Florida Advisor</span>
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-lg text-xs text-white tracking-widest font-bold anim-1 mx-auto lg:mx-0">
+              <Award className="w-4 h-4 text-accent flex-shrink-0 animate-bounce" />
+              <span className="text-[9px] md:text-2xs uppercase tracking-[0.15em] font-extrabold">{t.hero.badge.split(" · ")[1]} · LICENSED FLORIDA ADVISOR</span>
             </div>
 
             <div className="space-y-4 anim-2">
-              <span className="text-xs font-semibold uppercase tracking-widest text-accent-light bg-accent/20 px-3 py-1 rounded-full inline-block">Firmas Financieras de Clase Mundial</span>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-sans leading-[1.08] text-white tracking-tight">
+              <span className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-accent bg-accent/15 border border-accent/20 px-3.5 py-1.5 rounded-full inline-block">
+                {lang === "en" ? "WORLD-CLASS FINANCIAL STREAMS" : "FINANZAS Y PROTECCIÓN DE RANGO MUNDIAL"}
+              </span>
+              <h1 className="text-4xl sm:text-5.5xl md:text-6.5xl font-black font-sans leading-[1.05] text-white tracking-tight max-w-2xl mx-auto lg:mx-0">
                 {t.hero.title}
               </h1>
               {/* A1 — HERO: SUBTÍTULO EMOCIONAL */}
-              <p className="text-sm md:text-base italic font-bold text-[#00C2A8] tracking-wide mt-2">
+              <p className="text-sm md:text-base italic font-extrabold text-accent tracking-wider mt-3">
                 {lang === "en" 
-                  ? "Your family deserves more than a policy — they deserve a promise." 
-                  : "Tu familia merece más que una póliza — merece una promesa."}
+                  ? "“ Your family deserves more than a policy — they deserve a promise. ”" 
+                  : "“ Tu familia merece más que una póliza — merece una promesa. ”"}
               </p>
             </div>
             
-            <p className="text-base md:text-lg text-white/95 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3">
+            <p className="text-base md:text-lg text-white/90 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3">
               {t.hero.subtitle}
             </p>
 
-            <p className="text-sm md:text-base text-white/90 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3 pt-1 border-l-2 border-[#00C2A8] pl-3.5">
+            <p className="text-xs sm:text-sm text-white/80 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3 pt-2.5 border-l-3 border-accent pl-4">
               {lang === "en"
-                ? "EverSafe Financial helps Florida families, individuals, and business owners compare life insurance, Medicare, ACA, retirement, and wealth protection solutions with bilingual support."
-                : "EverSafe Financial ayuda a familias, individuos y dueños de negocios en Florida a comparar soluciones de seguro de vida, Medicare, ACA, retiro y protección de patrimonio con soporte bilingüe."}
+                ? "EverSafe Financial helps Florida families, individuals, and business owners compare life insurance, Medicare, ACA, retirement, and wealth protection solutions with dedicated bilingual support."
+                : "EverSafe Financial ayuda a familias, individuos y dueños de negocios en Florida a comparar soluciones de seguro de vida, Medicare, ACA, retiro y protección de patrimonio con soporte bilingüe calificado."}
             </p>
 
             {/* Direct Calls - Primary CTA with hover + click feedback (K2) */}
-            <div className="flex flex-col sm:flex-row gap-3.5 justify-center lg:justify-start pt-2 anim-4">
-              <a
-                href="tel:7273596196"
-                className="bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-2xl text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 text-center shadow-md hover:shadow-lg shadow-primary/15"
-              >
-                {t.hero.ctaPhone}
-              </a>
-              <a
-                href="#iul-explainer"
-                className="bg-white hover:bg-brand-purple-light text-brand-purple font-bold py-4 px-8 rounded-2xl text-sm border border-brand-purple/20 transition-all transform hover:scale-105 active:scale-95 duration-300 text-center shadow-sm hover:shadow-md"
-              >
-                {t.hero.ctaIUL}
-              </a>
+            <div className="space-y-3 pt-2">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start anim-4">
+                <a
+                  href="tel:7273596196"
+                  className="bg-accent hover:bg-accent-dark text-white font-extrabold py-4.5 px-8 rounded-full text-sm sm:text-base transition-all transform hover:scale-[1.04] active:scale-95 duration-300 text-center shadow-lg hover:shadow-accent/20 flex items-center justify-center gap-2 btn-glow-accent cursor-pointer"
+                >
+                  <Phone className="w-4 h-4 fill-white" />
+                  {t.hero.ctaPhone}
+                </a>
+                <a
+                  href="#iul-explainer"
+                  className="bg-transparent hover:bg-white/10 text-white font-extrabold py-4.5 px-8 rounded-full text-sm sm:text-base border-2 border-white/30 transition-all transform hover:scale-[1.04] active:scale-95 duration-300 text-center flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4 text-accent" />
+                  {t.hero.ctaIUL}
+                </a>
+              </div>
+              <p className="text-[11px] text-white/60 text-center lg:text-left pl-2 font-semibold">
+                {lang === "en" 
+                  ? "★ Free personalized consultation · No high sales pressure · 100% English & Spanish help" 
+                  : "★ Consulta personalizada gratuita · Sin presión de ventas · Ayuda en inglés y español"}
+              </p>
             </div>
 
             {/* Verification highlights (A2 trust badges written with real persuasive details) */}
-            <div className="grid grid-cols-3 gap-4 pt-8 border-t border-white/15 max-w-md mx-auto lg:mx-0 anim-5">
+            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10 max-w-md mx-auto lg:mx-0 anim-5">
               <div className="text-center lg:text-left">
-                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">{lang === "en" ? "Experience" : "Experiencia"}</span>
-                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1">
-                  {lang === "en" ? "4+ Years Protecting Families" : "4+ Años Protegiendo Familias"}
+                <span className="block text-[9px] text-accent font-extrabold uppercase tracking-widest">{lang === "en" ? "EXPERIENCE" : "EXPERIENCIA"}</span>
+                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1.5 leading-snug">
+                  {lang === "en" ? "4+ Years Safeguarding Lives" : "4+ Años Protegiendo Vidas"}
                 </span>
               </div>
               <div className="text-center lg:text-left">
-                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">{lang === "en" ? "Assistance" : "Asistencia"}</span>
-                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1">
-                  {lang === "en" ? "English & Spanish Support" : "Soporte en Inglés y Español"}
+                <span className="block text-[9px] text-accent font-extrabold uppercase tracking-widest">{lang === "en" ? "FLUENCY" : "IDIOMAS"}</span>
+                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1.5 leading-snug">
+                  {lang === "en" ? "Full English & Spanish" : "Soporte Bilingüe"}
                 </span>
               </div>
               <div className="text-center lg:text-left">
-                <span className="block text-[10px] text-accent-light font-bold uppercase tracking-widest">{lang === "en" ? "A+ Rating" : "Calificación A+"}</span>
-                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1">
-                  {lang === "en" ? "Partnered with Top Carriers" : "Asociados con Aseguradoras Principales"}
+                <span className="block text-[9px] text-accent font-extrabold uppercase tracking-widest">{lang === "en" ? "SECURITY" : "COBERTURA"}</span>
+                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1.5 leading-snug">
+                  {lang === "en" ? "A-Rated Carriers Only" : "Sólo Aseguradoras A+"}
                 </span>
               </div>
             </div>
 
           </div>
 
-          {/* Column 2: Interactive Dynamic Quiz & Mary Rivera photo */}
-          <div className="lg:col-span-5 flex flex-col md:flex-row lg:flex-col gap-6 items-center justify-center lg:justify-end">
+          {/* Column 2: Interactive Dynamic Quiz & Mary Rivera Small Horizontal Badge */}
+          <div className="lg:col-span-5 flex flex-col gap-6 items-center justify-center lg:justify-end anim-4">
             <QuizCard t={t} />
-            <div className="hidden md:block w-full max-w-xs">
+            
+            {/* Horizontal Glass Partner Badge (Builds massive personal connection instantly) */}
+            <div className="w-full max-w-md bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 shadow-2xl flex items-center gap-4 text-white hover:border-accent/40 transition-colors duration-300">
               <img
                 src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/mary-rivera-licensed-insurance-advisor-eversafe-financial.jpg_hgybkk.jpg"
                 alt="Mary Rivera - Licensed Insurance Advisor at EverSafe Financial Florida"
                 referrerPolicy="no-referrer"
-                className="rounded-2xl shadow-xl object-cover object-top w-full max-w-xs border-2 border-brand-purple"
+                loading="lazy"
+                className="rounded-full w-14 h-14 object-cover border-2 border-accent shadow-md flex-shrink-0"
               />
+              <div className="flex-1 min-w-0">
+                <h4 className="font-extrabold text-xs sm:text-sm text-white flex items-center gap-1.5">
+                  Mary Rivera <span className="text-accent text-[9px] uppercase tracking-widest animate-pulse font-bold">● {lang === 'en' ? 'Online' : 'Disponible'}</span>
+                </h4>
+                <p className="text-[10px] text-white/85 font-semibold truncate mt-0.5">{t.about.badge}</p>
+                
+                <div className="flex gap-2.5 mt-2">
+                  <a href="tel:7273596196" className="text-[9px] uppercase tracking-wider font-black bg-accent hover:bg-accent-dark text-white px-2.5 py-1 rounded transition-colors">
+                    📞 {lang === 'en' ? 'Call Advisor' : 'Llamar'}
+                  </a>
+                  <a href="#contact" className="text-[9px] uppercase tracking-wider font-black bg-white/15 hover:bg-white/25 text-white px-2.5 py-1 rounded border border-white/10 transition-all">
+                    💬 {lang === 'en' ? 'Message' : 'Mensaje'}
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -683,8 +814,30 @@ export default function App() {
         </div>
       </section>
 
+      {/* 4.5 CARRIER PARTNERS LOGOS LAYER (Builds massive enterprise-grade corporate credibility) */}
+      <section className="bg-slate-50 border-y border-slate-100 py-6 px-4">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-[10px] uppercase tracking-[0.14em] text-brand-slate font-extrabold mb-4">
+            {lang === "en" ? "Offering authorized coverage from top carriers" : "Ofreciendo cobertura autorizada de las aseguradoras líderes"}
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 opacity-60 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 text-xs sm:text-sm font-sans font-bold text-brand-navy">
+            <span>Florida Blue</span>
+            <span className="hidden sm:inline text-brand-purple">•</span>
+            <span>Aetna</span>
+            <span className="hidden sm:inline text-[#00C2A8]">•</span>
+            <span>Cigna</span>
+            <span className="hidden sm:inline text-brand-purple">•</span>
+            <span>Humana</span>
+            <span className="hidden sm:inline text-[#00C2A8]">•</span>
+            <span>Ambetter</span>
+            <span className="hidden sm:inline text-brand-purple">•</span>
+            <span>Mutual of Omaha</span>
+          </div>
+        </div>
+      </section>
+
       {/* 5. CORE FOCUS SERVICES (Soft gray background #F3F3F4 as requested, clean headers) */}
-      <section id="services" className="py-24 px-4 md:px-8 bg-brand-gray-soft relative">
+      <section id="services" className="py-24 px-4 md:px-8 bg-brand-gray-soft relative reveal-init">
         <div className="max-w-7xl mx-auto space-y-16">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
@@ -783,7 +936,7 @@ export default function App() {
       </section>
 
       {/* 6. ALL SERVICES (Catálogo Completo - Fondo blanco para rythym contrast, high elegancy) */}
-      <section className="py-24 px-4 md:px-8 bg-white border-y border-slate-100 relative">
+      <section className="py-24 px-4 md:px-8 bg-white border-y border-slate-100 relative reveal-init">
         <div className="max-w-7xl mx-auto space-y-16">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
@@ -839,7 +992,7 @@ export default function App() {
 
       {/* 7. WHY CHOOSE US (Soft gray background #F3F3F4 with family background image overlay) */}
       <section
-        className="py-24 px-4 md:px-8 bg-cover bg-center bg-no-repeat relative overflow-hidden"
+        className="py-24 px-4 md:px-8 bg-cover bg-center bg-no-repeat relative overflow-hidden reveal-init"
         style={{
           backgroundImage: "url('https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/hispanic-family-financial-security-planning-florida.jpg_qtjlyr.jpg')"
         }}
@@ -914,7 +1067,7 @@ export default function App() {
       </section>
 
       {/* 7.5. TARGET AUDIENCE & PREFERENCES (Who We Help & Why Contact Us) */}
-      <section className="py-20 px-4 md:px-8 bg-brand-gray-soft border-b border-slate-100 relative z-20">
+      <section className="py-20 px-4 md:px-8 bg-brand-gray-soft border-b border-slate-100 relative z-20 reveal-init">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
           
           {/* Who We Help block */}
@@ -973,7 +1126,7 @@ export default function App() {
       </section>
 
       {/* 8. ABOUT SECTION (Mary Rivera commitment with pure white and refined human avatar layout) */}
-      <section id="about" className="py-24 px-4 md:px-8 bg-white relative">
+      <section id="about" className="py-24 px-4 md:px-8 bg-white relative reveal-init">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
@@ -1040,7 +1193,7 @@ export default function App() {
       </section>
 
       {/* 9. IUL EXPLAINER (Redesigned: High Authority Deep Navy Blue Background #122033 to build supreme corporate trust) */}
-      <section id="iul-explainer" className="py-24 bg-brand-navy text-white px-4 md:px-8 relative overflow-hidden">
+      <section id="iul-explainer" className="py-24 bg-brand-navy text-white px-4 md:px-8 relative overflow-hidden reveal-init">
         {/* Abstract Light Background Overlays */}
         <div className="absolute top-0 right-10 w-96 h-96 bg-brand-purple/5 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
@@ -1073,10 +1226,58 @@ export default function App() {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Hybrid View: Desktop High-Contrast Comparison Matrix, Mobile Card fallback */}
+          <div className="hidden lg:block bg-white/5 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+            <table className="w-full text-left border-collapse font-sans">
+              <thead>
+                <tr className="bg-white/10 border-b border-white/10 text-xs uppercase tracking-widest font-extrabold text-accent">
+                  <th className="p-6">{lang === "en" ? "Strategic Benchmark / Feature" : "Indicador / Característica"}</th>
+                  <th className="p-6 text-rose-300">{t.iulExplainer.colSavingsTitle}</th>
+                  <th className="p-6 text-rose-300">{t.iulExplainer.col401kTitle}</th>
+                  <th className="p-6 text-accent bg-white/5">{t.iulExplainer.colIulTitle} 🏆</th>
+                </tr>
+              </thead>
+              <tbody className="text-xs sm:text-sm divide-y divide-white/5 font-medium text-white/90">
+                <tr>
+                  <td className="p-6 font-bold">{lang === "en" ? "🛡️ Market Downside Protection" : "🛡️ Protección ante Caídas del Mercado"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "Guaranteed Principal (No growth)" : "Principal Garantizado (Sin crecimiento)"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "0% Safety (Subject to complete market drops)" : "0% Seguro (Sujeto a caídas severas)"}</td>
+                  <td className="p-6 font-extrabold text-accent bg-white/5">
+                    {lang === "en" ? "100% Floor Protection (0% floor guarantee)" : "100% Protegido (Garantía de piso del 0%)"}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-6 font-bold">{lang === "en" ? "📈 Average Interest Rate Potential" : "📈 Potencial de Tasa de Interés Promedio"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "Exceedingly Low (0.01% - 1.5% average)" : "Extremadamente Bajo (0.01% - 1.5% promedio)"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "Highly Variable (Avg. 5% - 7% with volatility)" : "Variable (Promedio 5% - 7% con alta volatilidad)"}</td>
+                  <td className="p-6 font-extrabold text-accent bg-white/5">
+                    {lang === "en" ? "High Compounding growth (Indexed up to 10% - 12% caps)" : "Alto Interés Compuesto (Indexado hasta 10% - 12%)"}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-6 font-bold">{lang === "en" ? "💸 Withdrawal Tax Status" : "💸 Impuestos al Retirar Fondos"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "Fully Taxed annually on interest earned" : "Totalmente Gravado anualmente sobre intereses"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "100% Taxable (Both principal and gains taxed)" : "100% Gravable (Se cobran impuestos al retirar)"}</td>
+                  <td className="p-6 font-extrabold text-accent bg-white/5">
+                    {lang === "en" ? "100% Tax-Free (Legal, structured withdrawal streams)" : "100% Libre de Impuestos (Retiros e ingresos exentos)"}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-6 font-bold">{lang === "en" ? "🕊️ Instant Legacy Guard Shield" : "🕊️ Cobertura de Fallecimiento de Legado"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "None (Only what is accumulated is returned)" : "Ninguna (Sólo heredas lo acumulado)"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "None (Only what remains is left to heirs)" : "Ninguna (Sólo heredas el saldo restante)"}</td>
+                  <td className="p-6 font-extrabold text-accent bg-white/5">
+                    {lang === "en" ? "Severe Tax-Free Benefit instantly sent to family" : "Póliza millonaria exenta de impuestos para la familia"}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:hidden">
             
             {/* Box 1 (Traditional Savings) */}
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6 animate-pop-in">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6">
               <div className="space-y-4">
                 <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-xl text-rose-400">
                   ❌
@@ -1090,7 +1291,7 @@ export default function App() {
             </div>
 
             {/* Box 2 (401K Account) */}
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6 animate-pop-in">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6">
               <div className="space-y-4">
                 <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-xl text-rose-400">
                   ❌
@@ -1104,7 +1305,7 @@ export default function App() {
             </div>
 
             {/* Box 3 (INDEX UNIVERSAL LIFE - Accented with luxury template accent outline and badge choice) */}
-            <div className={`p-8 rounded-3xl bg-white/10 border-2 border-accent flex flex-col justify-between space-y-6 relative animate-pop-in`}>
+            <div className="p-8 rounded-3xl bg-white/10 border-2 border-accent flex flex-col justify-between space-y-6 relative">
               <div className="absolute top-2 right-2 w-12 h-12 bg-accent/10 rounded-full blur-xl pointer-events-none"></div>
 
               <div className="space-y-4">
@@ -1116,7 +1317,7 @@ export default function App() {
                 </h3>
                 <p className="text-xs sm:text-sm text-white font-normal leading-relaxed">{t.iulExplainer.colIulDesc}</p>
               </div>
-              <div className="text-[11px] text-brand-navy font-bold tracking-widest uppercase bg-accent py-2 text-center rounded-xl shadow-sm animate-pulse">
+              <div className="text-[11px] text-brand-navy font-bold tracking-widest uppercase bg-accent py-2 text-center rounded-xl shadow-sm">
                 🏆 Winner Choice
               </div>
             </div>
@@ -1138,7 +1339,7 @@ export default function App() {
       </section>
 
       {/* 9.5. FAQ SECTION (Interactive bilingual accordion with elegant transition effects) */}
-      <section id="faq" className="py-24 px-4 md:px-8 bg-white relative border-b border-slate-100">
+      <section id="faq" className="py-24 px-4 md:px-8 bg-white relative border-b border-slate-100 reveal-init">
         <div className="max-w-4xl mx-auto">
           
           <div className="text-center space-y-3 mb-16">
@@ -1204,7 +1405,7 @@ export default function App() {
       </section>
 
       {/* 10. CONTACT / FREE QUOTE (Soft gray background, highly guided clear form with brand-purple action) */}
-      <section id="contact" className="py-24 px-4 md:px-8 bg-brand-gray-soft relative">
+      <section id="contact" className="py-24 px-4 md:px-8 bg-brand-gray-soft relative reveal-init">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
@@ -1435,9 +1636,9 @@ export default function App() {
 
                     {/* Small policy disclaimer links */}
                     <div className="flex justify-center gap-4 text-[10px] text-brand-slate font-light pt-2">
-                      <span className="hover:underline cursor-pointer">Privacy Policy</span>
+                      <a href="#privacy-policy" className="hover:underline hover:text-brand-purple transition-colors">Privacy Policy</a>
                       <span>·</span>
-                      <span className="hover:underline cursor-pointer">Terms of Service</span>
+                      <a href="#terms-of-service" className="hover:underline hover:text-brand-purple transition-colors">Terms of Service</a>
                     </div>
 
                   </form>
@@ -1448,6 +1649,12 @@ export default function App() {
           </div>
         </div>
       </section>
+        </>
+      ) : currentView === "privacy-policy" ? (
+        <PrivacyPolicy onBackToHome={onBackToHome} lang={lang} />
+      ) : (
+        <TermsOfService onBackToHome={onBackToHome} lang={lang} />
+      )}
 
       {/* 11. FOOTER (Sleek deep navy #122033 for world-class finance look) */}
       <footer className="bg-brand-navy text-white pt-16 pb-10 px-4 md:px-8 border-t border-white/5 relative">
@@ -1534,12 +1741,20 @@ export default function App() {
         {/* Bottom Rights details */}
         <div className="max-w-7xl mx-auto pt-10 mt-10 border-t border-white/5 text-center text-[11px] text-brand-slate space-y-2">
           <p>{t.footer.rights}</p>
-          <div className="flex justify-center gap-4 text-brand-slate">
-            <span className="hover:underline cursor-pointer">Privacy Policy</span>
-            <span>·</span>
-            <span className="hover:underline cursor-pointer">Terms of Service</span>
-            <span>·</span>
-            <span className="hover:underline cursor-pointer">Licenses & Disclosures</span>
+          <div className="flex justify-center items-center gap-4 text-brand-slate mt-2">
+            <a 
+              href="#privacy-policy" 
+              className="hover:text-accent hover:underline transition-colors focus:outline-none focus:underline"
+            >
+              Privacy Policy
+            </a>
+            <span className="text-white/10 select-none">•</span>
+            <a 
+              href="#terms-of-service" 
+              className="hover:text-accent hover:underline transition-colors focus:outline-none focus:underline"
+            >
+              Terms of Service
+            </a>
           </div>
         </div>
       </footer>
@@ -1722,6 +1937,45 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* 15. MOBILE STICKY BOTTOM CONVERSION BAR (Only visible on mobile md:hidden for supreme CRO) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 py-3.5 px-6 flex justify-between items-center z-48 shadow-[0_-8px_30px_rgba(18,32,51,0.08)]">
+        <a
+          href="tel:7273596196"
+          className="flex-1 flex flex-col items-center justify-center text-brand-navy hover:text-brand-purple transition-all duration-300"
+        >
+          <Phone className="w-5 h-5 text-brand-purple stroke-[2.5]" />
+          <span className="text-[10px] font-extrabold uppercase tracking-widest mt-1.5">
+            {lang === "en" ? "Call Now" : "Llamar"}
+          </span>
+        </a>
+        
+        <div className="w-[1.5px] h-8 bg-slate-200/80"></div>
+        
+        <a
+          href="https://wa.me/17273596196"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 flex flex-col items-center justify-center text-brand-navy hover:text-brand-purple transition-all duration-300"
+        >
+          <MessageCircle className="w-5 h-5 text-[#25D366] stroke-[2.5] fill-current" />
+          <span className="text-[10px] font-extrabold uppercase tracking-widest mt-1.5">
+            WhatsApp
+          </span>
+        </a>
+        
+        <div className="w-[1.5px] h-8 bg-slate-200/80"></div>
+        
+        <a
+          href="#contact"
+          className="flex-1 flex flex-col items-center justify-center text-brand-navy hover:text-brand-purple transition-all duration-300"
+        >
+          <Award className="w-5 h-5 text-accent stroke-[2.5]" />
+          <span className="text-[10px] font-extrabold uppercase tracking-widest mt-1.5">
+            {lang === "en" ? "Free Quote" : "Cotizar"}
+          </span>
+        </a>
+      </div>
 
     </div>
   );

@@ -159,12 +159,18 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: #8c49b1;
-  transition: width 0.3s ease;
+  background: var(--color-accent);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .nav-link:hover::after,
 .nav-link.active-nav::after {
   width: 100%;
+}
+
+/* Scrollspy active class overlay */
+.nav-link.active-nav {
+  color: var(--color-brand-purple) !important;
+  font-weight: 700;
 }
 
 /* K9 — PILLS/TAGS DE SERVICIOS: SLIDING FILL */
@@ -177,16 +183,120 @@
   content: '';
   position: absolute;
   top: 0;
-  left: -101%;
-  width: 101%;
-  height: 101%;
-  background: #8c49b1;
-  transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  left: -105%;
+  width: 105%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-brand-purple), var(--color-brand-purple-hover));
+  transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
 }
 .pill-hover:hover::before {
   left: 0;
 }
+
+/* Spotlight signature background effect */
+.spotlight-glow {
+  position: relative;
+}
+.spotlight-glow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(0, 194, 168, 0.15) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+}
+
+/* Spotlight purple signature background effect */
+.spotlight-purple {
+  position: relative;
+}
+.spotlight-purple::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 70%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(140, 73, 177, 0.12) 0%, transparent 75%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(50px);
+}
+
+/* Glass card enhancement */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(140, 73, 177, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(18, 32, 51, 0.03);
+}
+
+/* Premium Reveal On Scroll classes */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  filter: blur(4px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Golden details button glow */
+.btn-glow-accent {
+  position: relative;
+  overflow: hidden;
+}
+.btn-glow-accent::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.25);
+  transform: rotate(30deg);
+  transition: none;
+}
+.btn-glow-accent:hover::after {
+  left: 120%;
+  transition: all 0.75s ease-in-out;
+}
+
+/* Keyframes for sliding scroll indicator */
+@keyframes slideProgress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Hover scales and icons animations */
+.icon-shift-hover:hover .icon-shift-target {
+  transform: translateX(4px);
+}
+.icon-wiggle-hover:hover .icon-wiggle-target {
+  animation: wiggle 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes wiggle {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+/* Stagger dynamic key delay transitions */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
 
 /* K11 — HERO: ENTRADA SECUENCIAL */
 @keyframes fadeSlideUp {

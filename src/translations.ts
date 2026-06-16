@@ -324,7 +324,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       contactUs: "Contact Us",
       hours: "Business Hours",
       bilingual: "Te Puedo Ayudar en Español • We Also Speak English",
-      rights: "© 2025 EverSafe Financial LLC. All Rights Reserved. EverSafe Financial is an independent agency of licensed advisor Mary Rivera.",
+      rights: "© 2026 EverSafe Financial LLC. All rights reserved. EverSafe Financial is the independent firm of advisor Mary Rivera.",
     },
     whoWeHelp: {
       title: "Who We Help",
@@ -530,7 +530,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       contactUs: "Contáctanos",
       hours: "Horario de Oficina",
       bilingual: "Te Puedo Ayudar en Español • We Also Speak English",
-      rights: "© 2025 EverSafe Financial LLC. Todos los derechos reservados. EverSafe Financial es la firma independiente de la asesora Mary Rivera.",
+      rights: "© 2026 EverSafe Financial LLC. Todos los derechos reservados. EverSafe Financial es la firma independiente de la asesora Mary Rivera.",
     },
     whoWeHelp: {
       title: "A Quiénes Ayudamos",
