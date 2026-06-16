@@ -63,6 +63,14 @@ export interface TranslationSet {
     obamacareDesc: string;
     medicareTitle: string;
     medicareDesc: string;
+    finalExpensesTitle: string;
+    finalExpensesDesc: string;
+    finalExpensesBadge: string;
+    finalExpensesCta: string;
+    annuitiesTitle: string;
+    annuitiesDesc: string;
+    annuitiesBadge: string;
+    annuitiesCta: string;
     popular: string;
     cta: string;
   };
@@ -235,6 +243,14 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       obamacareDesc: "Personalized solutions for Affordable Care Act coverage, ensuring you meet legal requirements while saving money.",
       medicareTitle: "Medicare Plans",
       medicareDesc: "Expert help navigating Medicare Advantage, Supplement Plans, and Part D to maximize your health benefits.",
+      finalExpensesTitle: "Final Expenses",
+      finalExpensesDesc: "Help protect your loved ones from funeral costs, burial expenses, medical balances, and other end-of-life financial burdens.",
+      finalExpensesBadge: "Family Relief",
+      finalExpensesCta: "Explore Final Expense Options",
+      annuitiesTitle: "Annuities",
+      annuitiesDesc: "Create a tax-efficient retirement income strategy with customized solutions that may include annuities, rollovers, and long-term income planning.",
+      annuitiesBadge: "Retirement Income",
+      annuitiesCta: "Explore Annuity Options",
       popular: "Most Popular",
       cta: "💼 Get Personalized Options Now",
     },
@@ -441,6 +457,14 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       obamacareDesc: "Soluciones personalizadas para cobertura del Acta de Cuidado Asequible, asegurando que cumplas los requisitos legales mientras ahorras dinero.",
       medicareTitle: "Planes de Medicare",
       medicareDesc: "Ayuda experta para navegar Medicare Advantage, Planes Suplementarios y Parte D para maximizar tus beneficios de salud.",
+      finalExpensesTitle: "Gastos Finales",
+      finalExpensesDesc: "Ayuda a proteger a tus seres queridos de gastos funerarios, costos de sepelio, saldos médicos y otras cargas financieras al final de la vida.",
+      finalExpensesBadge: "Alivio Familiar",
+      finalExpensesCta: "Explorar Opciones de Gastos Finales",
+      annuitiesTitle: "Anualidades",
+      annuitiesDesc: "Crea una estrategia de ingresos de jubilación fiscalmente eficiente con soluciones personalizadas que pueden incluir anualidades, reinversiones y planes de ingresos a largo plazo.",
+      annuitiesBadge: "Ingresos de Retiro",
+      annuitiesCta: "Explorar Opciones de Anualidades",
       popular: "Más Popular",
       cta: "💼 Ver Mis Opciones Personalizadas Ya",
     },

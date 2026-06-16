@@ -29,6 +29,7 @@ import { translations, TranslationSet } from "./translations";
 import QuizCard from "./components/QuizCard";
 import useWeb3Forms from "@web3forms/react";
 import { PrivacyPolicy, TermsOfService } from "./components/LegalPages";
+import { WhyIulPage } from "./components/WhyIulPage";
 
 // Count-up stats helper component with intersection detection
 interface AnimatedStatProps {
@@ -211,7 +212,7 @@ export default function App() {
     localStorage.setItem("eversafe_lang", nextLang);
   };
 
-  const [currentView, setCurrentView] = useState<"home" | "privacy-policy" | "terms-of-service">("home");
+  const [currentView, setCurrentView] = useState<"home" | "privacy-policy" | "terms-of-service" | "why-iul">("home");
 
   // Handle URL hashes for single-page app sub-navigation (perfect for GitHub Pages compatibility)
   useEffect(() => {
@@ -222,6 +223,9 @@ export default function App() {
         window.scrollTo({ top: 0, behavior: "instant" });
       } else if (hash === "#terms-of-service" || hash === "#/terms-of-service") {
         setCurrentView("terms-of-service");
+        window.scrollTo({ top: 0, behavior: "instant" });
+      } else if (hash === "#why-iul" || hash === "#/why-iul") {
+        setCurrentView("why-iul");
         window.scrollTo({ top: 0, behavior: "instant" });
       } else {
         setCurrentView("home");
@@ -271,16 +275,40 @@ export default function App() {
         document.head.appendChild(canonical);
       }
       canonical.setAttribute('href', window.location.origin + "/#terms-of-service");
+    } else if (currentView === "why-iul") {
+      document.title = lang === "en"
+        ? "Why IUL May Beat 401(k) and Roth IRA for Some Families | EverSafe Financial"
+        : "¿Por Qué el IUL Puede Superar al 401(k) y Roth IRA para Algunas Familias? | EverSafe Financial";
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.setAttribute('name', 'description');
+        document.head.appendChild(metaDesc);
+      }
+      metaDesc.setAttribute('content', lang === "en"
+        ? "Compare IUL, 401(k), and Roth IRA strategies and learn when Index Universal Life may offer tax advantages, liquidity, and lifelong protection."
+        : "Compara estrategias de IUL, 401(k) y Roth IRA y descubre cuándo el Index Universal Life ofrece ventajas fiscales, liquidez y protección permanente.");
+      
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
+      }
+      canonical.setAttribute('href', "https://esfweb.github.io/web_esf/why-iul");
     } else {
       document.title = lang === "en" 
         ? "Licensed Florida Insurance Advisor | EverSafe Financial" 
         : "Asesora de Seguros Autorizada en Florida | EverSafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
-        metaDesc.setAttribute('content', lang === "en" 
-          ? "Licensed Florida insurance advisor helping families find peace of mind with Life Insurance, Medicare, Health Plans, and Retirement Protection." 
-          : "Asesora de seguros con licencia en Florida ayudando a familias con Seguros de Vida, Medicare, planes médicos y jubilación segura.");
+        metaDesc = document.createElement('meta');
+        metaDesc.setAttribute('name', 'description');
+        document.head.appendChild(metaDesc);
       }
+      metaDesc.setAttribute('content', lang === "en" 
+        ? "Licensed Florida insurance advisor helping families find peace of mind with Life Insurance, Medicare, Health Plans, and Retirement Protection." 
+        : "Asesora de seguros con licencia en Florida ayudando a familias con Seguros de Vida, Medicare, planes médicos y jubilación segura.");
       let canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) {
         canonical.setAttribute('href', window.location.origin + "/");
@@ -382,6 +410,7 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   // Quote Form captures
+  const [selectedService, setSelectedService] = useState<string>("");
   const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -439,6 +468,7 @@ export default function App() {
         email: email,
         phone: phone,
         message: message || "Quote request",
+        selected_service: selectedService || "General / Not Specified",
         source: "EverSafeFinancial - Quote Form",
         submitted_at: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
       });
@@ -448,11 +478,12 @@ export default function App() {
 
     // Save lead backup in localStorage for demonstration and reliability backings
     const oldLeads = JSON.parse(localStorage.getItem("eversafe_leads") || "[]");
-    const newLead = { fullName, email, phone, message, date: new Date().toISOString() };
+    const newLead = { fullName, email, phone, message, selectedService, date: new Date().toISOString() };
     localStorage.setItem("eversafe_leads", JSON.stringify([...oldLeads, newLead]));
   };
 
   const handlePreFillMessage = (serviceName: string) => {
+    setSelectedService(serviceName);
     const textEN = `Hi Mary Rivera, I would like to get a personalized quote for "${serviceName}". Please contact me with options.`;
     const textES = `Hola Mary Rivera, me gustaría recibir una cotización para "${serviceName}". Por favor contácteme con detalles.`;
     setMessage(lang === "en" ? textEN : textES);
@@ -852,83 +883,168 @@ export default function App() {
             </p>
           </div>
 
-          {/* 3 Columns Core focus cards (Styled with white backgrounds and navy buttons for high authority feeling) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* 5-Card Responsive Strategic Protection Portfolio centered wrap */}
+          <div className="flex flex-wrap justify-center gap-8 items-stretch pt-4">
             
             {/* Card 1: IUL */}
-            <TiltCard popular popularLabel={t.core.popular}>
-              <div className="space-y-6">
-                <div className="w-12 h-12 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/10">
-                  🗄️
+            <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
+              <TiltCard popular popularLabel={t.core.popular}>
+                <div className="space-y-6 flex-1 flex flex-col justify-between">
+                  <div className="space-y-6">
+                    <div className="w-12 h-12 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/10">
+                      🗄️
+                    </div>
+                    <div className="space-y-2">
+                      <div className="space-y-1">
+                        <span className="text-[10px] uppercase font-bold text-brand-purple tracking-widest">{lang === "en" ? "Accumulation" : "Acumulación"}</span>
+                        <h3 className="text-lg font-bold font-sans text-brand-navy">
+                          {t.core.iulTitle}
+                        </h3>
+                      </div>
+                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                        {t.core.iulDesc}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handlePreFillMessage(t.core.iulTitle)}
+                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <span>{t.core.cta}</span>
+                    <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                  </button>
                 </div>
-                <div className="space-y-2">
-                  <h3 className="text-lg md:text-xl font-bold font-sans text-brand-navy">
-                    {t.core.iulTitle}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
-                    {t.core.iulDesc}
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => handlePreFillMessage(t.core.iulTitle)}
-                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <span>{t.core.cta}</span>
-                <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
-              </button>
-            </TiltCard>
+              </TiltCard>
+            </div>
 
             {/* Card 2: Obamacare (Suave acento verde/teal para bienestar) */}
-            <TiltCard>
-              <div className="space-y-6">
-                <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
-                  🏥
+            <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
+              <TiltCard>
+                <div className="space-y-6 flex-1 flex flex-col justify-between">
+                  <div className="space-y-6">
+                    <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
+                      🏥
+                    </div>
+                    <div className="space-y-2">
+                      <div className="space-y-1">
+                        <span className="text-[10px] uppercase font-bold text-accent tracking-widest">{lang === "en" ? "Health Plans" : "Planes de Salud"}</span>
+                        <h3 className="text-lg font-bold font-sans text-brand-navy">
+                          {t.core.obamacareTitle}
+                        </h3>
+                      </div>
+                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                        {t.core.obamacareDesc}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handlePreFillMessage(t.core.obamacareTitle)}
+                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <span>{t.core.cta}</span>
+                    <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                  </button>
                 </div>
-                <div className="space-y-2">
-                  <h3 className="text-lg md:text-xl font-bold font-sans text-brand-navy">
-                    {t.core.obamacareTitle}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
-                    {t.core.obamacareDesc}
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => handlePreFillMessage(t.core.obamacareTitle)}
-                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <span>{t.core.cta}</span>
-                <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
-              </button>
-            </TiltCard>
+              </TiltCard>
+            </div>
 
             {/* Card 3: Medicare */}
-            <TiltCard>
-              <div className="space-y-6">
-                <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center text-brand-navy text-2xl shadow-sm border border-slate-200">
-                  ⚕️
+            <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
+              <TiltCard>
+                <div className="space-y-6 flex-1 flex flex-col justify-between">
+                  <div className="space-y-6">
+                    <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center text-brand-navy text-2xl shadow-sm border border-slate-200">
+                      ⚕️
+                    </div>
+                    <div className="space-y-2">
+                      <div className="space-y-1">
+                        <span className="text-[10px] uppercase font-bold text-brand-slate tracking-widest">{lang === "en" ? "Senior Care" : "Cuidado Mayor"}</span>
+                        <h3 className="text-lg font-bold font-sans text-brand-navy">
+                          {t.core.medicareTitle}
+                        </h3>
+                      </div>
+                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                        {t.core.medicareDesc}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handlePreFillMessage(t.core.medicareTitle)}
+                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <span>{t.core.cta}</span>
+                    <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                  </button>
                 </div>
-                <div className="space-y-2">
-                  <h3 className="text-lg md:text-xl font-bold font-sans text-brand-navy">
-                    {t.core.medicareTitle}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
-                    {t.core.medicareDesc}
-                  </p>
+              </TiltCard>
+            </div>
+
+            {/* Card 4: Final Expenses */}
+            <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
+              <TiltCard>
+                <div className="space-y-6 flex-1 flex flex-col justify-between">
+                  <div className="space-y-6">
+                    <div className="w-12 h-12 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 text-2xl shadow-sm border border-rose-100">
+                      🕊️
+                    </div>
+                    <div className="space-y-2">
+                      <div className="space-y-1">
+                        <span className="text-[10px] uppercase font-bold text-rose-500 tracking-widest">{t.core.finalExpensesBadge}</span>
+                        <h3 className="text-lg font-bold font-sans text-brand-navy">
+                          {t.core.finalExpensesTitle}
+                        </h3>
+                      </div>
+                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                        {t.core.finalExpensesDesc}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handlePreFillMessage(t.core.finalExpensesTitle)}
+                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <span>{t.core.finalExpensesCta}</span>
+                    <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                  </button>
                 </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => handlePreFillMessage(t.core.medicareTitle)}
-                className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <span>{t.core.cta}</span>
-                <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
-              </button>
-            </TiltCard>
+              </TiltCard>
+            </div>
+
+            {/* Card 5: Annuities */}
+            <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
+              <TiltCard>
+                <div className="space-y-6 flex-1 flex flex-col justify-between">
+                  <div className="space-y-6">
+                    <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
+                      🏦
+                    </div>
+                    <div className="space-y-2">
+                      <div className="space-y-1">
+                        <span className="text-[10px] uppercase font-bold text-amber-600 tracking-widest">{t.core.annuitiesBadge}</span>
+                        <h3 className="text-lg font-bold font-sans text-brand-navy">
+                          {t.core.annuitiesTitle}
+                        </h3>
+                      </div>
+                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                        {t.core.annuitiesDesc}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handlePreFillMessage(t.core.annuitiesTitle)}
+                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <span>{t.core.annuitiesCta}</span>
+                    <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </TiltCard>
+            </div>
 
           </div>
 
@@ -1202,11 +1318,16 @@ export default function App() {
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <span className="text-xs uppercase tracking-widest font-bold text-accent bg-white/10 py-1.5 px-4 rounded-full inline-block border border-white/10">
-              💡 {lang === "en" ? "BUILD RETIREMENT SAFELY" : "CONSTRUYE TU RETIRO SEGURO"}
+              💡 {lang === "en" ? "Tax-Free Retirement Strategy" : "Estrategia de Retiro Libre de Impuestos"}
             </span>
             <h2 className="text-3.5xl md:text-4.5xl font-extrabold font-sans text-white tracking-tight leading-tight">
-              {t.iulExplainer.title}
+              {lang === "en" ? "Why IUL May Be a Smarter Retirement Strategy Than Traditional Options" : "Por Qué el IUL Puede Ser una Estrategia de Retiro Más Inteligente"}
             </h2>
+            <p className="text-sm md:text-white/80 max-w-2xl mx-auto leading-relaxed">
+              {lang === "en" 
+                ? "Compare how IUL differs from fully taxable 401(k) plans and limited Roth IRA strategies." 
+                : "Compara cómo el IUL se diferencia de los planes 401(k) totalmente tributables y las estrategias limitadas de Roth IRA."}
+            </p>
             {/* A6 — IUL DARK LINE */}
             <p className="text-xs sm:text-sm md:text-base italic text-accent font-medium tracking-wider pt-1">
               " {lang === "en" 
@@ -1324,15 +1445,33 @@ export default function App() {
 
           </div>
 
-          <div className="text-center pt-4">
-            <button
-              onClick={() => {
-                document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="bg-accent hover:bg-[#e0b42c] text-brand-navy font-extrabold py-4 px-10 rounded-2xl text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center gap-2 shadow-lg hover:shadow-xl shadow-accent/20 cursor-pointer"
-            >
-              ⭐ {t.iulExplainer.cta}
-            </button>
+          <div className="flex flex-col items-center justify-center gap-4 pt-6 max-w-xl mx-auto text-center">
+            <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+              {/* Primary CTA */}
+              <button
+                onClick={() => {
+                  document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="bg-accent hover:bg-[#e0b42c] text-brand-navy font-extrabold py-4 px-8 rounded-2xl text-xs sm:text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl shadow-accent/20 cursor-pointer"
+              >
+                ⭐ {lang === "en" ? "See If You Qualify" : "Ver Si Calificas"}
+              </button>
+
+              {/* Secondary CTA */}
+              <a
+                href="#why-iul"
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-extrabold py-4 px-8 rounded-2xl text-xs sm:text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span>{lang === "en" ? "Explore Why IUL Works →" : "Descubre Cómo Funciona el IUL →"}</span>
+              </a>
+            </div>
+
+            {/* Supporting line */}
+            <p className="text-[11px] text-white/60 leading-relaxed max-w-md pt-2">
+              {lang === "en"
+                ? "Guaranteed growth features may vary by policy. Personalized guidance helps determine fit."
+                : "Las características de crecimiento garantizado pueden variar según la póliza. La asesoría personalizada ayuda a determinar la idoneidad."}
+            </p>
           </div>
 
         </div>
@@ -1531,6 +1670,19 @@ export default function App() {
                     <p className="text-xs md:text-sm text-brand-slate mt-1.5">
                       {t.contactForm.subtitle}
                     </p>
+                    {selectedService && (
+                      <div className="mt-4 inline-flex items-center gap-2 bg-brand-purple-light/40 border border-brand-purple/20 px-3 py-1.5 rounded-xl text-xs font-bold text-brand-purple animate-fade-in">
+                        <span>✨ {lang === "en" ? `Selected Plan: ${selectedService}` : `Plan Seleccionado: ${selectedService}`}</span>
+                        <button 
+                          type="button" 
+                          onClick={() => { setSelectedService(""); setMessage(""); }}
+                          className="hover:text-rose-500 transition-colors ml-1 font-sans font-bold cursor-pointer"
+                          title={lang === "en" ? "Clear selection" : "Quitar selección"}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
                   </div>
 
                   <form onSubmit={handleContactSubmit} className="space-y-4 text-left">
@@ -1652,8 +1804,19 @@ export default function App() {
         </>
       ) : currentView === "privacy-policy" ? (
         <PrivacyPolicy onBackToHome={onBackToHome} lang={lang} />
-      ) : (
+      ) : currentView === "terms-of-service" ? (
         <TermsOfService onBackToHome={onBackToHome} lang={lang} />
+      ) : (
+        <WhyIulPage
+          onBackToHome={onBackToHome}
+          lang={lang}
+          onExploreServices={(serviceName: string) => {
+            onBackToHome();
+            setTimeout(() => {
+              handlePreFillMessage(serviceName);
+            }, 150);
+          }}
+        />
       )}
 
       {/* 11. FOOTER (Sleek deep navy #122033 for world-class finance look) */}
