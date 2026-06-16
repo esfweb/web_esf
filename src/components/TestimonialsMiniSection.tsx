@@ -8,6 +8,7 @@ interface Testimonial {
   quote: string;
   date: string;
   badge: string;
+  lang: "en" | "es";
 }
 
 const testimonials: Testimonial[] = [
@@ -17,7 +18,8 @@ const testimonials: Testimonial[] = [
     alt: "Felix Reyes testimonial photo for EverSafe Financial",
     quote: "Gracias por toda tu ayuda, eres la mejor",
     date: "Sep 3, 2024",
-    badge: "Verified Recommendation"
+    badge: "Verified Recommendation",
+    lang: "es"
   },
   {
     name: "Rita Morales",
@@ -25,7 +27,17 @@ const testimonials: Testimonial[] = [
     alt: "Rita Morales testimonial photo for EverSafe Financial",
     quote: "Mary me ayudó a entender el mundo de los seguros de una manera fácil y profesional. EverSafe Financial te brinda apoyo y confianza en todo lo que hace.",
     date: "Sep 2, 2024",
-    badge: "Verified Recommendation"
+    badge: "Verified Recommendation",
+    lang: "es"
+  },
+  {
+    name: "Valerie Fletcher",
+    image: "https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781629541/Valerie_Fletcher_Testimonio_EversafeFinancial_jrdn3w.jpg",
+    alt: "Valerie Fletcher testimonial photo for EverSafe Financial",
+    quote: "Thank you for today & all your help & I spoke with Anthony & he will call you eventually. It's nice when you come here & everything is so much easier talking to when you're here because you're very thorough & look out for us for what we need. God Bless you Maria. You're such a good lady. Ttys",
+    date: "Oct 19, 2024",
+    badge: "Verified Recommendation",
+    lang: "en"
   }
 ];
 
@@ -37,7 +49,7 @@ interface Props {
 export function TestimonialsMiniSection({ lang, onQuoteClick }: Props) {
   return (
     <section className="py-20 px-4 md:px-8 bg-brand-gray-soft relative reveal-init border-y border-slate-200/50">
-      <div className="max-w-5xl mx-auto space-y-12">
+      <div className="max-w-6xl mx-auto space-y-12">
         {/* Header */}
         <div className="text-center space-y-4 max-w-2xl mx-auto">
           <span className="text-[11px] uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple/5 px-3 py-1.5 rounded-full inline-flex border border-brand-purple/10">
@@ -54,7 +66,7 @@ export function TestimonialsMiniSection({ lang, onQuoteClick }: Props) {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((test, index) => (
             <div 
               key={index} 
@@ -71,7 +83,7 @@ export function TestimonialsMiniSection({ lang, onQuoteClick }: Props) {
                   alt={test.alt}
                   loading="lazy"
                   referrerPolicy="no-referrer"
-                  className="w-14 h-14 rounded-xl object-cover shadow-sm ring-2 ring-brand-purple/10"
+                  className="w-14 h-14 rounded-xl object-cover shadow-sm ring-2 ring-brand-purple/10 font-sans text-xs text-brand-slate"
                 />
                 <div>
                   <h3 className="font-bold text-brand-navy font-sans tracking-tight leading-tight">
@@ -94,8 +106,10 @@ export function TestimonialsMiniSection({ lang, onQuoteClick }: Props) {
 
               <div className="mt-6 pt-4 border-t border-slate-50 flex justify-between items-center relative z-10">
                 <span className="text-xs text-slate-400 font-medium">{test.date}</span>
-                <span className="text-[10px] text-slate-300 bg-slate-50 px-2 py-1 rounded-md border border-slate-100">
-                  {lang === "en" ? "Original in Spanish" : "Reseña original"}
+                <span className="text-[10px] text-slate-400 bg-slate-50 px-2.5 py-1 rounded-md border border-slate-100/80 font-medium">
+                  {test.lang === "en" 
+                    ? (lang === "en" ? "Original review" : "Reseña en inglés")
+                    : (lang === "en" ? "Original in Spanish" : "Reseña original")}
                 </span>
               </div>
             </div>
