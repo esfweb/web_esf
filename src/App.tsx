@@ -315,7 +315,7 @@ export default function App() {
     targets.forEach((t) => observer.observe(t));
 
     return () => observer.disconnect();
-  }, [lang]);
+  }, [lang, currentView]);
 
   useEffect(() => {
     const handleScroll = () => {
