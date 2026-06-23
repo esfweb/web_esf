@@ -1555,9 +1555,21 @@ export default function App() {
         </div>
       </section>
 
-      {/* 10. CONTACT / FREE QUOTE (Soft gray background, highly guided clear form with brand-purple action) */}
-      <section id="contact" className="py-24 px-4 md:px-8 bg-brand-gray-soft relative reveal-init">
-        <div className="max-w-7xl mx-auto">
+      {/* 10. CONTACT / FREE QUOTE (Soft gray background with elegant background image & overlay, highly guided clear form with brand-purple action) */}
+      <section 
+        id="contact" 
+        className="py-24 px-4 md:px-8 relative overflow-hidden reveal-init"
+        style={{
+          backgroundImage: "url('https://res.cloudinary.com/drghl4bjl/image/upload/v1782235846/hf_20260623_172731_2996ad00-a5d4-4363-8674-326d90dbd215_1_go8xyv.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Elegant light purple overlay to maintain optimal legibility and premium brand style */}
+        <div className="absolute inset-0 bg-[#FAF7FD]/50 lg:bg-gradient-to-r lg:from-[#F4EBFC]/75 lg:via-[#F6EEFD]/70 lg:to-[#FAF4FE]/60"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             {/* Column 1: Contact Detail Info */}
