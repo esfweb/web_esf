@@ -31,6 +31,7 @@ import useWeb3Forms from "@web3forms/react";
 import { PrivacyPolicy, TermsOfService } from "./components/LegalPages";
 import { WhyIulPage } from "./components/WhyIulPage";
 import { TestimonialsMiniSection } from "./components/TestimonialsMiniSection";
+import { GHLQuoteFormEmbed } from "./components/GHLQuoteFormEmbed";
 
 // Count-up stats helper component with intersection detection
 interface AnimatedStatProps {
@@ -859,7 +860,7 @@ export default function App() {
             <span className="hidden sm:inline text-brand-purple">•</span>
             <span>Aetna</span>
             <span className="hidden sm:inline text-[#00C2A8]">•</span>
-            <span>Cigna</span>
+            <span>Oscar</span>
             <span className="hidden sm:inline text-brand-purple">•</span>
             <span>Humana</span>
             <span className="hidden sm:inline text-[#00C2A8]">•</span>
@@ -1643,170 +1644,9 @@ export default function App() {
 
             </div>
 
-            {/* Column 2: Free Quote dynamic Form (Pure white, sleek corporate inputs context) */}
-            <div className="lg:col-span-7 bg-white p-6 md:p-10 rounded-3xl border border-slate-100 shadow-[0_12px_40px_rgba(18,32,51,0.02)]">
-              {formSubmitted ? (
-                <div className="py-12 text-center space-y-4">
-                  {/* Sage Green validation indicator checking */}
-                  <div className="w-16 h-16 bg-brand-sage-light rounded-full border border-brand-sage text-3xl flex items-center justify-center text-brand-sage mx-auto mb-4 animate-bounce">
-                    ✓
-                  </div>
-                  <h3 className="text-xl font-bold text-brand-navy font-sans">
-                    {t.contactForm.successTitle}
-                  </h3>
-                  <p className="text-brand-slate text-sm max-w-sm mx-auto">
-                    {t.contactForm.successDesc}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setFormSubmitted(false);
-                      setFullName("");
-                      setEmail("");
-                      setPhone("");
-                      setMessage("");
-                      setConsent(false);
-                    }}
-                    className="mt-6 px-6 py-2.5 bg-brand-purple hover:bg-brand-purple-hover text-white text-xs font-bold rounded-xl uppercase tracking-wider transition-colors cursor-pointer"
-                  >
-                    🔄 Send Another Inquiry / Enviar Otro Mensaje
-                  </button>
-                </div>
-              ) : (
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl md:text-2xl font-bold font-sans text-brand-navy tracking-tight">
-                      {t.contactForm.title}
-                    </h3>
-                    <p className="text-xs md:text-sm text-brand-slate mt-1.5">
-                      {t.contactForm.subtitle}
-                    </p>
-                    {selectedService && (
-                      <div className="mt-4 inline-flex items-center gap-2 bg-brand-purple-light/40 border border-brand-purple/20 px-3 py-1.5 rounded-xl text-xs font-bold text-brand-purple animate-fade-in">
-                        <span>✨ {lang === "en" ? `Selected Plan: ${selectedService}` : `Plan Seleccionado: ${selectedService}`}</span>
-                        <button 
-                          type="button" 
-                          onClick={() => { setSelectedService(""); setMessage(""); }}
-                          className="hover:text-rose-500 transition-colors ml-1 font-sans font-bold cursor-pointer"
-                          title={lang === "en" ? "Clear selection" : "Quitar selección"}
-                        >
-                          ✕
-                        </button>
-                      </div>
-                    )}
-                  </div>
-
-                  <form onSubmit={handleContactSubmit} className="space-y-4 text-left">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {/* Name input */}
-                      <div>
-                        <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5 label-focus-transition">
-                          {t.contactForm.nameLabel} <span className="text-rose-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
-                          placeholder="Elizabeth Bennett"
-                          className="w-full bg-[#F3F3F4] border border-transparent focus:bg-white focus:border-brand-purple focus:ring-2 focus:ring-[#8C49B1]/30 focus:shadow-[0_0_15px_rgba(140,73,177,0.25)] rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 text-brand-navy placeholder:text-brand-slate/40"
-                        />
-                      </div>
-
-                      {/* Email input */}
-                      <div>
-                        <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5 label-focus-transition">
-                          {t.contactForm.emailLabel} <span className="text-rose-500">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="client@mail.com"
-                          className="w-full bg-[#F3F3F4] border border-transparent focus:bg-white focus:border-brand-purple focus:ring-2 focus:ring-[#8C49B1]/30 focus:shadow-[0_0_15px_rgba(140,73,177,0.25)] rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 text-brand-navy placeholder:text-brand-slate/40"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Telephone */}
-                    <div>
-                      <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5 label-focus-transition">
-                        {t.contactForm.phoneLabel} <span className="text-rose-500">*</span>
-                      </label>
-                      <input
-                          type="tel"
-                          required
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          placeholder="(727) 359-6196"
-                          className="w-full bg-[#F3F3F4] border border-transparent focus:bg-white focus:border-brand-purple focus:ring-2 focus:ring-[#8C49B1]/30 focus:shadow-[0_0_15px_rgba(140,73,177,0.25)] rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 text-brand-navy placeholder:text-brand-slate/40"
-                      />
-                    </div>
-
-                    {/* Detailed Message block */}
-                    <div>
-                      <label className="block text-[11px] font-bold text-brand-slate-dark uppercase tracking-wider mb-1.5 label-focus-transition">
-                        {t.contactForm.messageLabel}
-                      </label>
-                      <textarea
-                        rows={4}
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        placeholder={t.contactForm.placeholderMessage}
-                        className="w-full bg-[#F3F3F4] border border-transparent focus:bg-white focus:border-brand-purple focus:ring-2 focus:ring-[#8C49B1]/30 focus:shadow-[0_0_15px_rgba(140,73,177,0.25)] rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 text-brand-navy placeholder:text-brand-slate/40"
-                      ></textarea>
-                    </div>
-
-                    {/* Checkbox Consent block */}
-                    <div className="flex items-start gap-3 bg-brand-purple-light/50 p-3.5 rounded-xl border border-brand-purple/5">
-                      <input
-                        type="checkbox"
-                        required
-                        id="contact-consent"
-                        checked={consent}
-                        onChange={(e) => setConsent(e.target.checked)}
-                        className="mt-1 w-4 h-4 rounded border-slate-300 text-brand-purple focus:ring-brand-purple accent-brand-purple cursor-pointer"
-                      />
-                      <label htmlFor="contact-consent" className="text-[11px] leading-snug text-brand-slate select-none cursor-pointer">
-                        {t.contactForm.consentText}
-                      </label>
-                    </div>
-
-                    {formError && (
-                      <p className="text-rose-600 font-semibold text-xs border border-rose-100 bg-rose-50 p-3 rounded-xl animate-shake">
-                        ⚠️ {formError}
-                      </p>
-                    )}
-
-                    {/* Submission button (Brand Purple acento estratégico #8C49B1) with hover pop scale */}
-                    <button
-                      type="submit"
-                      disabled={isSubmittingForm}
-                      className={`w-full text-white font-bold py-3.5 px-6 rounded-2xl text-xs sm:text-sm transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg shadow-brand-purple/15 cursor-pointer text-center text-semibold uppercase ${
-                        isSubmittingForm ? "bg-brand-purple/50 cursor-not-allowed" : "bg-brand-purple hover:bg-brand-purple-hover"
-                      }`}
-                    >
-                      {isSubmittingForm ? (lang === "en" ? "⏳ SENDING..." : "⏳ ENVIANDO...") : `🚀 ${t.contactForm.btnSubmit}`}
-                    </button>
-
-                    {/* A7 — DEBAJO DEL CONTACT SUBMIT BUTTON */}
-                    <p className="text-[10px] sm:text-xs text-center text-brand-purple font-semibold italic mt-1 pb-2">
-                      {lang === "en" 
-                        ? "🔒 Your data is fully protected and never shared. We respect your security." 
-                        : "🔒 Tus datos están completamente protegidos y nunca se comparten. Respetamos tu privacidad."}
-                    </p>
-
-                    {/* Small policy disclaimer links */}
-                    <div className="flex justify-center gap-4 text-[10px] text-brand-slate font-light pt-2">
-                      <a href="#privacy-policy" className="hover:underline hover:text-brand-purple transition-colors">Privacy Policy</a>
-                      <span>·</span>
-                      <a href="#terms-of-service" className="hover:underline hover:text-brand-purple transition-colors">Terms of Service</a>
-                    </div>
-
-                  </form>
-                </div>
-              )}
+            {/* Column 2: Free Quote GoHighLevel Embedded Form */}
+            <div className="lg:col-span-7">
+              <GHLQuoteFormEmbed lang={lang} />
             </div>
 
           </div>

@@ -377,142 +377,62 @@ export default function QuizCard({ t }: QuizCardProps) {
             </div>
           )}
 
-          {/* STEP 5: OUTCOME + lead capture form */}
+          {/* STEP 5: OUTCOME + CTA redirecting to GoHighLevel Contact Section */}
           {step === 5 && (
-            <div className="space-y-5 animate-fade-in-up">
-              {formSubmitted ? (
-                <div className="py-8 text-center space-y-4">
-                  {/* Sage/Teal Check box for validation */}
-                  <div className="w-16 h-16 bg-accent-light/20 rounded-full border-2 border-accent flex items-center justify-center mx-auto text-3xl text-accent animate-bounce">
-                    ✓
-                  </div>
-                  <h3 className="text-xl font-bold text-brand-navy font-sans">
-                    {t.quiz.leadSuccessTitle}
-                  </h3>
-                  <p className="text-sm text-brand-slate leading-relaxed">
-                    {t.quiz.leadSuccessDesc}
+            <div className="space-y-6 animate-fade-in-up">
+              <div>
+                {/* Results Diagnostic (Acentos de validacion verde suave / sage / teal) */}
+                <div className="p-5 rounded-2xl bg-accent-light/10 border border-accent/25 mb-4">
+                  {isQualified ? (
+                    <div>
+                      <h4 className="text-sm sm:text-base font-bold text-accent flex items-center gap-1.5 uppercase tracking-wide">
+                        🌟 {t.quiz.qualifiedTitle}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-brand-slate-dark leading-relaxed mt-2">
+                        {t.quiz.qualifiedDesc}
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <h4 className="text-sm sm:text-base font-bold text-brand-purple flex items-center gap-1.5 uppercase tracking-wide">
+                        🛡️ {t.quiz.unqualifiedTitle}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed mt-2">
+                        {t.quiz.unqualifiedDesc}
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-4 text-center mt-6">
+                  <p className="text-xs text-brand-slate leading-relaxed">
+                    {t.quiz.title === "Do You Qualify for IUL?"
+                      ? "To secure your custom plan, please fill out our official quote request form below."
+                      : "Para asegurar tu plan personalizado, por favor completa nuestro formulario oficial de cotización abajo."}
                   </p>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const element = document.getElementById("contact");
+                      if (element) {
+                        element.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
+                    className="w-full bg-accent hover:bg-accent-dark text-white font-bold py-4 px-6 rounded-2xl text-xs sm:text-sm uppercase tracking-wide shadow-lg shadow-accent/10 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer block text-center"
+                  >
+                    🚀 {t.quiz.title === "Do You Qualify for IUL?" ? "Get My Free Quote Now" : "Obtener Mi Cotización Gratis Ahora"}
+                  </button>
+
                   <button
                     type="button"
                     onClick={resetQuiz}
-                    className="mt-4 px-5 py-2.5 bg-secondary hover:bg-brand-purple-light hover:text-brand-purple rounded-xl text-xs font-semibold text-brand-slate tracking-wide uppercase transition-all"
+                    className="text-brand-slate hover:text-brand-purple transition text-xs font-semibold underline decoration-dotted mt-4 inline-block cursor-pointer"
                   >
-                    🔄 Test Again / Volver a evaluar
+                    🔄 {t.quiz.title === "Do You Qualify for IUL?" ? "Start Over" : "Reiniciar Quiz"}
                   </button>
                 </div>
-              ) : (
-                <div>
-                  {/* Results Diagnostic (Acentos de validacion verde suave / sage / teal) */}
-                  <div className="p-4 rounded-2xl bg-accent-light/10 border border-accent/25 mb-4">
-                    {isQualified ? (
-                      <div>
-                        <h4 className="text-sm font-bold text-accent flex items-center gap-1.5 uppercase tracking-wide">
-                          🌟 {t.quiz.qualifiedTitle}
-                        </h4>
-                        <p className="text-xs text-brand-slate-dark leading-relaxed mt-1.5">
-                          {t.quiz.qualifiedDesc}
-                        </p>
-                      </div>
-                    ) : (
-                      <div>
-                        <h4 className="text-sm font-bold text-brand-purple flex items-center gap-1.5 uppercase tracking-wide">
-                          🛡️ {t.quiz.unqualifiedTitle}
-                        </h4>
-                        <p className="text-xs text-brand-slate leading-relaxed mt-1.5">
-                          {t.quiz.unqualifiedDesc}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  <h5 className="text-xs font-semibold uppercase text-brand-purple tracking-wider mb-3">
-                    📋 Request Eversafe Call / Solicita Llamada
-                  </h5>
-
-                  <form onSubmit={handleLeadSubmit} className="space-y-3 text-left">
-                    <div>
-                      <label className="block text-xs font-medium text-brand-slate-dark mb-1 label-focus-transition">
-                        {t.quiz.fullName}
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        placeholder="Mary Rivera Client"
-                        className="w-full bg-secondary border border-transparent focus:bg-white focus:border-brand-purple focus:ring-2 focus:ring-[#8C49B1]/20 focus:shadow-[0_0_12px_rgba(140,73,177,0.15)] rounded-xl px-3.5 py-2 text-sm text-brand-navy placeholder-brand-slate/40 focus:outline-none transition-all duration-300"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-xs font-medium text-brand-slate-dark mb-1 label-focus-transition">
-                          {t.quiz.phoneLabel}
-                        </label>
-                        <input
-                          type="tel"
-                          required
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          placeholder="(727) 359-6196"
-                          className="w-full bg-secondary border border-transparent focus:bg-white focus:border-brand-purple focus:ring-2 focus:ring-[#8C49B1]/20 focus:shadow-[0_0_12px_rgba(140,73,177,0.15)] rounded-xl px-3.5 py-2 text-sm text-brand-navy placeholder-brand-slate/40 focus:outline-none transition-all duration-300"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-medium text-brand-slate-dark mb-1 label-focus-transition">
-                          {t.quiz.emailLabel}
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="client@mail.com"
-                          className="w-full bg-secondary border border-transparent focus:bg-white focus:border-brand-purple focus:ring-2 focus:ring-[#8C49B1]/20 focus:shadow-[0_0_12px_rgba(140,73,177,0.15)] rounded-xl px-3.5 py-2 text-sm text-brand-navy placeholder-brand-slate/40 focus:outline-none transition-all duration-300"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-2.5 pt-1">
-                      <input
-                        type="checkbox"
-                        id="quiz-consent"
-                        checked={consent}
-                        onChange={(e) => setConsent(e.target.checked)}
-                        className="mt-1 w-4 h-4 rounded border-gray-300 text-brand-purple focus:ring-brand-purple accent-brand-purple"
-                      />
-                      <label htmlFor="quiz-consent" className="text-[10px] text-brand-slate leading-tight select-none">
-                        {t.quiz.consent}
-                      </label>
-                    </div>
-
-                    {formError && (
-                      <p className="text-rose-600 text-xs text-center border border-rose-200 bg-rose-50 py-1.5 px-3 rounded-lg">
-                        ⚠️ {formError}
-                      </p>
-                    )}
-
-                    <div className="flex justify-between items-center gap-3 pt-3">
-                      <button
-                        type="button"
-                        onClick={resetQuiz}
-                        className="text-brand-slate hover:text-brand-purple transition text-xs font-semibold underline decoration-dotted capitalize"
-                      >
-                        Reset / Iniciar
-                      </button>
-                      <button
-                        type="submit"
-                        disabled={isSubmittingQuiz}
-                        className={`flex-1 text-white transition-all font-bold py-2.5 px-3 rounded-xl text-xs sm:text-sm text-center shadow-md shadow-accent/10 ${
-                          isSubmittingQuiz ? "bg-accent/50 cursor-not-allowed" : "bg-accent hover:bg-accent-dark"
-                        }`}
-                      >
-                        {isSubmittingQuiz ? (t.quiz.submitLead === "Send Lead Data" ? "⏳ Sending..." : "⏳ Enviando...") : t.quiz.submitLead}
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              )}
+              </div>
             </div>
           )}
 
