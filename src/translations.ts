@@ -191,7 +191,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       subtitle: "Expert insurance guidance from Mary Rivera — tailored solutions for life, health, and retirement across Florida and beyond.",
       ctaPhone: "📞 Talk to Mary: 727-359-6196",
       ctaIUL: "💡 Why IUL Is Better",
-      badge: "✅ 4+ Years of Experience  ·  ✅ Licensed in Florida  ·  ✅ Bilingual Service (EN/ES)",
+      badge: "✅ 4+ Years of Experience  ·  ✅ Licensed in Florida & other states  ·  ✅ Bilingual Service (EN/ES)",
     },
     quiz: {
       title: "Do You Qualify for IUL?",
@@ -297,7 +297,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
     },
     about: {
       titleLabel: "Mary Rivera · Licensed Insurance Advisor",
-      bio: "With 4 years of experience and an unyielding commitment to integrity, EverSafe Financial is dedicated to providing tailored insurance solutions that protect what truly matters. Drawing on our extensive background in the insurance industry, we empower our clients to make informed decisions, ensuring comprehensive coverage that fits both current needs and future retirement aspirations. Our approach combines professional insight with a genuine passion for shielding individuals and multi-generational families.",
+      bio: "With 4 years of experience and an unyielding commitment to integrity, Eversafe Financial is dedicated to providing tailored insurance solutions that protect what truly matters. Drawing on our extensive background in the insurance industry, we empower our clients to make informed decisions, ensuring comprehensive coverage that fits both current needs and future retirement aspirations. Our approach combines professional insight with a genuine passion for shielding individuals and multi-generational families.",
       cta: "⭐ Save Money & Build Wealth Now",
       badge: "Licensed Insurance Advisor • Florida",
     },
@@ -319,7 +319,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       phoneLabel: "Phone Number",
       messageLabel: "How Can I Assist You?",
       placeholderMessage: "Let me know your doubts or requirements...",
-      consentText: "By checking this box, I consent to receive professional transactional messages/calls related to EverSafe coverage requests.",
+      consentText: "By checking this box, I consent to receive professional transactional messages/calls related to Eversafe coverage requests.",
       btnSubmit: "🛡️ Securing My Family's Future Now",
       successTitle: "📩 Quote Request Received!",
       successDesc: "A warm thank you! Mary Rivera has received your inquiry and is already checking options. She will reach out within 1 business day.",
@@ -332,7 +332,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       hoursSat: "Saturday: 10:00 AM – 2:00 PM",
       hoursSun: "Sunday: Closed",
       areaLabel: "Service Areas",
-      areaValue: "Florida and other licensed U.S. states",
+      areaValue: "Florida and other U.S. states",
       bilingualHelp: "Te Puedo Ayudar en Español",
     },
     footer: {
@@ -340,7 +340,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       contactUs: "Contact Us",
       hours: "Business Hours",
       bilingual: "Te Puedo Ayudar en Español • We Also Speak English",
-      rights: "© 2026 EverSafe Financial LLC. All rights reserved. EverSafe Financial is the independent firm of advisor Mary Rivera.",
+      rights: "© 2026 Eversafe Financial LLC. All rights reserved. Eversafe Financial is the independent firm of advisor Mary Rivera.",
     },
     whoWeHelp: {
       title: "Who We Help",
@@ -366,12 +366,12 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       title: "Frequently Asked Questions",
       items: [
         {
-          q: "What types of insurance does EverSafe Financial help with?",
+          q: "What types of insurance does Eversafe Financial help with?",
           a: "We help clients compare life insurance, Medicare plans, ACA options, retirement strategies, and family financial protection solutions."
         },
         {
           q: "Do you offer service in Spanish?",
-          a: "Yes. EverSafe Financial provides bilingual support in English and Spanish."
+          a: "Yes. Eversafe Financial provides bilingual support in English and Spanish."
         },
         {
           q: "How do I know which plan is right for me?",
@@ -405,7 +405,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       subtitle: "Orientación experta de Mary Rivera — soluciones personalizadas para vida, salud y retiro en Florida y más allá.",
       ctaPhone: "📞 Hablar con Mary: (727) 359-6196",
       ctaIUL: "💡 Por Qué IUL es Mejor",
-      badge: "✅ 4+ Años de Experiencia  ·  ✅ Licencia en Florida  ·  ✅ Servicio Bilingüe (EN/ES)",
+      badge: "✅ 4+ Años de Experiencia  ·  ✅ Licencia en Florida y otros estados  ·  ✅ Servicio Bilingüe (EN/ES)",
     },
     quiz: {
       title: "¿Calificas para IUL?",
@@ -511,7 +511,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
     },
     about: {
       titleLabel: "Mary Rivera · Asesora de Seguros",
-      bio: "Con 4 años de experiencia y un compromiso absoluto con la honestidad, EverSafe Financial se dedica a brindar soluciones de seguros personalizadas que protegen lo que verdaderamente importa. Apoyándonos en una sólida trayectoria en la industria de seguros, empoderamos a nuestros clientes con las mejores decisiones, asegurando una cobertura integral que se adapta tanto a las necesidades de hoy como a las aspiraciones de retiro familiar de mañana. Nuestro enfoque combina solidez profesional con pasión genuina para ayudar a asegurar un mañana de máxima paz.",
+      bio: "Con 4 años de experiencia y un compromiso absoluto con la honestidad, Eversafe Financial se dedica a brindar soluciones de seguros personalizadas que protegen lo que verdaderamente importa. Apoyándonos en una sólida trayectoria en la industria de seguros, empoderamos a nuestros clientes con las mejores decisiones, asegurando una cobertura integral que se adapta tanto a las necesidades de hoy como a las aspiraciones de retiro familiar de mañana. Nuestro enfoque combina solidez profesional con pasión genuina para ayudar a asegurar un mañana de máxima paz.",
       cta: "⭐ Ahorrar Dinero y Crear Riqueza Hoy",
       badge: "Asesora de Seguros Autorizada • Florida",
     },
@@ -546,7 +546,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       hoursSat: "Sábado: 10:00 AM – 2:00 PM",
       hoursSun: "Domingo: Cerrado",
       areaLabel: "Zonificación de Servicio",
-      areaValue: "Florida y estados autorizados de la Unión Americana",
+      areaValue: "Florida y otros estados de la Unión Americana",
       bilingualHelp: "Te Puedo Ayudar en Español",
     },
     footer: {
@@ -554,7 +554,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       contactUs: "Contáctanos",
       hours: "Horario de Oficina",
       bilingual: "Te Puedo Ayudar en Español • We Also Speak English",
-      rights: "© 2026 EverSafe Financial LLC. Todos los derechos reservados. EverSafe Financial es la firma independiente de la asesora Mary Rivera.",
+      rights: "© 2026 Eversafe Financial LLC. Todos los derechos reservados. Eversafe Financial es la firma independiente de la asesora Mary Rivera.",
     },
     whoWeHelp: {
       title: "A Quiénes Ayudamos",
@@ -580,12 +580,12 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       title: "Preguntas Frecuentes",
       items: [
         {
-          q: "¿Con qué tipos de seguros ayuda EverSafe Financial?",
+          q: "¿Con qué tipos de seguros ayuda Eversafe Financial?",
           a: "Ayudamos a los clientes a comparar seguros de vida, planes de Medicare, opciones de ACA (Obamacare), estrategias de jubilación y soluciones de protección financiera familiar."
         },
         {
           q: "¿Ofrecen servicio en español?",
-          a: "Sí. EverSafe Financial ofrece soporte bilingüe completo en inglés y español."
+          a: "Sí. Eversafe Financial ofrece soporte bilingüe completo en inglés y español."
         },
         {
           q: "¿Cómo sé cuál plan es el adecuado para mí?",

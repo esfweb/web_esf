@@ -15,7 +15,7 @@ const testimonials: Testimonial[] = [
   {
     name: "Felix Reyes",
     image: "https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781571269/FelixReyes_Testimonio_EversafeFinancial_bn6skf.jpg",
-    alt: "Felix Reyes testimonial photo for EverSafe Financial",
+    alt: "Felix Reyes testimonial photo for Eversafe Financial",
     quote: "Gracias por toda tu ayuda, eres la mejor",
     date: "Sep 3, 2024",
     badge: "Verified Recommendation",
@@ -24,8 +24,8 @@ const testimonials: Testimonial[] = [
   {
     name: "Rita Morales",
     image: "https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781571269/RitaMorales__Testimonio_EversafeFinancial_ahfl7i.jpg",
-    alt: "Rita Morales testimonial photo for EverSafe Financial",
-    quote: "Mary me ayudó a entender el mundo de los seguros de una manera fácil y profesional. EverSafe Financial te brinda apoyo y confianza en todo lo que hace.",
+    alt: "Rita Morales testimonial photo for Eversafe Financial",
+    quote: "Mary me ayudó a entender el mundo de los seguros de una manera fácil y profesional. Eversafe Financial te brinda apoyo y confianza en todo lo que hace.",
     date: "Sep 2, 2024",
     badge: "Verified Recommendation",
     lang: "es"
@@ -33,7 +33,7 @@ const testimonials: Testimonial[] = [
   {
     name: "Valerie Fletcher",
     image: "https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781629541/Valerie_Fletcher_Testimonio_EversafeFinancial_jrdn3w.jpg",
-    alt: "Valerie Fletcher testimonial photo for EverSafe Financial",
+    alt: "Valerie Fletcher testimonial photo for Eversafe Financial",
     quote: "Thank you for today & all your help & I spoke with Anthony & he will call you eventually. It's nice when you come here & everything is so much easier talking to when you're here because you're very thorough & look out for us for what we need. God Bless you Maria. You're such a good lady. Ttys",
     date: "Oct 19, 2024",
     badge: "Verified Recommendation",
@@ -60,8 +60,8 @@ export function TestimonialsMiniSection({ lang, onQuoteClick }: Props) {
           </h2>
           <p className="text-sm md:text-base text-brand-slate leading-relaxed">
             {lang === "en" 
-              ? "Real words from people who trusted EverSafe Financial for guidance, clarity, and peace of mind." 
-              : "Palabras reales de personas que confiaron en EverSafe Financial para recibir guía, claridad y tranquilidad."}
+              ? "Real words from people who trusted Eversafe Financial for guidance, clarity, and peace of mind." 
+              : "Palabras reales de personas que confiaron en Eversafe Financial para recibir guía, claridad y tranquilidad."}
           </p>
         </div>
 
@@ -120,8 +120,8 @@ export function TestimonialsMiniSection({ lang, onQuoteClick }: Props) {
         <div className="text-center space-y-5 pt-8">
           <p className="text-sm font-medium text-brand-slate">
             {lang === "en" 
-              ? "More families trust EverSafe Financial for personalized, bilingual guidance." 
-              : "Cada vez más familias confían en EverSafe Financial para recibir orientación personalizada y bilingüe."}
+              ? "More families trust Eversafe Financial for personalized, bilingual guidance." 
+              : "Cada vez más familias confían en Eversafe Financial para recibir orientación personalizada y bilingüe."}
           </p>
           <button
             onClick={onQuoteClick}

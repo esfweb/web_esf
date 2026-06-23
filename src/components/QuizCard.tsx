@@ -70,8 +70,8 @@ export default function QuizCard({ t }: QuizCardProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           access_key: (import.meta as any).env?.VITE_WEB3FORMS_KEY || '7dc1994b-f9c9-449c-8f4c-18d4d133c452',
-          subject: "🎯 New Quiz Lead - EverSafe Financial",
-          from_name: "EverSafeFinancial Quiz",
+          subject: "🎯 New Quiz Lead - Eversafe Financial",
+          from_name: "EversafeFinancial Quiz",
           name: quizAnswers.name,
           phone: quizAnswers.phone,
           email: quizAnswers.email,
@@ -80,7 +80,7 @@ export default function QuizCard({ t }: QuizCardProps) {
           health_issues: quizAnswers.health,
           coverage_interest: quizAnswers.goal,
           quiz_result: quizAnswers.result,
-          source: "Hero Quiz - EverSafeFinancial Website",
+          source: "Hero Quiz - EversafeFinancial Website",
           submitted_at: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
         }),
       });
@@ -426,7 +426,7 @@ export default function QuizCard({ t }: QuizCardProps) {
                   </div>
 
                   <h5 className="text-xs font-semibold uppercase text-brand-purple tracking-wider mb-3">
-                    📋 Request EverSafe Call / Solicita Llamada
+                    📋 Request Eversafe Call / Solicita Llamada
                   </h5>
 
                   <form onSubmit={handleLeadSubmit} className="space-y-3 text-left">

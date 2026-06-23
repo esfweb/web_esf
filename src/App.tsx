@@ -243,14 +243,14 @@ export default function App() {
   // Sync SEO Metadata dynamically for excellent crawling
   useEffect(() => {
     if (currentView === "privacy-policy") {
-      document.title = "Privacy Policy | EverSafe Financial";
+      document.title = "Privacy Policy | Eversafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
         metaDesc.setAttribute('name', 'description');
         document.head.appendChild(metaDesc);
       }
-      metaDesc.setAttribute('content', 'Read the Privacy Policy of EverSafe Financial to understand how personal information is collected, used, and protected.');
+      metaDesc.setAttribute('content', 'Read the Privacy Policy of Eversafe Financial to understand how personal information is collected, used, and protected.');
       
       let canonical = document.querySelector('link[rel="canonical"]');
       if (!canonical) {
@@ -260,14 +260,14 @@ export default function App() {
       }
       canonical.setAttribute('href', window.location.origin + "/#privacy-policy");
     } else if (currentView === "terms-of-service") {
-      document.title = "Terms of Service | EverSafe Financial";
+      document.title = "Terms of Service | Eversafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
         metaDesc.setAttribute('name', 'description');
         document.head.appendChild(metaDesc);
       }
-      metaDesc.setAttribute('content', 'Review the Terms of Service for using the EverSafe Financial website, including site usage, intellectual property, and limitations of liability.');
+      metaDesc.setAttribute('content', 'Review the Terms of Service for using the Eversafe Financial website, including site usage, intellectual property, and limitations of liability.');
       
       let canonical = document.querySelector('link[rel="canonical"]');
       if (!canonical) {
@@ -278,8 +278,8 @@ export default function App() {
       canonical.setAttribute('href', window.location.origin + "/#terms-of-service");
     } else if (currentView === "why-iul") {
       document.title = lang === "en"
-        ? "Why IUL May Beat 401(k) and Roth IRA for Some Families | EverSafe Financial"
-        : "¿Por Qué el IUL Puede Superar al 401(k) y Roth IRA para Algunas Familias? | EverSafe Financial";
+        ? "Why IUL May Beat 401(k) and Roth IRA for Some Families | Eversafe Financial"
+        : "¿Por Qué el IUL Puede Superar al 401(k) y Roth IRA para Algunas Familias? | Eversafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
@@ -299,8 +299,8 @@ export default function App() {
       canonical.setAttribute('href', "https://esfweb.github.io/web_esf/why-iul");
     } else {
       document.title = lang === "en" 
-        ? "Licensed Florida Insurance Advisor | EverSafe Financial" 
-        : "Asesora de Seguros Autorizada en Florida | EverSafe Financial";
+        ? "Licensed Florida Insurance Advisor | Eversafe Financial" 
+        : "Asesora de Seguros Autorizada en Florida | Eversafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
         metaDesc = document.createElement('meta');
@@ -425,8 +425,8 @@ export default function App() {
   const { submit: submitContactForm } = useWeb3Forms({
     access_key: (import.meta as any).env?.VITE_WEB3FORMS_KEY || "7dc1994b-f9c9-449c-8f4c-18d4d133c452",
     settings: {
-      from_name: "EverSafeFinancial - New Lead",
-      subject: "🔥 New Quote Request - EverSafe Financial",
+      from_name: "EversafeFinancial - New Lead",
+      subject: "🔥 New Quote Request - Eversafe Financial",
     },
     onSuccess: () => {
       setIsSubmittingForm(false);
@@ -470,7 +470,7 @@ export default function App() {
         phone: phone,
         message: message || "Quote request",
         selected_service: selectedService || "General / Not Specified",
-        source: "EverSafeFinancial - Quote Form",
+        source: "EversafeFinancial - Quote Form",
         submitted_at: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
       });
     } catch (err) {
@@ -577,14 +577,14 @@ export default function App() {
             <div className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-md border border-slate-100/80 transition duration-300 group-hover:scale-105 overflow-hidden">
               <img
                 src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781556920/Logo1x1_Prinicpal_rvh4wz.png"
-                alt="EverSafe Financial Logo"
+                alt="Eversafe Financial Logo"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
               />
             </div>
             <div>
               <span className="text-lg md:text-xl font-bold font-sans tracking-tight text-brand-navy flex items-center gap-1">
-                EverSafe <span className="text-brand-purple">Financial</span>
+                Eversafe <span className="text-brand-purple">Financial</span>
               </span>
               <span className="block text-[8px] uppercase tracking-widest font-extrabold text-brand-slate -mt-1 flex items-center gap-1">
                 <span>By Mary Rivera · LLC</span>
@@ -703,7 +703,9 @@ export default function App() {
             {/* Compliance Badge */}
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-lg text-xs text-white tracking-widest font-bold anim-1 mx-auto lg:mx-0">
               <Award className="w-4 h-4 text-accent flex-shrink-0 animate-bounce" />
-              <span className="text-[9px] md:text-2xs uppercase tracking-[0.15em] font-extrabold">{t.hero.badge.split(" · ")[1]} · LICENSED FLORIDA ADVISOR</span>
+              <span className="text-[9px] md:text-2xs uppercase tracking-[0.15em] font-extrabold">
+                {lang === "en" ? "Licensed in Florida and other states" : "Licencia en Florida y otros estados"}
+              </span>
             </div>
 
             <div className="space-y-4 anim-2">
@@ -727,8 +729,8 @@ export default function App() {
 
             <p className="text-xs sm:text-sm text-white/80 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3 pt-2.5 border-l-3 border-accent pl-4">
               {lang === "en"
-                ? "EverSafe Financial helps Florida families, individuals, and business owners compare life insurance, Medicare, ACA, retirement, and wealth protection solutions with dedicated bilingual support."
-                : "EverSafe Financial ayuda a familias, individuos y dueños de negocios en Florida a comparar soluciones de seguro de vida, Medicare, ACA, retiro y protección de patrimonio con soporte bilingüe calificado."}
+                ? "Eversafe Financial helps Florida families, individuals, and business owners compare life insurance, Medicare, ACA, retirement, and wealth protection solutions with dedicated bilingual support."
+                : "Eversafe Financial ayuda a familias, individuos y dueños de negocios en Florida a comparar soluciones de seguro de vida, Medicare, ACA, retiro y protección de patrimonio con soporte bilingüe calificado."}
             </p>
 
             {/* Direct Calls - Primary CTA with hover + click feedback (K2) */}
@@ -788,7 +790,7 @@ export default function App() {
             <div className="w-full max-w-md bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 shadow-2xl flex items-center gap-4 text-white hover:border-accent/40 transition-colors duration-300">
               <img
                 src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/mary-rivera-licensed-insurance-advisor-eversafe-financial.jpg_hgybkk.jpg"
-                alt="Mary Rivera - Licensed Insurance Advisor at EverSafe Financial Florida"
+                alt="Mary Rivera - Licensed Insurance Advisor at Eversafe Financial Florida"
                 referrerPolicy="no-referrer"
                 loading="lazy"
                 className="rounded-full w-14 h-14 object-cover border-2 border-accent shadow-md flex-shrink-0"
@@ -853,7 +855,7 @@ export default function App() {
             {lang === "en" ? "Offering authorized coverage from top carriers" : "Ofreciendo cobertura autorizada de las aseguradoras líderes"}
           </p>
           <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 opacity-60 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 text-xs sm:text-sm font-sans font-bold text-brand-navy">
-            <span>Florida Blue</span>
+            <span>F&G</span>
             <span className="hidden sm:inline text-brand-purple">•</span>
             <span>Aetna</span>
             <span className="hidden sm:inline text-[#00C2A8]">•</span>
@@ -1257,7 +1259,7 @@ export default function App() {
                 <div className="relative w-full h-full bg-brand-navy border-4 border-[#8c49b1] hover:ring-8 hover:ring-[#8c49b1]/30 hover:border-[#00C2A8] shadow-2xl rounded-full overflow-hidden select-none transition-all duration-500">
                   <img
                     src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560567/mary-rivera-insurance-advisor-florida-portrait.jpg_buwljo.jpg"
-                    alt="Mary Rivera Licensed Insurance Advisor EverSafe Financial Florida portrait"
+                    alt="Mary Rivera Licensed Insurance Advisor Eversafe Financial Florida portrait"
                     referrerPolicy="no-referrer"
                     loading="lazy"
                     className="w-full h-full object-cover object-top transition duration-500 scale-100 group-hover:scale-105"
@@ -1635,7 +1637,7 @@ export default function App() {
               {/* LLC License registration references mapping the exact business parameters */}
               <div className="p-4 rounded-xl border border-slate-200 text-[10px] text-brand-slate leading-normal bg-white/60">
                 <span className="font-bold uppercase tracking-wider block text-brand-slate mb-1">Company Disclosures:</span>
-                EverSafe Financial LLC is a legally registered Limited Liability Company in Pinellas Park, Florida 33782.
+                Eversafe Financial LLC is a legally registered Limited Liability Company in Pinellas Park, Florida 33782.
                 Formed on October 12, 2023. Backed by licensed agent Mary Rivera. All products subject to underwriting guidelines.
               </div>
 
@@ -1838,13 +1840,13 @@ export default function App() {
               <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center overflow-hidden shadow-md">
                 <img
                   src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781556920/Logo1x1_Prinicpal_rvh4wz.png"
-                  alt="EverSafe Financial Logo"
+                  alt="Eversafe Financial Logo"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover"
                 />
               </div>
               <span className="text-base font-extrabold text-white tracking-wide">
-                EverSafe <span className="text-brand-purple">Financial</span>
+                Eversafe <span className="text-brand-purple">Financial</span>
               </span>
             </div>
             <p className="text-xs text-brand-slate leading-relaxed max-w-sm">

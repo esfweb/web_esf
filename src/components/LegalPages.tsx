@@ -60,7 +60,7 @@ export function PrivacyPolicy({ onBackToHome, lang }: LegalPageProps) {
           <div className="prose max-w-none text-brand-navy/95 leading-relaxed space-y-8 font-sans">
             <div>
               <p className="text-base sm:text-lg text-brand-navy-light font-medium">
-                At EverSafe Financial, we value your privacy and are committed to protecting your personal information. This policy explains how we collect, use, and safeguard your data when you use our website or contact us through our forms.
+                At Eversafe Financial, we value your privacy and are committed to protecting your personal information. This policy explains how we collect, use, and safeguard your data when you use our website or contact us through our forms.
               </p>
             </div>
 

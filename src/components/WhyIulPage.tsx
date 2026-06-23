@@ -441,8 +441,8 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
           </div>
           <p className="text-[10px] text-brand-slate leading-relaxed">
             {lang === "en"
-              ? "EverSafe Financial - Authorized Florida Insurance Advisors. Licensed Florida Agent ID: Mary Rivera. No obligation consultations."
-              : "EverSafe Financial - Asesores de Seguros Autorizados en Florida. Agente Autorizada de Florida: Mary Rivera. Consultas sin compromiso alguno."}
+              ? "Eversafe Financial - Authorized Florida Insurance Advisors. Licensed Florida Agent ID: Mary Rivera. No obligation consultations."
+              : "Eversafe Financial - Asesores de Seguros Autorizados en Florida. Agente Autorizada de Florida: Mary Rivera. Consultas sin compromiso alguno."}
           </p>
         </div>
 
