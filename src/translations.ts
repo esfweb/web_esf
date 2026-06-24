@@ -210,7 +210,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
     hero: {
       title: "Your Health & Financial Protection, Made Simple",
       subtitle: "From custom health coverage like Obamacare and Medicare to long-term protection, savings, and retirement strategies like IUL. Expert, bilingual guidance tailored to you.",
-      ctaPhone: "📞 Talk to Mary: 727-359-6196",
+      ctaPhone: "Talk to Mary: 727-359-6196",
       ctaIUL: "💡 Why IUL Is Better",
       badge: "✅ 4+ Years of Experience  ·  ✅ Licensed in Florida & other states  ·  ✅ Bilingual Service (EN/ES)",
     },
@@ -509,7 +509,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
     hero: {
       title: "Protección financiera y de salud hecha para ti",
       subtitle: "Desde coberturas de salud como Obamacare y Medicare hasta estrategias de protección, ahorro y retiro a largo plazo como IUL. Guía experta y bilingüe a tu medida.",
-      ctaPhone: "📞 Hablar con Mary: (727) 359-6196",
+      ctaPhone: "Hablar con Mary: (727) 359-6196",
       ctaIUL: "💡 Por Qué IUL es Mejor",
       badge: "✅ 4+ Años de Experiencia  ·  ✅ Licencia en Florida y otros estados  ·  ✅ Servicio Bilingüe (EN/ES)",
     },

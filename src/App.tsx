@@ -29,7 +29,7 @@ import { translations, TranslationSet } from "./translations";
 import QuizCard from "./components/QuizCard";
 import useWeb3Forms from "@web3forms/react";
 import { PrivacyPolicy, TermsOfService } from "./components/LegalPages";
-import { WhyIulPage } from "./components/WhyIulPage";
+import { WhyIulPage, IulInteractiveQuiz } from "./components/WhyIulPage";
 import { TestimonialsMiniSection } from "./components/TestimonialsMiniSection";
 import { GHLQuoteFormEmbed } from "./components/GHLQuoteFormEmbed";
 import PartnerLogosCarousel from "./components/PartnerLogosCarousel";
@@ -216,6 +216,7 @@ export default function App() {
   };
 
   const [currentView, setCurrentView] = useState<"home" | "privacy-policy" | "terms-of-service" | "why-iul">("home");
+  const [heroQuizTab, setHeroQuizTab] = useState<"health" | "iul">("health");
 
   // Handle URL hashes for single-page app sub-navigation (perfect for GitHub Pages compatibility)
   useEffect(() => {
@@ -747,8 +748,10 @@ export default function App() {
                 </a>
                 <button
                   onClick={() => {
-                    setCurrentView("why-iul");
-                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    const element = document.getElementById("iul-explainer");
+                    if (element) {
+                      element.scrollIntoView({ behavior: "smooth" });
+                    }
                   }}
                   className="bg-transparent hover:bg-white/10 text-white font-extrabold py-4.5 px-8 rounded-full text-sm sm:text-base border-2 border-white/30 transition-all transform hover:scale-[1.04] active:scale-95 duration-300 text-center flex items-center justify-center gap-2 cursor-pointer"
                 >
@@ -788,7 +791,7 @@ export default function App() {
           </div>
 
           {/* Column 2: Interactive Dynamic Quiz & Mary Rivera Small Horizontal Badge */}
-          <div className="lg:col-span-5 flex flex-col gap-6 items-center justify-center lg:justify-end anim-4">
+          <div className="lg:col-span-5 flex flex-col gap-6 items-center justify-center lg:justify-end anim-4 w-full">
             <QuizCard t={t} />
             
             {/* Horizontal Glass Partner Badge (Builds massive personal connection instantly) */}
@@ -1618,9 +1621,7 @@ export default function App() {
               <button
                 onClick={() => {
                   setCurrentView("why-iul");
-                  setTimeout(() => {
-                    document.getElementById("iul-quiz-section")?.scrollIntoView({ behavior: "smooth" });
-                  }, 150);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className="bg-accent hover:bg-[#e0b42c] text-brand-navy font-extrabold py-4 px-8 rounded-2xl text-xs sm:text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl shadow-accent/20 cursor-pointer"
               >
@@ -1628,12 +1629,15 @@ export default function App() {
               </button>
 
               {/* Secondary CTA */}
-              <a
-                href="#why-iul"
+              <button
+                onClick={() => {
+                  setCurrentView("why-iul");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
                 className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-extrabold py-4 px-8 rounded-2xl text-xs sm:text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>{lang === "en" ? "Explore Why IUL Works →" : "Descubre Cómo Funciona el IUL →"}</span>
-              </a>
+              </button>
             </div>
 
             {/* Supporting line */}
