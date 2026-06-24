@@ -189,6 +189,10 @@ export interface TranslationSet {
     title: string;
     items: { q: string; a: string }[];
   };
+  partners: {
+    label: string;
+    title: string;
+  };
 }
 
 export const translations: Record<"en" | "es", TranslationSet> = {
@@ -440,6 +444,10 @@ export const translations: Record<"en" | "es", TranslationSet> = {
         }
       ]
     },
+    partners: {
+      label: "Our Partner Carriers",
+      title: "We work with the leading insurance carriers"
+    },
   },
   es: {
     nav: {
@@ -688,6 +696,10 @@ export const translations: Record<"en" | "es", TranslationSet> = {
           a: "Totalmente. Todas nuestras consultas, revisiones de calificación y cotizaciones personalizadas son 100% gratuitas y sin ningún compromiso. Como asesores autorizados, nuestro objetivo es educarte y empoderarte con opciones claras y bilingües."
         }
       ]
+    },
+    partners: {
+      label: "Compañías Aliadas",
+      title: "Trabajamos con las mejores aseguradoras del mercado"
     },
   },
 };

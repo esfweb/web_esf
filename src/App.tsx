@@ -32,6 +32,7 @@ import { PrivacyPolicy, TermsOfService } from "./components/LegalPages";
 import { WhyIulPage } from "./components/WhyIulPage";
 import { TestimonialsMiniSection } from "./components/TestimonialsMiniSection";
 import { GHLQuoteFormEmbed } from "./components/GHLQuoteFormEmbed";
+import PartnerLogosCarousel from "./components/PartnerLogosCarousel";
 
 // Count-up stats helper component with intersection detection
 interface AnimatedStatProps {
@@ -850,26 +851,7 @@ export default function App() {
       </section>
 
       {/* 4.5 CARRIER PARTNERS LOGOS LAYER (Builds massive enterprise-grade corporate credibility) */}
-      <section className="bg-slate-50 border-y border-slate-100 py-6 px-4">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-[10px] uppercase tracking-[0.14em] text-brand-slate font-extrabold mb-4">
-            {lang === "en" ? "Offering authorized coverage from top carriers" : "Ofreciendo cobertura autorizada de las aseguradoras líderes"}
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 opacity-60 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 text-xs sm:text-sm font-sans font-bold text-brand-navy">
-            <span>F&G</span>
-            <span className="hidden sm:inline text-brand-purple">•</span>
-            <span>Aetna</span>
-            <span className="hidden sm:inline text-[#00C2A8]">•</span>
-            <span>Oscar</span>
-            <span className="hidden sm:inline text-brand-purple">•</span>
-            <span>Humana</span>
-            <span className="hidden sm:inline text-[#00C2A8]">•</span>
-            <span>Ambetter</span>
-            <span className="hidden sm:inline text-brand-purple">•</span>
-            <span>Mutual of Omaha</span>
-          </div>
-        </div>
-      </section>
+      <PartnerLogosCarousel t={t} />
 
       {/* 5. CORE FOCUS SERVICES (Soft gray background #F3F3F4 as requested, clean headers) */}
       <section id="services" className="py-24 px-4 md:px-8 bg-brand-gray-soft relative reveal-init">
