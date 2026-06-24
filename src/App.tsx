@@ -940,6 +940,14 @@ export default function App() {
                       <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
                         {t.core.obamacareDesc}
                       </p>
+                      <ul className="space-y-1.5 pt-2">
+                        {t.core.obamacareBullets.map((bullet, idx) => (
+                          <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
+                            <span className="text-emerald-500 font-bold">✓</span>
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                   <button
@@ -947,7 +955,7 @@ export default function App() {
                     onClick={() => handlePreFillMessage(t.core.obamacareTitle)}
                     className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
                   >
-                    <span>{t.core.cta}</span>
+                    <span>{t.core.obamacareCta}</span>
                     <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -972,6 +980,14 @@ export default function App() {
                       <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
                         {t.core.medicareDesc}
                       </p>
+                      <ul className="space-y-1.5 pt-2">
+                        {t.core.medicareBullets.map((bullet, idx) => (
+                          <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
+                            <span className="text-emerald-500 font-bold">✓</span>
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                   <button
@@ -979,71 +995,87 @@ export default function App() {
                     onClick={() => handlePreFillMessage(t.core.medicareTitle)}
                     className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
                   >
-                    <span>{t.core.cta}</span>
+                    <span>{t.core.medicareCta}</span>
                     <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
               </TiltCard>
             </div>
 
-            {/* Card 4: Final Expenses */}
+            {/* Card 4: Private Health Plans */}
             <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
               <TiltCard>
                 <div className="space-y-6 flex-1 flex flex-col justify-between">
                   <div className="space-y-6">
                     <div className="w-12 h-12 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 text-2xl shadow-sm border border-rose-100">
-                      🕊️
+                      🔑
                     </div>
                     <div className="space-y-2">
                       <div className="space-y-1">
-                        <span className="text-[10px] uppercase font-bold text-rose-500 tracking-widest">{t.core.finalExpensesBadge}</span>
+                        <span className="text-[10px] uppercase font-bold text-rose-500 tracking-widest">{lang === "en" ? "Private Plans" : "Planes Privados"}</span>
                         <h3 className="text-lg font-bold font-sans text-brand-navy">
-                          {t.core.finalExpensesTitle}
+                          {t.core.privateHealthTitle}
                         </h3>
                       </div>
                       <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
-                        {t.core.finalExpensesDesc}
+                        {t.core.privateHealthDesc}
                       </p>
+                      <ul className="space-y-1.5 pt-2">
+                        {t.core.privateHealthBullets.map((bullet, idx) => (
+                          <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
+                            <span className="text-emerald-500 font-bold">✓</span>
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                   <button
                     type="button"
-                    onClick={() => handlePreFillMessage(t.core.finalExpensesTitle)}
+                    onClick={() => handlePreFillMessage(t.core.privateHealthTitle)}
                     className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
                   >
-                    <span>{t.core.finalExpensesCta}</span>
+                    <span>{t.core.privateHealthCta}</span>
                     <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
               </TiltCard>
             </div>
 
-            {/* Card 5: Annuities */}
+            {/* Card 5: Dental, Vision & Supplemental */}
             <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
               <TiltCard>
                 <div className="space-y-6 flex-1 flex flex-col justify-between">
                   <div className="space-y-6">
                     <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
-                      🏦
+                      🦷
                     </div>
                     <div className="space-y-2">
                       <div className="space-y-1">
-                        <span className="text-[10px] uppercase font-bold text-amber-600 tracking-widest">{t.core.annuitiesBadge}</span>
+                        <span className="text-[10px] uppercase font-bold text-amber-600 tracking-widest">{lang === "en" ? "Supplemental" : "Suplementarios"}</span>
                         <h3 className="text-lg font-bold font-sans text-brand-navy">
-                          {t.core.annuitiesTitle}
+                          {t.core.dentalVisionTitle}
                         </h3>
                       </div>
                       <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
-                        {t.core.annuitiesDesc}
+                        {t.core.dentalVisionDesc}
                       </p>
+                      <ul className="space-y-1.5 pt-2">
+                        {t.core.dentalVisionBullets.map((bullet, idx) => (
+                          <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
+                            <span className="text-emerald-500 font-bold">✓</span>
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                   <button
                     type="button"
-                    onClick={() => handlePreFillMessage(t.core.annuitiesTitle)}
+                    onClick={() => handlePreFillMessage(t.core.dentalVisionTitle)}
                     className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
                   >
-                    <span>{t.core.annuitiesCta}</span>
+                    <span>{t.core.dentalVisionCta}</span>
                     <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -1312,6 +1344,75 @@ export default function App() {
         </div>
       </section>
 
+      {/* WHO WE ARE SECTION (Mission, Vision, Values - Mejora 2) */}
+      <section id="who-we-are" className="py-24 px-4 md:px-8 bg-[#FAF8FC] border-t border-brand-purple/10">
+        <div className="max-w-7xl mx-auto space-y-16">
+          <div className="text-center space-y-4 max-w-3xl mx-auto">
+            <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple/10 px-4 py-1.5 rounded-full inline-block">
+              🤝 {lang === "en" ? "Our Foundation" : "Nuestros Cimientos"}
+            </span>
+            <h2 className="text-3xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight leading-tight">
+              {t.whoWeAre.title}
+            </h2>
+            <p className="text-sm md:text-base text-brand-slate max-w-2xl mx-auto leading-relaxed">
+              {t.whoWeAre.subtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Mission Card */}
+            <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
+                  🎯
+                </div>
+                <h3 className="text-xl font-bold font-sans text-brand-navy">
+                  {t.whoWeAre.missionTitle}
+                </h3>
+                <p className="text-sm text-brand-slate leading-relaxed">
+                  {t.whoWeAre.missionDesc}
+                </p>
+              </div>
+            </div>
+
+            {/* Vision Card */}
+            <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-brand-purple/10 rounded-2xl flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/20">
+                  👁️
+                </div>
+                <h3 className="text-xl font-bold font-sans text-brand-navy">
+                  {t.whoWeAre.visionTitle}
+                </h3>
+                <p className="text-sm text-brand-slate leading-relaxed">
+                  {t.whoWeAre.visionDesc}
+                </p>
+              </div>
+            </div>
+
+            {/* Values Card */}
+            <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
+                  💎
+                </div>
+                <h3 className="text-xl font-bold font-sans text-brand-navy">
+                  {t.whoWeAre.valuesTitle}
+                </h3>
+                <div className="grid grid-cols-1 gap-3 pt-2">
+                  {t.whoWeAre.values.map((val, idx) => (
+                    <div key={idx} className="flex items-center gap-2.5 bg-[#FAF8FC] px-4 py-2.5 rounded-xl border border-brand-purple/5 text-xs font-semibold text-brand-navy">
+                      <span className="w-2 h-2 rounded-full bg-accent" />
+                      <span>{val}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* REVIEWS SECTION */}
       <TestimonialsMiniSection 
         lang={lang} 
@@ -1558,16 +1659,13 @@ export default function App() {
       {/* 10. CONTACT / FREE QUOTE (Soft gray background with elegant background image & overlay, highly guided clear form with brand-purple action) */}
       <section 
         id="contact" 
-        className="py-24 px-4 md:px-8 relative overflow-hidden reveal-init"
+        className="py-24 px-4 md:px-8 relative overflow-hidden bg-cover bg-center bg-no-repeat reveal-init"
         style={{
-          backgroundImage: "url('https://res.cloudinary.com/drghl4bjl/image/upload/v1782235846/hf_20260623_172731_2996ad00-a5d4-4363-8674-326d90dbd215_1_go8xyv.png')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat'
+          backgroundImage: "url('https://res.cloudinary.com/drghl4bjl/image/upload/v1782235846/hf_20260623_172731_2996ad00-a5d4-4363-8674-326d90dbd215_1_go8xyv.png')"
         }}
       >
-        {/* Elegant light purple overlay to maintain optimal legibility and premium brand style */}
-        <div className="absolute inset-0 bg-[#FAF7FD]/50 lg:bg-gradient-to-r lg:from-[#F4EBFC]/75 lg:via-[#F6EEFD]/70 lg:to-[#FAF4FE]/60"></div>
+        {/* Elegant light purple overlay to guarantee absolute legibility and show the beautiful background image */}
+        <div className="absolute inset-0 bg-brand-purple/15 lg:bg-gradient-to-r lg:from-brand-purple/20 lg:via-[#FAF7FD]/85 lg:to-[#FAF7FD]/90 z-0"></div>
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">

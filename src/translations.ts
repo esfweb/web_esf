@@ -61,18 +61,32 @@ export interface TranslationSet {
     iulDesc: string;
     obamacareTitle: string;
     obamacareDesc: string;
+    obamacareBullets: string[];
+    obamacareCta: string;
     medicareTitle: string;
     medicareDesc: string;
-    finalExpensesTitle: string;
-    finalExpensesDesc: string;
-    finalExpensesBadge: string;
-    finalExpensesCta: string;
-    annuitiesTitle: string;
-    annuitiesDesc: string;
-    annuitiesBadge: string;
-    annuitiesCta: string;
+    medicareBullets: string[];
+    medicareCta: string;
+    privateHealthTitle: string;
+    privateHealthDesc: string;
+    privateHealthBullets: string[];
+    privateHealthCta: string;
+    dentalVisionTitle: string;
+    dentalVisionDesc: string;
+    dentalVisionBullets: string[];
+    dentalVisionCta: string;
     popular: string;
     cta: string;
+  };
+  whoWeAre: {
+    title: string;
+    subtitle: string;
+    missionTitle: string;
+    missionDesc: string;
+    visionTitle: string;
+    visionDesc: string;
+    valuesTitle: string;
+    values: string[];
   };
   allServices: {
     title: string;
@@ -187,8 +201,8 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       cta: "Get Free Quote",
     },
     hero: {
-      title: "Protect What Matters Most. Build Wealth That Lasts.",
-      subtitle: "Expert insurance guidance from Mary Rivera — tailored solutions for life, health, and retirement across Florida and beyond.",
+      title: "Your Health & Financial Protection, Made Simple",
+      subtitle: "From custom health coverage like Obamacare and Medicare to long-term wealth strategies like IUL. Expert, bilingual guidance tailored to you.",
       ctaPhone: "📞 Talk to Mary: 727-359-6196",
       ctaIUL: "💡 Why IUL Is Better",
       badge: "✅ 4+ Years of Experience  ·  ✅ Licensed in Florida & other states  ·  ✅ Bilingual Service (EN/ES)",
@@ -239,20 +253,55 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       subtitle: "Safeguard your future with strategies designed for your family today and for generations to come.",
       iulTitle: "Index Universal Life (IUL)",
       iulDesc: "Build lifelong protection with cash value growth tied to market indices, offering flexibility for retirement planning and Tax-Free benefits.",
-      obamacareTitle: "Obamacare (ACA) Plans",
-      obamacareDesc: "Personalized solutions for Affordable Care Act coverage, ensuring you meet legal requirements while saving money.",
-      medicareTitle: "Medicare Plans",
-      medicareDesc: "Expert help navigating Medicare Advantage, Supplement Plans, and Part D to maximize your health benefits.",
-      finalExpensesTitle: "Final Expenses",
-      finalExpensesDesc: "Help protect your loved ones from funeral costs, burial expenses, medical balances, and other end-of-life financial burdens.",
-      finalExpensesBadge: "Family Relief",
-      finalExpensesCta: "Explore Final Expense Options",
-      annuitiesTitle: "Annuities",
-      annuitiesDesc: "Create a tax-efficient retirement income strategy with customized solutions that may include annuities, rollovers, and long-term income planning.",
-      annuitiesBadge: "Retirement Income",
-      annuitiesCta: "Explore Annuity Options",
+      obamacareTitle: "ACA / Obamacare Health Plans",
+      obamacareDesc: "Government-subsidized health insurance designed to make quality medical coverage accessible and affordable.",
+      obamacareBullets: [
+        "0$ monthly premium options (based on income).",
+        "Covers pre-existing conditions, maternity, and prescriptions.",
+        "Essential health benefits guaranteed."
+      ],
+      obamacareCta: "Qualify for $0 Premium",
+      medicareTitle: "Medicare Solutions",
+      medicareDesc: "Personalized guidance to help you navigate and select the ideal Medicare coverage for your needs.",
+      medicareBullets: [
+        "Medicare Advantage (Part C) with extra benefits.",
+        "Medicare Supplement (Medigap) to cover out-of-pocket gaps.",
+        "Part D prescription drug plan optimization."
+      ],
+      medicareCta: "Explore Medicare Plans",
+      privateHealthTitle: "Private Health Plans",
+      privateHealthDesc: "Flexible, off-exchange individual health insurance options tailored for self-employed or high-income earners.",
+      privateHealthBullets: [
+        "Nationwide PPO networks with direct specialist access.",
+        "Tailored coverage for self-employed and families.",
+        "Flexible deductible and co-insurance choices."
+      ],
+      privateHealthCta: "Get Private Quote",
+      dentalVisionTitle: "Dental, Vision & Supplemental",
+      dentalVisionDesc: "Essential extra coverage to protect your eyes, teeth, and finances from unexpected medical events.",
+      dentalVisionBullets: [
+        "Comprehensive dental and vision benefits.",
+        "Hospital indemnity and critical illness cash benefits.",
+        "Accidental injury financial safeguards."
+      ],
+      dentalVisionCta: "Add Extra Protection",
       popular: "Most Popular",
       cta: "💼 Get Personalized Options Now",
+    },
+    whoWeAre: {
+      title: "Who We Are",
+      subtitle: "At EverSafe Financial, our purpose is to provide clarity, stability, and peace of mind through every stage of your life's journey.",
+      missionTitle: "Our Mission",
+      missionDesc: "To simplify financial security and health coverage, empowering individuals and families with transparent, tailored insurance solutions that protect their health and build long-term legacy wealth.",
+      visionTitle: "Our Vision",
+      visionDesc: "To be the leading bilingual advisory firm trusted by families and self-employed professionals, bridging the gap to high-quality healthcare and secure financial futures with honesty and dedication.",
+      valuesTitle: "Our Values",
+      values: [
+        "Integrity & Transparency",
+        "Bilingual Accessibility",
+        "Tailored Commitment",
+        "Community Trust"
+      ],
     },
     allServices: {
       title: "All Services We Offer",
@@ -366,28 +415,28 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       title: "Frequently Asked Questions",
       items: [
         {
-          q: "What types of insurance does Eversafe Financial help with?",
-          a: "We help clients compare life insurance, Medicare plans, ACA options, retirement strategies, and family financial protection solutions."
+          q: "Can I qualify for a $0 monthly premium under Obamacare (ACA)?",
+          a: "Yes! Most individuals and families we assist qualify for government subsidies that lower their monthly premiums to $0 or near-zero, depending on household size and estimated income."
         },
         {
-          q: "Do you offer service in Spanish?",
-          a: "Yes. Eversafe Financial provides bilingual support in English and Spanish."
+          q: "What is the difference between Obamacare and Private Health Plans?",
+          a: "Obamacare (ACA) plans are government-subsidized, guaranteed-issue regardless of pre-existing conditions, and are ideal for those who qualify for subsidies. Private Health Plans (like nationwide PPOs) are underwritten, meaning they require health qualification, but often offer broader doctor networks and lower out-of-pocket costs for self-employed or higher-income earners."
         },
         {
-          q: "How do I know which plan is right for me?",
-          a: "The right plan depends on your age, family situation, budget, health needs, and long-term goals. We help you compare options clearly."
+          q: "When is the Open Enrollment Period, and can I enroll outside of it?",
+          a: "For Obamacare, the standard Open Enrollment Period runs from November 1st to January 15th. However, you can enroll year-round if you experience a Qualifying Life Event (such as losing job coverage, moving, getting married, or having a baby) under a Special Enrollment Period. Private plans are accessible year-round without seasonal restrictions."
         },
         {
-          q: "Is the quote really free?",
-          a: "Yes. Your quote request is free and comes with no obligation."
+          q: "How does Medicare work and when should I enroll?",
+          a: "Medicare is federal health insurance for individuals aged 65 or older, or those with specific disabilities. You should typically enroll during your Initial Enrollment Period, which begins 3 months before you turn 65 and ends 3 months after. We help you choose between Original Medicare, Medicare Advantage (Part C), Medicare Supplements (Medigap), and Part D prescription coverage to prevent penalties."
         },
         {
-          q: "Do you work with families and individuals?",
-          a: "Yes. We work with individuals, families, and people planning for retirement or long-term financial protection."
+          q: "How does Index Universal Life (IUL) differ from a traditional 401(k) or IRA?",
+          a: "Unlike traditional retirement plans, an IUL offers complete downside protection (a 0% floor guarantee so you never lose cash value in market crashes), unlimited annual contributions (no strict IRS caps), penalty-free withdrawals at any age, and fully tax-free retirement income through policy loans under IRS Section 7702. Plus, it includes built-in life insurance and chronic illness benefits."
         },
         {
-          q: "How quickly will someone contact me?",
-          a: "After you submit your information, a licensed advisor will review it and follow up as soon as possible."
+          q: "Are your consultations and quote reviews completely free?",
+          a: "Absolutely. All of our consultations, qualification reviews, and customized quotes are 100% free with no obligation. As licensed advisors, our goal is to educate and empower you with clear, bilingual options."
         }
       ]
     },
@@ -401,8 +450,8 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       cta: "Cotización Gratis",
     },
     hero: {
-      title: "Protege Lo Que Más Importa. Construye Riqueza Duradera.",
-      subtitle: "Orientación experta de Mary Rivera — soluciones personalizadas para vida, salud y retiro en Florida y más allá.",
+      title: "Tu Protección Financiera y de Salud, Hecha Simple",
+      subtitle: "Desde coberturas de salud como Obamacare y Medicare hasta estrategias de riqueza a largo plazo como IUL. Guía experta y bilingüe a tu medida.",
       ctaPhone: "📞 Hablar con Mary: (727) 359-6196",
       ctaIUL: "💡 Por Qué IUL es Mejor",
       badge: "✅ 4+ Años de Experiencia  ·  ✅ Licencia en Florida y otros estados  ·  ✅ Servicio Bilingüe (EN/ES)",
@@ -453,20 +502,55 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       subtitle: "Protege tu futuro con estrategias diseñadas para tu familia hoy y para las generaciones venideras.",
       iulTitle: "Index Universal Life (IUL)",
       iulDesc: "Construye protección de por vida con crecimiento de valor en efectivo vinculado a índices de mercado, con flexibilidad para planificación de retiro y beneficios libres de impuestos.",
-      obamacareTitle: "Planes de Obamacare (ACA)",
-      obamacareDesc: "Soluciones personalizadas para cobertura del Acta de Cuidado Asequible, asegurando que cumplas los requisitos legales mientras ahorras dinero.",
-      medicareTitle: "Planes de Medicare",
-      medicareDesc: "Ayuda experta para navegar Medicare Advantage, Planes Suplementarios y Parte D para maximizar tus beneficios de salud.",
-      finalExpensesTitle: "Gastos Finales",
-      finalExpensesDesc: "Ayuda a proteger a tus seres queridos de gastos funerarios, costos de sepelio, saldos médicos y otras cargas financieras al final de la vida.",
-      finalExpensesBadge: "Alivio Familiar",
-      finalExpensesCta: "Explorar Opciones de Gastos Finales",
-      annuitiesTitle: "Anualidades",
-      annuitiesDesc: "Crea una estrategia de ingresos de jubilación fiscalmente eficiente con soluciones personalizadas que pueden incluir anualidades, reinversiones y planes de ingresos a largo plazo.",
-      annuitiesBadge: "Ingresos de Retiro",
-      annuitiesCta: "Explorar Opciones de Anualidades",
+      obamacareTitle: "Planes de Salud ACA / Obamacare",
+      obamacareDesc: "Seguros de salud subsidiados por el gobierno diseñados para hacer la cobertura médica de calidad accesible y asequible.",
+      obamacareBullets: [
+        "Opciones de prima mensual de $0 (según ingresos).",
+        "Cubre condiciones preexistentes, maternidad y recetas.",
+        "Beneficios de salud esenciales garantizados."
+      ],
+      obamacareCta: "Calificar para Prima de $0",
+      medicareTitle: "Soluciones de Medicare",
+      medicareDesc: "Guía personalizada para ayudarte a navegar y seleccionar la cobertura de Medicare ideal para tus necesidades.",
+      medicareBullets: [
+        "Medicare Advantage (Parte C) con beneficios adicionales.",
+        "Suplemento de Medicare (Medigap) para cubrir gastos de tu bolsillo.",
+        "Optimización del plan de medicamentos recetados Parte D."
+      ],
+      medicareCta: "Explorar Planes de Medicare",
+      privateHealthTitle: "Planes Privados de Salud",
+      privateHealthDesc: "Opciones flexibles de seguro de salud individual fuera del intercambio, adaptadas para trabajadores independientes o personas con altos ingresos.",
+      privateHealthBullets: [
+        "Redes PPO nacionales con acceso directo a especialistas.",
+        "Cobertura a la medida para independientes y familias.",
+        "Opciones flexibles de deducibles y coaseguros."
+      ],
+      privateHealthCta: "Cotizar Plan Privado",
+      dentalVisionTitle: "Dental, Visión y Suplementarios",
+      dentalVisionDesc: "Cobertura adicional esencial para proteger tus ojos, dientes y finanzas de eventos médicos inesperados.",
+      dentalVisionBullets: [
+        "Beneficios integrales de dental y visión.",
+        "Beneficios en efectivo por hospitalización y enfermedades críticas.",
+        "Protecciones financieras contra lesiones accidentales."
+      ],
+      dentalVisionCta: "Agregar Protección Extra",
       popular: "Más Popular",
       cta: "💼 Ver Mis Opciones Personalizadas Ya",
+    },
+    whoWeAre: {
+      title: "Quiénes Somos",
+      subtitle: "En EverSafe Financial, nuestro propósito es brindar claridad, estabilidad y tranquilidad en cada etapa del camino de tu vida.",
+      missionTitle: "Nuestra Misión",
+      missionDesc: "Simplificar la seguridad financiera y la cobertura de salud, empoderando a individuos y familias con soluciones de seguros transparentes y a la medida que protejan su bienestar y construyan un patrimonio duradero.",
+      visionTitle: "Nuestra Visión",
+      visionDesc: "Ser la firma de asesoría bilingüe líder y de confianza para familias y profesionales independientes, facilitando el acceso a una excelente atención médica y a un futuro financiero seguro con honestidad y dedicación.",
+      valuesTitle: "Nuestros Valores",
+      values: [
+        "Integrity y Transparencia",
+        "Accesibilidad Bilingüe",
+        "Compromiso a la Medida",
+        "Confianza Comunitaria"
+      ],
     },
     allServices: {
       title: "Todos Nuestros Servicios",
@@ -580,28 +664,28 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       title: "Preguntas Frecuentes",
       items: [
         {
-          q: "¿Con qué tipos de seguros ayuda Eversafe Financial?",
-          a: "Ayudamos a los clientes a comparar seguros de vida, planes de Medicare, opciones de ACA (Obamacare), estrategias de jubilación y soluciones de protección financiera familiar."
+          q: "¿Puedo calificar para una prima mensual de $0 bajo Obamacare (ACA)?",
+          a: "¡Sí! La mayoría de las personas y familias que ayudamos califican para subsidios del gobierno que reducen sus primas mensuales a $0 o cerca de cero, dependiendo del tamaño del hogar y los ingresos estimados."
         },
         {
-          q: "¿Ofrecen servicio en español?",
-          a: "Sí. Eversafe Financial ofrece soporte bilingüe completo en inglés y español."
+          q: "¿Cuál es la diferencia entre Obamacare y los Planes Privados de Salud?",
+          a: "Los planes de Obamacare (ACA) están subsidiados por el gobierno, tienen emisión garantizada sin importar las condiciones preexistentes y son ideales si calificas para subsidios. Los Planes Privados de Salud (como PPOs nacionales) están sujeto a suscripción médica (requieren calificar por salud), pero a menudo ofrecen redes de médicos más amplias y menores costos de bolsillo para independientes o de mayores ingresos."
         },
         {
-          q: "¿Cómo sé cuál plan es el adecuado para mí?",
-          a: "El plan adecuado depende de su edad, situación familiar, presupuesto, necesidades de salud y metas a largo plazo. Le ayudamos a comparar opciones con total claridad."
+          q: "¿Cuándo es el Período de Inscripción Abierta y puedo inscribirme fuera de él?",
+          a: "Para Obamacare, el Período de Inscripción Abierta estándar va del 1 de noviembre al 15 de enero. Sin embargo, puedes inscribirte en cualquier época del año si experimentas un Evento de Vida Calificable (como perder la cobertura del trabajo, mudarte, casarte o tener un bebé) bajo un Período Especial de Inscripción. Los planes privados están disponibles todo el año sin restricciones de temporada."
         },
         {
-          q: "¿La cotización es realmente gratis?",
-          a: "Sí. Su solicitud de cotización es totalmente gratuita y no tiene ningún compromiso."
+          q: "¿Cómo funciona Medicare y cuándo debo inscribirme?",
+          a: "Medicare es el seguro de salud federal para personas de 65 años o más, o con discapacidades específicas. Por lo general, debes inscribirte durante tu Período de Inscripción Inicial, que comienza 3 meses antes de cumplir 65 años y termina 3 meses después. Te ayudamos a elegir entre Medicare Original, Medicare Advantage (Parte C), Suplementos de Medicare (Medigap) y cobertura de medicamentos de la Parte D para evitar penalidades."
         },
         {
-          q: "¿Trabajan con familias e individuos?",
-          a: "Sí. Trabajamos con individuos, familias y personas que planifican su jubilación o buscan protección financiera a largo plazo."
+          q: "¿En qué se diferencia el Index Universal Life (IUL) de un 401(k) o IRA tradicional?",
+          a: "A diferencia de los planes tradicionales, un IUL ofrece protección completa contra caídas (garantía de piso del 0% para no perder valor en efectivo ante desplomes del mercado), aportaciones anuales ilimitadas (sin topes estrictos del IRS), retiros sin penalización a cualquier edad e ingresos de jubilación 100% libres de impuestos mediante préstamos de póliza bajo la Sección 7702 del IRS. Además, incluye seguro de vida y beneficios en vida por enfermedad crónica."
         },
         {
-          q: "¿Qué tan rápido se pondrán en contacto conmigo?",
-          a: "Después de que envíe sus datos, un asesor autorizado los revisará y se comunicará con usted lo antes posible."
+          q: "¿Sus consultas y revisiones de cotizaciones son completamente gratuitas?",
+          a: "Totalmente. Todas nuestras consultas, revisiones de calificación y cotizaciones personalizadas son 100% gratuitas y sin ningún compromiso. Como asesores autorizados, nuestro objetivo es educarte y empoderarte con opciones claras y bilingües."
         }
       ]
     },

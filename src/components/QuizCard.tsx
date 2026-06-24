@@ -5,6 +5,19 @@ interface QuizCardProps {
   t: TranslationSet;
 }
 
+// ============================================================================
+// TODO: MEJORA 6 - QUIZ DE SALUD (ESTRUCTURA PENDIENTE PARA FASE 2)
+// El quiz actual califica exclusivamente para el producto IUL. En la Fase 2,
+// se transformará en un recomendador dinámico bilingüe de planes de salud y vida:
+// 
+// - Paso 1: ¿Qué tipo de protección buscas prioritariamente? (Salud / Jubilación / Ambas)
+// - Paso 2: Rango de edad del asegurado principal.
+// - Paso 3: ¿Tienes condiciones de salud preexistentes activas?
+// - Paso 4: Rango de ingresos anuales estimados del hogar (para cálculo de subsidio ACA / Obamacare).
+// - Resultado: Sugerir dinámicamente si califica para Obamacare con subsidio,
+//              Planes Privados PPO o IUL / Anualidades.
+// ============================================================================
+
 export default function QuizCard({ t }: QuizCardProps) {
   const [step, setStep] = useState<number>(1);
   const [age, setAge] = useState<string>("");
