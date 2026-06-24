@@ -717,7 +717,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       hoursSat: "Sábado: 10:00 AM – 2:00 PM",
       hoursSun: "Domingo: Cerrado",
       areaLabel: "Zonificación de Servicio",
-      areaValue: "Florida y otros estados de la Unión Americana",
+      areaValue: "Florida y otros estados de EE. UU.",
       bilingualHelp: "Te Puedo Ayudar en Español",
     },
     footer: {
