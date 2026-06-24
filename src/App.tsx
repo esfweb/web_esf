@@ -712,7 +712,7 @@ export default function App() {
 
             <div className="space-y-4 anim-2">
               <span className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-accent bg-accent/15 border border-accent/20 px-3.5 py-1.5 rounded-full inline-block">
-                {lang === "en" ? "WORLD-CLASS FINANCIAL STREAMS" : "FINANZAS Y PROTECCIÓN DE RANGO MUNDIAL"}
+                {lang === "en" ? "HEALTH, LIFE & FINANCIAL PROTECTION" : "SALUD, VIDA Y PROTECCIÓN FINANCIERA"}
               </span>
               <h1 className="text-4xl sm:text-5.5xl md:text-6.5xl font-black font-sans leading-[1.05] text-white tracking-tight max-w-2xl mx-auto lg:mx-0">
                 {t.hero.title}
@@ -731,8 +731,8 @@ export default function App() {
 
             <p className="text-xs sm:text-sm text-white/80 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3 pt-2.5 border-l-3 border-accent pl-4">
               {lang === "en"
-                ? "Eversafe Financial helps Florida families, individuals, and business owners compare life insurance, Medicare, ACA, retirement, and wealth protection solutions with dedicated bilingual support."
-                : "Eversafe Financial ayuda a familias, individuos y dueños de negocios en Florida a comparar soluciones de seguro de vida, Medicare, ACA, retiro y protección de patrimonio con soporte bilingüe calificado."}
+                ? "Eversafe Financial helps families and individuals in Florida and other states compare life insurance, Medicare, ACA, private health plans, retirement, and wealth protection solutions with dedicated, personalized bilingual support."
+                : "Eversafe Financial ayuda a familias e individuos en Florida y otros estados a comparar soluciones de seguro de vida, Medicare, ACA, planes privados de salud, retiro y protección de patrimonio, con soporte bilingüe y personalizada."}
             </p>
 
             {/* Direct Calls - Primary CTA with hover + click feedback (K2) */}
@@ -745,13 +745,16 @@ export default function App() {
                   <Phone className="w-4 h-4 fill-white" />
                   {t.hero.ctaPhone}
                 </a>
-                <a
-                  href="#iul-explainer"
+                <button
+                  onClick={() => {
+                    setCurrentView("why-iul");
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
                   className="bg-transparent hover:bg-white/10 text-white font-extrabold py-4.5 px-8 rounded-full text-sm sm:text-base border-2 border-white/30 transition-all transform hover:scale-[1.04] active:scale-95 duration-300 text-center flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Sparkles className="w-4 h-4 text-accent" />
                   {t.hero.ctaIUL}
-                </a>
+                </button>
               </div>
               <p className="text-[11px] text-white/60 text-center lg:text-left pl-2 font-semibold">
                 {lang === "en" 
@@ -872,47 +875,90 @@ export default function App() {
           {/* 3-Column Responsive Grid Layout (IUL flagship card + 2 pairs of stacked cards) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch pt-4">
             
-            {/* Column 1: Featured IUL (Full height on large screens, spanning 2 columns on tablet md for massive visual impact) */}
-            <div className="w-full md:col-span-2 lg:col-span-1 flex flex-col h-full">
-              <TiltCard popular popularLabel={t.core.popular}>
-                <div className="space-y-6 flex-1 flex flex-col justify-between h-full">
-                  <div className="space-y-6">
-                    <div className="w-12 h-12 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/10">
-                      🗄️
-                    </div>
+            {/* Column 1: IUL & Final Expenses/Annuities (2 stacked cards) */}
+            <div className="w-full flex flex-col gap-8">
+              
+              {/* Card 1: IUL */}
+              <div className="flex flex-col flex-1">
+                <TiltCard popular popularLabel={t.core.popular}>
+                  <div className="space-y-6 flex-1 flex flex-col justify-between h-full">
                     <div className="space-y-4">
-                      <div className="space-y-1">
-                        <span className="text-[10px] uppercase font-bold text-brand-purple tracking-widest">{lang === "en" ? "Accumulation" : "Acumulación"}</span>
-                        <h3 className="text-xl md:text-2xl font-extrabold font-sans text-brand-navy leading-tight">
-                          {t.core.iulTitle}
-                        </h3>
+                      <div className="w-12 h-12 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/10">
+                        🗄️
                       </div>
-                      <p className="text-sm text-brand-slate leading-relaxed">
-                        {t.core.iulDesc}
-                      </p>
-                      
-                      {/* Dynamic IUL benefits list to balance the featured card's generous height */}
-                      <ul className="space-y-2.5 pt-4 border-t border-slate-100">
-                        {t.core.iulBullets.map((bullet, idx) => (
-                          <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-brand-slate font-medium">
-                            <span className="text-[#00C2A8] font-bold text-base leading-none">✓</span>
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="space-y-2">
+                        <div className="space-y-1">
+                          <span className="text-[10px] uppercase font-bold text-brand-purple tracking-widest">{lang === "en" ? "Accumulation" : "Acumulación"}</span>
+                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                            {t.core.iulTitle}
+                          </h3>
+                        </div>
+                        <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                          {t.core.iulDesc}
+                        </p>
+                        <ul className="space-y-1.5 pt-2">
+                          {t.core.iulBullets.map((bullet, idx) => (
+                            <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
+                              <span className="text-emerald-500 font-bold">✓</span>
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
+                    
+                    <button
+                      type="button"
+                      onClick={() => handlePreFillMessage(t.core.iulTitle)}
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>{t.core.cta}</span>
+                      <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                    </button>
                   </div>
-                  
-                  <button
-                    type="button"
-                    onClick={() => handlePreFillMessage(t.core.iulTitle)}
-                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <span>{t.core.cta}</span>
-                    <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
-              </TiltCard>
+                </TiltCard>
+              </div>
+
+              {/* Card 6: Gastos Finales y Anualidades */}
+              <div className="flex flex-col flex-1">
+                <TiltCard>
+                  <div className="space-y-6 flex-1 flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <div className="w-12 h-12 bg-teal-50 rounded-2xl flex items-center justify-center text-teal-500 text-2xl shadow-sm border border-teal-100">
+                        🛡️
+                      </div>
+                      <div className="space-y-2">
+                        <div className="space-y-1">
+                          <span className="text-[10px] uppercase font-bold text-teal-600 tracking-widest">{lang === "en" ? "RETIREMENT & LEGACY" : "RETIRO Y LEGADO"}</span>
+                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                            {t.core.finalExpensesTitle}
+                          </h3>
+                        </div>
+                        <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                          {t.core.finalExpensesDesc}
+                        </p>
+                        <ul className="space-y-1.5 pt-2">
+                          {t.core.finalExpensesBullets.map((bullet, idx) => (
+                            <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
+                              <span className="text-emerald-500 font-bold">✓</span>
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handlePreFillMessage(t.core.finalExpensesTitle)}
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>{t.core.finalExpensesCta}</span>
+                      <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </TiltCard>
+              </div>
+
             </div>
 
             {/* Column 2: Obamacare & Medicare (2 stacked cards) */}
@@ -1571,7 +1617,10 @@ export default function App() {
               {/* Primary CTA */}
               <button
                 onClick={() => {
-                  document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
+                  setCurrentView("why-iul");
+                  setTimeout(() => {
+                    document.getElementById("iul-quiz-section")?.scrollIntoView({ behavior: "smooth" });
+                  }, 150);
                 }}
                 className="bg-accent hover:bg-[#e0b42c] text-brand-navy font-extrabold py-4 px-8 rounded-2xl text-xs sm:text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl shadow-accent/20 cursor-pointer"
               >

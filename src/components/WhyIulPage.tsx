@@ -379,6 +379,32 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
           </div>
         </section>
 
+        {/* EXCLUSIVE IUL QUALIFICATION QUIZ SECTION */}
+        <section id="iul-quiz-section" className="bg-gradient-to-br from-[#1E293B] to-[#0F172A] rounded-3xl p-8 md:p-12 shadow-xl border border-slate-800 text-white space-y-8 relative overflow-hidden">
+          {/* Subtle light spots */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-purple/5 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="max-w-3xl mx-auto space-y-6 relative z-10">
+            <div className="text-center space-y-2">
+              <span className="text-[10px] uppercase tracking-widest font-extrabold text-accent bg-accent/15 px-3.5 py-1.5 rounded-full inline-block">
+                {lang === "en" ? "IUL QUALIFICATION QUIZ" : "QUIZ DE CALIFICACIÓN IUL"}
+              </span>
+              <h2 className="text-2xl md:text-3xl font-extrabold font-sans text-white tracking-tight">
+                {lang === "en" ? "Do You Qualify for Index Universal Life?" : "¿Calificas para Index Universal Life (IUL)?"}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
+                {lang === "en"
+                  ? "Answer 4 simple questions to check if you meet the initial guidelines for an IUL policy."
+                  : "Responde 4 preguntas sencillas para comprobar si cumples con las pautas iniciales para una póliza IUL."}
+              </p>
+            </div>
+
+            {/* Quiz container card */}
+            <IulInteractiveQuiz lang={lang} onComplete={handleCtaClick} />
+          </div>
+        </section>
+
         {/* FAQs SECTION */}
         <section className="bg-white rounded-3xl p-8 md:p-12 shadow-md border border-slate-100 space-y-8">
           <div className="flex items-center gap-3">
@@ -450,3 +476,238 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
     </div>
   );
 }
+
+interface IulInteractiveQuizProps {
+  lang: "en" | "es";
+  onComplete: () => void;
+}
+
+export function IulInteractiveQuiz({ lang, onComplete }: IulInteractiveQuizProps) {
+  const [step, setStep] = useState(1);
+  const [answers, setAnswers] = useState({
+    age: "",
+    employed: "",
+    health: "",
+    goal: ""
+  });
+  const [isEvaluating, setIsEvaluating] = useState(false);
+
+  const handleSelect = (field: string, val: string) => {
+    setAnswers(prev => ({ ...prev, [field]: val }));
+    setTimeout(() => {
+      if (step < 4) {
+        setStep(prev => prev + 1);
+      } else {
+        setIsEvaluating(true);
+        setTimeout(() => {
+          setIsEvaluating(false);
+          setStep(5);
+        }, 1200);
+      }
+    }, 200);
+  };
+
+  const handleBack = () => {
+    if (step > 1) setStep(prev => prev - 1);
+  };
+
+  const resetQuiz = () => {
+    setStep(1);
+    setAnswers({ age: "", employed: "", health: "", goal: "" });
+  };
+
+  const isQualified = answers.health !== "major" && answers.employed === "yes" && answers.age !== "senior";
+
+  const questions = {
+    age: {
+      title: lang === "en" ? "What is your age?" : "¿Cuál es tu edad?",
+      opts: [
+        { key: "young", val: lang === "en" ? "Under 18 Years" : "Menor de 18 Años", icon: "👶" },
+        { key: "adult", val: lang === "en" ? "18 to 55 Years" : "18 a 55 Años", icon: "🧑" },
+        { key: "senior", val: lang === "en" ? "Over 56 Years" : "Mayor de 56 Años", icon: "👵" }
+      ]
+    },
+    employed: {
+      title: lang === "en" ? "Are you currently employed or have stable income?" : "¿Estás empleado actualmente o tienes ingresos estables?",
+      opts: [
+        { key: "yes", val: lang === "en" ? "Yes, active income" : "Sí, ingresos activos", icon: "💼" },
+        { key: "no", val: lang === "en" ? "No / Retired" : "No / Retirado", icon: "🏠" }
+      ]
+    },
+    health: {
+      title: lang === "en" ? "Do you have any significant pre-existing health conditions?" : "¿Tienes alguna condición significativa preexistente de salud?",
+      opts: [
+        { key: "good", val: lang === "en" ? "No, I'm in excellent/good health" : "No, gozo de excelente / buena salud", icon: "🍏" },
+        { key: "minor", val: lang === "en" ? "Minor issues (e.g., controlled high blood pressure)" : "Leves (presión arterial controlada, asma)", icon: "💊" },
+        { key: "major", val: lang === "en" ? "Major conditions (e.g., active cancer, chronic failure)" : "Crónicas/Graves (Cáncer activo, insuficiencia severa)", icon: "🏥" }
+      ]
+    },
+    goal: {
+      title: lang === "en" ? "What is your primary financial goal with this policy?" : "¿Cuál es tu objetivo financiero primordial al adquirir esta póliza?",
+      opts: [
+        { key: "savings", val: lang === "en" ? "Tax-Free Savings & Retirement Accumulation" : "Ahorros Libres de Impuestos y Acumulación de Retiro", icon: "💰" },
+        { key: "protection", val: lang === "en" ? "Family Life Insurance Protection" : "Seguro y Protección Familiar", icon: "👨‍👩‍👧‍👦" },
+        { key: "mortgage", val: lang === "en" ? "Mortgage/Business Protection" : "Protección de Hipoteca o Negocio", icon: "🔑" },
+        { key: "all", val: lang === "en" ? "All of the Above" : "Todas las Anteriores", icon: "📈" }
+      ]
+    }
+  };
+
+  const progressPercent = step === 5 ? 100 : ((step - 1) / 4) * 100;
+
+  return (
+    <div className="bg-[#1E293B]/60 backdrop-blur-md rounded-2xl p-6 border border-slate-700/60 max-w-xl mx-auto">
+      <div className="w-full bg-slate-800 h-1.5 rounded-full mb-6 overflow-hidden">
+        <div 
+          className="h-full bg-accent rounded-full transition-all duration-300" 
+          style={{ width: `${progressPercent}%` }}
+        ></div>
+      </div>
+
+      {isEvaluating ? (
+        <div className="py-12 flex flex-col items-center justify-center text-center space-y-4">
+          <div className="w-10 h-10 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-sm font-semibold text-slate-300 animate-pulse">
+            {lang === "en" ? "Analyzing your answers for IUL eligibility..." : "Analizando tus respuestas para elegibilidad de IUL..."}
+          </p>
+        </div>
+      ) : step === 5 ? (
+        <div className="space-y-6">
+          <div className="text-center p-5 bg-slate-800/80 rounded-xl border border-slate-700 space-y-3">
+            {isQualified ? (
+              <>
+                <div className="text-3xl">🌟</div>
+                <h3 className="text-lg font-bold text-accent">
+                  {lang === "en" ? "Perfect Candidate!" : "¡Candidato Perfecto!"}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  {lang === "en"
+                    ? "Index Universal Life fits your goals perfectly. Eversafe Financial will prepare a custom plan to maximize your tax-free cash accumulation."
+                    : "Index Universal Life se adapta perfectamente a tus objetivos. Eversafe Financial te preparará un plan a la medida para maximizar tu acumulación de efectivo libre de impuestos."}
+                </p>
+              </>
+            ) : (
+              <>
+                <div className="text-3xl">🛡️</div>
+                <h3 className="text-lg font-bold text-accent">
+                  {lang === "en" ? "Excellent Options Available!" : "¡Excelentes Opciones Disponibles!"}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  {lang === "en"
+                    ? "Your profile is better suited for our specialized Term or Legacy Whole Life structures. Eversafe Financial will craft the perfect package for you."
+                    : "Tu perfil se adapta mejor a nuestras pólizas de Término Especializado o estructuras de Vida Entera. Eversafe Financial diseñará el paquete perfecto para ti."}
+                </p>
+              </>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={onComplete}
+              className="w-full bg-accent hover:bg-[#e0b42c] text-brand-navy font-bold py-3.5 px-6 rounded-xl text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer text-center"
+            >
+              🚀 {lang === "en" ? "Connect with Mary Rivera" : "Conectar con Mary Rivera"}
+            </button>
+            <button
+              onClick={resetQuiz}
+              className="text-slate-400 hover:text-white transition text-xs font-semibold underline decoration-dotted text-center cursor-pointer"
+            >
+              🔄 {lang === "en" ? "Start Over" : "Reiniciar Quiz"}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-5">
+          <div className="flex justify-between items-center">
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              {lang === "en" ? `Question ${step} of 4` : `Pregunta ${step} de 4`}
+            </span>
+          </div>
+
+          {step === 1 && (
+            <div className="space-y-3">
+              <h3 className="text-sm sm:text-base font-bold text-white leading-snug">{questions.age.title}</h3>
+              <div className="flex flex-col gap-2">
+                {questions.age.opts.map(opt => (
+                  <button
+                    key={opt.key}
+                    onClick={() => handleSelect("age", opt.key)}
+                    className="w-full text-left py-3 px-4 rounded-xl border border-slate-700 hover:border-accent hover:bg-slate-800 text-slate-300 hover:text-white transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer"
+                  >
+                    <span>{opt.icon}</span>
+                    <span>{opt.val}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {step === 2 && (
+            <div className="space-y-3">
+              <h3 className="text-sm sm:text-base font-bold text-white leading-snug">{questions.employed.title}</h3>
+              <div className="flex flex-col gap-2">
+                {questions.employed.opts.map(opt => (
+                  <button
+                    key={opt.key}
+                    onClick={() => handleSelect("employed", opt.key)}
+                    className="w-full text-left py-3 px-4 rounded-xl border border-slate-700 hover:border-accent hover:bg-slate-800 text-slate-300 hover:text-white transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer"
+                  >
+                    <span>{opt.icon}</span>
+                    <span>{opt.val}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {step === 3 && (
+            <div className="space-y-3">
+              <h3 className="text-sm sm:text-base font-bold text-white leading-snug">{questions.health.title}</h3>
+              <div className="flex flex-col gap-2">
+                {questions.health.opts.map(opt => (
+                  <button
+                    key={opt.key}
+                    onClick={() => handleSelect("health", opt.key)}
+                    className="w-full text-left py-3 px-4 rounded-xl border border-slate-700 hover:border-accent hover:bg-slate-800 text-slate-300 hover:text-white transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer"
+                  >
+                    <span>{opt.icon}</span>
+                    <span>{opt.val}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {step === 4 && (
+            <div className="space-y-3">
+              <h3 className="text-sm sm:text-base font-bold text-white leading-snug">{questions.goal.title}</h3>
+              <div className="flex flex-col gap-2">
+                {questions.goal.opts.map(opt => (
+                  <button
+                    key={opt.key}
+                    onClick={() => handleSelect("goal", opt.key)}
+                    className="w-full text-left py-3 px-4 rounded-xl border border-slate-700 hover:border-accent hover:bg-slate-800 text-slate-300 hover:text-white transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer"
+                  >
+                    <span>{opt.icon}</span>
+                    <span>{opt.val}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex justify-between items-center pt-3 border-t border-slate-800">
+            <button
+              onClick={handleBack}
+              disabled={step === 1}
+              className={`text-xs font-semibold ${step === 1 ? "text-slate-600 cursor-not-allowed" : "text-slate-400 hover:text-white cursor-pointer"}`}
+            >
+              {lang === "en" ? "← Back" : "← Atrás"}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+

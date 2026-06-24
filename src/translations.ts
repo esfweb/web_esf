@@ -74,6 +74,10 @@ export interface TranslationSet {
     dentalVisionDesc: string;
     dentalVisionBullets: string[];
     dentalVisionCta: string;
+    finalExpensesTitle: string;
+    finalExpensesDesc: string;
+    finalExpensesBullets: string[];
+    finalExpensesCta: string;
     popular: string;
     cta: string;
   };
@@ -205,7 +209,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
     },
     hero: {
       title: "Your Health & Financial Protection, Made Simple",
-      subtitle: "From custom health coverage like Obamacare and Medicare to long-term wealth strategies like IUL. Expert, bilingual guidance tailored to you.",
+      subtitle: "From custom health coverage like Obamacare and Medicare to long-term protection, savings, and retirement strategies like IUL. Expert, bilingual guidance tailored to you.",
       ctaPhone: "📞 Talk to Mary: 727-359-6196",
       ctaIUL: "💡 Why IUL Is Better",
       badge: "✅ 4+ Years of Experience  ·  ✅ Licensed in Florida & other states  ·  ✅ Bilingual Service (EN/ES)",
@@ -297,14 +301,23 @@ export const translations: Record<"en" | "es", TranslationSet> = {
         "Options for individuals and families"
       ],
       dentalVisionCta: "Explore supplemental benefits",
+      finalExpensesTitle: "Final Expenses & Annuities",
+      finalExpensesDesc: "We help protect your loved ones from unexpected costs and design retirement income options using specialized final expense and annuity solutions tailored to your unique needs.",
+      finalExpensesBullets: [
+        "Final expense protection",
+        "Annuities for retirement growth",
+        "Family and lifestyle shielding",
+        "Guaranteed retirement income"
+      ],
+      finalExpensesCta: "Compare final expense options",
       popular: "Most Popular",
       cta: "💼 Get Personalized Options Now",
     },
     whoWeAre: {
       title: "Who We Are",
-      subtitle: "At EverSafe Financial, our purpose is to provide clarity, stability, and peace of mind through every stage of your life's journey.",
+      subtitle: "At Eversafe Financial, our purpose is to provide clarity, stability, and peace of mind through every stage of your life's journey.",
       missionTitle: "Our Mission",
-      missionDesc: "Our mission is to guide families and individuals in protecting their health, lives, and financial future through personalized solutions in health insurance, life insurance, savings, and retirement. At EverSafe Financial, we provide clear, bilingual, and honest guidance to help every client make informed decisions with confidence and peace of mind.",
+      missionDesc: "Our mission is to guide families and individuals in protecting their health, lives, and financial future through personalized solutions in health insurance, life insurance, savings, and retirement. At Eversafe Financial, we provide clear, bilingual, and honest guidance to help every client make informed decisions with confidence and peace of mind.",
       visionTitle: "Our Vision",
       visionDesc: "To be a leading and trusted insurance and financial protection agency, recognized for providing clear guidance, personalized solutions, and bilingual support to families in Florida and other states, with a vision of growth and service nationwide.",
       valuesTitle: "Our Values",
@@ -494,8 +507,8 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       cta: "Cotización Gratis",
     },
     hero: {
-      title: "Tu Protección Financiera y de Salud, Hecha Simple",
-      subtitle: "Desde coberturas de salud como Obamacare y Medicare hasta estrategias de riqueza a largo plazo como IUL. Guía experta y bilingüe a tu medida.",
+      title: "Protección financiera y de salud hecha para ti",
+      subtitle: "Desde coberturas de salud como Obamacare y Medicare hasta estrategias de protección, ahorro y retiro a largo plazo como IUL. Guía experta y bilingüe a tu medida.",
       ctaPhone: "📞 Hablar con Mary: (727) 359-6196",
       ctaIUL: "💡 Por Qué IUL es Mejor",
       badge: "✅ 4+ Años de Experiencia  ·  ✅ Licencia en Florida y otros estados  ·  ✅ Servicio Bilingüe (EN/ES)",
@@ -587,12 +600,21 @@ export const translations: Record<"en" | "es", TranslationSet> = {
         "Opciones para individuos y familias"
       ],
       dentalVisionCta: "Explorar beneficios suplementarios",
+      finalExpensesTitle: "Gastos Finales y Anualidades",
+      finalExpensesDesc: "Ayudamos a proteger a tus seres queridos de gastos inesperados y a planificar opciones de ingreso para el retiro mediante soluciones de gastos finales y anualidades según tu necesidad.",
+      finalExpensesBullets: [
+        "Gastos finales",
+        "Anualidades",
+        "Protección familiar",
+        "Ingresos de retiro"
+      ],
+      finalExpensesCta: "Comparar gastos finales",
       popular: "Más Popular",
       cta: "💼 Ver Mis Opciones Personalizadas Ya",
     },
     whoWeAre: {
       title: "Quiénes Somos",
-      subtitle: "En EverSafe Financial, nuestro propósito es brindar claridad, estabilidad y tranquilidad en cada etapa del camino de tu vida.",
+      subtitle: "En Eversafe Financial, nuestro propósito es brindar claridad, estabilidad y tranquilidad en cada etapa del camino de tu vida.",
       missionTitle: "Misión",
       missionDesc: "Nuestra misión es guiar a familias e individuos a proteger su salud, su vida y su futuro financiero mediante soluciones personalizadas en seguros de salud, seguros de vida, ahorro y retiro. En Eversafe Financial, brindamos una orientación clara, bilingüe y honesta para ayudar a cada cliente a tomar decisiones informadas con confianza y tranquilidad.",
       visionTitle: "Visión",

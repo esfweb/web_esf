@@ -28,16 +28,16 @@ export function GHLQuoteFormEmbed({ lang }: GHLQuoteFormEmbedProps) {
     : "inline-wG7ZEO9z2NoAPHbYjclH";
 
   const formName = isEs
-    ? "EverSafe - Free Quote Form ES"
-    : "EverSafe - Free Quote Form EN";
+    ? "Eversafe - Free Quote Form ES"
+    : "Eversafe - Free Quote Form EN";
 
   const formId = isEs
     ? "b6SQ8lCqfkQyf7hQqbiB"
     : "wG7ZEO9z2NoAPHbYjclH";
 
   const title = isEs
-    ? "EverSafe - Free Quote Form ES"
-    : "EverSafe - Free Quote Form EN";
+    ? "Eversafe - Free Quote Form ES"
+    : "Eversafe - Free Quote Form EN";
 
   return (
     <div className="w-full bg-white rounded-3xl shadow-xl p-2 md:p-3 overflow-hidden">
