@@ -869,33 +869,44 @@ export default function App() {
             </p>
           </div>
 
-          {/* 5-Card Responsive Strategic Protection Portfolio centered wrap */}
-          <div className="flex flex-wrap justify-center gap-8 items-stretch pt-4">
+          {/* 3-Column Responsive Grid Layout (IUL flagship card + 2 pairs of stacked cards) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch pt-4">
             
-            {/* Card 1: IUL */}
-            <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
+            {/* Column 1: Featured IUL (Full height on large screens, spanning 2 columns on tablet md for massive visual impact) */}
+            <div className="w-full md:col-span-2 lg:col-span-1 flex flex-col h-full">
               <TiltCard popular popularLabel={t.core.popular}>
-                <div className="space-y-6 flex-1 flex flex-col justify-between">
+                <div className="space-y-6 flex-1 flex flex-col justify-between h-full">
                   <div className="space-y-6">
                     <div className="w-12 h-12 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/10">
                       🗄️
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-4">
                       <div className="space-y-1">
                         <span className="text-[10px] uppercase font-bold text-brand-purple tracking-widest">{lang === "en" ? "Accumulation" : "Acumulación"}</span>
-                        <h3 className="text-lg font-bold font-sans text-brand-navy">
+                        <h3 className="text-xl md:text-2xl font-extrabold font-sans text-brand-navy leading-tight">
                           {t.core.iulTitle}
                         </h3>
                       </div>
-                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                      <p className="text-sm text-brand-slate leading-relaxed">
                         {t.core.iulDesc}
                       </p>
+                      
+                      {/* Dynamic IUL benefits list to balance the featured card's generous height */}
+                      <ul className="space-y-2.5 pt-4 border-t border-slate-100">
+                        {t.core.iulBullets.map((bullet, idx) => (
+                          <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-brand-slate font-medium">
+                            <span className="text-[#00C2A8] font-bold text-base leading-none">✓</span>
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
+                  
                   <button
                     type="button"
                     onClick={() => handlePreFillMessage(t.core.iulTitle)}
-                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <span>{t.core.cta}</span>
                     <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
@@ -904,164 +915,174 @@ export default function App() {
               </TiltCard>
             </div>
 
-            {/* Card 2: Obamacare (Suave acento verde/teal para bienestar) */}
-            <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
-              <TiltCard>
-                <div className="space-y-6 flex-1 flex flex-col justify-between">
-                  <div className="space-y-6">
-                    <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
-                      🏥
-                    </div>
-                    <div className="space-y-2">
-                      <div className="space-y-1">
-                        <span className="text-[10px] uppercase font-bold text-accent tracking-widest">{lang === "en" ? "Health Plans" : "Planes de Salud"}</span>
-                        <h3 className="text-lg font-bold font-sans text-brand-navy">
-                          {t.core.obamacareTitle}
-                        </h3>
+            {/* Column 2: Obamacare & Medicare (2 stacked cards) */}
+            <div className="w-full flex flex-col gap-8">
+              
+              {/* Card 2: Obamacare */}
+              <div className="flex flex-col flex-1">
+                <TiltCard>
+                  <div className="space-y-6 flex-1 flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
+                        🏥
                       </div>
-                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
-                        {t.core.obamacareDesc}
-                      </p>
-                      <ul className="space-y-1.5 pt-2">
-                        {t.core.obamacareBullets.map((bullet, idx) => (
-                          <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
-                            <span className="text-emerald-500 font-bold">✓</span>
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="space-y-2">
+                        <div className="space-y-1">
+                          <span className="text-[10px] uppercase font-bold text-accent tracking-widest">{lang === "en" ? "HEALTH PLANS" : "PLANES DE SALUD"}</span>
+                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                            {t.core.obamacareTitle}
+                          </h3>
+                        </div>
+                        <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                          {t.core.obamacareDesc}
+                        </p>
+                        <ul className="space-y-1.5 pt-2">
+                          {t.core.obamacareBullets.map((bullet, idx) => (
+                            <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
+                              <span className="text-emerald-500 font-bold">✓</span>
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => handlePreFillMessage(t.core.obamacareTitle)}
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>{t.core.obamacareCta}</span>
+                      <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => handlePreFillMessage(t.core.obamacareTitle)}
-                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <span>{t.core.obamacareCta}</span>
-                    <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
-              </TiltCard>
+                </TiltCard>
+              </div>
+
+              {/* Card 3: Medicare */}
+              <div className="flex flex-col flex-1">
+                <TiltCard>
+                  <div className="space-y-6 flex-1 flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center text-brand-navy text-2xl shadow-sm border border-slate-200">
+                        ⚕️
+                      </div>
+                      <div className="space-y-2">
+                        <div className="space-y-1">
+                          <span className="text-[10px] uppercase font-bold text-brand-slate tracking-widest">{lang === "en" ? "MEDICARE" : "MEDICARE"}</span>
+                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                            {t.core.medicareTitle}
+                          </h3>
+                        </div>
+                        <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                          {t.core.medicareDesc}
+                        </p>
+                        <ul className="space-y-1.5 pt-2">
+                          {t.core.medicareBullets.map((bullet, idx) => (
+                            <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
+                              <span className="text-emerald-500 font-bold">✓</span>
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handlePreFillMessage(t.core.medicareTitle)}
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>{t.core.medicareCta}</span>
+                      <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </TiltCard>
+              </div>
+
             </div>
 
-            {/* Card 3: Medicare */}
-            <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
-              <TiltCard>
-                <div className="space-y-6 flex-1 flex flex-col justify-between">
-                  <div className="space-y-6">
-                    <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center text-brand-navy text-2xl shadow-sm border border-slate-200">
-                      ⚕️
-                    </div>
-                    <div className="space-y-2">
-                      <div className="space-y-1">
-                        <span className="text-[10px] uppercase font-bold text-brand-slate tracking-widest">{lang === "en" ? "Senior Care" : "Cuidado Mayor"}</span>
-                        <h3 className="text-lg font-bold font-sans text-brand-navy">
-                          {t.core.medicareTitle}
-                        </h3>
+            {/* Column 3: Private Health Plans & Dental/Vision/Supplemental (2 stacked cards) */}
+            <div className="w-full flex flex-col gap-8">
+              
+              {/* Card 4: Private Health Plans */}
+              <div className="flex flex-col flex-1">
+                <TiltCard>
+                  <div className="space-y-6 flex-1 flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <div className="w-12 h-12 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 text-2xl shadow-sm border border-rose-100">
+                        🔑
                       </div>
-                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
-                        {t.core.medicareDesc}
-                      </p>
-                      <ul className="space-y-1.5 pt-2">
-                        {t.core.medicareBullets.map((bullet, idx) => (
-                          <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
-                            <span className="text-emerald-500 font-bold">✓</span>
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="space-y-2">
+                        <div className="space-y-1">
+                          <span className="text-[10px] uppercase font-bold text-rose-500 tracking-widest">{lang === "en" ? "PRIVATE PLANS" : "PLANES PRIVADOS"}</span>
+                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                            {t.core.privateHealthTitle}
+                          </h3>
+                        </div>
+                        <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                          {t.core.privateHealthDesc}
+                        </p>
+                        <ul className="space-y-1.5 pt-2">
+                          {t.core.privateHealthBullets.map((bullet, idx) => (
+                            <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
+                              <span className="text-emerald-500 font-bold">✓</span>
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => handlePreFillMessage(t.core.privateHealthTitle)}
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>{t.core.privateHealthCta}</span>
+                      <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => handlePreFillMessage(t.core.medicareTitle)}
-                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <span>{t.core.medicareCta}</span>
-                    <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
-              </TiltCard>
-            </div>
+                </TiltCard>
+              </div>
 
-            {/* Card 4: Private Health Plans */}
-            <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
-              <TiltCard>
-                <div className="space-y-6 flex-1 flex flex-col justify-between">
-                  <div className="space-y-6">
-                    <div className="w-12 h-12 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 text-2xl shadow-sm border border-rose-100">
-                      🔑
-                    </div>
-                    <div className="space-y-2">
-                      <div className="space-y-1">
-                        <span className="text-[10px] uppercase font-bold text-rose-500 tracking-widest">{lang === "en" ? "Private Plans" : "Planes Privados"}</span>
-                        <h3 className="text-lg font-bold font-sans text-brand-navy">
-                          {t.core.privateHealthTitle}
-                        </h3>
+              {/* Card 5: Dental, Vision & Supplemental */}
+              <div className="flex flex-col flex-1">
+                <TiltCard>
+                  <div className="space-y-6 flex-1 flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
+                        🦷
                       </div>
-                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
-                        {t.core.privateHealthDesc}
-                      </p>
-                      <ul className="space-y-1.5 pt-2">
-                        {t.core.privateHealthBullets.map((bullet, idx) => (
-                          <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
-                            <span className="text-emerald-500 font-bold">✓</span>
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="space-y-2">
+                        <div className="space-y-1">
+                          <span className="text-[10px] uppercase font-bold text-amber-600 tracking-widest">{lang === "en" ? "SUPPLEMENTAL" : "SUPLEMENTARIOS"}</span>
+                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                            {t.core.dentalVisionTitle}
+                          </h3>
+                        </div>
+                        <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
+                          {t.core.dentalVisionDesc}
+                        </p>
+                        <ul className="space-y-1.5 pt-2">
+                          {t.core.dentalVisionBullets.map((bullet, idx) => (
+                            <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
+                              <span className="text-emerald-500 font-bold">✓</span>
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => handlePreFillMessage(t.core.dentalVisionTitle)}
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>{t.core.dentalVisionCta}</span>
+                      <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => handlePreFillMessage(t.core.privateHealthTitle)}
-                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <span>{t.core.privateHealthCta}</span>
-                    <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
-              </TiltCard>
-            </div>
+                </TiltCard>
+              </div>
 
-            {/* Card 5: Dental, Vision & Supplemental */}
-            <div className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] xl:w-[calc(20%-1.6rem)] flex flex-col">
-              <TiltCard>
-                <div className="space-y-6 flex-1 flex flex-col justify-between">
-                  <div className="space-y-6">
-                    <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
-                      🦷
-                    </div>
-                    <div className="space-y-2">
-                      <div className="space-y-1">
-                        <span className="text-[10px] uppercase font-bold text-amber-600 tracking-widest">{lang === "en" ? "Supplemental" : "Suplementarios"}</span>
-                        <h3 className="text-lg font-bold font-sans text-brand-navy">
-                          {t.core.dentalVisionTitle}
-                        </h3>
-                      </div>
-                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
-                        {t.core.dentalVisionDesc}
-                      </p>
-                      <ul className="space-y-1.5 pt-2">
-                        {t.core.dentalVisionBullets.map((bullet, idx) => (
-                          <li key={idx} className="flex items-start gap-1 text-xs text-brand-slate font-medium">
-                            <span className="text-emerald-500 font-bold">✓</span>
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handlePreFillMessage(t.core.dentalVisionTitle)}
-                    className="mt-8 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.03] active:scale-[0.97] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <span>{t.core.dentalVisionCta}</span>
-                    <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
-              </TiltCard>
             </div>
 
           </div>
@@ -1381,11 +1402,16 @@ export default function App() {
                 <h3 className="text-xl font-bold font-sans text-brand-navy">
                   {t.whoWeAre.valuesTitle}
                 </h3>
-                <div className="grid grid-cols-1 gap-3 pt-2">
+                <div className="space-y-3 pt-2">
                   {t.whoWeAre.values.map((val, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 bg-[#FAF8FC] px-4 py-2.5 rounded-xl border border-brand-purple/5 text-xs font-semibold text-brand-navy">
-                      <span className="w-2 h-2 rounded-full bg-accent" />
-                      <span>{val}</span>
+                    <div key={idx} className="space-y-1 p-3.5 bg-[#FAF8FC] rounded-2xl border border-brand-purple/5 text-xs">
+                      <div className="flex items-center gap-2 font-bold text-brand-navy text-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                        <span>{val.title}</span>
+                      </div>
+                      <p className="text-brand-slate leading-relaxed font-medium pl-3.5">
+                        {val.desc}
+                      </p>
                     </div>
                   ))}
                 </div>

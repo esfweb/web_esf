@@ -5,46 +5,31 @@ interface QuizCardProps {
   t: TranslationSet;
 }
 
-// ============================================================================
-// TODO: MEJORA 6 - QUIZ DE SALUD (ESTRUCTURA PENDIENTE PARA FASE 2)
-// El quiz actual califica exclusivamente para el producto IUL. En la Fase 2,
-// se transformará en un recomendador dinámico bilingüe de planes de salud y vida:
-// 
-// - Paso 1: ¿Qué tipo de protección buscas prioritariamente? (Salud / Jubilación / Ambas)
-// - Paso 2: Rango de edad del asegurado principal.
-// - Paso 3: ¿Tienes condiciones de salud preexistentes activas?
-// - Paso 4: Rango de ingresos anuales estimados del hogar (para cálculo de subsidio ACA / Obamacare).
-// - Resultado: Sugerir dinámicamente si califica para Obamacare con subsidio,
-//              Planes Privados PPO o IUL / Anualidades.
-// ============================================================================
-
 export default function QuizCard({ t }: QuizCardProps) {
   const [step, setStep] = useState<number>(1);
-  const [age, setAge] = useState<string>("");
-  const [employed, setEmployed] = useState<string>("");
-  const [health, setHealth] = useState<string>("");
-  const [goal, setGoal] = useState<string>("");
+  
+  // Guardamos las respuestas en state
+  const [answers, setAnswers] = useState({
+    coverageType: "",
+    currentSituation: "",
+    coverageFor: ""
+  });
 
-  // Lead capture state
-  const [fullName, setFullName] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [consent, setConsent] = useState<boolean>(false);
-  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-  const [formError, setFormError] = useState<string>("");
   const [isEvaluating, setIsEvaluating] = useState<boolean>(false);
 
   const handleNext = () => {
-    if (step === 1 && !age) return;
-    if (step === 2 && !employed) return;
-    if (step === 3 && !health) return;
-    if (step === 4 && !goal) return;
+    if (step === 1 && !answers.coverageType) return;
+    if (step === 2 && !answers.currentSituation) return;
+    if (step === 3 && !answers.coverageFor) return;
 
-    if (step === 4) {
+    if (step === 3) {
       setIsEvaluating(true);
+      // Guardar en localStorage para respaldo y posible integración con el formulario
+      localStorage.setItem("eversafe_quiz_answers", JSON.stringify(answers));
+      
       setTimeout(() => {
         setIsEvaluating(false);
-        setStep(5);
+        setStep(4);
       }, 1000);
     } else {
       setStep((prev) => prev + 1);
@@ -59,116 +44,47 @@ export default function QuizCard({ t }: QuizCardProps) {
 
   const resetQuiz = () => {
     setStep(1);
-    setAge("");
-    setEmployed("");
-    setHealth("");
-    setGoal("");
-    setFullName("");
-    setPhone("");
-    setEmail("");
-    setConsent(false);
-    setFormSubmitted(false);
-    setFormError("");
+    setAnswers({
+      coverageType: "",
+      currentSituation: "",
+      coverageFor: ""
+    });
   };
 
-  // Check decision logic
-  const isQualified = age === "18-55" && employed === "yes" && health === "none";
+  const q1Options = [
+    { value: "Obamacare / ACA", label: t.quiz.q1Opt1, icon: "🩺" },
+    { value: "Medicare", label: t.quiz.q1Opt2, icon: "👴" },
+    { value: "Private Plan", label: t.quiz.q1Opt3, icon: "💼" },
+    { value: "Dental & Vision", label: t.quiz.q1Opt4, icon: "🦷" },
+    { value: "Hospitalization / Accident", label: t.quiz.q1Opt5, icon: "🏥" },
+    { value: "Not Sure / Needs Guidance", label: t.quiz.q1Opt6, icon: "🤷" }
+  ];
 
-  const [isSubmittingQuiz, setIsSubmittingQuiz] = useState<boolean>(false);
+  const q2Options = [
+    { value: "Uninsured", label: t.quiz.q2Opt1, icon: "❌" },
+    { value: "Has Insurance but wants better options", label: t.quiz.q2Opt2, icon: "🔍" },
+    { value: "Turning 65 / Medicare eligible", label: t.quiz.q2Opt3, icon: "🎂" },
+    { value: "No subsidy eligibility", label: t.quiz.q2Opt4, icon: "📉" },
+    { value: "Needs supplemental plan", label: t.quiz.q2Opt5, icon: "➕" },
+    { value: "Not Sure", label: t.quiz.q2Opt6, icon: "❓" }
+  ];
 
-  const submitQuizLead = async (quizAnswers: any) => {
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: (import.meta as any).env?.VITE_WEB3FORMS_KEY || '7dc1994b-f9c9-449c-8f4c-18d4d133c452',
-          subject: "🎯 New Quiz Lead - Eversafe Financial",
-          from_name: "EversafeFinancial Quiz",
-          name: quizAnswers.name,
-          phone: quizAnswers.phone,
-          email: quizAnswers.email,
-          age_range: quizAnswers.age,
-          employment: quizAnswers.employed,
-          health_issues: quizAnswers.health,
-          coverage_interest: quizAnswers.goal,
-          quiz_result: quizAnswers.result,
-          source: "Hero Quiz - EversafeFinancial Website",
-          submitted_at: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
-        }),
-      });
-      const data = await response.json();
-      return data.success;
-    } catch (error) {
-      console.error('Quiz lead submission error:', error);
-      return false;
-    }
-  };
+  const q3Options = [
+    { value: "Only Me", label: t.quiz.q3Opt1, icon: "👤" },
+    { value: "Partner", label: t.quiz.q3Opt2, icon: "💑" },
+    { value: "Children", label: t.quiz.q3Opt3, icon: "👶" },
+    { value: "Family", label: t.quiz.q3Opt4, icon: "👨‍👩‍👧‍👦" },
+    { value: "Older Adult", label: t.quiz.q3Opt5, icon: "👵" }
+  ];
 
-  const handleLeadSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!fullName.trim() || fullName.trim().length < 3) {
-      setFormError(t.quiz.fullName + " is too short");
-      return;
-    }
-    const phoneRegex = /^\+?[0-9]{7,15}$/;
-    if (!phoneRegex.test(phone.replace(/[\s()-]/g, ""))) {
-      setFormError(t.quiz.phoneLabel + " seems invalid");
-      return;
-    }
-    if (!email.includes("@") || email.length < 5) {
-      setFormError(t.quiz.emailLabel + " is invalid");
-      return;
-    }
-    if (!consent) {
-      setFormError(t.quiz.consent);
-      return;
-    }
-
-    setFormError("");
-    setIsSubmittingQuiz(true);
-
-    const answers = {
-      name: fullName,
-      phone: phone,
-      email: email,
-      age: age,
-      employed: employed,
-      health: health,
-      goal: goal,
-      result: isQualified ? "Qualified / Calificado" : "Unqualified / No Calificado"
-    };
-
-    try {
-      await submitQuizLead(answers);
-    } catch (err) {
-      console.error("Quiz submission failed:", err);
-    }
-
-    // Save lead backup in localStorage for demonstration and reliability backings
-    const oldLeads = JSON.parse(localStorage.getItem("eversafe_leads") || "[]");
-    const newLead = { 
-      fullName, 
-      email, 
-      phone, 
-      answers, 
-      source: "Hero Quiz", 
-      date: new Date().toISOString() 
-    };
-    localStorage.setItem("eversafe_leads", JSON.stringify([...oldLeads, newLead]));
-
-    setIsSubmittingQuiz(false);
-    setFormSubmitted(true);
-  };
-
-  const progressPercent = step === 5 ? 100 : ((step - 1) / 4) * 100;
+  const progressPercent = step === 4 ? 100 : ((step - 1) / 3) * 100;
 
   return (
     <div className="w-full max-w-md bg-white rounded-3xl p-6 md:p-8 shadow-[0_12px_40px_rgba(18,32,51,0.06)] border border-slate-100 relative overflow-hidden transition-all duration-300">
-      {/* Absolute high-end brand purple glow accent */}
+      {/* Absolute brand purple glow accent */}
       <div className="absolute -top-10 -right-10 w-24 h-24 bg-brand-purple/5 rounded-full blur-2xl pointer-events-none"></div>
 
-      {/* Progress Bar (Color dinámico gradual K14) */}
+      {/* Progress Bar (Gradual color) */}
       <div className="w-full bg-secondary h-1.5 rounded-full mb-6 overflow-hidden">
         <div
           className="h-full rounded-full transition-all duration-300"
@@ -180,19 +96,22 @@ export default function QuizCard({ t }: QuizCardProps) {
       </div>
 
       {/* Header section of the Quiz */}
-      {step < 5 && (
+      {step < 4 && (
         <div className="mb-6">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs uppercase tracking-wider text-brand-purple font-semibold flex items-center gap-1.5">
-              <span>🌟</span> {t.quiz.title}
+            <span className="text-[10px] uppercase tracking-widest text-brand-purple font-bold flex items-center gap-1.5">
+              <span>🌟</span> {t.quiz.eyebrow}
             </span>
             <span className="text-xs font-mono font-medium bg-brand-purple-light text-brand-purple px-2.5 py-0.5 rounded-full">
-              {t.quiz.step} {step} / 4
+              {t.quiz.step} {step} / 3
             </span>
           </div>
           <h4 className="text-lg font-bold font-sans tracking-tight text-brand-navy mt-1.5">
-            {t.quiz.subtitle}
+            {t.quiz.title}
           </h4>
+          <p className="text-xs text-brand-slate mt-1">
+            {t.quiz.subtitle}
+          </p>
         </div>
       )}
 
@@ -204,226 +123,116 @@ export default function QuizCard({ t }: QuizCardProps) {
         </div>
       ) : (
         <>
-          {/* STEP 1: AGE */}
+          {/* STEP 1 */}
           {step === 1 && (
             <div className="space-y-4">
-              <label className="block text-base font-medium text-brand-navy mb-2">
-                {t.quiz.ageQ}
+              <label className="block text-sm sm:text-base font-bold text-brand-navy mb-1.5 leading-snug">
+                {t.quiz.q1Title}
               </label>
-              <div className="flex flex-col gap-2.5">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setAge("under-18");
-                    setTimeout(handleNext, 250);
-                  }}
-                  className={`w-full text-left py-3.5 px-4 rounded-xl border transition-all duration-200 text-sm font-medium ${
-                    age === "under-18"
-                      ? "bg-brand-purple text-white border-[#00C2A8] ring-2 ring-[#00C2A8]/40 shadow-lg shadow-[#00C2A8]/10 font-semibold animate-option-select"
-                      : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
-                  }`}
-                >
-                  <span className="inline-block mr-2 text-base">👦</span>
-                  {t.quiz.ageOpt1}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setAge("18-55");
-                    setTimeout(handleNext, 250);
-                  }}
-                  className={`w-full text-left py-3.5 px-4 rounded-xl border transition-all duration-200 text-sm font-medium ${
-                    age === "18-55"
-                      ? "bg-brand-purple text-white border-[#00C2A8] ring-2 ring-[#00C2A8]/40 shadow-lg shadow-[#00C2A8]/10 font-semibold animate-option-select"
-                      : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
-                  }`}
-                >
-                  <span className="inline-block mr-2 text-base">👨‍💼</span>
-                  {t.quiz.ageOpt2}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setAge("over-56");
-                    setTimeout(handleNext, 250);
-                  }}
-                  className={`w-full text-left py-3.5 px-4 rounded-xl border transition-all duration-200 text-sm font-medium ${
-                    age === "over-56"
-                      ? "bg-brand-purple text-white border-[#00C2A8] ring-2 ring-[#00C2A8]/40 shadow-lg shadow-[#00C2A8]/10 font-semibold animate-option-select"
-                      : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
-                  }`}
-                >
-                  <span className="inline-block mr-2 text-base">👵</span>
-                  {t.quiz.ageOpt3}
-                </button>
+              <div className="flex flex-col gap-2">
+                {q1Options.map((opt) => {
+                  const isSelected = answers.coverageType === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => {
+                        setAnswers((prev) => ({ ...prev, coverageType: opt.value }));
+                        setTimeout(handleNext, 300);
+                      }}
+                      className={`w-full text-left py-3 px-4 rounded-xl border transition-all duration-200 text-xs sm:text-sm font-semibold flex items-center gap-2.5 ${
+                        isSelected
+                          ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-lg shadow-accent/10 scale-[1.01]"
+                          : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
+                      }`}
+                    >
+                      <span className="text-base sm:text-lg flex-shrink-0">{opt.icon}</span>
+                      <span>{opt.label}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
 
-          {/* STEP 2: EMPLOYED */}
+          {/* STEP 2 */}
           {step === 2 && (
             <div className="space-y-4">
-              <label className="block text-base font-medium text-brand-navy mb-2">
-                {t.quiz.employedQ}
+              <label className="block text-sm sm:text-base font-bold text-brand-navy mb-1.5 leading-snug">
+                {t.quiz.q2Title}
               </label>
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmployed("yes");
-                    setTimeout(handleNext, 250);
-                  }}
-                  className={`py-6 px-4 rounded-xl border flex flex-col items-center justify-center transition-all duration-200 text-sm font-medium ${
-                    employed === "yes"
-                      ? "bg-brand-purple text-white border-[#00C2A8] ring-2 ring-[#00C2A8]/40 shadow-lg shadow-[#00C2A8]/10 font-semibold animate-option-select"
-                      : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
-                  }`}
-                >
-                  <span className="text-3xl mb-2">💼</span>
-                  <span className="font-semibold">{t.quiz.yes}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmployed("no");
-                    setTimeout(handleNext, 250);
-                  }}
-                  className={`py-6 px-4 rounded-xl border flex flex-col items-center justify-center transition-all duration-200 text-sm font-medium ${
-                    employed === "no"
-                      ? "bg-brand-purple text-white border-[#00C2A8] ring-2 ring-[#00C2A8]/40 shadow-lg shadow-[#00C2A8]/10 font-semibold animate-option-select"
-                      : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
-                  }`}
-                >
-                  <span className="text-3xl mb-2">🛑</span>
-                  <span className="font-semibold">{t.quiz.no}</span>
-                </button>
+              <div className="flex flex-col gap-2">
+                {q2Options.map((opt) => {
+                  const isSelected = answers.currentSituation === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => {
+                        setAnswers((prev) => ({ ...prev, currentSituation: opt.value }));
+                        setTimeout(handleNext, 300);
+                      }}
+                      className={`w-full text-left py-3 px-4 rounded-xl border transition-all duration-200 text-xs sm:text-sm font-semibold flex items-center gap-2.5 ${
+                        isSelected
+                          ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-lg shadow-accent/10 scale-[1.01]"
+                          : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
+                      }`}
+                    >
+                      <span className="text-base sm:text-lg flex-shrink-0">{opt.icon}</span>
+                      <span>{opt.label}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
 
-          {/* STEP 3: HEALTH CONDITIONS */}
+          {/* STEP 3 */}
           {step === 3 && (
             <div className="space-y-4">
-              <label className="block text-base font-medium text-brand-navy mb-2">
-                {t.quiz.healthQ}
+              <label className="block text-sm sm:text-base font-bold text-brand-navy mb-1.5 leading-snug">
+                {t.quiz.q3Title}
               </label>
-              <div className="flex flex-col gap-2.5">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setHealth("none");
-                    setTimeout(handleNext, 250);
-                  }}
-                  className={`w-full text-left py-3.5 px-4 rounded-xl border transition-all duration-200 text-sm font-medium ${
-                    health === "none"
-                      ? "bg-brand-purple text-white border-[#00C2A8] ring-2 ring-[#00C2A8]/40 shadow-lg shadow-[#00C2A8]/10 font-semibold animate-option-select"
-                      : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
-                  }`}
-                >
-                  <span className="inline-block mr-2 text-base">🍏</span>
-                  {t.quiz.healthOpt1}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setHealth("minor");
-                    setTimeout(handleNext, 250);
-                  }}
-                  className={`w-full text-left py-3.5 px-4 rounded-xl border transition-all duration-200 text-sm font-medium ${
-                    health === "minor"
-                      ? "bg-brand-purple text-white border-[#00C2A8] ring-2 ring-[#00C2A8]/40 shadow-lg shadow-[#00C2A8]/10 font-semibold animate-option-select"
-                      : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
-                  }`}
-                >
-                  <span className="inline-block mr-2 text-base">💊</span>
-                  {t.quiz.healthOpt2}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setHealth("major");
-                    setTimeout(handleNext, 250);
-                  }}
-                  className={`w-full text-left py-3.5 px-4 rounded-xl border transition-all duration-200 text-sm font-medium ${
-                    health === "major"
-                      ? "bg-brand-purple text-white border-[#00C2A8] ring-2 ring-[#00C2A8]/40 shadow-lg shadow-[#00C2A8]/10 font-semibold animate-option-select"
-                      : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
-                  }`}
-                >
-                  <span className="inline-block mr-2 text-base">🏥</span>
-                  {t.quiz.healthOpt3}
-                </button>
+              <div className="flex flex-col gap-2">
+                {q3Options.map((opt) => {
+                  const isSelected = answers.coverageFor === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => {
+                        setAnswers((prev) => ({ ...prev, coverageFor: opt.value }));
+                        setTimeout(handleNext, 300);
+                      }}
+                      className={`w-full text-left py-3 px-4 rounded-xl border transition-all duration-200 text-xs sm:text-sm font-semibold flex items-center gap-2.5 ${
+                        isSelected
+                          ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-lg shadow-accent/10 scale-[1.01]"
+                          : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
+                      }`}
+                    >
+                      <span className="text-base sm:text-lg flex-shrink-0">{opt.icon}</span>
+                      <span>{opt.label}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
 
-          {/* STEP 4: FINANCIAL GOAL */}
+          {/* RESULT STEP */}
           {step === 4 && (
-            <div className="space-y-4">
-              <label className="block text-base font-medium text-brand-navy mb-2">
-                {t.quiz.goalQ}
-              </label>
-              <div className="flex flex-col gap-2.5">
-                {[
-                  { key: "savings", val: t.quiz.goalOpt1, icon: "💰" },
-                  { key: "protection", val: t.quiz.goalOpt2, icon: "🏠" },
-                  { key: "mortgage", val: t.quiz.goalOpt3, icon: "🔑" },
-                  { key: "all", val: t.quiz.goalOpt4, icon: "📈" },
-                ].map((item) => (
-                  <button
-                    key={item.key}
-                    type="button"
-                    onClick={() => {
-                      setGoal(item.key);
-                    }}
-                    className={`w-full text-left py-3 px-4 rounded-xl border transition-all duration-200 text-sm font-medium ${
-                      goal === item.key
-                        ? "bg-brand-purple text-white border-[#00C2A8] ring-2 ring-[#00C2A8]/40 shadow-lg shadow-[#00C2A8]/10 font-semibold animate-option-select"
-                        : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
-                    }`}
-                  >
-                    <span className="inline-block mr-2 text-base">{item.icon}</span>
-                    {item.val}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* STEP 5: OUTCOME + CTA redirecting to GoHighLevel Contact Section */}
-          {step === 5 && (
             <div className="space-y-6 animate-fade-in-up">
               <div>
-                {/* Results Diagnostic (Acentos de validacion verde suave / sage / teal) */}
-                <div className="p-5 rounded-2xl bg-accent-light/10 border border-accent/25 mb-4">
-                  {isQualified ? (
-                    <div>
-                      <h4 className="text-sm sm:text-base font-bold text-accent flex items-center gap-1.5 uppercase tracking-wide">
-                        🌟 {t.quiz.qualifiedTitle}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-brand-slate-dark leading-relaxed mt-2">
-                        {t.quiz.qualifiedDesc}
-                      </p>
-                    </div>
-                  ) : (
-                    <div>
-                      <h4 className="text-sm sm:text-base font-bold text-brand-purple flex items-center gap-1.5 uppercase tracking-wide">
-                        🛡️ {t.quiz.unqualifiedTitle}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-brand-slate leading-relaxed mt-2">
-                        {t.quiz.unqualifiedDesc}
-                      </p>
-                    </div>
-                  )}
+                <div className="p-5 rounded-2xl bg-accent-light/10 border border-accent/25 mb-4 text-center sm:text-left">
+                  <h4 className="text-sm sm:text-base font-bold text-accent flex items-center justify-center sm:justify-start gap-1.5 uppercase tracking-wide">
+                    🌟 {t.quiz.resultTitle}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-brand-slate-dark leading-relaxed mt-2.5">
+                    {t.quiz.resultDesc}
+                  </p>
                 </div>
 
                 <div className="space-y-4 text-center mt-6">
-                  <p className="text-xs text-brand-slate leading-relaxed">
-                    {t.quiz.title === "Do You Qualify for IUL?"
-                      ? "To secure your custom plan, please fill out our official quote request form below."
-                      : "Para asegurar tu plan personalizado, por favor completa nuestro formulario oficial de cotización abajo."}
-                  </p>
-
                   <button
                     type="button"
                     onClick={() => {
@@ -432,9 +241,9 @@ export default function QuizCard({ t }: QuizCardProps) {
                         element.scrollIntoView({ behavior: "smooth" });
                       }
                     }}
-                    className="w-full bg-accent hover:bg-accent-dark text-white font-bold py-4 px-6 rounded-2xl text-xs sm:text-sm uppercase tracking-wide shadow-lg shadow-accent/10 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer block text-center"
+                    className="w-full bg-accent hover:bg-accent-dark text-white font-bold py-4 px-6 rounded-2xl text-xs sm:text-sm uppercase tracking-wide shadow-lg shadow-accent/10 hover:scale-102 active:scale-98 transition-all duration-300 cursor-pointer block text-center"
                   >
-                    🚀 {t.quiz.title === "Do You Qualify for IUL?" ? "Get My Free Quote Now" : "Obtener Mi Cotización Gratis Ahora"}
+                    🚀 {t.quiz.resultCta}
                   </button>
 
                   <button
@@ -442,15 +251,15 @@ export default function QuizCard({ t }: QuizCardProps) {
                     onClick={resetQuiz}
                     className="text-brand-slate hover:text-brand-purple transition text-xs font-semibold underline decoration-dotted mt-4 inline-block cursor-pointer"
                   >
-                    🔄 {t.quiz.title === "Do You Qualify for IUL?" ? "Start Over" : "Reiniciar Quiz"}
+                    🔄 {t.quiz.resultBack}
                   </button>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Navigation buttons */}
-          {step < 5 && (
+          {/* Navigation controls */}
+          {step < 4 && (
             <div className="flex items-center justify-between mt-6 pt-4 border-t border-slate-100">
               <button
                 type="button"
@@ -466,16 +275,14 @@ export default function QuizCard({ t }: QuizCardProps) {
                 type="button"
                 onClick={handleNext}
                 disabled={
-                  (step === 1 && !age) ||
-                  (step === 2 && !employed) ||
-                  (step === 3 && !health) ||
-                  (step === 4 && !goal)
+                  (step === 1 && !answers.coverageType) ||
+                  (step === 2 && !answers.currentSituation) ||
+                  (step === 3 && !answers.coverageFor)
                 }
                 className={`py-2 px-5 rounded-full text-xs font-bold uppercase tracking-wider transition ${
-                  ((step === 1 && !age) ||
-                    (step === 2 && !employed) ||
-                    (step === 3 && !health) ||
-                    (step === 4 && !goal))
+                  ((step === 1 && !answers.coverageType) ||
+                    (step === 2 && !answers.currentSituation) ||
+                    (step === 3 && !answers.coverageFor))
                     ? "bg-[#F3F3F4] text-brand-slate/40 cursor-not-allowed"
                     : "bg-brand-purple hover:bg-brand-purple-hover text-white shadow shadow-brand-purple/10"
                 }`}
