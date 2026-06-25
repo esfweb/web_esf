@@ -171,6 +171,13 @@ export interface TranslationSet {
     areaLabel: string;
     areaValue: string;
     bilingualHelp: string;
+    emailTitle: string;
+    phoneTitle: string;
+    directEmailTitle: string;
+    bilingualPhoneTitle: string;
+    companyDisclosuresLabel: string;
+    companyDisclosuresValue: string;
+    whatsappTitle: string;
   };
   footer: {
     about: string;
@@ -186,6 +193,7 @@ export interface TranslationSet {
   };
   whyContactUs: {
     title: string;
+    subtitle: string;
     items: string[];
   };
   faq: {
@@ -342,7 +350,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
     },
     allServices: {
       title: "All Services We Offer",
-      subtitle: "Complete coverage solutions for every stage of life. Hover over any service to see how we assist you.",
+      subtitle: "Complete coverage solutions for every stage of life.",
       groupLife: "Life & Financial Security",
       groupHealth: "Health & Wellness",
       kidsSavings: "Kids / College Savings Plans",
@@ -420,6 +428,13 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       areaLabel: "Service Areas",
       areaValue: "Florida and other U.S. states",
       bilingualHelp: "Te Puedo Ayudar en Español",
+      emailTitle: "Email Address",
+      phoneTitle: "Bilingual Phone Service",
+      directEmailTitle: "Direct Agency Email",
+      bilingualPhoneTitle: "Bilingual Phone",
+      companyDisclosuresLabel: "Company Disclosures:",
+      companyDisclosuresValue: "Eversafe Financial LLC is a legally registered Limited Liability Company in Pinellas Park, Florida 33782. Formed on October 12, 2023. Backed by licensed agent Mary Rivera. All products subject to underwriting guidelines.",
+      whatsappTitle: "Start WhatsApp Conversation",
     },
     footer: {
       about: "Secure your family's financial future with Mary Rivera's personalized insurance solutions. From Life and Health coverage to Retirement Plans, count on expert guidance every step of the way.",
@@ -441,6 +456,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
     },
     whyContactUs: {
       title: "Why Clients Contact Us",
+      subtitle: "Real solutions built on transparency, security, and proven coverage metrics.",
       items: [
         "To receive direct, independent comparisons from the nation's top A-rated insurance carriers.",
         "To custom-design retirement accumulation plans utilizing Index Universal Life (IUL).",
@@ -641,7 +657,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
     },
     allServices: {
       title: "Todos Nuestros Servicios",
-      subtitle: "Soluciones de cobertura completas para cada etapa de tu vida. Pasa el cursor por encima para ver detalles de cómo te ayudamos.",
+      subtitle: "Soluciones de cobertura completas para cada etapa de tu vida.",
       groupLife: "Seguridad de Vida y Finanzas",
       groupHealth: "Salud y Bienestar",
       kidsSavings: "Planes de Ahorro para Niños y Universidad",
@@ -678,7 +694,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       guidanceTitle: "Orientación Experta",
       guidanceDesc: "Tomarás decisiones respaldadas por más de 4 años de impecable trayectoria trabajando con las mayores aseguradoras de EE.UU.",
       coverageTitle: "Cobertura Confiable",
-      coverageDesc: "Tranquilidad total con aseguradoras de máxima calificación (A+ Rating) protegiendo el porvenir de quienes amas.",
+      coverageDesc: "Opciones con aseguradoras reconocidas y altamente calificadas, para ayudarte a proteger a tu familia con mayor tranquilidad.",
     },
     about: {
       titleLabel: "Mary Rivera · Asesora de Seguros",
@@ -716,9 +732,16 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       hoursWeek: "Lunes – Viernes: 9:00 AM – 6:00 PM",
       hoursSat: "Sábado: 10:00 AM – 2:00 PM",
       hoursSun: "Domingo: Cerrado",
-      areaLabel: "Zonificación de Servicio",
+      areaLabel: "Áreas de Servicio",
       areaValue: "Florida y otros estados de EE. UU.",
       bilingualHelp: "Te Puedo Ayudar en Español",
+      emailTitle: "Correo Electrónico",
+      phoneTitle: "Servicio Telefónico Bilingüe",
+      directEmailTitle: "Correo Directo de la Agencia",
+      bilingualPhoneTitle: "Teléfono Bilingüe",
+      companyDisclosuresLabel: "Declaraciones de la Compañía:",
+      companyDisclosuresValue: "Eversafe Financial LLC es una Compañía de Responsabilidad Limitada legalmente registrada en Pinellas Park, Florida 33782. Constituida el 12 de octubre de 2023. Respaldada por la agente licenciada Mary Rivera. Todos los productos están sujetos a pautas de suscripción.",
+      whatsappTitle: "Iniciar Conversación de WhatsApp",
     },
     footer: {
       about: "Asegura el futuro financiero de tu familia con las soluciones personalizadas de seguro junto a Mary Rivera. Coberturas de Vida, Salud y Retiros estables bajo guía experta.",
@@ -729,22 +752,24 @@ export const translations: Record<"en" | "es", TranslationSet> = {
     },
     whoWeHelp: {
       title: "A Quiénes Ayudamos",
-      subtitle: "Ayudamos a individuos, familias y dueños de negocios en Florida a navegar su camino de protección financiera.",
+      subtitle: "Ayudamos a familias e individuos en Florida y otros estados a encontrar soluciones de protección para su salud, su vida y su futuro financiero.",
       items: [
-        "Familias que buscan un seguro de vida para proteger a sus seres queridos de la incertidumbre.",
-        "Individuos que comparan opciones de Medicare Advantage, Suplementación y Parte D.",
-        "Clientes que exploran planes de salud de Obamacare (ACA) para cobertura médica subsidiada.",
-        "Personas que planifican su jubilación con crecimiento seguro y estrategias de retiros libres de impuestos.",
-        "Hogares bilingües que necesitan asistencia profesional dedicada tanto en inglés como en español."
+        "Familias que buscan un seguro de vida para proteger a sus seres queridos.",
+        "Personas que comparan opciones de Medicare Advantage, suplementos y Parte D.",
+        "Clientes que exploran planes de salud ACA / Obamacare con posibilidad de subsidios.",
+        "Personas que desean planificar su retiro con estrategias de crecimiento y protección.",
+        "Hogares bilingües que necesitan orientación profesional en inglés o español."
       ]
     },
     whyContactUs: {
       title: "Por Qué Nos Contactan los Clientes",
+      subtitle: "Cada cliente llega con una necesidad distinta, pero con un mismo objetivo: encontrar una solución clara, confiable y adecuada para proteger lo que más valora.",
       items: [
-        "Para recibir comparaciones directas e independientes de las aseguradoras con clasificación A+ más grandes del país.",
-        "Para diseñar planes de acumulación de retiro a la medida utilizando Index Universal Life (IUL).",
-        "Para transferir cuentas antiguas (Rollover de 401k/IRA) sin penalidades ni riesgos de caída.",
-        "Para obtener revisiones de pólizas claras y honestas, con absoluta ausencia de tácticas de presión de venta."
+        "Para comparar coberturas de salud, vida y beneficios suplementarios según su situación.",
+        "Para entender sus opciones antes de elegir, cambiar o complementar un plan existente.",
+        "Para proteger a su familia ante gastos médicos, gastos finales, pérdida de ingresos o necesidades futuras.",
+        "Para prepararse para el retiro con estrategias de ahorro, protección y crecimiento, incluyendo IUL, anualidades y revisión de rollovers de 401(k) / IRA cuando aplica.",
+        "Para recibir una orientación bilingüe y personalizada, con acompañamiento claro durante el proceso."
       ]
     },
     faq: {

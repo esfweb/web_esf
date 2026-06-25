@@ -1310,7 +1310,7 @@ export default function App() {
                 {t.whyContactUs.title}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
-                {lang === "en" ? "Real solutions built on transparency, security, and proven coverage metrics." : "Soluciones reales construidas sobre transparencia, seguridad e indicadores probados."}
+                {t.whyContactUs.subtitle}
               </p>
             </div>
 
@@ -1411,56 +1411,64 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Mission Card */}
-            <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
-              <div className="space-y-4">
-                <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
-                  🎯
+          <div className="space-y-8">
+            {/* Top row: Mission and Vision */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Mission Card */}
+              <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
+                <div className="space-y-4">
+                  <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
+                    🎯
+                  </div>
+                  <h3 className="text-xl font-bold font-sans text-brand-navy">
+                    {t.whoWeAre.missionTitle}
+                  </h3>
+                  <p className="text-sm text-brand-slate leading-relaxed">
+                    {t.whoWeAre.missionDesc}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold font-sans text-brand-navy">
-                  {t.whoWeAre.missionTitle}
-                </h3>
-                <p className="text-sm text-brand-slate leading-relaxed">
-                  {t.whoWeAre.missionDesc}
-                </p>
+              </div>
+
+              {/* Vision Card */}
+              <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
+                <div className="space-y-4">
+                  <div className="w-12 h-12 bg-brand-purple/10 rounded-2xl flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/20">
+                    👁️
+                  </div>
+                  <h3 className="text-xl font-bold font-sans text-brand-navy">
+                    {t.whoWeAre.visionTitle}
+                  </h3>
+                  <p className="text-sm text-brand-slate leading-relaxed">
+                    {t.whoWeAre.visionDesc}
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Vision Card */}
-            <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
-              <div className="space-y-4">
-                <div className="w-12 h-12 bg-brand-purple/10 rounded-2xl flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/20">
-                  👁️
+            {/* Bottom row: Values Card with its 4 values in a single row on desktop */}
+            <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
+                    💎
+                  </div>
+                  <h3 className="text-xl font-bold font-sans text-brand-navy">
+                    {t.whoWeAre.valuesTitle}
+                  </h3>
                 </div>
-                <h3 className="text-xl font-bold font-sans text-brand-navy">
-                  {t.whoWeAre.visionTitle}
-                </h3>
-                <p className="text-sm text-brand-slate leading-relaxed">
-                  {t.whoWeAre.visionDesc}
-                </p>
-              </div>
-            </div>
-
-            {/* Values Card */}
-            <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
-              <div className="space-y-4">
-                <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
-                  💎
-                </div>
-                <h3 className="text-xl font-bold font-sans text-brand-navy">
-                  {t.whoWeAre.valuesTitle}
-                </h3>
-                <div className="space-y-3 pt-2">
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {t.whoWeAre.values.map((val, idx) => (
-                    <div key={idx} className="space-y-1 p-3.5 bg-[#FAF8FC] rounded-2xl border border-brand-purple/5 text-xs">
-                      <div className="flex items-center gap-2 font-bold text-brand-navy text-sm">
-                        <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
-                        <span>{val.title}</span>
+                    <div key={idx} className="space-y-2 p-5 bg-[#FAF8FC] rounded-2xl border border-brand-purple/5 flex flex-col justify-between h-full hover:border-brand-purple/20 transition-all duration-300">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 font-bold text-brand-navy text-sm">
+                          <span className="w-2 h-2 rounded-full bg-accent flex-shrink-0" />
+                          <span>{val.title}</span>
+                        </div>
+                        <p className="text-xs text-brand-slate leading-relaxed font-medium">
+                          {val.desc}
+                        </p>
                       </div>
-                      <p className="text-brand-slate leading-relaxed font-medium pl-3.5">
-                        {val.desc}
-                      </p>
                     </div>
                   ))}
                 </div>
@@ -1751,7 +1759,7 @@ export default function App() {
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">Email Address</span>
+                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">{t.contactForm.emailTitle}</span>
                     <a href="mailto:mary@eversafefinancial.com" className="text-sm md:text-base font-bold text-brand-navy hover:text-brand-purple transition-all hover:underline">
                       mary@eversafefinancial.com
                     </a>
@@ -1764,7 +1772,7 @@ export default function App() {
                     <Phone className="w-5 h-5 text-brand-purple" />
                   </div>
                   <div>
-                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">Bilingual Phone Service</span>
+                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">{t.contactForm.phoneTitle}</span>
                     <a href="tel:7273596196" className="text-sm md:text-base font-bold text-brand-navy hover:text-brand-purple transition-all hover:underline">
                       (727) 359-6196
                     </a>
@@ -1808,9 +1816,8 @@ export default function App() {
 
               {/* LLC License registration references mapping the exact business parameters */}
               <div className="p-4 rounded-xl border border-slate-200 text-[10px] text-brand-slate leading-normal bg-white/60">
-                <span className="font-bold uppercase tracking-wider block text-brand-slate mb-1">Company Disclosures:</span>
-                Eversafe Financial LLC is a legally registered Limited Liability Company in Pinellas Park, Florida 33782.
-                Formed on October 12, 2023. Backed by licensed agent Mary Rivera. All products subject to underwriting guidelines.
+                <span className="font-bold uppercase tracking-wider block text-brand-slate mb-1">{t.contactForm.companyDisclosuresLabel}</span>
+                {t.contactForm.companyDisclosuresValue}
               </div>
 
             </div>
@@ -2071,7 +2078,7 @@ export default function App() {
                     <Phone className="w-3.5 h-3.5" />
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase font-bold text-brand-slate tracking-wider">Bilingual Phone</span>
+                    <span className="block text-[9px] uppercase font-bold text-brand-slate tracking-wider">{t.contactForm.bilingualPhoneTitle}</span>
                     <a href="tel:7273596196" className="text-sm font-extrabold text-brand-navy hover:text-[#8C49B1] hover:underline transition-colors">
                       (727) 359-6196
                     </a>
@@ -2084,7 +2091,7 @@ export default function App() {
                     <Mail className="w-3.5 h-3.5" />
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase font-bold text-brand-slate tracking-wider">Direct Agency Email</span>
+                    <span className="block text-[9px] uppercase font-bold text-brand-slate tracking-wider">{t.contactForm.directEmailTitle}</span>
                     <a href="mailto:mary@eversafefinancial.com" className="text-sm font-extrabold text-brand-navy hover:text-[#8C49B1] hover:underline transition-colors">
                       mary@eversafefinancial.com
                     </a>
@@ -2099,7 +2106,7 @@ export default function App() {
                   className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold py-2.5 px-3.5 rounded-xl text-xs text-center flex items-center justify-center gap-2 transform active:scale-95 transition-all mt-1"
                 >
                   <MessageCircle className="w-4 h-4 fill-white text-white" />
-                  <span>Start WhatsApp Conversation</span>
+                  <span>{t.contactForm.whatsappTitle}</span>
                 </a>
 
               </div>
