@@ -282,7 +282,7 @@ export default function App() {
     } else if (currentView === "why-iul") {
       document.title = lang === "en"
         ? "Why IUL May Beat 401(k) and Roth IRA for Some Families | Eversafe Financial"
-        : "¿Por Qué el IUL Puede Superar al 401(k) y Roth IRA para Algunas Familias? | Eversafe Financial";
+        : "¿Por qué el IUL puede superar al 401(k) y Roth IRA para algunas familias? | Eversafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
@@ -771,19 +771,19 @@ export default function App() {
               <div className="text-center lg:text-left">
                 <span className="block text-[9px] text-accent font-extrabold uppercase tracking-widest">{lang === "en" ? "EXPERIENCE" : "EXPERIENCIA"}</span>
                 <span className="block text-xs sm:text-sm font-extrabold text-white mt-1.5 leading-snug">
-                  {lang === "en" ? "4+ Years Safeguarding Lives" : "4+ Años Protegiendo Vidas"}
+                  {lang === "en" ? "4+ Years Safeguarding Lives" : "4+ años protegiendo vidas"}
                 </span>
               </div>
               <div className="text-center lg:text-left">
                 <span className="block text-[9px] text-accent font-extrabold uppercase tracking-widest">{lang === "en" ? "FLUENCY" : "IDIOMAS"}</span>
                 <span className="block text-xs sm:text-sm font-extrabold text-white mt-1.5 leading-snug">
-                  {lang === "en" ? "Full English & Spanish" : "Soporte Bilingüe"}
+                  {lang === "en" ? "Full English & Spanish" : "Soporte bilingüe"}
                 </span>
               </div>
               <div className="text-center lg:text-left">
                 <span className="block text-[9px] text-accent font-extrabold uppercase tracking-widest">{lang === "en" ? "SECURITY" : "COBERTURA"}</span>
                 <span className="block text-xs sm:text-sm font-extrabold text-white mt-1.5 leading-snug">
-                  {lang === "en" ? "A-Rated Carriers Only" : "Sólo Aseguradoras A+"}
+                  {lang === "en" ? "A-Rated Carriers Only" : "Solo aseguradoras A+"}
                 </span>
               </div>
             </div>
@@ -1401,7 +1401,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple/10 px-4 py-1.5 rounded-full inline-block">
-              🤝 {lang === "en" ? "Our Foundation" : "Nuestros Cimientos"}
+              🤝 {lang === "en" ? "Our Foundation" : "Nuestros cimientos"}
             </span>
             <h2 className="text-3xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight leading-tight">
               {t.whoWeAre.title}
@@ -1496,10 +1496,10 @@ export default function App() {
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <span className="text-xs uppercase tracking-widest font-bold text-accent bg-white/10 py-1.5 px-4 rounded-full inline-block border border-white/10">
-              💡 {lang === "en" ? "Tax-Free Retirement Strategy" : "Estrategia de Retiro Libre de Impuestos"}
+              💡 {lang === "en" ? "Tax-Free Retirement Strategy" : "Estrategia de retiro libre de impuestos"}
             </span>
             <h2 className="text-3.5xl md:text-4.5xl font-extrabold font-sans text-white tracking-tight leading-tight">
-              {lang === "en" ? "Why IUL May Be a Smarter Retirement Strategy Than Traditional Options" : "Por Qué el IUL Puede Ser una Estrategia de Retiro Más Inteligente"}
+              {lang === "en" ? "Why IUL May Be a Smarter Retirement Strategy Than Traditional Options" : "Por qué el IUL puede ser una estrategia de retiro más inteligente"}
             </h2>
             <p className="text-sm md:text-white/80 max-w-2xl mx-auto leading-relaxed">
               {lang === "en" 
@@ -1530,7 +1530,7 @@ export default function App() {
             <table className="w-full text-left border-collapse font-sans">
               <thead>
                 <tr className="bg-white/10 border-b border-white/10 text-xs uppercase tracking-widest font-extrabold text-accent">
-                  <th className="p-6">{lang === "en" ? "Strategic Benchmark / Feature" : "Indicador / Característica"}</th>
+                  <th className="p-6">{lang === "en" ? "Strategic Benchmark / Feature" : "Indicador / característica"}</th>
                   <th className="p-6 text-rose-300">{t.iulExplainer.colSavingsTitle}</th>
                   <th className="p-6 text-rose-300">{t.iulExplainer.col401kTitle}</th>
                   <th className="p-6 text-accent bg-white/5">{t.iulExplainer.colIulTitle} 🏆</th>
@@ -1538,33 +1538,33 @@ export default function App() {
               </thead>
               <tbody className="text-xs sm:text-sm divide-y divide-white/5 font-medium text-white/90">
                 <tr>
-                  <td className="p-6 font-bold">{lang === "en" ? "🛡️ Market Downside Protection" : "🛡️ Protección ante Caídas del Mercado"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "Guaranteed Principal (No growth)" : "Principal Garantizado (Sin crecimiento)"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "0% Safety (Subject to complete market drops)" : "0% Seguro (Sujeto a caídas severas)"}</td>
+                  <td className="p-6 font-bold">{lang === "en" ? "🛡️ Market Downside Protection" : "🛡️ Protección ante caídas del mercado"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "Guaranteed Principal (No growth)" : "Principal garantizado (sin crecimiento)"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "0% Safety (Subject to complete market drops)" : "0% seguro (sujeto a caídas severas)"}</td>
                   <td className="p-6 font-extrabold text-accent bg-white/5">
-                    {lang === "en" ? "100% Floor Protection (0% floor guarantee)" : "100% Protegido (Garantía de piso del 0%)"}
+                    {lang === "en" ? "100% Floor Protection (0% floor guarantee)" : "100% protegido (garantía de piso del 0%)"}
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-6 font-bold">{lang === "en" ? "📈 Average Interest Rate Potential" : "📈 Potencial de Tasa de Interés Promedio"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "Exceedingly Low (0.01% - 1.5% average)" : "Extremadamente Bajo (0.01% - 1.5% promedio)"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "Highly Variable (Avg. 5% - 7% with volatility)" : "Variable (Promedio 5% - 7% con alta volatilidad)"}</td>
+                  <td className="p-6 font-bold">{lang === "en" ? "📈 Average Interest Rate Potential" : "📈 Potencial de tasa de interés promedio"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "Exceedingly Low (0.01% - 1.5% average)" : "Extremadamente bajo (0.01% - 1.5% promedio)"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "Highly Variable (Avg. 5% - 7% with volatility)" : "Variable (promedio 5% - 7% con alta volatilidad)"}</td>
                   <td className="p-6 font-extrabold text-accent bg-white/5">
-                    {lang === "en" ? "High Compounding growth (Indexed up to 10% - 12% caps)" : "Alto Interés Compuesto (Indexado hasta 10% - 12%)"}
+                    {lang === "en" ? "High Compounding growth (Indexed up to 10% - 12% caps)" : "Alto interés compuesto (indexado hasta 10% - 12%)"}
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-6 font-bold">{lang === "en" ? "💸 Withdrawal Tax Status" : "💸 Impuestos al Retirar Fondos"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "Fully Taxed annually on interest earned" : "Totalmente Gravado anualmente sobre intereses"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "100% Taxable (Both principal and gains taxed)" : "100% Gravable (Se cobran impuestos al retirar)"}</td>
+                  <td className="p-6 font-bold">{lang === "en" ? "💸 Withdrawal Tax Status" : "💸 Impuestos al retirar fondos"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "Fully Taxed annually on interest earned" : "Totalmente gravado anualmente sobre intereses"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "100% Taxable (Both principal and gains taxed)" : "100% gravable (se cobran impuestos al retirar)"}</td>
                   <td className="p-6 font-extrabold text-accent bg-white/5">
-                    {lang === "en" ? "100% Tax-Free (Legal, structured withdrawal streams)" : "100% Libre de Impuestos (Retiros e ingresos exentos)"}
+                    {lang === "en" ? "100% Tax-Free (Legal, structured withdrawal streams)" : "100% libre de impuestos (retiros e ingresos exentos)"}
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-6 font-bold">{lang === "en" ? "🕊️ Instant Legacy Guard Shield" : "🕊️ Cobertura de Fallecimiento de Legado"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "None (Only what is accumulated is returned)" : "Ninguna (Sólo heredas lo acumulado)"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "None (Only what remains is left to heirs)" : "Ninguna (Sólo heredas el saldo restante)"}</td>
+                  <td className="p-6 font-bold">{lang === "en" ? "🕊️ Instant Legacy Guard Shield" : "🕊️ Cobertura de fallecimiento de legado"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "None (Only what is accumulated is returned)" : "Ninguna (solo heredas lo acumulado)"}</td>
+                  <td className="p-6 text-white/70">{lang === "en" ? "None (Only what remains is left to heirs)" : "Ninguna (solo heredas el saldo restante)"}</td>
                   <td className="p-6 font-extrabold text-accent bg-white/5">
                     {lang === "en" ? "Severe Tax-Free Benefit instantly sent to family" : "Póliza millonaria exenta de impuestos para la familia"}
                   </td>
@@ -1633,7 +1633,7 @@ export default function App() {
                 }}
                 className="bg-accent hover:bg-[#e0b42c] text-brand-navy font-extrabold py-4 px-8 rounded-2xl text-xs sm:text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl shadow-accent/20 cursor-pointer"
               >
-                ⭐ {lang === "en" ? "See If You Qualify" : "Ver Si Calificas"}
+                ⭐ {lang === "en" ? "See If You Qualify" : "Ver si calificas"}
               </button>
 
               {/* Secondary CTA */}
@@ -1644,7 +1644,7 @@ export default function App() {
                 }}
                 className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-extrabold py-4 px-8 rounded-2xl text-xs sm:text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>{lang === "en" ? "Explore Why IUL Works →" : "Descubre Cómo Funciona el IUL →"}</span>
+                <span>{lang === "en" ? "Explore Why IUL Works →" : "Descubre cómo funciona el IUL →"}</span>
               </button>
             </div>
 
@@ -1665,7 +1665,7 @@ export default function App() {
           
           <div className="text-center space-y-3 mb-16">
             <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple-light px-4 py-1.5 rounded-full inline-block">
-              ℹ️ {lang === "en" ? "Common Clarifications" : "Aclaraciones Comunes"}
+              ℹ️ {lang === "en" ? "Common Clarifications" : "Aclaraciones comunes"}
             </span>
             <h2 className="text-3xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight">
               {t.faq.title}
@@ -1746,7 +1746,7 @@ export default function App() {
                   📞 {lang === "en" ? "GET IN TOUCH" : "MÉTODOS DE CONTACTO"}
                 </span>
                 <h2 className="text-3.5xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight">
-                  {lang === "en" ? "Let's Build Your Protection Plan — It's Free" : "Construyamos tu Plan de Protección — Es Gratis"}
+                  {lang === "en" ? "Let's Build Your Protection Plan — It's Free" : "Construyamos tu plan de protección — es gratis"}
                 </h2>
               </div>
 
@@ -2061,7 +2061,7 @@ export default function App() {
               </div>
               
               <h3 className="text-xl font-bold font-sans text-brand-navy">
-                {lang === "en" ? "Need Immediate Assistance?" : "¿Necesitas Ayuda Inmediata?"}
+                {lang === "en" ? "Need Immediate Assistance?" : "¿Necesitas ayuda inmediata?"}
               </h3>
               
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-normal">

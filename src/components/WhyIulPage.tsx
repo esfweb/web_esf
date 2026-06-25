@@ -43,7 +43,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
       a: "Sí, las pólizas IUL vienen con un 'piso' mínimo (típicamente del 0%) que protege tu valor en efectivo acumulado contra retornos negativos del mercado. Incluso si el S&P 500 o el índice seleccionado se desploma un 20% o 30%, tu dinero está a salvo y no disminuirá de valor por pérdidas del mercado. Participas del crecimiento del mercado pero evitas las caídas."
     },
     {
-      q: "¿Cómo funciona el Ingreso de Retiro Libre de Impuestos?",
+      q: "¿Cómo funciona el ingreso de retiro libre de impuestos?",
       a: "A medida que el valor en efectivo de tu IUL crece, puedes acceder a él mediante préstamos de póliza libres de impuestos. Debido a que se estructuran como préstamos en lugar de retiros regulares, no generan impuestos sobre la renta según la sección 7702 del código del IRS. El valor remanente sigue rindiendo intereses y los saldos pendientes se cancelan libre de impuestos con el beneficio por fallecimiento final."
     },
     {
@@ -79,7 +79,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-brand-navy hover:text-brand-purple hover:translate-x-[-2px] transition-all cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
-            {lang === "en" ? "Back to Home Page" : "Volver al Inicio"}
+            {lang === "en" ? "Back to Home Page" : "Volver al inicio"}
           </button>
         </div>
 
@@ -93,12 +93,12 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               <span className="text-[11px] uppercase tracking-widest font-extrabold text-accent bg-white/10 border border-white/15 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
-                {lang === "en" ? "Modern Retirement Alternative" : "Alternativa de Retiro Moderna"}
+                {lang === "en" ? "Modern Retirement Alternative" : "Alternativa de retiro moderna"}
               </span>
               <h1 className="text-3xl md:text-5xl font-black font-sans leading-tight tracking-tight">
                 {lang === "en" 
                   ? "Why IUL Offers More Security & Flexibility Than Traditional Plans" 
-                  : "Por Qué el IUL Ofrece Más Seguridad y Flexibilidad que los Planes Tradicionales"}
+                  : "Por qué el IUL ofrece más seguridad y flexibilidad que los planes tradicionales"}
               </h1>
               <p className="text-sm md:text-base text-slate-200 leading-relaxed font-medium">
                 {lang === "en"
@@ -117,13 +117,13 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                   }}
                   className="bg-accent hover:bg-[#e0b42c] text-brand-navy font-bold py-3.5 px-8 rounded-2xl text-xs sm:text-sm tracking-wider shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-center cursor-pointer"
                 >
-                  {lang === "en" ? "Check My Qualification" : "Analizar Mi Calificación"}
+                  {lang === "en" ? "Check My Qualification" : "Analizar mi calificación"}
                 </button>
                 <a
                   href="#comparison-block"
                   className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold py-3.5 px-8 rounded-2xl text-xs sm:text-sm tracking-wider text-center transition-all duration-300"
                 >
-                  {lang === "en" ? "See Detailed Comparison" : "Ver Comparación Detallada"}
+                  {lang === "en" ? "See Detailed Comparison" : "Ver comparación detallada"}
                 </a>
               </div>
             </div>
@@ -133,7 +133,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
               <div className="w-full max-w-md">
                 <div className="text-center mb-4 lg:hidden">
                   <span className="text-xs font-bold uppercase text-accent tracking-wider">
-                    {lang === "en" ? "IUL Qualification Quiz" : "Quiz de Calificación IUL"}
+                    {lang === "en" ? "IUL Qualification Quiz" : "Quiz de calificación IUL"}
                   </span>
                 </div>
                 <IulInteractiveQuiz 
@@ -150,7 +150,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
         <section id="comparison-block" className="space-y-6 scroll-mt-6">
           <div className="text-center space-y-2 max-w-3xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy font-sans tracking-tight">
-              {lang === "en" ? "Side-by-Side Strategy Comparison" : "Comparación Estratégica Lado a Lado"}
+              {lang === "en" ? "Side-by-Side Strategy Comparison" : "Comparación estratégica lado a lado"}
             </h2>
             <p className="text-xs sm:text-sm text-brand-slate">
               {lang === "en"
@@ -165,7 +165,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
               <table className="w-full text-left border-collapse min-w-[700px]">
                 <thead>
                   <tr className="bg-brand-navy text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider">
-                    <th className="p-5 sm:p-6 w-[25%]">{lang === "en" ? "Provisions" : "Aspectos de Control"}</th>
+                    <th className="p-5 sm:p-6 w-[25%]">{lang === "en" ? "Provisions" : "Aspectos de control"}</th>
                     <th className="p-5 sm:p-6 bg-brand-purple/15 text-brand-purple text-center border-x border-slate-700/10 w-[25%]">🏆 IUL (IRS 7702)</th>
                     <th className="p-5 sm:p-6 text-center text-slate-300 w-[25%]">401(k) / Traditional IRA</th>
                     <th className="p-5 sm:p-6 text-center text-slate-300 w-[25%]">Roth IRA</th>
@@ -181,19 +181,19 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                     <td className="p-5 sm:p-6 bg-brand-purple-light/25 border-x border-slate-100 text-center">
                       <div className="text-brand-purple font-extrabold flex items-center justify-center gap-1.5">
                         <Check className="w-4 h-4 text-emerald-500 stroke-[3]" />
-                        <span>{lang === "en" ? "0% Floor (No Losses)" : "Piso 0% (Sin Pérdidas)"}</span>
+                        <span>{lang === "en" ? "0% Floor (No Losses)" : "Piso 0% (sin pérdidas)"}</span>
                       </div>
                     </td>
                     <td className="p-5 sm:p-6 text-slate-500 text-center">
                       <div className="flex items-center justify-center gap-1.5">
                         <X className="w-4 h-4 text-rose-500 stroke-[3]" />
-                        <span>{lang === "en" ? "Full Market Risk" : "Riesgo de Pérdida Total"}</span>
+                        <span>{lang === "en" ? "Full Market Risk" : "Riesgo de pérdida total"}</span>
                       </div>
                     </td>
                     <td className="p-5 sm:p-6 text-slate-500 text-center">
                       <div className="flex items-center justify-center gap-1.5">
                         <X className="w-4 h-4 text-rose-500 stroke-[3]" />
-                        <span>{lang === "en" ? "Full Market Risk" : "Riesgo de Pérdida Total"}</span>
+                        <span>{lang === "en" ? "Full Market Risk" : "Riesgo de pérdida total"}</span>
                       </div>
                     </td>
                   </tr>
@@ -201,24 +201,24 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                   {/* Feature 2 */}
                   <tr className="hover:bg-slate-50/50 transition-colors">
                     <td className="p-5 sm:p-6 font-bold text-brand-navy-light">
-                      {lang === "en" ? "Taxation of Retirement Income" : "Impuestos al Ingreso de Retiro"}
+                      {lang === "en" ? "Taxation of Retirement Income" : "Impuestos al ingreso de retiro"}
                     </td>
                     <td className="p-5 sm:p-6 bg-brand-purple-light/25 border-x border-slate-100 text-center">
                       <div className="text-brand-purple font-extrabold flex items-center justify-center gap-1.5">
                         <Check className="w-4 h-4 text-emerald-500 stroke-[3]" />
-                        <span>{lang === "en" ? "100% Tax-Free Loans" : "100% Libre de Impuestos"}</span>
+                        <span>{lang === "en" ? "100% Tax-Free Loans" : "100% libre de impuestos"}</span>
                       </div>
                     </td>
                     <td className="p-5 sm:p-6 text-slate-500 text-center">
                       <div className="flex items-center justify-center gap-1.5">
                         <X className="w-4 h-4 text-rose-500 stroke-[3]" />
-                        <span>{lang === "en" ? "Taxed as Ordinary Income" : "Tributa como Ingreso Ordinario"}</span>
+                        <span>{lang === "en" ? "Taxed as Ordinary Income" : "Tributa como ingreso ordinario"}</span>
                       </div>
                     </td>
                     <td className="p-5 sm:p-6 text-slate-500 text-center">
                       <div className="flex items-center justify-center gap-1.5">
                         <Check className="w-4 h-4 text-emerald-500 stroke-[3]" />
-                        <span>{lang === "en" ? "Tax-Free" : "Libre de Impuestos"}</span>
+                        <span>{lang === "en" ? "Tax-Free" : "Libre de impuestos"}</span>
                       </div>
                     </td>
                   </tr>
@@ -226,7 +226,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                   {/* Feature 3 */}
                   <tr className="hover:bg-slate-50/50 transition-colors">
                     <td className="p-5 sm:p-6 font-bold text-brand-navy-light">
-                      {lang === "en" ? "Annual Contribution Limits" : "Límites Anuales de Contribución"}
+                      {lang === "en" ? "Annual Contribution Limits" : "Límites anuales de contribución"}
                     </td>
                     <td className="p-5 sm:p-6 bg-brand-purple-light/25 border-x border-slate-100 text-center">
                       <div className="text-brand-purple font-extrabold flex items-center justify-center gap-1.5">
@@ -237,13 +237,13 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                     <td className="p-5 sm:p-6 text-slate-500 text-center">
                       <div className="flex items-center justify-center gap-1.5">
                         <X className="w-4 h-4 text-rose-500 stroke-[3]" />
-                        <span>{lang === "en" ? "Strict Caps (~$23,000)" : "Tope Estricto (~$23,000)"}</span>
+                        <span>{lang === "en" ? "Strict Caps (~$23,000)" : "Tope estricto (~$23,000)"}</span>
                       </div>
                     </td>
                     <td className="p-5 sm:p-6 text-slate-500 text-center">
                       <div className="flex items-center justify-center gap-1.5">
                         <X className="w-4 h-4 text-rose-500 stroke-[3]" />
-                        <span>{lang === "en" ? "Very Low (~$7,000) & Income limits" : "Muy Bajos (~$7,000) y topes de ingresos"}</span>
+                        <span>{lang === "en" ? "Very Low (~$7,000) & Income limits" : "Muy bajos (~$7,000) y topes de ingresos"}</span>
                       </div>
                     </td>
                   </tr>
@@ -251,18 +251,18 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                   {/* Feature 4 */}
                   <tr className="hover:bg-slate-50/50 transition-colors">
                     <td className="p-5 sm:p-6 font-bold text-brand-navy-light">
-                      {lang === "en" ? "Penalty-Free Early Access" : "Acceso Anticipado sin Penalidad"}
+                      {lang === "en" ? "Penalty-Free Early Access" : "Acceso anticipado sin penalidad"}
                     </td>
                     <td className="p-5 sm:p-6 bg-brand-purple-light/25 border-x border-slate-100 text-center">
                       <div className="text-brand-purple font-extrabold flex items-center justify-center gap-1.5">
                         <Check className="w-4 h-4 text-emerald-500 stroke-[3]" />
-                        <span>{lang === "en" ? "Access at Any Age" : "Acceso a Cualquier Edad"}</span>
+                        <span>{lang === "en" ? "Access at Any Age" : "Acceso a cualquier edad"}</span>
                       </div>
                     </td>
                     <td className="p-5 sm:p-6 text-slate-500 text-center">
                       <div className="flex items-center justify-center gap-1.5">
                         <X className="w-4 h-4 text-rose-500 stroke-[3]" />
-                        <span>{lang === "en" ? "10% IRS Penalty < 59.5" : "10% Penalidad antes de 59.5"}</span>
+                        <span>{lang === "en" ? "10% IRS Penalty < 59.5" : "10% penalidad antes de 59.5"}</span>
                       </div>
                     </td>
                     <td className="p-5 sm:p-6 text-slate-500 text-center">
@@ -276,12 +276,12 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                   {/* Feature 5 */}
                   <tr className="hover:bg-slate-50/50 transition-colors">
                     <td className="p-5 sm:p-6 font-bold text-brand-navy-light">
-                      {lang === "en" ? "Accelerated Illness benefits" : "Beneficios en Vida Acelerados"}
+                      {lang === "en" ? "Accelerated Illness benefits" : "Beneficios en vida acelerados"}
                     </td>
                     <td className="p-5 sm:p-6 bg-brand-purple-light/25 border-x border-slate-100 text-center">
                       <div className="text-brand-purple font-extrabold flex items-center justify-center gap-1.5">
                         <Check className="w-4 h-4 text-emerald-500 stroke-[3]" />
-                        <span>{lang === "en" ? "Included for Chronic/Terminal illness" : "Incluido para Enfermedades Crónicas/Graves"}</span>
+                        <span>{lang === "en" ? "Included for Chronic/Terminal illness" : "Incluido para enfermedades crónicas/graves"}</span>
                       </div>
                     </td>
                     <td className="p-5 sm:p-6 text-slate-500 text-center">
@@ -316,7 +316,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
         <section className="space-y-8">
           <div className="text-center space-y-2 max-w-3xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy font-sans tracking-tight">
-              {lang === "en" ? "Unpacking the Top 5 IUL Benefits" : "Desglosando los 5 Beneficios Clave del IUL"}
+              {lang === "en" ? "Unpacking the Top 5 IUL Benefits" : "Desglosando los 5 beneficios clave del IUL"}
             </h2>
             <p className="text-xs sm:text-sm text-brand-slate">
               {lang === "en"
@@ -333,7 +333,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                 <Lock className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-brand-navy">
-                {lang === "en" ? "1. 0% Market Floor Guarantee" : "1. Garantía de Piso de Mercado de 0%"}
+                {lang === "en" ? "1. 0% Market Floor Guarantee" : "1. Garantía de piso de mercado de 0%"}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-medium">
                 {lang === "en"
@@ -348,7 +348,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                 <Percent className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-brand-navy">
-                {lang === "en" ? "2. Tax-Free Income Stream" : "2. Flujo de Ingresos Libre de Impuestos"}
+                {lang === "en" ? "2. Tax-Free Income Stream" : "2. Flujo de ingresos libre de impuestos"}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-medium">
                 {lang === "en"
@@ -363,7 +363,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                 <TrendingUp className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-brand-navy">
-                {lang === "en" ? "3. No Strict IRS Contribution Limits" : "3. Sin Límites de Aporte del IRS"}
+                {lang === "en" ? "3. No Strict IRS Contribution Limits" : "3. Sin límites de aporte del IRS"}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-medium">
                 {lang === "en"
@@ -378,7 +378,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                 <HeartHandshake className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-brand-navy">
-                {lang === "en" ? "4. Built-In Accelerated Living Benefits" : "4. Beneficios en Vida Acelerados Integrados"}
+                {lang === "en" ? "4. Built-In Accelerated Living Benefits" : "4. Beneficios en vida acelerados integrados"}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-medium">
                 {lang === "en"
@@ -393,7 +393,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                 <Shield className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-brand-navy">
-                {lang === "en" ? "5. Generational Legacy Wealth" : "5. Legado y Traspaso Generacional Seguro"}
+                {lang === "en" ? "5. Generational Legacy Wealth" : "5. Legado y traspaso generacional seguro"}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-medium">
                 {lang === "en"
@@ -414,7 +414,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
               <HelpCircle className="w-5 h-5" />
             </div>
             <h2 className="text-2xl font-bold font-sans text-brand-navy tracking-tight">
-              {lang === "en" ? "Index Universal Life Information & FAQs" : "Preguntas Frecuentes de Index Universal Life"}
+              {lang === "en" ? "Index Universal Life Information & FAQs" : "Preguntas frecuentes de Index Universal Life"}
             </h2>
           </div>
 
@@ -446,7 +446,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
           <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy font-sans tracking-tight">
             {lang === "en" 
               ? "Ready to Build a Tax-Free Protection Strategy?" 
-              : "¿Listo para Crear una Estrategia de Protección Libre de Impuestos?"}
+              : "¿Listo para crear una estrategia de protección libre de impuestos?"}
           </h2>
           <p className="text-xs sm:text-sm text-brand-slate max-w-xl mx-auto leading-relaxed">
             {lang === "en"
@@ -458,13 +458,13 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
               onClick={handleCtaClick}
               className="bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3.5 px-8 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-center cursor-pointer"
             >
-              💼 {lang === "en" ? "Analyze My Options" : "Ver Mis Opciones"}
+              💼 {lang === "en" ? "Analyze My Options" : "Ver mis opciones"}
             </button>
             <button
               onClick={onBackToHome}
               className="bg-white hover:bg-slate-50 border border-slate-200 text-brand-navy font-bold py-3.5 px-8 rounded-xl text-xs sm:text-sm transition-all duration-300 text-center cursor-pointer"
             >
-              {lang === "en" ? "← Back to Homepage" : "← Volver al Inicio"}
+              {lang === "en" ? "← Back to Homepage" : "← Volver al inicio"}
             </button>
           </div>
           <p className="text-[10px] text-brand-slate leading-relaxed">
@@ -525,16 +525,16 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
     age: {
       title: lang === "en" ? "What is your age?" : "¿Cuál es tu edad?",
       opts: [
-        { key: "young", val: lang === "en" ? "Under 18 Years" : "Menor de 18 Años", icon: "👶" },
-        { key: "adult", val: lang === "en" ? "18 to 55 Years" : "18 a 55 Años", icon: "🧑" },
-        { key: "senior", val: lang === "en" ? "Over 56 Years" : "Mayor de 56 Años", icon: "👵" }
+        { key: "young", val: lang === "en" ? "Under 18 Years" : "Menor de 18 años", icon: "👶" },
+        { key: "adult", val: lang === "en" ? "18 to 55 Years" : "18 a 55 años", icon: "🧑" },
+        { key: "senior", val: lang === "en" ? "Over 56 Years" : "Mayor de 56 años", icon: "👵" }
       ]
     },
     employed: {
       title: lang === "en" ? "Are you currently employed or have stable income?" : "¿Estás empleado actualmente o tienes ingresos estables?",
       opts: [
         { key: "yes", val: lang === "en" ? "Yes, active income" : "Sí, ingresos activos", icon: "💼" },
-        { key: "no", val: lang === "en" ? "No / Retired" : "No / Retirado", icon: "🏠" }
+        { key: "no", val: lang === "en" ? "No / Retired" : "No / retirado", icon: "🏠" }
       ]
     },
     health: {
@@ -548,10 +548,10 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
     goal: {
       title: lang === "en" ? "What is your primary financial goal with this policy?" : "¿Cuál es tu objetivo financiero primordial al adquirir esta póliza?",
       opts: [
-        { key: "savings", val: lang === "en" ? "Tax-Free Savings & Retirement Accumulation" : "Ahorros Libres de Impuestos y Acumulación de Retiro", icon: "💰" },
-        { key: "protection", val: lang === "en" ? "Family Life Insurance Protection" : "Seguro y Protección Familiar", icon: "👨‍👩‍👧‍👦" },
-        { key: "mortgage", val: lang === "en" ? "Mortgage/Business Protection" : "Protección de Hipoteca o Negocio", icon: "🔑" },
-        { key: "all", val: lang === "en" ? "All of the Above" : "Todas las Anteriores", icon: "📈" }
+        { key: "savings", val: lang === "en" ? "Tax-Free Savings & Retirement Accumulation" : "Ahorros libres de impuestos y acumulación de retiro", icon: "💰" },
+        { key: "protection", val: lang === "en" ? "Family Life Insurance Protection" : "Seguro y protección familiar", icon: "👨‍👩‍👧‍👦" },
+        { key: "mortgage", val: lang === "en" ? "Mortgage/Business Protection" : "Protección de hipoteca o negocio", icon: "🔑" },
+        { key: "all", val: lang === "en" ? "All of the Above" : "Todas las anteriores", icon: "📈" }
       ]
     }
   };
@@ -588,7 +588,7 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
               <>
                 <div className="text-3xl">🌟</div>
                 <h3 className={isLight ? "text-lg font-bold text-brand-navy" : "text-lg font-bold text-accent"}>
-                  {lang === "en" ? "Perfect Candidate!" : "¡Candidato Perfecto!"}
+                  {lang === "en" ? "Perfect Candidate!" : "¡Candidato perfecto!"}
                 </h3>
                 <p className={isLight ? "text-xs sm:text-sm text-brand-slate leading-relaxed" : "text-xs sm:text-sm text-slate-300 leading-relaxed"}>
                   {lang === "en"
@@ -600,7 +600,7 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
               <>
                 <div className="text-3xl">🛡️</div>
                 <h3 className={isLight ? "text-lg font-bold text-brand-navy" : "text-lg font-bold text-accent"}>
-                  {lang === "en" ? "Excellent Options Available!" : "¡Excelentes Opciones Disponibles!"}
+                  {lang === "en" ? "Excellent Options Available!" : "¡Excelentes opciones disponibles!"}
                 </h3>
                 <p className={isLight ? "text-xs sm:text-sm text-brand-slate leading-relaxed" : "text-xs sm:text-sm text-slate-300 leading-relaxed"}>
                   {lang === "en"
@@ -622,7 +622,7 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
               onClick={resetQuiz}
               className={isLight ? "text-brand-slate hover:text-brand-purple transition text-xs font-semibold underline decoration-dotted text-center cursor-pointer" : "text-slate-400 hover:text-white transition text-xs font-semibold underline decoration-dotted text-center cursor-pointer"}
             >
-              🔄 {lang === "en" ? "Start Over" : "Reiniciar Quiz"}
+              🔄 {lang === "en" ? "Start Over" : "Reiniciar quiz"}
             </button>
           </div>
         </div>
