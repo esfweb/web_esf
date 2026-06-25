@@ -218,7 +218,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
     hero: {
       title: "Your Health & Financial Protection, Made Simple",
       subtitle: "From custom health coverage like Obamacare and Medicare to long-term protection, savings, and retirement strategies like IUL. Expert, bilingual guidance tailored to you.",
-      ctaPhone: "Talk to Mary: 727-359-6196",
+      ctaPhone: "Talk to Mary: (727) 359-6196",
       ctaIUL: "💡 Why IUL Is Better",
       badge: "✅ 4+ Years of Experience  ·  ✅ Licensed in Florida & other states  ·  ✅ Bilingual Service (EN/ES)",
     },
@@ -233,7 +233,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       q1Title: "What type of coverage are you looking for?",
       q1Opt1: "Obamacare / ACA",
       q1Opt2: "Medicare",
-      q1Opt3: "Private health plan",
+      q1Opt3: "Private health plans",
       q1Opt4: "Dental & vision",
       q1Opt5: "Hospitalization or accidents",
       q1Opt6: "I'm not sure, I need guidance",

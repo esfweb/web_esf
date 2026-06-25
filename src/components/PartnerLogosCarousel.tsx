@@ -38,10 +38,6 @@ const PARTNER_LOGOS = [
     url: "https://res.cloudinary.com/drghl4bjl/image/upload/v1782318780/eversafe-partner-mutual-of-omaha-insurance-logo_eky5u0.png"
   },
   {
-    name: "Washington Healthplanfinder",
-    url: "https://res.cloudinary.com/drghl4bjl/image/upload/v1782318780/eversafe-partner-washington-healthplanfinder-logo_v5dvxs.png"
-  },
-  {
     name: "Community Health Choice",
     url: "https://res.cloudinary.com/drghl4bjl/image/upload/v1782318780/eversafe-partner-community-health-choice-logo_tuzqe1.png"
   },

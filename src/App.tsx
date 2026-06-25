@@ -761,7 +761,7 @@ export default function App() {
               </div>
               <p className="text-[11px] text-white/60 text-center lg:text-left pl-2 font-semibold">
                 {lang === "en" 
-                  ? "★ Free personalized consultation · No high sales pressure · 100% English & Spanish help" 
+                  ? "★ Free personalized consultation · No high sales pressure · 100% help in English & Spanish" 
                   : "★ Consulta personalizada gratuita · Sin presión de ventas · Ayuda en inglés y español"}
               </p>
             </div>
