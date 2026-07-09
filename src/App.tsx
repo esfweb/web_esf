@@ -23,7 +23,8 @@ import {
   Percent,
   Sparkles,
   ArrowUp,
-  MessageCircle
+  MessageCircle,
+  Calendar
 } from "lucide-react";
 import { translations, TranslationSet } from "./translations";
 import QuizCard from "./components/QuizCard";
@@ -618,24 +619,50 @@ export default function App() {
             ))}
           </nav>
 
-          {/* Quick CTA Navbar button (Dorado premium #C9A227 o morada de marca, pero no ambos) */}
-          <div className="hidden md:block">
+          {/* Quick CTA Navbar button and Language Switcher */}
+          <div className="hidden md:flex items-center gap-4">
+            {/* Elegant Language Switcher for Sticky Header */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100 hover:border-brand-purple hover:text-brand-purple text-brand-navy focus:outline-none transition-all duration-300 font-extrabold tracking-wider text-xs shadow-sm cursor-pointer"
+            >
+              <span className="text-[10px] uppercase bg-brand-purple-light text-brand-purple px-1.5 py-0.5 rounded font-black">
+                {lang === "en" ? "ES" : "EN"}
+              </span>
+              <span>
+                {lang === "en" ? "Español" : "English"}
+              </span>
+            </button>
+
             <a
               href="#contact"
-              className="inline-block bg-brand-purple hover:bg-brand-purple-hover text-white font-bold py-2.5 px-6 rounded-2xl text-xs md:text-sm tracking-wide transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm hover:shadow-md shadow-brand-purple/15"
+              className="inline-block bg-brand-purple hover:bg-brand-purple-hover text-white font-bold py-2.5 px-6 rounded-2xl text-xs md:text-sm tracking-wide transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm hover:shadow-md shadow-brand-purple/15 whitespace-nowrap"
             >
               ⭐ {t.nav.cta}
             </a>
           </div>
 
-          {/* Hamburger trigger on mobile */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex items-center justify-center p-2 rounded-xl border border-slate-200 text-brand-navy hover:bg-brand-gray-soft transition focus:outline-none"
-            aria-label="Toggle Menu"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {/* Mobile Right Controls */}
+          <div className="flex md:hidden items-center gap-2">
+            {/* Compact Language Switcher for Mobile Sticky Header */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100 text-brand-navy focus:outline-none transition-all duration-300 font-black tracking-wider text-[10px] shadow-sm cursor-pointer"
+            >
+              <span className="text-brand-purple uppercase">
+                {lang === "en" ? "ES" : "EN"}
+              </span>
+            </button>
+
+            {/* Hamburger trigger on mobile */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex items-center justify-center p-2 rounded-xl border border-slate-200 text-brand-navy hover:bg-brand-gray-soft transition focus:outline-none"
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation Panel */}
@@ -1659,72 +1686,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* 9.5. FAQ SECTION (Interactive bilingual accordion with elegant transition effects) */}
-      <section id="faq" className="py-24 px-4 md:px-8 bg-white relative border-b border-slate-100 reveal-init">
-        <div className="max-w-4xl mx-auto">
-          
-          <div className="text-center space-y-3 mb-16">
-            <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple-light px-4 py-1.5 rounded-full inline-block">
-              ℹ️ {lang === "en" ? "Common Clarifications" : "Aclaraciones comunes"}
-            </span>
-            <h2 className="text-3xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight">
-              {t.faq.title}
-            </h2>
-            <p className="text-xs sm:text-sm text-brand-slate max-w-xl mx-auto">
-              {lang === "en" 
-                ? "Find transparent answers to the questions families ask licensed advisor Mary Rivera about financial protection plans in Florida."
-                : "Encuentra respuestas transparentes a las preguntas que las familias le hacen a la asesora Mary Rivera sobre seguros y protección en Florida."}
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {t.faq.items.map((item, index) => {
-              const isOpen = openFaqIndex === index;
-              return (
-                <div 
-                  key={index} 
-                  className={`border rounded-2xl transition-all duration-300 overflow-hidden ${
-                    isOpen 
-                      ? "border-brand-purple bg-brand-purple-light/10 shadow-[0_4px_20px_rgba(140,73,177,0.06)]" 
-                      : "border-slate-100 bg-white hover:border-slate-300 hover:bg-slate-50/50"
-                  }`}
-                >
-                  <button
-                    onClick={() => setOpenFaqIndex(isOpen ? null : index)}
-                    className="w-full flex items-center justify-between p-5 md:p-6 text-left cursor-pointer focus:outline-none"
-                    aria-expanded={isOpen}
-                  >
-                    <span className="text-sm md:text-base font-bold text-brand-navy pr-4">
-                      {item.q}
-                    </span>
-                    <span 
-                      className={`w-8 h-8 rounded-full border flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${
-                        isOpen 
-                          ? "bg-brand-purple text-white border-brand-purple rotate-180" 
-                          : "bg-slate-50 text-brand-slate border-slate-100"
-                      }`}
-                    >
-                      <ChevronDown className="w-4 h-4" />
-                    </span>
-                  </button>
-
-                  <div 
-                    className={`transition-all duration-300 ease-in-out ${
-                      isOpen ? "max-h-[500px] border-t border-slate-10 border-dashed" : "max-h-0"
-                    }`}
-                  >
-                    <div className="p-5 md:p-6 text-xs sm:text-sm text-brand-slate leading-relaxed font-normal bg-white/40">
-                      {item.a}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-        </div>
-      </section>
-
       {/* 10. CONTACT / FREE QUOTE (Soft gray background with elegant background image & overlay, highly guided clear form with brand-purple action) */}
       <section 
         id="contact" 
@@ -1739,91 +1700,128 @@ export default function App() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
-            {/* Column 1: Contact Detail Info */}
-            <div className="lg:col-span-5 space-y-8 text-center lg:text-left flex flex-col justify-center">
+             {/* Column 1: FAQ interactive accordions next to the Form */}
+            <div className="lg:col-span-6 space-y-6 text-left flex flex-col justify-start">
               <div>
-                <span className="text-xs uppercase tracking-widest font-extrabold text-white bg-brand-purple px-4 py-1.5 rounded-full inline-block mb-3.5">
-                  📞 {lang === "en" ? "GET IN TOUCH" : "MÉTODOS DE CONTACTO"}
+                <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple-light px-4 py-1.5 rounded-full inline-block mb-3.5">
+                  ℹ️ {lang === "en" ? "Common Questions" : "Preguntas frecuentes"}
                 </span>
-                <h2 className="text-3.5xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight">
-                  {lang === "en" ? "Let's Build Your Protection Plan — It's Free" : "Construyamos tu plan de protección — es gratis"}
+                <h2 className="text-3xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight leading-tight">
+                  {t.faq.title}
                 </h2>
+                <p className="text-xs sm:text-sm text-brand-slate mt-2.5 leading-relaxed">
+                  {lang === "en" 
+                    ? "Get clear, professional answers directly from licensed advisor Mary Rivera while you complete your inquiry."
+                    : "Obtén respuestas claras y profesionales directamente de la asesora Mary Rivera mientras completas tu consulta."}
+                </p>
               </div>
 
-              {/* Direct Info list */}
-              <div className="space-y-4">
-                
-                {/* Email item */}
-                <div className="inline-flex lg:flex items-center gap-4 text-left">
-                  <div className="w-12 h-12 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-brand-purple flex-shrink-0">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">{t.contactForm.emailTitle}</span>
-                    <a href="mailto:mary@eversafefinancial.com" className="text-sm md:text-base font-bold text-brand-navy hover:text-brand-purple transition-all hover:underline">
-                      mary@eversafefinancial.com
-                    </a>
-                  </div>
-                </div>
+              <div className="space-y-4 max-h-[550px] overflow-y-auto pr-2 custom-faq-scrollbar">
+                {t.faq.items.map((item, index) => {
+                  const isOpen = openFaqIndex === index;
+                  return (
+                    <div 
+                      key={index} 
+                      className={`border transition-all duration-300 rounded-2xl overflow-hidden backdrop-blur-md relative ${
+                        isOpen 
+                          ? "border-brand-purple bg-white shadow-[0_12px_30px_rgba(140,73,177,0.08)] scale-[1.01]" 
+                          : "border-slate-200 bg-white/80 hover:border-brand-purple/40 hover:bg-white hover:shadow-[0_8px_20px_rgba(140,73,177,0.03)] hover:-translate-y-0.5"
+                      }`}
+                    >
+                      {/* Left color bar highlight on active */}
+                      <div className={`absolute top-0 left-0 bottom-0 w-1 transition-all duration-300 ${isOpen ? 'bg-brand-purple' : 'bg-transparent'}`}></div>
+                      
+                      <button
+                        onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                        className="w-full flex items-start justify-between p-5 md:p-6 text-left cursor-pointer focus:outline-none gap-4"
+                        aria-expanded={isOpen}
+                      >
+                        <div className="flex gap-3.5 items-start">
+                          {/* Premium rounded badge */}
+                          <span className={`w-7 h-7 rounded-lg text-[10px] font-black flex items-center justify-center flex-shrink-0 mt-0.5 transition-all duration-300 ${
+                            isOpen 
+                              ? "bg-brand-purple text-white shadow-sm" 
+                              : "bg-brand-purple/10 text-brand-purple"
+                          }`}>
+                            Q{index + 1}
+                          </span>
+                          <span className={`text-xs sm:text-sm font-extrabold tracking-tight leading-snug transition-colors duration-300 ${
+                            isOpen ? "text-brand-navy" : "text-brand-navy/90"
+                          }`}>
+                            {item.q}
+                          </span>
+                        </div>
+                        <span 
+                          className={`w-7 h-7 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                            isOpen 
+                              ? "bg-brand-purple text-white border-brand-purple rotate-180 shadow-md shadow-brand-purple/20" 
+                              : "bg-slate-50 text-brand-slate border-slate-200"
+                          }`}
+                        >
+                          <ChevronDown className="w-3.5 h-3.5" />
+                        </span>
+                      </button>
 
-                {/* Telephone */}
-                <div className="inline-flex lg:flex items-center gap-4 text-left">
-                  <div className="w-12 h-12 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-brand-purple flex-shrink-0">
-                    <Phone className="w-5 h-5 text-brand-purple" />
-                  </div>
-                  <div>
-                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">{t.contactForm.phoneTitle}</span>
-                    <a href="tel:7273596196" className="text-sm md:text-base font-bold text-brand-navy hover:text-brand-purple transition-all hover:underline">
-                      (727) 359-6196
-                    </a>
-                  </div>
-                </div>
-
-                {/* Hours line */}
-                <div className="inline-flex lg:flex items-center gap-4 text-left">
-                  <div className="w-12 h-12 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-brand-purple flex-shrink-0">
-                    <Clock className="w-5 h-5 text-brand-purple" />
-                  </div>
-                  <div className="text-sm text-brand-navy font-normal">
-                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">{t.contactForm.hoursTitle}</span>
-                    <p className="font-semibold text-brand-navy">{t.contactForm.hoursWeek}</p>
-                    <p className="font-semibold text-brand-navy">{t.contactForm.hoursSat}</p>
-                    <p className="text-brand-slate text-xs">{t.contactForm.hoursSun}</p>
-                  </div>
-                </div>
-
-                {/* Service areas */}
-                <div className="inline-flex lg:flex items-center gap-4 text-left">
-                  <div className="w-12 h-12 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-brand-purple flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-brand-purple" />
-                  </div>
-                  <div>
-                    <span className="block text-[10px] text-brand-slate font-bold uppercase tracking-wider">{t.contactForm.areaLabel}</span>
-                    <p className="text-sm font-semibold text-brand-navy">{t.contactForm.areaValue}</p>
-                  </div>
-                </div>
-
+                      <div 
+                        className={`transition-all duration-300 ease-in-out ${
+                          isOpen ? "max-h-[500px] border-t border-slate-100 border-dashed" : "max-h-0"
+                        }`}
+                      >
+                        <div className="p-5 md:p-6 text-xs sm:text-sm text-brand-slate leading-relaxed font-medium bg-gradient-to-b from-white/10 to-white/95">
+                          {item.a}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
 
-              {/* Spanish Help indicator */}
-              {lang === "es" && (
-                <div className="p-4 bg-brand-purple-light border border-brand-purple/10 rounded-2xl text-center md:text-left">
-                  <p className="text-brand-purple font-bold text-sm flex items-center justify-center lg:justify-start gap-2">
-                    💬 {t.contactForm.bilingualHelp}
+              {/* Premium Interactive Calendar Card */}
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-brand-navy to-[#1a1235] text-white p-6 shadow-xl border border-white/10 group mt-4">
+                {/* Background absolute subtle glow elements */}
+                <div className="absolute top-0 right-0 w-48 h-48 bg-accent/10 rounded-full blur-2xl -mr-12 -mt-12 pointer-events-none group-hover:bg-accent/15 transition-all duration-700"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-purple/20 rounded-full blur-2xl -ml-12 -mb-12 pointer-events-none group-hover:bg-brand-purple/25 transition-all duration-700"></div>
+
+                <div className="relative z-10 space-y-4 text-left">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/15 border border-accent/20 text-accent text-[10px] font-extrabold uppercase tracking-widest">
+                    <Calendar className="w-3 h-3 text-accent" />
+                    <span>{lang === "en" ? "Interactive Calendar" : "Calendario interactivo"}</span>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-base sm:text-lg font-extrabold font-display leading-snug tracking-tight text-white">
+                      {lang === "en" ? "Ready to review your options?" : "¿Lista/o para revisar tus opciones?"}
+                    </h3>
+                    <p className="text-xs text-white/80 leading-relaxed font-normal">
+                      {lang === "en"
+                        ? "Every family has different needs. That's why at Eversafe Financial we carefully review your situation and help you find options tailored to your health, budget, and protection goals."
+                        : "Cada familia tiene necesidades diferentes. Por eso, en Eversafe Financial revisamos tu situación con cuidado y te ayudamos a encontrar opciones que se adapten a tu salud, tu presupuesto y tus metas de protección."}
+                    </p>
+                  </div>
+
+                  <div className="pt-1">
+                    <a
+                      href="https://api.leadconnectorhq.com/widget/booking/dPjD3K2ESbGLgoRuoUpP"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-light text-brand-navy font-black py-3 px-5 rounded-xl text-xs sm:text-sm shadow-lg shadow-accent/10 hover:shadow-accent/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center cursor-pointer font-sans"
+                    >
+                      <Calendar className="w-4 h-4 text-brand-navy" />
+                      <span>{lang === "en" ? "Book a free consultation" : "Agenda una consulta gratuita"}</span>
+                    </a>
+                  </div>
+
+                  <p className="text-[10px] text-white/60 text-center leading-relaxed font-semibold">
+                    {lang === "en"
+                      ? "No pressure, no obligation. We are here to help you understand your options and choose with greater confidence."
+                      : "Sin presión y sin compromiso. Estamos aquí para ayudarte a entender tus opciones y elegir con mayor confianza."}
                   </p>
                 </div>
-              )}
-
-              {/* LLC License registration references mapping the exact business parameters */}
-              <div className="p-4 rounded-xl border border-slate-200 text-[10px] text-brand-slate leading-normal bg-white/60">
-                <span className="font-bold uppercase tracking-wider block text-brand-slate mb-1">{t.contactForm.companyDisclosuresLabel}</span>
-                {t.contactForm.companyDisclosuresValue}
               </div>
-
             </div>
 
             {/* Column 2: Free Quote GoHighLevel Embedded Form */}
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-6">
               <GHLQuoteFormEmbed lang={lang} />
             </div>
 
