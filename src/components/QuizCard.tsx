@@ -236,7 +236,7 @@ export default function QuizCard({ t }: QuizCardProps) {
                   <button
                     type="button"
                     onClick={() => {
-                      const element = document.getElementById("contact");
+                      const element = document.getElementById("schedule-consultation");
                       if (element) {
                         element.scrollIntoView({ behavior: "smooth" });
                       }

@@ -24,7 +24,9 @@ import {
   Sparkles,
   ArrowUp,
   MessageCircle,
-  Calendar
+  Calendar,
+  Instagram,
+  Facebook
 } from "lucide-react";
 import { translations, TranslationSet } from "./translations";
 import QuizCard from "./components/QuizCard";
@@ -633,7 +635,7 @@ export default function App() {
             </button>
 
             <a
-              href="#contact"
+              href="#schedule-consultation"
               className="inline-block bg-brand-purple hover:bg-brand-purple-hover text-white font-bold py-2.5 px-6 rounded-2xl text-xs md:text-sm tracking-wide transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm hover:shadow-md shadow-brand-purple/15 whitespace-nowrap"
             >
               ⭐ {t.nav.cta}
@@ -686,7 +688,7 @@ export default function App() {
               ))}
             </div>
             <a
-              href="#contact"
+              href="#schedule-consultation"
               onClick={() => setMobileMenuOpen(false)}
               className="block w-full bg-brand-purple text-white font-bold py-3 px-4 rounded-xl text-center text-sm shadow-md"
             >
@@ -1170,7 +1172,7 @@ export default function App() {
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <span className="text-xs uppercase tracking-widest font-semibold text-brand-purple bg-brand-purple-light px-4 py-1.5 rounded-lg inline-block">
-              💼 {t.allServices.title}
+              💼 {lang === "en" ? "SOLUTIONS FOR YOU & YOUR FAMILY" : "SOLUCIONES PARA TI Y TU FAMILIA"}
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold font-display text-brand-navy tracking-tight">
               {t.allServices.title}
@@ -1441,14 +1443,14 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Mission Card */}
               <div className="bg-white p-8 rounded-lg border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
-                <div className="space-y-4">
+                <div className="space-y-4 text-center flex flex-col items-center">
                   <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
                     🎯
                   </div>
-                  <h3 className="text-xl font-bold font-display text-brand-navy">
+                  <h3 className="text-xl font-bold font-display text-brand-navy text-center">
                     {t.whoWeAre.missionTitle}
                   </h3>
-                  <p className="text-sm text-brand-slate leading-relaxed">
+                  <p className="text-sm text-brand-slate leading-relaxed text-center">
                     {t.whoWeAre.missionDesc}
                   </p>
                 </div>
@@ -1456,14 +1458,14 @@ export default function App() {
 
               {/* Vision Card */}
               <div className="bg-white p-8 rounded-lg border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
-                <div className="space-y-4">
+                <div className="space-y-4 text-center flex flex-col items-center">
                   <div className="w-12 h-12 bg-brand-purple/10 rounded-lg flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/20">
                     👁️
                   </div>
-                  <h3 className="text-xl font-bold font-display text-brand-navy">
+                  <h3 className="text-xl font-bold font-display text-brand-navy text-center">
                     {t.whoWeAre.visionTitle}
                   </h3>
-                  <p className="text-sm text-brand-slate leading-relaxed">
+                  <p className="text-sm text-brand-slate leading-relaxed text-center">
                     {t.whoWeAre.visionDesc}
                   </p>
                 </div>
@@ -1473,24 +1475,24 @@ export default function App() {
             {/* Bottom row: Values Card with its 4 values in a single row on desktop */}
             <div className="bg-white p-8 rounded-lg border border-brand-purple/10 shadow-sm hover:shadow-md transition-shadow duration-300">
               <div className="space-y-6">
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col items-center text-center gap-4">
                   <div className="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
                     💎
                   </div>
-                  <h3 className="text-xl font-bold font-display text-brand-navy">
+                  <h3 className="text-xl font-bold font-display text-brand-navy text-center">
                     {t.whoWeAre.valuesTitle}
                   </h3>
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {t.whoWeAre.values.map((val, idx) => (
-                    <div key={idx} className="space-y-2 p-5 bg-[#FAF8FC] rounded-lg border border-brand-purple/5 flex flex-col justify-between h-full hover:border-brand-purple/20 transition-all duration-300">
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 font-bold text-brand-navy text-sm">
+                    <div key={idx} className="space-y-2 p-5 bg-[#FAF8FC] rounded-lg border border-brand-purple/5 flex flex-col items-center text-center justify-between h-full hover:border-brand-purple/20 transition-all duration-300">
+                      <div className="space-y-2 flex flex-col items-center">
+                        <div className="flex items-center gap-2 font-bold text-brand-navy text-sm justify-center">
                           <span className="w-2 h-2 rounded-full bg-accent flex-shrink-0" />
                           <span>{val.title}</span>
                         </div>
-                        <p className="text-xs text-brand-slate leading-relaxed font-medium">
+                        <p className="text-xs text-brand-slate leading-relaxed font-medium text-center">
                           {val.desc}
                         </p>
                       </div>
@@ -1507,7 +1509,7 @@ export default function App() {
       <TestimonialsMiniSection 
         lang={lang} 
         onQuoteClick={() => {
-          document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+          document.getElementById("schedule-consultation")?.scrollIntoView({ behavior: "smooth" });
         }} 
       />
 
@@ -1684,6 +1686,47 @@ export default function App() {
         </div>
       </section>
 
+      {/* 9.5 SCHEDULE CONSULTATION MINI-SECTION (Horizontal layout, premium styling, before FAQs) */}
+      <section id="schedule-consultation" className="py-16 bg-gradient-to-br from-brand-navy to-[#1A1235] text-white px-4 md:px-8 relative overflow-hidden border-b border-white/5">
+        {/* Glow Effects */}
+        <div className="absolute top-0 right-1/4 w-80 h-80 bg-brand-purple/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
+          {/* Text Container */}
+          <div className="flex-1 space-y-4 text-center md:text-left">
+            <span className="text-[10px] uppercase tracking-widest font-extrabold text-accent bg-accent/10 border border-accent/25 px-3 py-1 rounded-md inline-flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-accent" />
+              <span>{lang === "en" ? "FREE CONSULTATION" : "CONSULTA GRATUITA"}</span>
+            </span>
+            <h2 className="text-2xl md:text-3.5xl font-extrabold font-display leading-tight tracking-tight">
+              {lang === "en" ? "Ready to find the right protection for you?" : "¿Lista/o para encontrar la protección adecuada para ti?"}
+            </h2>
+            <p className="text-xs sm:text-sm text-white/85 max-w-2xl leading-relaxed">
+              {lang === "en"
+                ? "Every family has different needs. We review your situation carefully and help you find options tailored to your health, budget, and protection goals."
+                : "Cada familia tiene necesidades diferentes. Revisamos tu situación con cuidado y te ayudamos a encontrar opciones que se adapten a tu salud, tu presupuesto y tus metas de protección."}
+            </p>
+          </div>
+
+          {/* Button Container */}
+          <div className="flex-shrink-0 w-full md:w-auto text-center font-sans">
+            <a
+              href="https://api.leadconnectorhq.com/widget/booking/dPjD3K2ESbGLgoRuoUpP"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-brand-navy font-bold py-4 px-8 rounded-lg text-sm shadow-md transform hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer"
+            >
+              <Calendar className="w-4 h-4 text-brand-navy" />
+              <span>{lang === "en" ? "Schedule a free consultation" : "Agenda una consulta gratuita"}</span>
+            </a>
+            <p className="text-[10px] text-white/50 mt-3 font-semibold font-sans">
+              {lang === "en" ? "★ No obligation · 100% confidential" : "★ Sin compromiso · 100% confidencial"}
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* 10. CONTACT / FREE QUOTE (Soft gray background with elegant background image & overlay, highly guided clear form with brand-purple action) */}
       <section 
         id="contact" 
@@ -1773,49 +1816,6 @@ export default function App() {
                   );
                 })}
               </div>
-
-              {/* Premium Interactive Calendar Card */}
-              <div className="relative rounded-lg overflow-hidden bg-gradient-to-br from-brand-navy to-[#1a1235] text-white p-6 shadow-xl border border-white/10 group mt-4">
-                {/* Background absolute subtle glow elements */}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-accent/10 rounded-full blur-2xl -mr-12 -mt-12 pointer-events-none group-hover:bg-accent/15 transition-all duration-700"></div>
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-purple/20 rounded-full blur-2xl -ml-12 -mb-12 pointer-events-none group-hover:bg-brand-purple/25 transition-all duration-700"></div>
-
-                <div className="relative z-10 space-y-4 text-left">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-accent/15 border border-accent/20 text-accent text-[10px] font-extrabold uppercase tracking-widest">
-                    <Calendar className="w-3 h-3 text-accent" />
-                    <span>{lang === "en" ? "Interactive Calendar" : "Calendario interactivo"}</span>
-                  </div>
-
-                  <div className="space-y-2">
-                    <h3 className="text-base sm:text-lg font-extrabold font-display leading-snug tracking-tight text-white">
-                      {lang === "en" ? "Ready to review your options?" : "¿Lista/o para revisar tus opciones?"}
-                    </h3>
-                    <p className="text-xs text-white/80 leading-relaxed font-normal font-sans">
-                      {lang === "en"
-                        ? "Every family has different needs. That's why at Eversafe Financial we carefully review your situation and help you find options tailored to your health, budget, and protection goals."
-                        : "Cada familia tiene necesidades diferentes. Por eso, en Eversafe Financial revisamos tu situación con cuidado y te ayudamos a encontrar opciones que se adapten a tu salud, tu presupuesto y tus metas de protección."}
-                    </p>
-                  </div>
-
-                  <div className="pt-1 font-sans">
-                    <a
-                      href="https://api.leadconnectorhq.com/widget/booking/dPjD3K2ESbGLgoRuoUpP"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-brand-navy font-semibold py-3 px-5 rounded-lg text-xs sm:text-sm shadow-sm hover:shadow-md transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 text-center cursor-pointer"
-                    >
-                      <Calendar className="w-4 h-4 text-brand-navy" />
-                      <span>{lang === "en" ? "Book a free consultation" : "Agenda una consulta gratuita"}</span>
-                    </a>
-                  </div>
-
-                  <p className="text-[10px] text-white/60 text-center leading-relaxed font-semibold font-sans">
-                    {lang === "en"
-                      ? "No pressure, no obligation. We are here to help you understand your options and choose with greater confidence."
-                      : "Sin presión y sin compromiso. Estamos aquí para ayudarte a entender tus opciones y elegir con mayor confianza."}
-                  </p>
-                </div>
-              </div>
             </div>
 
             {/* Column 2: Free Quote GoHighLevel Embedded Form */}
@@ -1849,7 +1849,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10">
           
           {/* Column 1: Descriptor */}
-          <div className="md:col-span-5 space-y-4">
+          <div className="md:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
               <img
                 src="https://res.cloudinary.com/drghl4bjl/image/upload/f_auto,q_auto/v1783574808/eversafe-financial-isotype-full-color_gjverm.png"
@@ -1866,59 +1866,75 @@ export default function App() {
             </p>
           </div>
 
-          {/* Column 2: Direct Contact details */}
-          <div className="md:col-span-4 space-y-4">
-            <h4 className="text-xs uppercase tracking-widest text-[#8C49B1] font-bold">
-              {t.footer.contactUs}
-            </h4>
-            <ul className="space-y-2.5 text-xs text-brand-slate">
-              <li className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-                <a href="tel:7273596196" className="hover:text-white transition-colors hover:underline">(727) 359-6196</a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-                <a href="mailto:mary@eversafefinancial.com" className="hover:text-white transition-colors hover:underline">mary@eversafefinancial.com</a>
-              </li>
-              <li className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 font-bold inline-block text-accent text-[10px]">
-                💬 {t.footer.bilingual}
-              </li>
-            </ul>
+          {/* Column 2: Direct Contact & Service Areas */}
+          <div className="md:col-span-4 space-y-5">
+            <div className="space-y-4">
+              <h4 className="text-xs uppercase tracking-widest text-[#8C49B1] font-bold">
+                {t.footer.contactUs}
+              </h4>
+              <ul className="space-y-2.5 text-xs text-brand-slate">
+                <li className="flex items-center gap-2">
+                  <Phone className="w-3.5 h-3.5 text-accent flex-shrink-0" />
+                  <a href="tel:7273596196" className="hover:text-white transition-colors hover:underline">(727) 359-6196</a>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Mail className="w-3.5 h-3.5 text-accent flex-shrink-0" />
+                  <a href="mailto:mary@eversafefinancial.com" className="hover:text-white transition-colors hover:underline">mary@eversafefinancial.com</a>
+                </li>
+                <li className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 font-bold inline-block text-accent text-[10px]">
+                  💬 {t.footer.bilingual}
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-2 pt-1 border-t border-white/5">
+              <h4 className="text-xs uppercase tracking-widest text-[#8C49B1] font-bold">
+                {lang === "en" ? "Service Areas" : "Áreas de servicio"}
+              </h4>
+              <p className="text-xs text-brand-slate leading-relaxed">
+                {lang === "en" ? "Florida and other U.S. states" : "Florida y otros estados de EE. UU."}
+              </p>
+            </div>
           </div>
 
-          {/* Column 3: Contact hours details */}
-          <div className="md:col-span-3 space-y-4">
-            <h4 className="text-xs uppercase tracking-widest text-[#8C49B1] font-bold">
-              {t.footer.hours}
-            </h4>
-            <ul className="space-y-1.5 text-xs text-brand-slate font-mono">
-              <li>{t.contactForm.hoursWeek}</li>
-              <li>{t.contactForm.hoursSat}</li>
-              <li>{t.contactForm.hoursSun}</li>
-            </ul>
-            
-            {/* White SVGs for socials */}
-            <div className="flex items-center gap-4 pt-2 text-white/55">
-              <a 
-                href="https://www.instagram.com/eversafefinancial.llc/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="hover:text-accent transform hover:scale-125 active:scale-95 transition-all duration-300 inline-block"
-              >
-                <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z" />
-                </svg>
-              </a>
-              <a 
-                href="https://www.facebook.com/eversafefinancial" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="hover:text-accent transform hover:scale-125 active:scale-95 transition-all duration-300 inline-block"
-              >
-                <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
-                </svg>
-              </a>
+          {/* Column 3: Contact hours & Socials */}
+          <div className="md:col-span-4 space-y-5">
+            <div className="space-y-4">
+              <h4 className="text-xs uppercase tracking-widest text-[#8C49B1] font-bold">
+                {t.footer.hours}
+              </h4>
+              <ul className="space-y-1.5 text-xs text-brand-slate font-mono">
+                <li>{t.contactForm.hoursWeek}</li>
+                <li>{t.contactForm.hoursSat}</li>
+                <li>{t.contactForm.hoursSun}</li>
+              </ul>
+            </div>
+
+            <div className="space-y-2 pt-1 border-t border-white/5">
+              <h4 className="text-xs uppercase tracking-widest text-[#8C49B1] font-bold">
+                {lang === "en" ? "Follow Us" : "Síguenos"}
+              </h4>
+              {/* White SVGs for socials */}
+              <div className="flex items-center gap-4 pt-1 text-white/65">
+                <a 
+                  href="https://www.instagram.com/eversafefinancial.llc/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-accent transform hover:scale-110 active:scale-95 transition-all duration-300 inline-block"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-5 h-5 stroke-[1.75]" />
+                </a>
+                <a 
+                  href="https://www.facebook.com/eversafefinancial" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-accent transform hover:scale-110 active:scale-95 transition-all duration-300 inline-block"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-5 h-5 stroke-[1.75]" />
+                </a>
+              </div>
             </div>
           </div>
 

@@ -322,7 +322,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       cta: "💼 Get Personalized Options Now",
     },
     whoWeAre: {
-      title: "Who We Are",
+      title: "About us",
       subtitle: "At Eversafe Financial, our purpose is to provide clarity, stability, and peace of mind through every stage of your life's journey.",
       missionTitle: "Our Mission",
       missionDesc: "Our mission is to guide families and individuals in protecting their health, lives, and financial future through personalized solutions in health insurance, life insurance, savings, and retirement. At Eversafe Financial, we provide clear, bilingual, and honest guidance to help every client make informed decisions with confidence and peace of mind.",
@@ -629,7 +629,7 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       cta: "💼 Ver mis opciones personalizadas ya",
     },
     whoWeAre: {
-      title: "Quiénes somos",
+      title: "Sobre nosotros",
       subtitle: "En Eversafe Financial, nuestro propósito es brindar claridad, estabilidad y tranquilidad en cada etapa del camino de tu vida.",
       missionTitle: "Misión",
       missionDesc: "Nuestra misión es guiar a familias e individuos a proteger su salud, su vida y su futuro financiero mediante soluciones personalizadas en seguros de salud, seguros de vida, ahorro y retiro. En Eversafe Financial, brindamos una orientación clara, bilingüe y honesta para ayudar a cada cliente a tomar decisiones informadas con confianza y tranquilidad.",
