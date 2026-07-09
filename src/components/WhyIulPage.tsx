@@ -84,18 +84,18 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
         </div>
 
         {/* HERO HEADER */}
-        <div className="relative bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-purple rounded-3xl p-8 md:p-12 lg:p-14 text-white overflow-hidden shadow-xl border border-slate-800">
+        <div className="relative bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-purple rounded-lg p-8 md:p-12 lg:p-14 text-white overflow-hidden shadow-xl border border-slate-800">
           <div className="absolute top-0 right-0 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
           <div className="absolute bottom-0 left-10 w-96 h-96 bg-brand-purple/10 rounded-full blur-3xl pointer-events-none"></div>
           
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Column 1: Info & Headings */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              <span className="text-[11px] uppercase tracking-widest font-extrabold text-accent bg-white/10 border border-white/15 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
+              <span className="text-[11px] uppercase tracking-widest font-extrabold text-accent bg-white/10 border border-white/15 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
                 {lang === "en" ? "Modern Retirement Alternative" : "Alternativa de retiro moderna"}
               </span>
-              <h1 className="text-3xl md:text-5xl font-black font-sans leading-tight tracking-tight">
+              <h1 className="text-3xl md:text-5xl font-black font-display leading-tight tracking-tight">
                 {lang === "en" 
                   ? "Why IUL Offers More Security & Flexibility Than Traditional Plans" 
                   : "Por qué el IUL ofrece más seguridad y flexibilidad que los planes tradicionales"}
@@ -115,13 +115,13 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                       handleCtaClick();
                     }
                   }}
-                  className="bg-accent hover:bg-[#e0b42c] text-brand-navy font-bold py-3.5 px-8 rounded-2xl text-xs sm:text-sm tracking-wider shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-center cursor-pointer"
+                  className="bg-accent hover:bg-accent-hover text-brand-navy font-semibold py-3.5 px-8 rounded-lg text-xs sm:text-sm tracking-wider shadow-sm hover:shadow-md transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 text-center cursor-pointer"
                 >
                   {lang === "en" ? "Check My Qualification" : "Analizar mi calificación"}
                 </button>
                 <a
                   href="#comparison-block"
-                  className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold py-3.5 px-8 rounded-2xl text-xs sm:text-sm tracking-wider text-center transition-all duration-300"
+                  className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold py-3.5 px-8 rounded-lg text-xs sm:text-sm tracking-wider text-center transition-all duration-300"
                 >
                   {lang === "en" ? "See Detailed Comparison" : "Ver comparación detallada"}
                 </a>
@@ -149,7 +149,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
         {/* COMPARISON BLOCK */}
         <section id="comparison-block" className="space-y-6 scroll-mt-6">
           <div className="text-center space-y-2 max-w-3xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy font-sans tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy font-display tracking-tight">
               {lang === "en" ? "Side-by-Side Strategy Comparison" : "Comparación estratégica lado a lado"}
             </h2>
             <p className="text-xs sm:text-sm text-brand-slate">
@@ -160,11 +160,11 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
           </div>
 
           {/* Table Container */}
-          <div className="bg-white rounded-3xl shadow-md border border-slate-100 overflow-hidden">
+          <div className="bg-white rounded-lg shadow-sm border border-slate-100 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse min-w-[700px]">
                 <thead>
-                  <tr className="bg-brand-navy text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider">
+                  <tr className="bg-brand-navy text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider font-display">
                     <th className="p-5 sm:p-6 w-[25%]">{lang === "en" ? "Provisions" : "Aspectos de control"}</th>
                     <th className="p-5 sm:p-6 bg-brand-purple/15 text-brand-purple text-center border-x border-slate-700/10 w-[25%]">🏆 IUL (IRS 7702)</th>
                     <th className="p-5 sm:p-6 text-center text-slate-300 w-[25%]">401(k) / Traditional IRA</th>
@@ -315,7 +315,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
         {/* FEATURE BENTO GRID */}
         <section className="space-y-8">
           <div className="text-center space-y-2 max-w-3xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy font-sans tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy font-display tracking-tight">
               {lang === "en" ? "Unpacking the Top 5 IUL Benefits" : "Desglosando los 5 beneficios clave del IUL"}
             </h2>
             <p className="text-xs sm:text-sm text-brand-slate">
@@ -328,11 +328,11 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             {/* Box 1 */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-purple/20 shadow-sm hover:shadow-md transition-all space-y-4">
-              <div className="w-10 h-10 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center">
+            <div className="bg-white rounded-lg p-6 border border-slate-100 hover:border-brand-purple/20 shadow-sm hover:shadow-md transition-all space-y-4">
+              <div className="w-10 h-10 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center">
                 <Lock className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-brand-navy">
+              <h3 className="text-base font-bold text-brand-navy font-display">
                 {lang === "en" ? "1. 0% Market Floor Guarantee" : "1. Garantía de piso de mercado de 0%"}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-medium">
@@ -343,11 +343,11 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
             </div>
 
             {/* Box 2 */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-purple/20 shadow-sm hover:shadow-md transition-all space-y-4">
-              <div className="w-10 h-10 bg-brand-purple/5 border border-brand-purple/10 text-brand-purple rounded-xl flex items-center justify-center">
+            <div className="bg-white rounded-lg p-6 border border-slate-100 hover:border-brand-purple/20 shadow-sm hover:shadow-md transition-all space-y-4">
+              <div className="w-10 h-10 bg-brand-purple/5 border border-brand-purple/10 text-brand-purple rounded-lg flex items-center justify-center">
                 <Percent className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-brand-navy">
+              <h3 className="text-base font-bold text-brand-navy font-display">
                 {lang === "en" ? "2. Tax-Free Income Stream" : "2. Flujo de ingresos libre de impuestos"}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-medium">
@@ -358,11 +358,11 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
             </div>
 
             {/* Box 3 */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-purple/20 shadow-sm hover:shadow-md transition-all space-y-4">
-              <div className="w-10 h-10 bg-amber-50 border border-amber-100 text-amber-600 rounded-xl flex items-center justify-center">
+            <div className="bg-white rounded-lg p-6 border border-slate-100 hover:border-brand-purple/20 shadow-sm hover:shadow-md transition-all space-y-4">
+              <div className="w-10 h-10 bg-amber-50 border border-amber-100 text-amber-600 rounded-lg flex items-center justify-center">
                 <TrendingUp className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-brand-navy">
+              <h3 className="text-base font-bold text-brand-navy font-display">
                 {lang === "en" ? "3. No Strict IRS Contribution Limits" : "3. Sin límites de aporte del IRS"}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-medium">
@@ -373,11 +373,11 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
             </div>
 
             {/* Box 4 */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-purple/20 shadow-sm hover:shadow-md transition-all space-y-4">
-              <div className="w-10 h-10 bg-rose-50 border border-rose-100 text-rose-500 rounded-xl flex items-center justify-center">
+            <div className="bg-white rounded-lg p-6 border border-slate-100 hover:border-brand-purple/20 shadow-sm hover:shadow-md transition-all space-y-4">
+              <div className="w-10 h-10 bg-rose-50 border border-rose-100 text-rose-500 rounded-lg flex items-center justify-center">
                 <HeartHandshake className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-brand-navy">
+              <h3 className="text-base font-bold text-brand-navy font-display">
                 {lang === "en" ? "4. Built-In Accelerated Living Benefits" : "4. Beneficios en vida acelerados integrados"}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-medium">
@@ -388,11 +388,11 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
             </div>
 
             {/* Box 5 */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-purple/20 shadow-sm hover:shadow-md transition-all space-y-4">
-              <div className="w-10 h-10 bg-blue-50 border border-blue-100 text-blue-600 rounded-xl flex items-center justify-center">
+            <div className="bg-white rounded-lg p-6 border border-slate-100 hover:border-brand-purple/20 shadow-sm hover:shadow-md transition-all space-y-4">
+              <div className="w-10 h-10 bg-blue-50 border border-blue-100 text-blue-600 rounded-lg flex items-center justify-center">
                 <Shield className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-brand-navy">
+              <h3 className="text-base font-bold text-brand-navy font-display">
                 {lang === "en" ? "5. Generational Legacy Wealth" : "5. Legado y traspaso generacional seguro"}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-medium">
@@ -408,12 +408,12 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
 
 
         {/* FAQs SECTION */}
-        <section className="bg-white rounded-3xl p-8 md:p-12 shadow-md border border-slate-100 space-y-8">
+        <section className="bg-white rounded-lg p-8 md:p-12 shadow-sm border border-slate-100 space-y-8">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-brand-purple/5 text-brand-purple flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-brand-purple/5 text-brand-purple flex items-center justify-center">
               <HelpCircle className="w-5 h-5" />
             </div>
-            <h2 className="text-2xl font-bold font-sans text-brand-navy tracking-tight">
+            <h2 className="text-2xl font-bold font-display text-brand-navy tracking-tight">
               {lang === "en" ? "Index Universal Life Information & FAQs" : "Preguntas frecuentes de Index Universal Life"}
             </h2>
           </div>
@@ -442,8 +442,8 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
         </section>
 
         {/* FINAL HERO CTA CARD */}
-        <div className="bg-gradient-to-r from-brand-purple/10 to-accent/10 border border-brand-purple/20 rounded-3xl p-8 md:p-12 text-center space-y-6">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy font-sans tracking-tight">
+        <div className="bg-gradient-to-r from-brand-purple/10 to-accent/10 border border-brand-purple/20 rounded-lg p-8 md:p-12 text-center space-y-6">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy font-display tracking-tight">
             {lang === "en" 
               ? "Ready to Build a Tax-Free Protection Strategy?" 
               : "¿Listo para crear una estrategia de protección libre de impuestos?"}
@@ -456,13 +456,13 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-2">
             <button
               onClick={handleCtaClick}
-              className="bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3.5 px-8 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-center cursor-pointer"
+              className="bg-brand-navy hover:bg-brand-navy-light text-white font-semibold py-3.5 px-8 rounded-lg text-xs sm:text-sm transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 text-center cursor-pointer"
             >
               💼 {lang === "en" ? "Analyze My Options" : "Ver mis opciones"}
             </button>
             <button
               onClick={onBackToHome}
-              className="bg-white hover:bg-slate-50 border border-slate-200 text-brand-navy font-bold py-3.5 px-8 rounded-xl text-xs sm:text-sm transition-all duration-300 text-center cursor-pointer"
+              className="bg-white hover:bg-slate-50 border border-slate-200 text-brand-navy font-semibold py-3.5 px-8 rounded-lg text-xs sm:text-sm transition-all duration-300 text-center cursor-pointer"
             >
               {lang === "en" ? "← Back to Homepage" : "← Volver al inicio"}
             </button>
@@ -560,8 +560,8 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
 
   return (
     <div className={isLight 
-      ? "w-full max-w-md bg-white rounded-3xl p-6 md:p-8 shadow-[0_12px_40px_rgba(18,32,51,0.06)] border border-slate-100 relative overflow-hidden transition-all duration-300"
-      : "bg-[#1E293B]/60 backdrop-blur-md rounded-2xl p-6 border border-slate-700/60 max-w-xl mx-auto"
+      ? "w-full max-w-md bg-white rounded-lg p-6 md:p-8 shadow-sm border border-slate-100 relative overflow-hidden transition-all duration-300"
+      : "bg-[#1E293B]/60 backdrop-blur-md rounded-lg p-6 border border-slate-700/60 max-w-xl mx-auto"
     }>
       {isLight && (
         <div className="absolute -top-10 -right-10 w-24 h-24 bg-brand-purple/5 rounded-full blur-2xl pointer-events-none"></div>
@@ -575,19 +575,19 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
       </div>
 
       {isEvaluating ? (
-        <div className="py-12 flex flex-col items-center justify-center text-center space-y-4">
+        <div className="py-12 flex flex-col items-center justify-center text-center space-y-4 font-sans">
           <div className={isLight ? "w-10 h-10 border-4 border-brand-purple border-t-transparent rounded-full animate-spin" : "w-10 h-10 border-4 border-accent border-t-transparent rounded-full animate-spin"}></div>
           <p className={isLight ? "text-sm font-semibold text-brand-purple animate-pulse" : "text-sm font-semibold text-slate-300 animate-pulse"}>
             {lang === "en" ? "Analyzing your answers for IUL eligibility..." : "Analizando tus respuestas para elegibilidad de IUL..."}
           </p>
         </div>
       ) : step === 5 ? (
-        <div className="space-y-6">
-          <div className={isLight ? "text-center p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3" : "text-center p-5 bg-slate-800/80 rounded-xl border border-slate-700 space-y-3"}>
+        <div className="space-y-6 font-sans">
+          <div className={isLight ? "text-center p-5 bg-slate-50 rounded-lg border border-slate-200 space-y-3" : "text-center p-5 bg-slate-800/80 rounded-lg border border-slate-700 space-y-3"}>
             {isQualified ? (
               <>
                 <div className="text-3xl">🌟</div>
-                <h3 className={isLight ? "text-lg font-bold text-brand-navy" : "text-lg font-bold text-accent"}>
+                <h3 className={isLight ? "text-lg font-bold text-brand-navy font-display" : "text-lg font-bold text-accent font-display"}>
                   {lang === "en" ? "Perfect Candidate!" : "¡Candidato perfecto!"}
                 </h3>
                 <p className={isLight ? "text-xs sm:text-sm text-brand-slate leading-relaxed" : "text-xs sm:text-sm text-slate-300 leading-relaxed"}>
@@ -599,7 +599,7 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
             ) : (
               <>
                 <div className="text-3xl">🛡️</div>
-                <h3 className={isLight ? "text-lg font-bold text-brand-navy" : "text-lg font-bold text-accent"}>
+                <h3 className={isLight ? "text-lg font-bold text-brand-navy font-display" : "text-lg font-bold text-accent font-display"}>
                   {lang === "en" ? "Excellent Options Available!" : "¡Excelentes opciones disponibles!"}
                 </h3>
                 <p className={isLight ? "text-xs sm:text-sm text-brand-slate leading-relaxed" : "text-xs sm:text-sm text-slate-300 leading-relaxed"}>
@@ -611,10 +611,10 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
             )}
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 font-sans">
             <button
               onClick={onComplete}
-              className="w-full bg-accent hover:bg-[#e0b42c] text-brand-navy font-bold py-3.5 px-6 rounded-xl text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer text-center"
+              className="w-full bg-accent hover:bg-accent-hover text-brand-navy font-semibold py-3.5 px-6 rounded-lg text-xs sm:text-sm uppercase tracking-wider shadow-sm hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer text-center"
             >
               🚀 {lang === "en" ? "Connect with Mary Rivera" : "Conectar con Mary Rivera"}
             </button>
@@ -627,7 +627,7 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
           </div>
         </div>
       ) : (
-        <div className="space-y-5">
+        <div className="space-y-5 font-sans">
           <div className="flex justify-between items-center">
             <span className={isLight ? "text-xs font-semibold text-brand-slate uppercase tracking-wider" : "text-xs font-semibold text-slate-400 uppercase tracking-wider"}>
               {lang === "en" ? `Question ${step} of 4` : `Pregunta ${step} de 4`}
@@ -636,7 +636,7 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
 
           {step === 1 && (
             <div className="space-y-3">
-              <h3 className={isLight ? "text-sm sm:text-base font-bold text-brand-navy leading-snug" : "text-sm sm:text-base font-bold text-white leading-snug"}>{questions.age.title}</h3>
+              <h3 className={isLight ? "text-sm sm:text-base font-bold text-brand-navy leading-snug font-display" : "text-sm sm:text-base font-bold text-white leading-snug font-display"}>{questions.age.title}</h3>
               <div className="flex flex-col gap-2">
                 {questions.age.opts.map(opt => {
                   const isSelected = answers.age === opt.key;
@@ -644,10 +644,10 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
                     <button
                       key={opt.key}
                       onClick={() => handleSelect("age", opt.key)}
-                      className={`w-full text-left py-3 px-4 rounded-xl border transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer ${
+                      className={`w-full text-left py-3 px-4 rounded-lg border transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer ${
                         isSelected
                           ? isLight
-                            ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-lg shadow-accent/10 scale-[1.01]"
+                            ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-sm scale-[1.01]"
                             : "bg-accent text-brand-navy border-white ring-2 ring-white/25 scale-[1.01]"
                           : isLight 
                             ? "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
@@ -665,7 +665,7 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
 
           {step === 2 && (
             <div className="space-y-3">
-              <h3 className={isLight ? "text-sm sm:text-base font-bold text-brand-navy leading-snug" : "text-sm sm:text-base font-bold text-white leading-snug"}>{questions.employed.title}</h3>
+              <h3 className={isLight ? "text-sm sm:text-base font-bold text-brand-navy leading-snug font-display" : "text-sm sm:text-base font-bold text-white leading-snug font-display"}>{questions.employed.title}</h3>
               <div className="flex flex-col gap-2">
                 {questions.employed.opts.map(opt => {
                   const isSelected = answers.employed === opt.key;
@@ -673,10 +673,10 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
                     <button
                       key={opt.key}
                       onClick={() => handleSelect("employed", opt.key)}
-                      className={`w-full text-left py-3 px-4 rounded-xl border transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer ${
+                      className={`w-full text-left py-3 px-4 rounded-lg border transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer ${
                         isSelected
                           ? isLight
-                            ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-lg shadow-accent/10 scale-[1.01]"
+                            ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-sm scale-[1.01]"
                             : "bg-accent text-brand-navy border-white ring-2 ring-white/25 scale-[1.01]"
                           : isLight 
                             ? "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
@@ -694,7 +694,7 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
 
           {step === 3 && (
             <div className="space-y-3">
-              <h3 className={isLight ? "text-sm sm:text-base font-bold text-brand-navy leading-snug" : "text-sm sm:text-base font-bold text-white leading-snug"}>{questions.health.title}</h3>
+              <h3 className={isLight ? "text-sm sm:text-base font-bold text-brand-navy leading-snug font-display" : "text-sm sm:text-base font-bold text-white leading-snug font-display"}>{questions.health.title}</h3>
               <div className="flex flex-col gap-2">
                 {questions.health.opts.map(opt => {
                   const isSelected = answers.health === opt.key;
@@ -702,10 +702,10 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
                     <button
                       key={opt.key}
                       onClick={() => handleSelect("health", opt.key)}
-                      className={`w-full text-left py-3 px-4 rounded-xl border transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer ${
+                      className={`w-full text-left py-3 px-4 rounded-lg border transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer ${
                         isSelected
                           ? isLight
-                            ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-lg shadow-accent/10 scale-[1.01]"
+                            ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-sm scale-[1.01]"
                             : "bg-accent text-brand-navy border-white ring-2 ring-white/25 scale-[1.01]"
                           : isLight 
                             ? "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
@@ -723,7 +723,7 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
 
           {step === 4 && (
             <div className="space-y-3">
-              <h3 className={isLight ? "text-sm sm:text-base font-bold text-brand-navy leading-snug" : "text-sm sm:text-base font-bold text-white leading-snug"}>{questions.goal.title}</h3>
+              <h3 className={isLight ? "text-sm sm:text-base font-bold text-brand-navy leading-snug font-display" : "text-sm sm:text-base font-bold text-white leading-snug font-display"}>{questions.goal.title}</h3>
               <div className="flex flex-col gap-2">
                 {questions.goal.opts.map(opt => {
                   const isSelected = answers.goal === opt.key;
@@ -731,10 +731,10 @@ export function IulInteractiveQuiz({ lang, onComplete, isLight = false }: IulInt
                     <button
                       key={opt.key}
                       onClick={() => handleSelect("goal", opt.key)}
-                      className={`w-full text-left py-3 px-4 rounded-xl border transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer ${
+                      className={`w-full text-left py-3 px-4 rounded-lg border transition-all text-xs sm:text-sm font-semibold flex items-center gap-3 cursor-pointer ${
                         isSelected
                           ? isLight
-                            ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-lg shadow-accent/10 scale-[1.01]"
+                            ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-sm scale-[1.01]"
                             : "bg-accent text-brand-navy border-white ring-2 ring-white/25 scale-[1.01]"
                           : isLight 
                             ? "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"

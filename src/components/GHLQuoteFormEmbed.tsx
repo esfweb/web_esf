@@ -40,7 +40,7 @@ export function GHLQuoteFormEmbed({ lang }: GHLQuoteFormEmbedProps) {
     : "Eversafe - Free Quote Form EN";
 
   return (
-    <div className="w-full bg-white rounded-3xl shadow-xl p-2 md:p-3 overflow-hidden">
+    <div className="w-full bg-white rounded-lg shadow-sm p-2 md:p-3 overflow-hidden">
       <div className="w-full min-h-[722px] sm:min-h-[740px] md:min-h-[760px] relative" key={lang}>
         <iframe
           src={iframeSrc}

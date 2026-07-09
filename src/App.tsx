@@ -123,14 +123,14 @@ function TiltCard({ children, popular, popularLabel }: TiltCardProps) {
 
   const transformStyle = isHovered
     ? {
-        transform: `perspective(1000px) rotateY(${coords.x * 6}deg) rotateX(${coords.y * -6}deg) translateY(-8px)`,
-        boxShadow: `0 20px 35px rgba(18, 32, 51, 0.08)`,
-        borderLeft: `4px solid #00C2A8`,
+        transform: `perspective(1000px) rotateY(${coords.x * 4}deg) rotateX(${coords.y * -4}deg) translateY(-4px)`,
+        boxShadow: `0 8px 24px rgba(13, 27, 46, 0.05)`,
+        borderLeft: `4px solid #00c2a8`,
       }
     : {
         transform: `perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(0)`,
-        boxShadow: `0 8px 30px rgba(18, 32, 51, 0.02)`,
-        borderLeft: `1px solid rgba(148, 163, 184, 0.1)`,
+        boxShadow: `0 1px 3px rgba(13, 27, 46, 0.02)`,
+        borderLeft: `1px solid rgba(13, 27, 46, 0.06)`,
       };
 
   return (
@@ -142,10 +142,10 @@ function TiltCard({ children, popular, popularLabel }: TiltCardProps) {
         setCoords({ x: 0, y: 0 });
       }}
       style={transformStyle}
-      className="relative rounded-3xl p-8 bg-white border border-slate-100 transition-all duration-300 ease-out flex flex-col justify-between h-full group"
+      className="relative rounded-lg p-8 bg-white border border-slate-100 transition-all duration-300 ease-out flex flex-col justify-between h-full group"
     >
       {popular && (
-        <span className="absolute top-4 right-4 bg-accent text-white text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full shadow-sm z-15 animate-pulse">
+        <span className="absolute top-4 right-4 bg-accent text-white text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded shadow-sm z-15 animate-pulse">
           ✨ {popularLabel}
         </span>
       )}
@@ -165,7 +165,7 @@ function ServiceItem({ label, desc }: ServiceItemProps) {
 
   return (
     <div
-      className="relative p-3.5 rounded-2xl bg-[#F3F3F4] border-l-4 border-l-transparent hover:border-l-[#00C2A8] hover:bg-gradient-to-r hover:from-brand-purple hover:to-brand-purple-hover hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group"
+      className="relative p-3.5 rounded-lg bg-[#F3F3F4] border-l-4 border-l-transparent hover:border-l-[#00c2a8] hover:bg-gradient-to-r hover:from-brand-purple hover:to-brand-purple-hover hover:-translate-y-1 hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden group"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
       onClick={() => setIsOpen(!isOpen)}
@@ -174,7 +174,7 @@ function ServiceItem({ label, desc }: ServiceItemProps) {
         <div className="w-5 h-5 bg-brand-sage-light rounded-full flex items-center justify-center text-brand-sage text-[11px] flex-shrink-0 font-bold border border-brand-sage/20 group-hover:bg-white group-hover:text-brand-purple transition-colors">
           ✓
         </div>
-        <span className="text-sm font-semibold text-brand-navy group-hover:text-white transition-colors tracking-tight">
+        <span className="text-sm font-semibold text-brand-navy group-hover:text-white transition-colors tracking-tight font-sans">
           {label}
         </span>
         <span className="ml-auto text-brand-slate group-hover:text-white transition text-[10px] block md:hidden">
@@ -190,7 +190,7 @@ function ServiceItem({ label, desc }: ServiceItemProps) {
       )}
 
       {/* Absolute floating box on desktop hover */}
-      <div className="hidden md:block absolute left-1/2 bottom-full mb-3 translate-x-1/2 w-64 p-3.5 bg-brand-navy text-white text-xs rounded-2xl shadow-xl border border-white/10 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+      <div className="hidden md:block absolute left-1/2 bottom-full mb-3 translate-x-1/2 w-64 p-3.5 bg-brand-navy text-white text-xs rounded-lg shadow-md border border-white/10 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 z-50">
         <div className="relative">
           <p className="leading-relaxed font-normal text-white/90">{desc}</p>
           <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-brand-navy"></div>
@@ -707,13 +707,13 @@ export default function App() {
           {/* 3. HERO SECTION (Re-imagined: Brand new World-Class responsive Hero layout with rich authority signaling) */}
       <section
         id="home"
-        className="relative bg-cover md:bg-top bg-center bg-no-repeat pt-20 pb-28 md:py-32 px-4 md:px-8 overflow-hidden border-b border-slate-100 min-h-[450px] md:min-h-[650px] flex items-center spotlight-purple"
+        className="relative bg-cover md:bg-top bg-center bg-no-repeat pt-20 pb-28 md:py-32 px-4 md:px-8 overflow-hidden border-b border-slate-100/10 min-h-[450px] md:min-h-[650px] flex items-center spotlight-purple"
         style={{
           backgroundImage: "url('https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/insurance-advisor-florida-family-financial-protection.jpg_xpfdp2.jpg')"
         }}
       >
         {/* Dark sophisticated gradient overlay for breathing room and perfect text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/95 via-brand-navy/80 to-brand-navy/35 z-0" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/98 via-brand-navy/85 to-brand-navy/40 z-0" />
 
         {/* SEO Image for Crawler Compatibility with Alt Text */}
         <img
@@ -729,33 +729,33 @@ export default function App() {
           <div className="lg:col-span-7 space-y-8 text-center lg:text-left reveal-init reveal-visible">
             
             {/* Compliance Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-lg text-xs text-white tracking-widest font-bold anim-1 mx-auto lg:mx-0">
+            <div className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-md px-4 py-2 rounded-lg border border-white/10 shadow-md text-xs text-white tracking-widest font-bold anim-1 mx-auto lg:mx-0">
               <Award className="w-4 h-4 text-accent flex-shrink-0 animate-bounce" />
-              <span className="text-[9px] md:text-2xs uppercase tracking-[0.15em] font-extrabold">
+              <span className="text-[9px] md:text-2xs uppercase tracking-[0.15em] font-extrabold text-white/90">
                 {lang === "en" ? "Licensed in Florida and other states" : "Licencia en Florida y otros estados"}
               </span>
             </div>
 
             <div className="space-y-4 anim-2">
-              <span className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-accent bg-accent/15 border border-accent/20 px-3.5 py-1.5 rounded-full inline-block">
+              <span className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-accent bg-accent/10 border border-accent/20 px-3.5 py-1.5 rounded-lg inline-block">
                 {lang === "en" ? "HEALTH, LIFE & FINANCIAL PROTECTION" : "SALUD, VIDA Y PROTECCIÓN FINANCIERA"}
               </span>
-              <h1 className="text-4xl sm:text-5.5xl md:text-6.5xl font-black font-sans leading-[1.05] text-white tracking-tight max-w-2xl mx-auto lg:mx-0">
+              <h1 className="text-4xl sm:text-5.5xl md:text-6.5xl font-extrabold font-display leading-[1.05] text-white tracking-tight max-w-2xl mx-auto lg:mx-0">
                 {t.hero.title}
               </h1>
               {/* A1 — HERO: SUBTÍTULO EMOCIONAL */}
-              <p className="text-sm md:text-base italic font-extrabold text-accent tracking-wider mt-3">
+              <p className="text-sm md:text-base italic font-semibold text-accent tracking-wider mt-3">
                 {lang === "en" 
                   ? "“ Your family deserves more than a policy — they deserve a promise. ”" 
                   : "“ Tu familia merece más que una póliza — merece una promesa. ”"}
               </p>
             </div>
             
-            <p className="text-base md:text-lg text-white/90 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3">
+            <p className="text-base md:text-lg text-white/95 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3 tracking-wide">
               {t.hero.subtitle}
             </p>
 
-            <p className="text-xs sm:text-sm text-white/80 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3 pt-2.5 border-l-3 border-accent pl-4">
+            <p className="text-xs sm:text-sm text-white/80 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3 pt-2.5 border-l-3 border-accent pl-4">
               {lang === "en"
                 ? "Eversafe Financial helps families and individuals in Florida and other states compare life insurance, Medicare, ACA, private health plans, retirement, and wealth protection solutions with dedicated, personalized bilingual support."
                 : "Eversafe Financial ayuda a familias e individuos en Florida y otros estados a comparar soluciones de seguro de vida, Medicare, ACA, planes privados de salud, retiro y protección de patrimonio, con soporte bilingüe y personalizada."}
@@ -766,9 +766,9 @@ export default function App() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start anim-4">
                 <a
                   href="tel:7273596196"
-                  className="bg-accent hover:bg-accent-dark text-white font-extrabold py-4.5 px-8 rounded-full text-sm sm:text-base transition-all transform hover:scale-[1.04] active:scale-95 duration-300 text-center shadow-lg hover:shadow-accent/20 flex items-center justify-center gap-2 btn-glow-accent cursor-pointer"
+                  className="bg-accent hover:bg-accent-dark text-brand-navy font-semibold py-4 px-8 rounded-lg text-sm sm:text-base transition-all transform hover:scale-[1.02] active:scale-95 duration-300 text-center shadow-md flex items-center justify-center gap-2 cursor-pointer font-sans"
                 >
-                  <Phone className="w-4 h-4 fill-white" />
+                  <Phone className="w-4 h-4 fill-brand-navy text-brand-navy" />
                   {t.hero.ctaPhone}
                 </a>
                 <button
@@ -778,7 +778,7 @@ export default function App() {
                       element.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className="bg-transparent hover:bg-white/10 text-white font-extrabold py-4.5 px-8 rounded-full text-sm sm:text-base border-2 border-white/30 transition-all transform hover:scale-[1.04] active:scale-95 duration-300 text-center flex items-center justify-center gap-2 cursor-pointer"
+                  className="bg-transparent hover:bg-white/10 text-white font-semibold py-4 px-8 rounded-lg text-sm sm:text-base border border-white/30 transition-all transform hover:scale-[1.02] active:scale-95 duration-300 text-center flex items-center justify-center gap-2 cursor-pointer font-sans"
                 >
                   <Sparkles className="w-4 h-4 text-accent" />
                   {t.hero.ctaIUL}
@@ -795,19 +795,19 @@ export default function App() {
             <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10 max-w-md mx-auto lg:mx-0 anim-5">
               <div className="text-center lg:text-left">
                 <span className="block text-[9px] text-accent font-extrabold uppercase tracking-widest">{lang === "en" ? "EXPERIENCE" : "EXPERIENCIA"}</span>
-                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1.5 leading-snug">
+                <span className="block text-xs sm:text-sm font-semibold text-white mt-1.5 leading-snug">
                   {lang === "en" ? "4+ Years Safeguarding Lives" : "4+ años protegiendo vidas"}
                 </span>
               </div>
               <div className="text-center lg:text-left">
                 <span className="block text-[9px] text-accent font-extrabold uppercase tracking-widest">{lang === "en" ? "FLUENCY" : "IDIOMAS"}</span>
-                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1.5 leading-snug">
+                <span className="block text-xs sm:text-sm font-semibold text-white mt-1.5 leading-snug">
                   {lang === "en" ? "Full English & Spanish" : "Soporte bilingüe"}
                 </span>
               </div>
               <div className="text-center lg:text-left">
                 <span className="block text-[9px] text-accent font-extrabold uppercase tracking-widest">{lang === "en" ? "SECURITY" : "COBERTURA"}</span>
-                <span className="block text-xs sm:text-sm font-extrabold text-white mt-1.5 leading-snug">
+                <span className="block text-xs sm:text-sm font-semibold text-white mt-1.5 leading-snug">
                   {lang === "en" ? "A-Rated Carriers Only" : "Solo aseguradoras A+"}
                 </span>
               </div>
@@ -820,7 +820,7 @@ export default function App() {
             <QuizCard t={t} />
             
             {/* Horizontal Glass Partner Badge (Builds massive personal connection instantly) */}
-            <div className="w-full max-w-md bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 shadow-2xl flex items-center gap-4 text-white hover:border-accent/40 transition-colors duration-300">
+            <div className="w-full max-w-md bg-white/5 backdrop-blur-md rounded-lg p-4 border border-white/10 shadow-lg flex items-center gap-4 text-white hover:border-accent/40 transition-colors duration-300">
               <img
                 src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781560568/mary-rivera-licensed-insurance-advisor-eversafe-financial.jpg_hgybkk.jpg"
                 alt="Mary Rivera - Licensed Insurance Advisor at Eversafe Financial Florida"
@@ -911,13 +911,13 @@ export default function App() {
                 <TiltCard popular popularLabel={t.core.popular}>
                   <div className="space-y-6 flex-1 flex flex-col justify-between h-full">
                     <div className="space-y-4">
-                      <div className="w-12 h-12 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/10">
+                      <div className="w-12 h-12 bg-brand-purple-light rounded-lg flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/10">
                         🗄️
                       </div>
                       <div className="space-y-2">
                         <div className="space-y-1">
                           <span className="text-[10px] uppercase font-bold text-brand-purple tracking-widest">{lang === "en" ? "Accumulation" : "Acumulación"}</span>
-                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                          <h3 className="text-lg font-bold font-display text-brand-navy">
                             {t.core.iulTitle}
                           </h3>
                         </div>
@@ -938,7 +938,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => handlePreFillMessage(t.core.iulTitle)}
-                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-semibold py-3 px-4 rounded-lg text-xs sm:text-sm transform hover:scale-[1.01] active:scale-[0.99] hover:shadow-sm transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer font-sans"
                     >
                       <span>{t.core.cta}</span>
                       <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
@@ -952,13 +952,13 @@ export default function App() {
                 <TiltCard>
                   <div className="space-y-6 flex-1 flex flex-col justify-between">
                     <div className="space-y-4">
-                      <div className="w-12 h-12 bg-teal-50 rounded-2xl flex items-center justify-center text-teal-500 text-2xl shadow-sm border border-teal-100">
+                      <div className="w-12 h-12 bg-teal-50 rounded-lg flex items-center justify-center text-teal-500 text-2xl shadow-sm border border-teal-100">
                         🛡️
                       </div>
                       <div className="space-y-2">
                         <div className="space-y-1">
                           <span className="text-[10px] uppercase font-bold text-teal-600 tracking-widest">{lang === "en" ? "RETIREMENT & LEGACY" : "RETIRO Y LEGADO"}</span>
-                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                          <h3 className="text-lg font-bold font-display text-brand-navy">
                             {t.core.finalExpensesTitle}
                           </h3>
                         </div>
@@ -978,7 +978,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => handlePreFillMessage(t.core.finalExpensesTitle)}
-                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-semibold py-3 px-4 rounded-lg text-xs sm:text-sm transform hover:scale-[1.01] active:scale-[0.99] hover:shadow-sm transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer font-sans"
                     >
                       <span>{t.core.finalExpensesCta}</span>
                       <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
@@ -997,13 +997,13 @@ export default function App() {
                 <TiltCard>
                   <div className="space-y-6 flex-1 flex flex-col justify-between">
                     <div className="space-y-4">
-                      <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
+                      <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
                         🏥
                       </div>
                       <div className="space-y-2">
                         <div className="space-y-1">
                           <span className="text-[10px] uppercase font-bold text-accent tracking-widest">{lang === "en" ? "HEALTH PLANS" : "PLANES DE SALUD"}</span>
-                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                          <h3 className="text-lg font-bold font-display text-brand-navy">
                             {t.core.obamacareTitle}
                           </h3>
                         </div>
@@ -1023,7 +1023,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => handlePreFillMessage(t.core.obamacareTitle)}
-                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-semibold py-3 px-4 rounded-lg text-xs sm:text-sm transform hover:scale-[1.01] active:scale-[0.99] hover:shadow-sm transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer font-sans"
                     >
                       <span>{t.core.obamacareCta}</span>
                       <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
@@ -1037,13 +1037,13 @@ export default function App() {
                 <TiltCard>
                   <div className="space-y-6 flex-1 flex flex-col justify-between">
                     <div className="space-y-4">
-                      <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center text-brand-navy text-2xl shadow-sm border border-slate-200">
+                      <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center text-brand-navy text-2xl shadow-sm border border-slate-200">
                         ⚕️
                       </div>
                       <div className="space-y-2">
                         <div className="space-y-1">
                           <span className="text-[10px] uppercase font-bold text-brand-slate tracking-widest">{lang === "en" ? "MEDICARE" : "MEDICARE"}</span>
-                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                          <h3 className="text-lg font-bold font-display text-brand-navy">
                             {t.core.medicareTitle}
                           </h3>
                         </div>
@@ -1063,7 +1063,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => handlePreFillMessage(t.core.medicareTitle)}
-                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-semibold py-3 px-4 rounded-lg text-xs sm:text-sm transform hover:scale-[1.01] active:scale-[0.99] hover:shadow-sm transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer font-sans"
                     >
                       <span>{t.core.medicareCta}</span>
                       <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
@@ -1082,13 +1082,13 @@ export default function App() {
                 <TiltCard>
                   <div className="space-y-6 flex-1 flex flex-col justify-between">
                     <div className="space-y-4">
-                      <div className="w-12 h-12 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 text-2xl shadow-sm border border-rose-100">
+                      <div className="w-12 h-12 bg-rose-50 rounded-lg flex items-center justify-center text-rose-500 text-2xl shadow-sm border border-rose-100">
                         🔑
                       </div>
                       <div className="space-y-2">
                         <div className="space-y-1">
                           <span className="text-[10px] uppercase font-bold text-rose-500 tracking-widest">{lang === "en" ? "PRIVATE PLANS" : "PLANES PRIVADOS"}</span>
-                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                          <h3 className="text-lg font-bold font-display text-brand-navy">
                             {t.core.privateHealthTitle}
                           </h3>
                         </div>
@@ -1108,7 +1108,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => handlePreFillMessage(t.core.privateHealthTitle)}
-                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-semibold py-3 px-4 rounded-lg text-xs sm:text-sm transform hover:scale-[1.01] active:scale-[0.99] hover:shadow-sm transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer font-sans"
                     >
                       <span>{t.core.privateHealthCta}</span>
                       <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
@@ -1122,13 +1122,13 @@ export default function App() {
                 <TiltCard>
                   <div className="space-y-6 flex-1 flex flex-col justify-between">
                     <div className="space-y-4">
-                      <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
+                      <div className="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
                         🦷
                       </div>
                       <div className="space-y-2">
                         <div className="space-y-1">
                           <span className="text-[10px] uppercase font-bold text-amber-600 tracking-widest">{lang === "en" ? "SUPPLEMENTAL" : "SUPLEMENTARIOS"}</span>
-                          <h3 className="text-lg font-bold font-sans text-brand-navy">
+                          <h3 className="text-lg font-bold font-display text-brand-navy">
                             {t.core.dentalVisionTitle}
                           </h3>
                         </div>
@@ -1148,7 +1148,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => handlePreFillMessage(t.core.dentalVisionTitle)}
-                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-md transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="mt-6 w-full bg-brand-navy hover:bg-brand-navy-light text-white font-semibold py-3 px-4 rounded-lg text-xs sm:text-sm transform hover:scale-[1.01] active:scale-[0.99] hover:shadow-sm transition-all duration-300 text-center group flex items-center justify-center gap-1.5 cursor-pointer font-sans"
                     >
                       <span>{t.core.dentalVisionCta}</span>
                       <ChevronRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
@@ -1165,14 +1165,14 @@ export default function App() {
       </section>
 
       {/* 6. ALL SERVICES (Catálogo Completo - Fondo blanco para rythym contrast, high elegancy) */}
-      <section className="py-24 px-4 md:px-8 bg-white border-y border-slate-100 relative reveal-init">
+      <section className="py-24 px-4 md:px-8 bg-white border-y border-slate-100/10 relative reveal-init">
         <div className="max-w-7xl mx-auto space-y-16">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
-            <span className="text-xs uppercase tracking-widest font-semibold text-brand-purple bg-brand-purple-light px-4 py-1.5 rounded-full inline-block">
+            <span className="text-xs uppercase tracking-widest font-semibold text-brand-purple bg-brand-purple-light px-4 py-1.5 rounded-lg inline-block">
               💼 {t.allServices.title}
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold font-sans text-brand-navy tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-extrabold font-display text-brand-navy tracking-tight">
               {t.allServices.title}
             </h2>
             <p className="text-sm md:text-base text-brand-slate leading-relaxed">
@@ -1183,8 +1183,8 @@ export default function App() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             
             {/* Column 1: Life & Financial Security */}
-            <div className="space-y-6 bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-[0_4px_20px_rgba(18,32,51,0.02)]">
-              <h3 className="text-lg font-bold text-brand-navy font-sans flex items-center gap-2.5 pb-4 border-b border-slate-100">
+            <div className="space-y-6 bg-white p-6 md:p-8 rounded-lg border border-slate-100 shadow-[0_4px_16px_rgba(13,27,46,0.03)]">
+              <h3 className="text-lg font-bold text-brand-navy font-display flex items-center gap-2.5 pb-4 border-b border-slate-100">
                 <span className="text-xl">💰</span>
                 {t.allServices.groupLife}
               </h3>
@@ -1200,8 +1200,8 @@ export default function App() {
             </div>
 
             {/* Column 2: Health & Wellness (Utiliza el verde suave como acento salud) */}
-            <div className="space-y-6 bg-brand-sage-light p-6 md:p-8 rounded-3xl border border-brand-sage/10">
-              <h3 className="text-lg font-bold text-brand-navy font-sans flex items-center gap-2.5 pb-4 border-b border-brand-sage/20">
+            <div className="space-y-6 bg-brand-sage-light p-6 md:p-8 rounded-lg border border-brand-sage/10">
+              <h3 className="text-lg font-bold text-brand-navy font-display flex items-center gap-2.5 pb-4 border-b border-brand-sage/20">
                 <span className="text-xl">🏥</span>
                 {t.allServices.groupHealth}
               </h3>
@@ -1241,7 +1241,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto space-y-16 relative z-10">
           
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-extrabold font-sans text-brand-navy tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-extrabold font-display text-brand-navy tracking-tight">
               {t.whyChoose.title}
             </h2>
             {/* A5 — HOOK PHRASE */}
@@ -1255,38 +1255,38 @@ export default function App() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
             {/* Box 1 */}
-            <div className="bg-white p-7 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
-              <div className="w-10 h-10 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-lg font-bold">
+            <div className="bg-white p-7 rounded-lg border border-slate-100 shadow-[0_4px_16px_rgba(13,27,46,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
+              <div className="w-10 h-10 bg-brand-purple-light rounded-lg flex items-center justify-center text-brand-purple text-lg font-bold">
                 🤝
               </div>
-              <h3 className="text-sm font-bold text-brand-navy">{t.whyChoose.serviceTitle}</h3>
+              <h3 className="text-sm font-bold text-brand-navy font-display">{t.whyChoose.serviceTitle}</h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">{t.whyChoose.serviceDesc}</p>
             </div>
 
             {/* Box 2 */}
-            <div className="bg-white p-7 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
-              <div className="w-10 h-10 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-lg font-bold">
+            <div className="bg-white p-7 rounded-lg border border-slate-100 shadow-[0_4px_16px_rgba(13,27,46,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
+              <div className="w-10 h-10 bg-brand-purple-light rounded-lg flex items-center justify-center text-brand-purple text-lg font-bold">
                 🌐
               </div>
-              <h3 className="text-sm font-bold text-brand-navy">{t.whyChoose.bilingualTitle}</h3>
+              <h3 className="text-sm font-bold text-brand-navy font-display">{t.whyChoose.bilingualTitle}</h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">{t.whyChoose.bilingualDesc}</p>
             </div>
 
             {/* Box 3 */}
-            <div className="bg-white p-7 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
-              <div className="w-10 h-10 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-lg font-bold">
+            <div className="bg-white p-7 rounded-lg border border-slate-100 shadow-[0_4px_16px_rgba(13,27,46,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
+              <div className="w-10 h-10 bg-brand-purple-light rounded-lg flex items-center justify-center text-brand-purple text-lg font-bold">
                 📊
               </div>
-              <h3 className="text-sm font-bold text-brand-navy">{t.whyChoose.guidanceTitle}</h3>
+              <h3 className="text-sm font-bold text-brand-navy font-display">{t.whyChoose.guidanceTitle}</h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">{t.whyChoose.guidanceDesc}</p>
             </div>
 
             {/* Box 4 */}
-            <div className="bg-white p-7 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
-              <div className="w-10 h-10 bg-brand-purple-light rounded-2xl flex items-center justify-center text-brand-purple text-lg font-bold">
+            <div className="bg-white p-7 rounded-lg border border-slate-100 shadow-[0_4px_16px_rgba(13,27,46,0.02)] hover:shadow-md hover:-translate-y-0.5 transition duration-300 space-y-4">
+              <div className="w-10 h-10 bg-brand-purple-light rounded-lg flex items-center justify-center text-brand-purple text-lg font-bold">
                 🛡️
               </div>
-              <h3 className="text-sm font-bold text-brand-navy">{t.whyChoose.coverageTitle}</h3>
+              <h3 className="text-sm font-bold text-brand-navy font-display">{t.whyChoose.coverageTitle}</h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">{t.whyChoose.coverageDesc}</p>
             </div>
 
@@ -1296,16 +1296,16 @@ export default function App() {
       </section>
 
       {/* 7.5. TARGET AUDIENCE & PREFERENCES (Who We Help & Why Contact Us) */}
-      <section className="py-20 px-4 md:px-8 bg-brand-gray-soft border-b border-slate-100 relative z-20 reveal-init">
+      <section className="py-20 px-4 md:px-8 bg-brand-gray-soft border-b border-slate-100/50 relative z-20 reveal-init">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
           
           {/* Who We Help block */}
-          <div className="space-y-6 bg-white p-8 md:p-10 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] transition-all duration-300 hover:shadow-lg">
+          <div className="space-y-6 bg-white p-8 md:p-10 rounded-lg border border-slate-100 shadow-[0_4px_16px_rgba(13,27,46,0.03)] transition-all duration-300 hover:shadow-lg">
             <div className="space-y-2">
-              <span className="text-xs uppercase tracking-widest font-extrabold text-[#00C2A8] bg-[#00C2A8]/10 px-3 py-1 rounded-full inline-block">
+              <span className="text-xs uppercase tracking-widest font-extrabold text-[#00c2a8] bg-[#00c2a8]/10 px-3.5 py-1.5 rounded-lg inline-block">
                 👥 {t.whoWeHelp.title}
               </span>
-              <h3 className="text-2xl md:text-3xl font-extrabold font-sans text-brand-navy tracking-tight">
+              <h3 className="text-2xl md:text-3xl font-extrabold font-display text-brand-navy tracking-tight">
                 {t.whoWeHelp.title}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
@@ -1316,7 +1316,7 @@ export default function App() {
             <ul className="space-y-4 pt-2">
               {t.whoWeHelp.items.map((item, index) => (
                 <li key={index} className="flex items-start gap-3.5 text-xs sm:text-sm text-brand-navy font-semibold">
-                  <span className="w-5.5 h-5.5 bg-[#00C2A8]/15 rounded-full flex items-center justify-center text-[#001D1A] text-[11px] font-bold mt-0.5 flex-shrink-0 border border-[#00C2A8]/20">
+                  <span className="w-5.5 h-5.5 bg-[#00c2a8]/15 rounded-full flex items-center justify-center text-brand-navy text-[11px] font-bold mt-0.5 flex-shrink-0 border border-[#00c2a8]/20">
                     ✓
                   </span>
                   <span className="leading-relaxed font-sans">{item}</span>
@@ -1326,12 +1326,12 @@ export default function App() {
           </div>
 
           {/* Why Clients Contact Us block */}
-          <div className="space-y-6 bg-white p-8 md:p-10 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(18,32,51,0.02)] transition-all duration-300 hover:shadow-lg">
+          <div className="space-y-6 bg-white p-8 md:p-10 rounded-lg border border-slate-100 shadow-[0_4px_16px_rgba(13,27,46,0.03)] transition-all duration-300 hover:shadow-lg">
             <div className="space-y-2">
-              <span className="text-xs uppercase tracking-widest font-extrabold text-white bg-brand-purple px-3 py-1 rounded-full inline-block">
+              <span className="text-xs uppercase tracking-widest font-extrabold text-white bg-brand-purple px-3.5 py-1.5 rounded-lg inline-block">
                 💡 {t.whyContactUs.title}
               </span>
-              <h3 className="text-2xl md:text-3xl font-extrabold font-sans text-brand-navy tracking-tight">
+              <h3 className="text-2xl md:text-3xl font-extrabold font-display text-brand-navy tracking-tight">
                 {t.whyContactUs.title}
               </h3>
               <p className="text-xs sm:text-sm text-brand-slate leading-relaxed">
@@ -1375,14 +1375,14 @@ export default function App() {
                     className="w-full h-full object-cover object-top transition duration-500 scale-100 group-hover:scale-105"
                   />
                   {/* Verified badge */}
-                  <span className="absolute top-4 left-1/2 -translate-x-1/2 bg-accent text-white font-extrabold text-[9px] tracking-widest uppercase px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-md whitespace-nowrap z-10">
+                  <span className="absolute top-4 left-1/2 -translate-x-1/2 bg-accent text-white font-extrabold text-[9px] tracking-widest uppercase px-3.5 py-1 rounded flex items-center gap-1.5 shadow-md whitespace-nowrap z-10">
                     <ShieldCheck className="w-3.5 h-3.5 text-white fill-accent" />
                     BILINGUAL
                   </span>
 
                   {/* Gentle gradient overlay for label legibility */}
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand-navy via-brand-navy/65 to-transparent pt-12 pb-5 text-center">
-                    <p className="text-sm font-bold tracking-wide font-sans text-accent uppercase">
+                    <p className="text-sm font-bold tracking-wide font-display text-accent uppercase">
                       Mary Rivera
                     </p>
                     <p className="text-[10px] text-white/90 tracking-wider font-semibold uppercase mt-0.5 px-4 truncate">
@@ -1395,11 +1395,11 @@ export default function App() {
 
             {/* Right Information */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              <span className="text-xs uppercase tracking-widest font-extrabold text-white bg-brand-purple px-4 py-1.5 rounded-full inline-block">
+              <span className="text-xs uppercase tracking-widest font-extrabold text-white bg-brand-purple px-4 py-1.5 rounded-lg inline-block">
                 🏆 {lang === "en" ? "Meet Your Advisor" : "Conoce a tu asesora"}
               </span>
               
-              <h2 className="text-3xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight leading-tight">
+              <h2 className="text-3xl md:text-4.5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
                 {t.about.titleLabel}
               </h2>
               
@@ -1410,7 +1410,7 @@ export default function App() {
               <div className="pt-4 animate-pop-in">
                 <a
                   href="tel:7273596196"
-                  className="bg-transparent border-2 border-accent text-accent hover:bg-accent hover:text-white font-black py-4 px-8 rounded-2xl text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center gap-2 shadow-sm hover:shadow-md shadow-accent/15 cursor-pointer"
+                  className="bg-transparent border border-accent text-accent hover:bg-accent hover:text-white font-semibold py-4 px-8 rounded-lg text-sm transition-all transform hover:scale-102 active:scale-95 duration-300 tracking-wider inline-flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer font-sans"
                 >
                   {t.about.cta}
                 </a>
@@ -1425,10 +1425,10 @@ export default function App() {
       <section id="who-we-are" className="py-24 px-4 md:px-8 bg-[#FAF8FC] border-t border-brand-purple/10">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-4 max-w-3xl mx-auto">
-            <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple/10 px-4 py-1.5 rounded-full inline-block">
+            <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple/10 px-4 py-1.5 rounded-lg inline-block">
               🤝 {lang === "en" ? "Our Foundation" : "Nuestros cimientos"}
             </span>
-            <h2 className="text-3xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight leading-tight">
+            <h2 className="text-3xl md:text-4.5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
               {t.whoWeAre.title}
             </h2>
             <p className="text-sm md:text-base text-brand-slate max-w-2xl mx-auto leading-relaxed">
@@ -1440,12 +1440,12 @@ export default function App() {
             {/* Top row: Mission and Vision */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Mission Card */}
-              <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
+              <div className="bg-white p-8 rounded-lg border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
                 <div className="space-y-4">
-                  <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
+                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent text-2xl shadow-sm border border-accent/20">
                     🎯
                   </div>
-                  <h3 className="text-xl font-bold font-sans text-brand-navy">
+                  <h3 className="text-xl font-bold font-display text-brand-navy">
                     {t.whoWeAre.missionTitle}
                   </h3>
                   <p className="text-sm text-brand-slate leading-relaxed">
@@ -1455,12 +1455,12 @@ export default function App() {
               </div>
 
               {/* Vision Card */}
-              <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
+              <div className="bg-white p-8 rounded-lg border border-brand-purple/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
                 <div className="space-y-4">
-                  <div className="w-12 h-12 bg-brand-purple/10 rounded-2xl flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/20">
+                  <div className="w-12 h-12 bg-brand-purple/10 rounded-lg flex items-center justify-center text-brand-purple text-2xl shadow-sm border border-brand-purple/20">
                     👁️
                   </div>
-                  <h3 className="text-xl font-bold font-sans text-brand-navy">
+                  <h3 className="text-xl font-bold font-display text-brand-navy">
                     {t.whoWeAre.visionTitle}
                   </h3>
                   <p className="text-sm text-brand-slate leading-relaxed">
@@ -1471,20 +1471,20 @@ export default function App() {
             </div>
 
             {/* Bottom row: Values Card with its 4 values in a single row on desktop */}
-            <div className="bg-white p-8 rounded-3xl border border-brand-purple/10 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div className="bg-white p-8 rounded-lg border border-brand-purple/10 shadow-sm hover:shadow-md transition-shadow duration-300">
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
+                  <div className="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center text-amber-500 text-2xl shadow-sm border border-amber-100">
                     💎
                   </div>
-                  <h3 className="text-xl font-bold font-sans text-brand-navy">
+                  <h3 className="text-xl font-bold font-display text-brand-navy">
                     {t.whoWeAre.valuesTitle}
                   </h3>
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {t.whoWeAre.values.map((val, idx) => (
-                    <div key={idx} className="space-y-2 p-5 bg-[#FAF8FC] rounded-2xl border border-brand-purple/5 flex flex-col justify-between h-full hover:border-brand-purple/20 transition-all duration-300">
+                    <div key={idx} className="space-y-2 p-5 bg-[#FAF8FC] rounded-lg border border-brand-purple/5 flex flex-col justify-between h-full hover:border-brand-purple/20 transition-all duration-300">
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 font-bold text-brand-navy text-sm">
                           <span className="w-2 h-2 rounded-full bg-accent flex-shrink-0" />
@@ -1512,27 +1512,27 @@ export default function App() {
       />
 
       {/* 9. IUL EXPLAINER (Redesigned: High Authority Deep Navy Blue Background #122033 to build supreme corporate trust) */}
-      <section id="iul-explainer" className="py-24 bg-brand-navy text-white px-4 md:px-8 relative overflow-hidden reveal-init">
+      <section id="iul-explainer" className="py-24 bg-[#FAF7FD] text-brand-navy px-4 md:px-8 relative overflow-hidden reveal-init">
         {/* Abstract Light Background Overlays */}
-        <div className="absolute top-0 right-10 w-96 h-96 bg-brand-purple/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-0 right-10 w-96 h-96 bg-brand-purple/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/15 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto space-y-16 relative z-10">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
-            <span className="text-xs uppercase tracking-widest font-bold text-accent bg-white/10 py-1.5 px-4 rounded-full inline-block border border-white/10">
+            <span className="text-xs uppercase tracking-widest font-bold text-brand-purple bg-brand-purple/10 py-1.5 px-4 rounded-lg inline-block border border-brand-purple/20">
               💡 {lang === "en" ? "Tax-Free Retirement Strategy" : "Estrategia de retiro libre de impuestos"}
             </span>
-            <h2 className="text-3.5xl md:text-4.5xl font-extrabold font-sans text-white tracking-tight leading-tight">
+            <h2 className="text-3.5xl md:text-4.5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
               {lang === "en" ? "Why IUL May Be a Smarter Retirement Strategy Than Traditional Options" : "Por qué el IUL puede ser una estrategia de retiro más inteligente"}
             </h2>
-            <p className="text-sm md:text-white/80 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm text-brand-slate max-w-2xl mx-auto leading-relaxed">
               {lang === "en" 
                 ? "Compare how IUL differs from fully taxable 401(k) plans and limited Roth IRA strategies." 
-                : "Compara cómo el IUL se diferencia de los planes 401(k) totalmente tributables y las estrategias limitadas de Roth IRA."}
+                 : "Compara cómo el IUL se diferencia de los planes 401(k) totalmente tributables y las estrategias limitadas de Roth IRA."}
             </p>
             {/* A6 — IUL DARK LINE */}
-            <p className="text-xs sm:text-sm md:text-base italic text-accent font-medium tracking-wider pt-1">
+            <p className="text-xs sm:text-sm md:text-base italic text-brand-purple font-semibold tracking-wider pt-1">
               " {lang === "en" 
                 ? "The market changes. Our promise to protect your assets doesn't." 
                 : "El mercado cambia. Nuestra promesa de proteger tus activos no." } "
@@ -1546,51 +1546,51 @@ export default function App() {
               alt="Index Universal Life insurance growth chart concept - IUL financial protection"
               referrerPolicy="no-referrer"
               loading="lazy"
-              className="w-full max-w-md mx-auto rounded-2xl shadow-2xl opacity-90 mb-8"
+              className="w-full max-w-md mx-auto rounded-lg shadow-xl border border-slate-100 opacity-95 mb-8"
             />
           </div>
 
           {/* Hybrid View: Desktop High-Contrast Comparison Matrix, Mobile Card fallback */}
-          <div className="hidden lg:block bg-white/5 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+          <div className="hidden lg:block bg-white border border-slate-200/80 rounded-lg overflow-hidden shadow-md">
             <table className="w-full text-left border-collapse font-sans">
               <thead>
-                <tr className="bg-white/10 border-b border-white/10 text-xs uppercase tracking-widest font-extrabold text-accent">
-                  <th className="p-6">{lang === "en" ? "Strategic Benchmark / Feature" : "Indicador / característica"}</th>
-                  <th className="p-6 text-rose-300">{t.iulExplainer.colSavingsTitle}</th>
-                  <th className="p-6 text-rose-300">{t.iulExplainer.col401kTitle}</th>
-                  <th className="p-6 text-accent bg-white/5">{t.iulExplainer.colIulTitle} 🏆</th>
+                <tr className="bg-slate-100 border-b border-slate-200 text-xs uppercase tracking-widest font-extrabold text-brand-navy">
+                  <th className="p-6 font-display">{lang === "en" ? "Strategic Benchmark / Feature" : "Indicador / característica"}</th>
+                  <th className="p-6 text-rose-600 font-display">{t.iulExplainer.colSavingsTitle}</th>
+                  <th className="p-6 text-rose-600 font-display">{t.iulExplainer.col401kTitle}</th>
+                  <th className="p-6 text-brand-purple bg-brand-purple/5 font-display">{t.iulExplainer.colIulTitle} 🏆</th>
                 </tr>
               </thead>
-              <tbody className="text-xs sm:text-sm divide-y divide-white/5 font-medium text-white/90">
-                <tr>
-                  <td className="p-6 font-bold">{lang === "en" ? "🛡️ Market Downside Protection" : "🛡️ Protección ante caídas del mercado"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "Guaranteed Principal (No growth)" : "Principal garantizado (sin crecimiento)"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "0% Safety (Subject to complete market drops)" : "0% seguro (sujeto a caídas severas)"}</td>
-                  <td className="p-6 font-extrabold text-accent bg-white/5">
+              <tbody className="text-xs sm:text-sm divide-y divide-slate-100 font-medium text-brand-navy">
+                <tr className="hover:bg-slate-50/50 transition-colors">
+                  <td className="p-6 font-bold text-brand-navy">{lang === "en" ? "🛡️ Market Downside Protection" : "🛡️ Protección ante caídas del mercado"}</td>
+                  <td className="p-6 text-brand-slate">{lang === "en" ? "Guaranteed Principal (No growth)" : "Principal garantizado (sin crecimiento)"}</td>
+                  <td className="p-6 text-brand-slate">{lang === "en" ? "0% Safety (Subject to complete market drops)" : "0% seguro (sujeto a caídas severas)"}</td>
+                  <td className="p-6 font-extrabold text-brand-purple bg-brand-purple/5">
                     {lang === "en" ? "100% Floor Protection (0% floor guarantee)" : "100% protegido (garantía de piso del 0%)"}
                   </td>
                 </tr>
-                <tr>
-                  <td className="p-6 font-bold">{lang === "en" ? "📈 Average Interest Rate Potential" : "📈 Potencial de tasa de interés promedio"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "Exceedingly Low (0.01% - 1.5% average)" : "Extremadamente bajo (0.01% - 1.5% promedio)"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "Highly Variable (Avg. 5% - 7% with volatility)" : "Variable (promedio 5% - 7% con alta volatilidad)"}</td>
-                  <td className="p-6 font-extrabold text-accent bg-white/5">
+                <tr className="hover:bg-slate-50/50 transition-colors">
+                  <td className="p-6 font-bold text-brand-navy">{lang === "en" ? "📈 Average Interest Rate Potential" : "📈 Potencial de tasa de interés promedio"}</td>
+                  <td className="p-6 text-brand-slate">{lang === "en" ? "Exceedingly Low (0.01% - 1.5% average)" : "Extremadamente bajo (0.01% - 1.5% promedio)"}</td>
+                  <td className="p-6 text-brand-slate">{lang === "en" ? "Highly Variable (Avg. 5% - 7% with volatility)" : "Variable (promedio 5% - 7% con alta volatilidad)"}</td>
+                  <td className="p-6 font-extrabold text-brand-purple bg-brand-purple/5">
                     {lang === "en" ? "High Compounding growth (Indexed up to 10% - 12% caps)" : "Alto interés compuesto (indexado hasta 10% - 12%)"}
                   </td>
                 </tr>
-                <tr>
-                  <td className="p-6 font-bold">{lang === "en" ? "💸 Withdrawal Tax Status" : "💸 Impuestos al retirar fondos"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "Fully Taxed annually on interest earned" : "Totalmente gravado anualmente sobre intereses"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "100% Taxable (Both principal and gains taxed)" : "100% gravable (se cobran impuestos al retirar)"}</td>
-                  <td className="p-6 font-extrabold text-accent bg-white/5">
+                <tr className="hover:bg-slate-50/50 transition-colors">
+                  <td className="p-6 font-bold text-brand-navy">{lang === "en" ? "💸 Withdrawal Tax Status" : "💸 Impuestos al retirar fondos"}</td>
+                  <td className="p-6 text-brand-slate">{lang === "en" ? "Fully Taxed annually on interest earned" : "Totalmente gravado anualmente sobre intereses"}</td>
+                  <td className="p-6 text-brand-slate">{lang === "en" ? "100% Taxable (Both principal and gains taxed)" : "100% gravable (se cobran impuestos al retirar)"}</td>
+                  <td className="p-6 font-extrabold text-brand-purple bg-brand-purple/5">
                     {lang === "en" ? "100% Tax-Free (Legal, structured withdrawal streams)" : "100% libre de impuestos (retiros e ingresos exentos)"}
                   </td>
                 </tr>
-                <tr>
-                  <td className="p-6 font-bold">{lang === "en" ? "🕊️ Instant Legacy Guard Shield" : "🕊️ Cobertura de fallecimiento de legado"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "None (Only what is accumulated is returned)" : "Ninguna (solo heredas lo acumulado)"}</td>
-                  <td className="p-6 text-white/70">{lang === "en" ? "None (Only what remains is left to heirs)" : "Ninguna (solo heredas el saldo restante)"}</td>
-                  <td className="p-6 font-extrabold text-accent bg-white/5">
+                <tr className="hover:bg-slate-50/50 transition-colors">
+                  <td className="p-6 font-bold text-brand-navy">{lang === "en" ? "🕊️ Instant Legacy Guard Shield" : "🕊️ Cobertura de fallecimiento de legado"}</td>
+                  <td className="p-6 text-brand-slate">{lang === "en" ? "None (Only what is accumulated is returned)" : "Ninguna (solo heredas lo acumulado)"}</td>
+                  <td className="p-6 text-brand-slate">{lang === "en" ? "None (Only what remains is left to heirs)" : "Ninguna (solo heredas el saldo restante)"}</td>
+                  <td className="p-6 font-extrabold text-brand-purple bg-brand-purple/5">
                     {lang === "en" ? "Severe Tax-Free Benefit instantly sent to family" : "Póliza millonaria exenta de impuestos para la familia"}
                   </td>
                 </tr>
@@ -1601,47 +1601,47 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:hidden">
             
             {/* Box 1 (Traditional Savings) */}
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6">
+            <div className="p-8 rounded-lg bg-white border border-slate-100 shadow-sm flex flex-col justify-between space-y-6">
               <div className="space-y-4">
-                <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-xl text-rose-400">
+                <div className="w-10 h-10 rounded-lg bg-rose-50 flex items-center justify-center text-xl text-rose-500">
                   ❌
                 </div>
-                <h3 className="text-base font-bold text-white font-sans">{t.iulExplainer.colSavingsTitle}</h3>
-                <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">{t.iulExplainer.colSavingsDesc}</p>
+                <h3 className="text-base font-bold text-brand-navy font-display">{t.iulExplainer.colSavingsTitle}</h3>
+                <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-normal">{t.iulExplainer.colSavingsDesc}</p>
               </div>
-              <div className="text-[10px] text-rose-300 font-bold tracking-wider uppercase bg-rose-950/20 py-1.5 text-center rounded-xl border border-rose-900/10">
+              <div className="text-[10px] text-rose-600 font-bold tracking-wider uppercase bg-rose-50 py-1.5 text-center rounded-lg border border-rose-100">
                 Low Return / Taxed
               </div>
             </div>
 
             {/* Box 2 (401K Account) */}
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 flex flex-col justify-between space-y-6">
+            <div className="p-8 rounded-lg bg-white border border-slate-100 shadow-sm flex flex-col justify-between space-y-6">
               <div className="space-y-4">
-                <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-xl text-rose-400">
+                <div className="w-10 h-10 rounded-lg bg-rose-50 flex items-center justify-center text-xl text-rose-500">
                   ❌
                 </div>
-                <h3 className="text-base font-bold text-white font-sans">{t.iulExplainer.col401kTitle}</h3>
-                <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">{t.iulExplainer.col401kDesc}</p>
+                <h3 className="text-base font-bold text-brand-navy font-display">{t.iulExplainer.col401kTitle}</h3>
+                <p className="text-xs sm:text-sm text-brand-slate leading-relaxed font-normal">{t.iulExplainer.col401kDesc}</p>
               </div>
-              <div className="text-[10px] text-rose-300 font-bold tracking-wider uppercase bg-rose-950/20 py-1.5 text-center rounded-xl border border-rose-900/10">
+              <div className="text-[10px] text-rose-600 font-bold tracking-wider uppercase bg-rose-50 py-1.5 text-center rounded-lg border border-rose-100">
                 Market Risk / Fees
               </div>
             </div>
 
             {/* Box 3 (INDEX UNIVERSAL LIFE - Accented with luxury template accent outline and badge choice) */}
-            <div className="p-8 rounded-3xl bg-white/10 border-2 border-accent flex flex-col justify-between space-y-6 relative">
-              <div className="absolute top-2 right-2 w-12 h-12 bg-accent/10 rounded-full blur-xl pointer-events-none"></div>
+            <div className="p-8 rounded-lg bg-brand-purple/5 border-2 border-brand-purple flex flex-col justify-between space-y-6 relative shadow-md">
+              <div className="absolute top-2 right-2 w-12 h-12 bg-brand-purple/10 rounded-full blur-xl pointer-events-none"></div>
 
               <div className="space-y-4">
-                <div className="w-10 h-10 rounded-2xl bg-accent text-brand-navy flex items-center justify-center text-sm font-black shadow-md shadow-accent/20 select-none">
+                <div className="w-10 h-10 rounded-lg bg-brand-purple text-white flex items-center justify-center text-sm font-black shadow-md shadow-brand-purple/10 select-none">
                   ✓
                 </div>
-                <h3 className="text-base font-bold text-accent font-sans flex items-center gap-1.5">
+                <h3 className="text-base font-bold text-brand-purple font-display flex items-center gap-1.5">
                   {t.iulExplainer.colIulTitle}
                 </h3>
-                <p className="text-xs sm:text-sm text-white font-normal leading-relaxed">{t.iulExplainer.colIulDesc}</p>
+                <p className="text-xs sm:text-sm text-brand-navy font-normal leading-relaxed">{t.iulExplainer.colIulDesc}</p>
               </div>
-              <div className="text-[11px] text-brand-navy font-bold tracking-widest uppercase bg-accent py-2 text-center rounded-xl shadow-sm">
+              <div className="text-[11px] text-white font-bold tracking-widest uppercase bg-brand-purple py-2 text-center rounded-lg shadow-sm">
                 🏆 Winner Choice
               </div>
             </div>
@@ -1656,7 +1656,7 @@ export default function App() {
                   setCurrentView("why-iul");
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="bg-accent hover:bg-[#e0b42c] text-brand-navy font-extrabold py-4 px-8 rounded-2xl text-xs sm:text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl shadow-accent/20 cursor-pointer"
+                className="bg-accent hover:bg-accent-hover text-brand-navy font-semibold py-4 px-8 rounded-lg text-xs sm:text-sm transition-all transform hover:scale-[1.01] active:scale-[0.99] duration-300 tracking-wider inline-flex items-center justify-center gap-2 shadow-sm hover:shadow-md cursor-pointer font-sans"
               >
                 ⭐ {lang === "en" ? "See If You Qualify" : "Ver si calificas"}
               </button>
@@ -1667,14 +1667,14 @@ export default function App() {
                   setCurrentView("why-iul");
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-extrabold py-4 px-8 rounded-2xl text-xs sm:text-sm transition-all transform hover:scale-105 active:scale-95 duration-300 tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer"
+                className="bg-white hover:bg-slate-50 text-brand-navy border border-slate-200 font-semibold py-4 px-8 rounded-lg text-xs sm:text-sm transition-all transform hover:scale-[1.01] active:scale-[0.99] duration-300 tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer font-sans shadow-sm"
               >
                 <span>{lang === "en" ? "Explore Why IUL Works →" : "Descubre cómo funciona el IUL →"}</span>
               </button>
             </div>
 
             {/* Supporting line */}
-            <p className="text-[11px] text-white/60 leading-relaxed max-w-md pt-2">
+            <p className="text-[11px] text-brand-slate leading-relaxed max-w-md pt-2">
               {lang === "en"
                 ? "Guaranteed growth features may vary by policy. Personalized guidance helps determine fit."
                 : "Las características de crecimiento garantizado pueden variar según la póliza. La asesoría personalizada ayuda a determinar la idoneidad."}
@@ -1701,10 +1701,10 @@ export default function App() {
              {/* Column 1: FAQ interactive accordions next to the Form */}
             <div className="lg:col-span-6 space-y-6 text-left flex flex-col justify-start">
               <div>
-                <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple-light px-4 py-1.5 rounded-full inline-block mb-3.5">
+                <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple-light px-4 py-1.5 rounded-lg inline-block mb-3.5">
                   ℹ️ {lang === "en" ? "Common Questions" : "Preguntas frecuentes"}
                 </span>
-                <h2 className="text-3xl md:text-4.5xl font-extrabold font-sans text-brand-navy tracking-tight leading-tight">
+                <h2 className="text-3xl md:text-4.5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
                   {t.faq.title}
                 </h2>
                 <p className="text-xs sm:text-sm text-brand-slate mt-2.5 leading-relaxed">
@@ -1714,13 +1714,13 @@ export default function App() {
                 </p>
               </div>
 
-              <div className="space-y-4 max-h-[550px] overflow-y-auto pr-2 custom-faq-scrollbar">
+              <div className="space-y-4 max-h-[550px] overflow-y-auto pr-2 custom-faq-scrollbar font-sans">
                 {t.faq.items.map((item, index) => {
                   const isOpen = openFaqIndex === index;
                   return (
                     <div 
                       key={index} 
-                      className={`border transition-all duration-300 rounded-2xl overflow-hidden backdrop-blur-md relative ${
+                      className={`border transition-all duration-300 rounded-lg overflow-hidden backdrop-blur-md relative ${
                         isOpen 
                           ? "border-brand-purple bg-white shadow-[0_12px_30px_rgba(140,73,177,0.08)] scale-[1.01]" 
                           : "border-slate-200 bg-white/80 hover:border-brand-purple/40 hover:bg-white hover:shadow-[0_8px_20px_rgba(140,73,177,0.03)] hover:-translate-y-0.5"
@@ -1736,7 +1736,7 @@ export default function App() {
                       >
                         <div className="flex gap-3.5 items-start">
                           {/* Premium rounded badge */}
-                          <span className={`w-7 h-7 rounded-lg text-[10px] font-black flex items-center justify-center flex-shrink-0 mt-0.5 transition-all duration-300 ${
+                          <span className={`w-7 h-7 rounded text-[10px] font-black flex items-center justify-center flex-shrink-0 mt-0.5 transition-all duration-300 ${
                             isOpen 
                               ? "bg-brand-purple text-white shadow-sm" 
                               : "bg-brand-purple/10 text-brand-purple"
@@ -1775,13 +1775,13 @@ export default function App() {
               </div>
 
               {/* Premium Interactive Calendar Card */}
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-brand-navy to-[#1a1235] text-white p-6 shadow-xl border border-white/10 group mt-4">
+              <div className="relative rounded-lg overflow-hidden bg-gradient-to-br from-brand-navy to-[#1a1235] text-white p-6 shadow-xl border border-white/10 group mt-4">
                 {/* Background absolute subtle glow elements */}
                 <div className="absolute top-0 right-0 w-48 h-48 bg-accent/10 rounded-full blur-2xl -mr-12 -mt-12 pointer-events-none group-hover:bg-accent/15 transition-all duration-700"></div>
                 <div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-purple/20 rounded-full blur-2xl -ml-12 -mb-12 pointer-events-none group-hover:bg-brand-purple/25 transition-all duration-700"></div>
 
                 <div className="relative z-10 space-y-4 text-left">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/15 border border-accent/20 text-accent text-[10px] font-extrabold uppercase tracking-widest">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-accent/15 border border-accent/20 text-accent text-[10px] font-extrabold uppercase tracking-widest">
                     <Calendar className="w-3 h-3 text-accent" />
                     <span>{lang === "en" ? "Interactive Calendar" : "Calendario interactivo"}</span>
                   </div>
@@ -1790,26 +1790,26 @@ export default function App() {
                     <h3 className="text-base sm:text-lg font-extrabold font-display leading-snug tracking-tight text-white">
                       {lang === "en" ? "Ready to review your options?" : "¿Lista/o para revisar tus opciones?"}
                     </h3>
-                    <p className="text-xs text-white/80 leading-relaxed font-normal">
+                    <p className="text-xs text-white/80 leading-relaxed font-normal font-sans">
                       {lang === "en"
                         ? "Every family has different needs. That's why at Eversafe Financial we carefully review your situation and help you find options tailored to your health, budget, and protection goals."
                         : "Cada familia tiene necesidades diferentes. Por eso, en Eversafe Financial revisamos tu situación con cuidado y te ayudamos a encontrar opciones que se adapten a tu salud, tu presupuesto y tus metas de protección."}
                     </p>
                   </div>
 
-                  <div className="pt-1">
+                  <div className="pt-1 font-sans">
                     <a
                       href="https://api.leadconnectorhq.com/widget/booking/dPjD3K2ESbGLgoRuoUpP"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-light text-brand-navy font-black py-3 px-5 rounded-xl text-xs sm:text-sm shadow-lg shadow-accent/10 hover:shadow-accent/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-center cursor-pointer font-sans"
+                      className="w-full inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-brand-navy font-semibold py-3 px-5 rounded-lg text-xs sm:text-sm shadow-sm hover:shadow-md transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 text-center cursor-pointer"
                     >
                       <Calendar className="w-4 h-4 text-brand-navy" />
                       <span>{lang === "en" ? "Book a free consultation" : "Agenda una consulta gratuita"}</span>
                     </a>
                   </div>
 
-                  <p className="text-[10px] text-white/60 text-center leading-relaxed font-semibold">
+                  <p className="text-[10px] text-white/60 text-center leading-relaxed font-semibold font-sans">
                     {lang === "en"
                       ? "No pressure, no obligation. We are here to help you understand your options and choose with greater confidence."
                       : "Sin presión y sin compromiso. Estamos aquí para ayudarte a entender tus opciones y elegir con mayor confianza."}

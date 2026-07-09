@@ -80,7 +80,7 @@ export default function QuizCard({ t }: QuizCardProps) {
   const progressPercent = step === 4 ? 100 : ((step - 1) / 3) * 100;
 
   return (
-    <div className="w-full max-w-md bg-white rounded-3xl p-6 md:p-8 shadow-[0_12px_40px_rgba(18,32,51,0.06)] border border-slate-100 relative overflow-hidden transition-all duration-300">
+    <div className="w-full max-w-md bg-white rounded-lg p-6 md:p-8 shadow-[0_4px_16px_rgba(13,27,46,0.04)] border border-slate-100 relative overflow-hidden transition-all duration-300">
       {/* Absolute brand purple glow accent */}
       <div className="absolute -top-10 -right-10 w-24 h-24 bg-brand-purple/5 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -90,7 +90,7 @@ export default function QuizCard({ t }: QuizCardProps) {
           className="h-full rounded-full transition-all duration-300"
           style={{
             width: `${progressPercent}%`,
-            backgroundColor: step === 1 ? '#ff863b' : step === 2 ? '#ffbc3b' : step === 3 ? '#3be8ff' : '#00C2A8'
+            backgroundColor: step === 1 ? '#8c49b1' : step === 2 ? '#b373d6' : step === 3 ? '#26d2bd' : '#00c2a8'
           }}
         ></div>
       </div>
@@ -140,9 +140,9 @@ export default function QuizCard({ t }: QuizCardProps) {
                         setAnswers((prev) => ({ ...prev, coverageType: opt.value }));
                         setTimeout(handleNext, 300);
                       }}
-                      className={`w-full text-left py-3 px-4 rounded-xl border transition-all duration-200 text-xs sm:text-sm font-semibold flex items-center gap-2.5 ${
+                      className={`w-full text-left py-3 px-4 rounded-lg border transition-all duration-200 text-xs sm:text-sm font-semibold flex items-center gap-2.5 ${
                         isSelected
-                          ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-lg shadow-accent/10 scale-[1.01]"
+                          ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-md scale-[1.01]"
                           : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
                       }`}
                     >
@@ -172,9 +172,9 @@ export default function QuizCard({ t }: QuizCardProps) {
                         setAnswers((prev) => ({ ...prev, currentSituation: opt.value }));
                         setTimeout(handleNext, 300);
                       }}
-                      className={`w-full text-left py-3 px-4 rounded-xl border transition-all duration-200 text-xs sm:text-sm font-semibold flex items-center gap-2.5 ${
+                      className={`w-full text-left py-3 px-4 rounded-lg border transition-all duration-200 text-xs sm:text-sm font-semibold flex items-center gap-2.5 ${
                         isSelected
-                          ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-lg shadow-accent/10 scale-[1.01]"
+                          ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-md scale-[1.01]"
                           : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
                       }`}
                     >
@@ -204,9 +204,9 @@ export default function QuizCard({ t }: QuizCardProps) {
                         setAnswers((prev) => ({ ...prev, coverageFor: opt.value }));
                         setTimeout(handleNext, 300);
                       }}
-                      className={`w-full text-left py-3 px-4 rounded-xl border transition-all duration-200 text-xs sm:text-sm font-semibold flex items-center gap-2.5 ${
+                      className={`w-full text-left py-3 px-4 rounded-lg border transition-all duration-200 text-xs sm:text-sm font-semibold flex items-center gap-2.5 ${
                         isSelected
-                          ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-lg shadow-accent/10 scale-[1.01]"
+                          ? "bg-brand-purple text-white border-accent ring-2 ring-accent/40 shadow-md scale-[1.01]"
                           : "bg-[#F3F3F4] border-transparent hover:bg-brand-purple-light hover:text-brand-purple text-brand-slate"
                       }`}
                     >
@@ -223,7 +223,7 @@ export default function QuizCard({ t }: QuizCardProps) {
           {step === 4 && (
             <div className="space-y-6 animate-fade-in-up">
               <div>
-                <div className="p-5 rounded-2xl bg-accent-light/10 border border-accent/25 mb-4 text-center sm:text-left">
+                <div className="p-5 rounded-lg bg-accent-light/10 border border-accent/25 mb-4 text-center sm:text-left animate-pulse-slow">
                   <h4 className="text-sm sm:text-base font-bold text-accent flex items-center justify-center sm:justify-start gap-1.5 uppercase tracking-wide">
                     🌟 {t.quiz.resultTitle}
                   </h4>
@@ -241,7 +241,7 @@ export default function QuizCard({ t }: QuizCardProps) {
                         element.scrollIntoView({ behavior: "smooth" });
                       }
                     }}
-                    className="w-full bg-accent hover:bg-accent-dark text-white font-bold py-4 px-6 rounded-2xl text-xs sm:text-sm uppercase tracking-wide shadow-lg shadow-accent/10 hover:scale-102 active:scale-98 transition-all duration-300 cursor-pointer block text-center"
+                    className="w-full bg-accent hover:bg-accent-dark text-white font-semibold py-4 px-6 rounded-lg text-xs sm:text-sm uppercase tracking-wide shadow-md hover:scale-102 active:scale-98 transition-all duration-300 cursor-pointer block text-center"
                   >
                     🚀 {t.quiz.resultCta}
                   </button>

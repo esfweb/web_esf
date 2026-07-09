@@ -66,11 +66,11 @@ export default function PartnerLogosCarousel({ t }: PartnerLogosCarouselProps) {
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-10">
         {/* Title and Badge */}
-        <div className="text-center space-y-3.5 max-w-3xl mx-auto">
-          <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple/10 px-4 py-1.5 rounded-full inline-block">
+        <div className="text-center space-y-3.5 max-w-3xl mx-auto font-sans">
+          <span className="text-xs uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple/10 px-4 py-1.5 rounded-lg inline-block">
             🤝 {t.partners.label}
           </span>
-          <h2 className="text-2xl md:text-3xl font-extrabold font-sans text-brand-navy tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-extrabold font-display text-brand-navy tracking-tight">
             {t.partners.title}
           </h2>
         </div>
