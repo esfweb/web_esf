@@ -503,7 +503,7 @@ export default function App() {
   const [floatOpen, setFloatOpen] = useState<boolean>(false);
 
   return (
-    <div className="min-h-screen bg-white text-brand-navy selection:bg-brand-purple-light selection:text-brand-purple font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-white text-brand-navy selection:bg-brand-purple-light selection:text-brand-purple font-sans overflow-x-clip">
       
       {/* 1. TOP BAR (Sleek deep navy background with clean tracking text) */}
       <div className="w-full bg-brand-navy text-white text-xs py-2.5 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-2 z-55 relative border-b border-white/5 font-sans">
@@ -578,14 +578,12 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
           {/* Brand Logo */}
           <a href="#home" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-md border border-slate-100/80 transition duration-300 group-hover:scale-105 overflow-hidden">
-              <img
-                src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781556920/Logo1x1_Prinicpal_rvh4wz.png"
-                alt="Eversafe Financial Logo"
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <img
+              src="https://res.cloudinary.com/drghl4bjl/image/upload/f_auto,q_auto/v1783574808/eversafe-financial-isotype-full-color_gjverm.png"
+              alt="Eversafe Financial Logo"
+              referrerPolicy="no-referrer"
+              className="w-10 h-10 object-contain transition duration-300 group-hover:scale-105"
+            />
             <div>
               <span className="text-lg md:text-xl font-bold font-sans tracking-tight text-brand-navy flex items-center gap-1">
                 Eversafe <span className="text-brand-purple">Financial</span>
@@ -1853,14 +1851,12 @@ export default function App() {
           {/* Column 1: Descriptor */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center overflow-hidden shadow-md">
-                <img
-                  src="https://res.cloudinary.com/drghl4bjl/image/upload/q_auto/f_auto/v1781556920/Logo1x1_Prinicpal_rvh4wz.png"
-                  alt="Eversafe Financial Logo"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <img
+                src="https://res.cloudinary.com/drghl4bjl/image/upload/f_auto,q_auto/v1783574808/eversafe-financial-isotype-full-color_gjverm.png"
+                alt="Eversafe Financial Logo"
+                referrerPolicy="no-referrer"
+                className="w-9 h-9 object-contain"
+              />
               <span className="text-base font-extrabold text-white tracking-wide">
                 Eversafe <span className="text-brand-purple">Financial</span>
               </span>
