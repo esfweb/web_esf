@@ -1687,14 +1687,48 @@ export default function App() {
       </section>
 
       {/* 9.5 SCHEDULE CONSULTATION MINI-SECTION (Horizontal layout, premium styling, before FAQs) */}
-      <section id="schedule-consultation" className="py-16 bg-gradient-to-br from-[#F5EFFD] to-[#FCFAFF] text-brand-navy px-4 md:px-8 relative overflow-hidden border-b border-brand-purple/10">
+      <section id="schedule-consultation" className="py-20 bg-gradient-to-br from-[#F5EFFD] to-[#FCFAFF] text-brand-navy px-4 md:px-8 relative overflow-hidden border-b border-brand-purple/10">
         {/* Glow Effects */}
         <div className="absolute top-0 right-1/4 w-80 h-80 bg-brand-purple/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
+        {/* Beautiful Abstract Glassmorphic/3D Wavy Lines Background */}
+        <div className="absolute inset-y-0 right-0 w-full md:w-2/3 pointer-events-none z-0 overflow-hidden">
+          <svg viewBox="0 0 1000 600" className="absolute right-0 top-1/2 -translate-y-1/2 h-[120%] w-[120%] min-w-[800px] opacity-85">
+            {/* Big smooth wave arc */}
+            <path d="M300,600 C450,450 650,480 850,250 C950,110 1000,0 1000,0 L1000,600 Z" 
+                  fill="url(#bgWaveGrad1)" />
+                  
+            {/* Secondary overlapping soft wave */}
+            <path d="M400,600 C520,490 680,510 820,320 C900,210 980,100 1000,50 L1000,600 Z" 
+                  fill="url(#bgWaveGrad2)" />
+
+            {/* A thin highlight curve */}
+            <path d="M250,600 C420,430 630,460 840,210 C920,110 970,30 970,30" 
+                  fill="none" 
+                  stroke="rgba(138, 58, 255, 0.08)" 
+                  strokeWidth="6" 
+                  strokeLinecap="round" />
+
+            <defs>
+              <linearGradient id="bgWaveGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#FCFBFF" stopOpacity="0" />
+                <stop offset="50%" stopColor="#F1E7FC" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#E6D3FA" stopOpacity="0.8" />
+              </linearGradient>
+              
+              <linearGradient id="bgWaveGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#FCFBFF" stopOpacity="0" />
+                <stop offset="40%" stopColor="#F3EAFD" stopOpacity="0.3" />
+                <stop offset="100%" stopColor="#ECE0FC" stopOpacity="0.6" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           {/* Text Container */}
-          <div className="flex-1 space-y-4 text-center md:text-left">
+          <div className="flex-1 space-y-4 text-center lg:text-left">
             <span className="text-[10px] uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple/10 border border-brand-purple/20 px-3 py-1 rounded-md inline-flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5 text-brand-purple" />
               <span>{lang === "en" ? "FREE CONSULTATION" : "CONSULTA GRATUITA"}</span>
@@ -1709,20 +1743,87 @@ export default function App() {
             </p>
           </div>
 
-          {/* Button Container */}
-          <div className="flex-shrink-0 w-full md:w-auto text-center font-sans">
-            <a
-              href="https://api.leadconnectorhq.com/widget/booking/dPjD3K2ESbGLgoRuoUpP"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-brand-navy font-bold py-4 px-8 rounded-lg text-sm shadow-md transform hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer"
-            >
-              <Calendar className="w-4 h-4 text-brand-navy" />
-              <span>{lang === "en" ? "Schedule a free consultation" : "Agenda una consulta gratuita"}</span>
-            </a>
-            <p className="text-[10px] text-brand-slate/60 mt-3 font-semibold font-sans">
-              {lang === "en" ? "★ No obligation · 100% confidential" : "★ Sin compromiso · 100% confidencial"}
-            </p>
+          {/* Right Side: Button & 3D Shield Checkmark side-by-side */}
+          <div className="flex flex-col sm:flex-row items-center gap-8 lg:gap-12 z-10 w-full lg:w-auto justify-center lg:justify-end">
+            {/* Button Container */}
+            <div className="flex-shrink-0 w-full sm:w-auto text-center font-sans">
+              <a
+                href="https://api.leadconnectorhq.com/widget/booking/dPjD3K2ESbGLgoRuoUpP"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-brand-navy font-bold py-4 px-8 rounded-lg text-sm shadow-md transform hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer"
+              >
+                <Calendar className="w-4 h-4 text-brand-navy" />
+                <span>{lang === "en" ? "Schedule a free consultation" : "Agenda una consulta gratuita"}</span>
+              </a>
+              <p className="text-[10px] text-brand-slate/60 mt-3 font-semibold font-sans">
+                {lang === "en" ? "★ No obligation · 100% confidential" : "★ Sin compromiso · 100% confidencial"}
+              </p>
+            </div>
+
+            {/* 3D Checkmark Shield Icon */}
+            <div className="flex-shrink-0 relative">
+              <svg viewBox="0 0 200 220" className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 drop-shadow-[0_20px_40px_rgba(138,58,255,0.18)] filter transform hover:scale-105 transition-transform duration-500">
+                {/* Subtle back glow */}
+                <circle cx="100" cy="110" r="70" fill="url(#shieldGlow)" opacity="0.6" />
+                
+                {/* Outer Shield Border (3D Bevel look) */}
+                <path d="M100 20 L165 50 C165 140 100 190 100 190 C100 190 35 140 35 50 Z" 
+                      fill="url(#shieldOuterGrad)" 
+                      stroke="rgba(255, 255, 255, 0.4)" 
+                      strokeWidth="2" />
+                      
+                {/* Inner Shield (inset / floating glassmorphic look) */}
+                <path d="M100 32 L150 55 C150 128 100 172 100 172 C100 172 50 128 50 55 Z" 
+                      fill="url(#shieldInnerGrad)" 
+                      stroke="rgba(255, 255, 255, 0.7)" 
+                      strokeWidth="1.5" />
+                
+                {/* Highlight / Reflection line for 3D glass look */}
+                <path d="M100 35 L145 56" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.3" />
+
+                {/* 3D Checkmark inside with drop-shadow */}
+                <path d="M78 102 L94 118 L126 84" 
+                      stroke="url(#checkGrad)" 
+                      strokeWidth="12" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      fill="none" 
+                      filter="url(#checkShadow)" />
+                      
+                <defs>
+                  {/* Glow */}
+                  <radialGradient id="shieldGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="#C084FC" />
+                    <stop offset="100%" stopColor="#C084FC" stopOpacity="0" />
+                  </radialGradient>
+                  
+                  {/* Outer Shield Gradient */}
+                  <linearGradient id="shieldOuterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#F5EDFF" />
+                    <stop offset="30%" stopColor="#E9D5FF" />
+                    <stop offset="100%" stopColor="#D8B4FE" />
+                  </linearGradient>
+                  
+                  {/* Inner Shield Gradient */}
+                  <linearGradient id="shieldInnerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.85" />
+                    <stop offset="100%" stopColor="#F3E8FF" stopOpacity="0.65" />
+                  </linearGradient>
+                  
+                  {/* Checkmark Gradient */}
+                  <linearGradient id="checkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#A855F7" />
+                    <stop offset="100%" stopColor="#7E22CE" />
+                  </linearGradient>
+                  
+                  {/* Filter for checkmark drop shadow */}
+                  <filter id="checkShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="1" dy="3" stdDeviation="2" floodColor="#6B21A8" floodOpacity="0.25" />
+                  </filter>
+                </defs>
+              </svg>
+            </div>
           </div>
         </div>
       </section>
