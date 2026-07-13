@@ -48,17 +48,17 @@ interface Props {
 
 export function TestimonialsMiniSection({ lang, onQuoteClick }: Props) {
   return (
-    <section className="py-24 px-4 md:px-8 bg-brand-navy text-white relative reveal-init border-y border-white/5">
+    <section className="py-24 px-4 md:px-8 bg-gradient-to-br from-[#FAF8FC] to-[#F3EAFF] text-brand-navy relative reveal-init border-y border-brand-purple/10">
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Header */}
         <div className="text-center space-y-4 max-w-2xl mx-auto">
-          <span className="text-[11px] uppercase tracking-widest font-extrabold text-accent bg-accent/10 px-3.5 py-1.5 rounded-full inline-flex border border-accent/20">
+          <span className="text-[11px] uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple/10 px-3.5 py-1.5 rounded-full inline-flex border border-brand-purple/20">
             {lang === "en" ? "REAL CLIENT REVIEWS" : "TESTIMONIOS REALES"}
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold font-display text-white tracking-tight leading-tight">
+          <h2 className="text-3xl md:text-4xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
             {lang === "en" ? "What Clients Are Saying" : "Lo Que Dicen Nuestros Clientes"}
           </h2>
-          <p className="text-sm md:text-base text-white/80 leading-relaxed">
+          <p className="text-sm md:text-base text-brand-slate leading-relaxed">
             {lang === "en" 
               ? "Real words from people who trusted Eversafe Financial for guidance, clarity, and peace of mind." 
               : "Palabras reales de personas que confiaron en Eversafe Financial para recibir guía, claridad y tranquilidad."}
@@ -70,10 +70,10 @@ export function TestimonialsMiniSection({ lang, onQuoteClick }: Props) {
           {testimonials.map((test, index) => (
             <div 
               key={index} 
-              className="bg-white/5 rounded-lg p-8 shadow-sm hover:shadow-xl border border-white/10 hover:border-accent/30 transition-all duration-300 hover:-translate-y-1 relative flex flex-col h-full"
+              className="bg-white rounded-xl p-8 shadow-sm hover:shadow-xl border border-brand-purple/10 hover:border-brand-purple/30 transition-all duration-300 hover:-translate-y-1 relative flex flex-col h-full"
             >
               {/* Quote Icon watermark */}
-              <div className="absolute top-6 right-8 text-white/[0.03]">
+              <div className="absolute top-6 right-8 text-brand-purple/[0.04]">
                 <MessageSquareQuote className="w-16 h-16" />
               </div>
               
@@ -83,10 +83,10 @@ export function TestimonialsMiniSection({ lang, onQuoteClick }: Props) {
                   alt={test.alt}
                   loading="lazy"
                   referrerPolicy="no-referrer"
-                  className="w-14 h-14 rounded-lg object-cover shadow-sm ring-2 ring-brand-purple/20 font-sans text-xs text-white/50"
+                  className="w-14 h-14 rounded-lg object-cover shadow-sm ring-2 ring-brand-purple/10 font-sans text-xs text-brand-slate"
                 />
                 <div>
-                  <h3 className="font-bold text-white font-sans tracking-tight leading-tight">
+                  <h3 className="font-bold text-brand-navy font-sans tracking-tight leading-tight">
                     {test.name}
                   </h3>
                   <div className="flex items-center gap-1.5 mt-1">
@@ -99,14 +99,14 @@ export function TestimonialsMiniSection({ lang, onQuoteClick }: Props) {
               </div>
 
               <div className="flex-1 relative z-10">
-                <p className="text-white/90 text-sm sm:text-base leading-relaxed italic font-medium">
+                <p className="text-brand-slate text-sm sm:text-base leading-relaxed italic font-medium">
                   "{test.quote}"
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/5 flex justify-between items-center relative z-10">
-                <span className="text-xs text-white/40 font-medium">{test.date}</span>
-                <span className="text-[10px] text-white/60 bg-white/5 px-2.5 py-1 rounded border border-white/10 font-medium">
+              <div className="mt-6 pt-4 border-t border-brand-purple/5 flex justify-between items-center relative z-10">
+                <span className="text-xs text-brand-slate/50 font-medium">{test.date}</span>
+                <span className="text-[10px] text-brand-purple bg-brand-purple/5 px-2.5 py-1 rounded border border-brand-purple/10 font-medium">
                   {test.lang === "en" 
                     ? (lang === "en" ? "Original review" : "Reseña en inglés")
                     : (lang === "en" ? "Original in Spanish" : "Reseña original")}
@@ -118,14 +118,14 @@ export function TestimonialsMiniSection({ lang, onQuoteClick }: Props) {
 
         {/* Footer info */}
         <div className="text-center space-y-5 pt-8">
-          <p className="text-sm font-medium text-white/70">
+          <p className="text-sm font-medium text-brand-slate">
             {lang === "en" 
               ? "More families trust Eversafe Financial for personalized, bilingual guidance." 
               : "Cada vez más familias confían en Eversafe Financial para recibir orientación personalizada y bilingüe."}
           </p>
           <button
             onClick={onQuoteClick}
-            className="bg-accent hover:bg-accent-dark text-white font-semibold py-3.5 px-8 rounded-lg text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md inline-flex cursor-pointer"
+            className="bg-brand-purple hover:bg-brand-purple-hover text-white font-semibold py-3.5 px-8 rounded-lg text-xs sm:text-sm transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md inline-flex cursor-pointer"
           >
             {lang === "en" ? "Get My Free Quote" : "Obtener Mi Cotización"}
           </button>

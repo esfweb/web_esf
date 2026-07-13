@@ -1687,22 +1687,22 @@ export default function App() {
       </section>
 
       {/* 9.5 SCHEDULE CONSULTATION MINI-SECTION (Horizontal layout, premium styling, before FAQs) */}
-      <section id="schedule-consultation" className="py-16 bg-gradient-to-br from-brand-navy to-[#1A1235] text-white px-4 md:px-8 relative overflow-hidden border-b border-white/5">
+      <section id="schedule-consultation" className="py-16 bg-gradient-to-br from-[#F5EFFD] to-[#FCFAFF] text-brand-navy px-4 md:px-8 relative overflow-hidden border-b border-brand-purple/10">
         {/* Glow Effects */}
-        <div className="absolute top-0 right-1/4 w-80 h-80 bg-brand-purple/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-0 right-1/4 w-80 h-80 bg-brand-purple/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
           {/* Text Container */}
           <div className="flex-1 space-y-4 text-center md:text-left">
-            <span className="text-[10px] uppercase tracking-widest font-extrabold text-accent bg-accent/10 border border-accent/25 px-3 py-1 rounded-md inline-flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-accent" />
+            <span className="text-[10px] uppercase tracking-widest font-extrabold text-brand-purple bg-brand-purple/10 border border-brand-purple/20 px-3 py-1 rounded-md inline-flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-brand-purple" />
               <span>{lang === "en" ? "FREE CONSULTATION" : "CONSULTA GRATUITA"}</span>
             </span>
-            <h2 className="text-2xl md:text-3.5xl font-extrabold font-display leading-tight tracking-tight">
+            <h2 className="text-2xl md:text-3.5xl font-extrabold font-display leading-tight tracking-tight text-brand-navy">
               {lang === "en" ? "Ready to find the right protection for you?" : "¿Lista/o para encontrar la protección adecuada para ti?"}
             </h2>
-            <p className="text-xs sm:text-sm text-white/85 max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-brand-slate max-w-2xl leading-relaxed">
               {lang === "en"
                 ? "Every family has different needs. We review your situation carefully and help you find options tailored to your health, budget, and protection goals."
                 : "Cada familia tiene necesidades diferentes. Revisamos tu situación con cuidado y te ayudamos a encontrar opciones que se adapten a tu salud, tu presupuesto y tus metas de protección."}
@@ -1720,7 +1720,7 @@ export default function App() {
               <Calendar className="w-4 h-4 text-brand-navy" />
               <span>{lang === "en" ? "Schedule a free consultation" : "Agenda una consulta gratuita"}</span>
             </a>
-            <p className="text-[10px] text-white/50 mt-3 font-semibold font-sans">
+            <p className="text-[10px] text-brand-slate/60 mt-3 font-semibold font-sans">
               {lang === "en" ? "★ No obligation · 100% confidential" : "★ Sin compromiso · 100% confidencial"}
             </p>
           </div>
@@ -1844,8 +1844,8 @@ export default function App() {
         />
       )}
 
-      {/* 11. FOOTER (Sleek deep navy #122033 for world-class finance look) */}
-      <footer className="bg-brand-navy text-white pt-16 pb-10 px-4 md:px-8 border-t border-white/5 relative">
+      {/* 11. FOOTER (Sleek light lavender/purple gradient) */}
+      <footer className="bg-gradient-to-b from-[#F9F6FC] to-[#F1E8FC] text-brand-navy pt-16 pb-10 px-4 md:px-8 border-t border-brand-purple/10 relative">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10">
           
           {/* Column 1: Descriptor */}
@@ -1857,7 +1857,7 @@ export default function App() {
                 referrerPolicy="no-referrer"
                 className="w-9 h-9 object-contain"
               />
-              <span className="text-base font-extrabold text-white tracking-wide">
+              <span className="text-base font-extrabold text-brand-navy tracking-wide">
                 Eversafe <span className="text-brand-purple">Financial</span>
               </span>
             </div>
@@ -1874,20 +1874,20 @@ export default function App() {
               </h4>
               <ul className="space-y-2.5 text-xs text-brand-slate">
                 <li className="flex items-center gap-2">
-                  <Phone className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-                  <a href="tel:7273596196" className="hover:text-white transition-colors hover:underline">(727) 359-6196</a>
+                  <Phone className="w-3.5 h-3.5 text-brand-purple flex-shrink-0" />
+                  <a href="tel:7273596196" className="hover:text-brand-purple transition-colors hover:underline">(727) 359-6196</a>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-                  <a href="mailto:mary@eversafefinancial.com" className="hover:text-white transition-colors hover:underline">mary@eversafefinancial.com</a>
+                  <Mail className="w-3.5 h-3.5 text-brand-purple flex-shrink-0" />
+                  <a href="mailto:mary@eversafefinancial.com" className="hover:text-brand-purple transition-colors hover:underline">mary@eversafefinancial.com</a>
                 </li>
-                <li className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 font-bold inline-block text-accent text-[10px]">
+                <li className="bg-brand-purple/10 px-3 py-1.5 rounded-lg border border-brand-purple/20 font-bold inline-block text-brand-purple text-[10px]">
                   💬 {t.footer.bilingual}
                 </li>
               </ul>
             </div>
 
-            <div className="space-y-2 pt-1 border-t border-white/5">
+            <div className="space-y-2 pt-1 border-t border-brand-purple/10">
               <h4 className="text-xs uppercase tracking-widest text-[#8C49B1] font-bold">
                 {lang === "en" ? "Service Areas" : "Áreas de servicio"}
               </h4>
@@ -1910,17 +1910,17 @@ export default function App() {
               </ul>
             </div>
 
-            <div className="space-y-2 pt-1 border-t border-white/5">
+            <div className="space-y-2 pt-1 border-t border-brand-purple/10">
               <h4 className="text-xs uppercase tracking-widest text-[#8C49B1] font-bold">
                 {lang === "en" ? "Follow Us" : "Síguenos"}
               </h4>
               {/* White SVGs for socials */}
-              <div className="flex items-center gap-4 pt-1 text-white/65">
+              <div className="flex items-center gap-4 pt-1 text-brand-slate">
                 <a 
                   href="https://www.instagram.com/eversafefinancial.llc/" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="hover:text-accent transform hover:scale-110 active:scale-95 transition-all duration-300 inline-block"
+                  className="hover:text-brand-purple transform hover:scale-110 active:scale-95 transition-all duration-300 inline-block"
                   aria-label="Instagram"
                 >
                   <Instagram className="w-5 h-5 stroke-[1.75]" />
@@ -1929,7 +1929,7 @@ export default function App() {
                   href="https://www.facebook.com/eversafefinancial" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="hover:text-accent transform hover:scale-110 active:scale-95 transition-all duration-300 inline-block"
+                  className="hover:text-brand-purple transform hover:scale-110 active:scale-95 transition-all duration-300 inline-block"
                   aria-label="Facebook"
                 >
                   <Facebook className="w-5 h-5 stroke-[1.75]" />
@@ -1941,19 +1941,19 @@ export default function App() {
         </div>
 
         {/* Bottom Rights details */}
-        <div className="max-w-7xl mx-auto pt-10 mt-10 border-t border-white/5 text-center text-[11px] text-brand-slate space-y-2">
+        <div className="max-w-7xl mx-auto pt-10 mt-10 border-t border-brand-purple/15 text-center text-[11px] text-brand-slate space-y-2">
           <p>{t.footer.rights}</p>
           <div className="flex justify-center items-center gap-4 text-brand-slate mt-2">
             <a 
               href="#privacy-policy" 
-              className="hover:text-accent hover:underline transition-colors focus:outline-none focus:underline"
+              className="hover:text-brand-purple hover:underline transition-colors focus:outline-none focus:underline"
             >
               Privacy Policy
             </a>
-            <span className="text-white/10 select-none">•</span>
+            <span className="text-brand-purple/20 select-none">•</span>
             <a 
               href="#terms-of-service" 
-              className="hover:text-accent hover:underline transition-colors focus:outline-none focus:underline"
+              className="hover:text-brand-purple hover:underline transition-colors focus:outline-none focus:underline"
             >
               Terms of Service
             </a>
