@@ -249,14 +249,14 @@ export default function App() {
   // Sync SEO Metadata dynamically for excellent crawling
   useEffect(() => {
     if (currentView === "privacy-policy") {
-      document.title = "Privacy Policy | Eversafe Financial";
+      document.title = "Privacy Policy | EverSafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
         metaDesc.setAttribute('name', 'description');
         document.head.appendChild(metaDesc);
       }
-      metaDesc.setAttribute('content', 'Read the Privacy Policy of Eversafe Financial to understand how personal information is collected, used, and protected.');
+      metaDesc.setAttribute('content', 'Read the Privacy Policy of EverSafe Financial to understand how personal information is collected, used, and protected.');
       
       let canonical = document.querySelector('link[rel="canonical"]');
       if (!canonical) {
@@ -264,16 +264,16 @@ export default function App() {
         canonical.setAttribute('rel', 'canonical');
         document.head.appendChild(canonical);
       }
-      canonical.setAttribute('href', window.location.origin + "/#privacy-policy");
+      canonical.setAttribute('href', "https://esfweb.github.io/web_esf/#privacy-policy");
     } else if (currentView === "terms-of-service") {
-      document.title = "Terms of Service | Eversafe Financial";
+      document.title = "Terms of Service | EverSafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
         metaDesc.setAttribute('name', 'description');
         document.head.appendChild(metaDesc);
       }
-      metaDesc.setAttribute('content', 'Review the Terms of Service for using the Eversafe Financial website, including site usage, intellectual property, and limitations of liability.');
+      metaDesc.setAttribute('content', 'Review the Terms of Service for using the EverSafe Financial website, including site usage, intellectual property, and limitations of liability.');
       
       let canonical = document.querySelector('link[rel="canonical"]');
       if (!canonical) {
@@ -281,11 +281,11 @@ export default function App() {
         canonical.setAttribute('rel', 'canonical');
         document.head.appendChild(canonical);
       }
-      canonical.setAttribute('href', window.location.origin + "/#terms-of-service");
+      canonical.setAttribute('href', "https://esfweb.github.io/web_esf/#terms-of-service");
     } else if (currentView === "why-iul") {
       document.title = lang === "en"
-        ? "Why IUL May Beat 401(k) and Roth IRA for Some Families | Eversafe Financial"
-        : "¿Por qué el IUL puede superar al 401(k) y Roth IRA para algunas familias? | Eversafe Financial";
+        ? "Why IUL May Beat 401(k) and Roth IRA for Some Families | EverSafe Financial"
+        : "¿Por qué el IUL puede superar al 401(k) y Roth IRA para algunas familias? | EverSafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
@@ -305,21 +305,24 @@ export default function App() {
       canonical.setAttribute('href', "https://esfweb.github.io/web_esf/why-iul");
     } else {
       document.title = lang === "en" 
-        ? "Licensed Florida Insurance Advisor | Eversafe Financial" 
-        : "Asesora de Seguros Autorizada en Florida | Eversafe Financial";
+        ? "EverSafe Financial | Health & Financial Protection Made Simple" 
+        : "EverSafe Financial | Protección Financiera y de Salud Simplificada";
       let metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) {
+      if (!metaDesc) {
         metaDesc = document.createElement('meta');
         metaDesc.setAttribute('name', 'description');
         document.head.appendChild(metaDesc);
       }
       metaDesc.setAttribute('content', lang === "en" 
-        ? "Licensed Florida insurance advisor helping families find peace of mind with Life Insurance, Medicare, Health Plans, and Retirement Protection." 
-        : "Asesora de seguros con licencia en Florida ayudando a familias con Seguros de Vida, Medicare, planes médicos y jubilación segura.");
+        ? "EverSafe Financial helps individuals and families explore health, life and financial protection solutions with clear, personalized guidance." 
+        : "EverSafe Financial ayuda a personas y familias a explorar soluciones de salud, vida y protección financiera con orientación clara y personalizada.");
       let canonical = document.querySelector('link[rel="canonical"]');
-      if (canonical) {
-        canonical.setAttribute('href', window.location.origin + "/");
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
       }
+      canonical.setAttribute('href', "https://esfweb.github.io/web_esf/");
     }
   }, [currentView, lang]);
 
