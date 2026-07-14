@@ -249,14 +249,14 @@ export default function App() {
   // Sync SEO Metadata dynamically for excellent crawling
   useEffect(() => {
     if (currentView === "privacy-policy") {
-      document.title = "Privacy Policy | EverSafe Financial";
+      document.title = "Privacy Policy | Eversafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
         metaDesc.setAttribute('name', 'description');
         document.head.appendChild(metaDesc);
       }
-      metaDesc.setAttribute('content', 'Read the Privacy Policy of EverSafe Financial to understand how personal information is collected, used, and protected.');
+      metaDesc.setAttribute('content', 'Read the Privacy Policy of Eversafe Financial to understand how personal information is collected, used, and protected.');
       
       let canonical = document.querySelector('link[rel="canonical"]');
       if (!canonical) {
@@ -266,14 +266,14 @@ export default function App() {
       }
       canonical.setAttribute('href', "https://esfweb.github.io/web_esf/#privacy-policy");
     } else if (currentView === "terms-of-service") {
-      document.title = "Terms of Service | EverSafe Financial";
+      document.title = "Terms of Service | Eversafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
         metaDesc.setAttribute('name', 'description');
         document.head.appendChild(metaDesc);
       }
-      metaDesc.setAttribute('content', 'Review the Terms of Service for using the EverSafe Financial website, including site usage, intellectual property, and limitations of liability.');
+      metaDesc.setAttribute('content', 'Review the Terms of Service for using the Eversafe Financial website, including site usage, intellectual property, and limitations of liability.');
       
       let canonical = document.querySelector('link[rel="canonical"]');
       if (!canonical) {
@@ -284,8 +284,8 @@ export default function App() {
       canonical.setAttribute('href', "https://esfweb.github.io/web_esf/#terms-of-service");
     } else if (currentView === "why-iul") {
       document.title = lang === "en"
-        ? "Why IUL May Beat 401(k) and Roth IRA for Some Families | EverSafe Financial"
-        : "¿Por qué el IUL puede superar al 401(k) y Roth IRA para algunas familias? | EverSafe Financial";
+        ? "Why IUL May Beat 401(k) and Roth IRA for Some Families | Eversafe Financial"
+        : "¿Por qué el IUL puede superar al 401(k) y Roth IRA para algunas familias? | Eversafe Financial";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
@@ -305,8 +305,8 @@ export default function App() {
       canonical.setAttribute('href', "https://esfweb.github.io/web_esf/why-iul");
     } else {
       document.title = lang === "en" 
-        ? "EverSafe Financial | Health & Financial Protection Made Simple" 
-        : "EverSafe Financial | Protección Financiera y de Salud Simplificada";
+        ? "Eversafe Financial | Health & Financial Protection Made Simple" 
+        : "Eversafe Financial | Protección Financiera y de Salud Simplificada";
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
@@ -314,8 +314,8 @@ export default function App() {
         document.head.appendChild(metaDesc);
       }
       metaDesc.setAttribute('content', lang === "en" 
-        ? "EverSafe Financial helps individuals and families explore health, life and financial protection solutions with clear, personalized guidance." 
-        : "EverSafe Financial ayuda a personas y familias a explorar soluciones de salud, vida y protección financiera con orientación clara y personalizada.");
+        ? "Eversafe Financial helps individuals and families explore health, life and financial protection solutions with clear, personalized guidance." 
+        : "Eversafe Financial ayuda a personas y familias a explorar soluciones de salud, vida y protección financiera con orientación clara y personalizada.");
       let canonical = document.querySelector('link[rel="canonical"]');
       if (!canonical) {
         canonical = document.createElement('link');
@@ -1690,14 +1690,14 @@ export default function App() {
       </section>
 
       {/* 9.5 SCHEDULE CONSULTATION MINI-SECTION (Horizontal layout, premium styling, before FAQs) */}
-      <section id="schedule-consultation" className="py-20 bg-gradient-to-br from-[#F5EFFD] to-[#FCFAFF] text-brand-navy px-4 md:px-8 relative overflow-hidden border-b border-brand-purple/10">
+      <section id="schedule-consultation" className="pt-28 md:pt-32 pb-36 md:pb-44 bg-gradient-to-br from-[#F8F5FE] to-[#FDFBFF] text-brand-navy px-4 md:px-8 relative overflow-hidden border-b border-brand-purple/10">
         {/* Glow Effects */}
         <div className="absolute top-0 right-1/4 w-80 h-80 bg-brand-purple/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
 
         {/* Beautiful Abstract Glassmorphic/3D Wavy Lines Background */}
         <div className="absolute inset-y-0 right-0 w-full md:w-2/3 pointer-events-none z-0 overflow-hidden">
-          <svg viewBox="0 0 1000 600" className="absolute right-0 top-1/2 -translate-y-1/2 h-[120%] w-[120%] min-w-[800px] opacity-85">
+          <svg viewBox="0 0 1000 600" className="absolute right-0 top-1/2 -translate-y-1/2 h-[120%] w-[120%] min-w-[800px] opacity-40">
             {/* Big smooth wave arc */}
             <path d="M300,600 C450,450 650,480 850,250 C950,110 1000,0 1000,0 L1000,600 Z" 
                   fill="url(#bgWaveGrad1)" />
@@ -1716,14 +1716,14 @@ export default function App() {
             <defs>
               <linearGradient id="bgWaveGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#FCFBFF" stopOpacity="0" />
-                <stop offset="50%" stopColor="#F1E7FC" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#E6D3FA" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#F1E7FC" stopOpacity="0.15" />
+                <stop offset="100%" stopColor="#E6D3FA" stopOpacity="0.25" />
               </linearGradient>
               
               <linearGradient id="bgWaveGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#FCFBFF" stopOpacity="0" />
-                <stop offset="40%" stopColor="#F3EAFD" stopOpacity="0.3" />
-                <stop offset="100%" stopColor="#ECE0FC" stopOpacity="0.6" />
+                <stop offset="40%" stopColor="#F3EAFD" stopOpacity="0.1" />
+                <stop offset="100%" stopColor="#ECE0FC" stopOpacity="0.18" />
               </linearGradient>
             </defs>
           </svg>
@@ -1747,7 +1747,7 @@ export default function App() {
           </div>
 
           {/* Right Side: Button & 3D Shield Checkmark side-by-side */}
-          <div className="flex flex-col sm:flex-row items-center gap-8 lg:gap-12 z-10 w-full lg:w-auto justify-center lg:justify-end">
+          <div className="flex flex-col sm:flex-row items-center gap-6 lg:gap-8 z-10 w-full lg:w-auto justify-center lg:justify-end">
             {/* Button Container */}
             <div className="flex-shrink-0 w-full sm:w-auto text-center font-sans">
               <a
@@ -1766,7 +1766,7 @@ export default function App() {
 
             {/* 3D Checkmark Shield Icon */}
             <div className="flex-shrink-0 relative">
-              <svg viewBox="0 0 200 220" className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 drop-shadow-[0_20px_40px_rgba(138,58,255,0.18)] filter transform hover:scale-105 transition-transform duration-500">
+              <svg viewBox="0 0 200 220" className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 lg:w-56 lg:h-56 drop-shadow-[0_20px_40px_rgba(138,58,255,0.18)] filter transform hover:scale-105 transition-transform duration-500">
                 {/* Subtle back glow */}
                 <circle cx="100" cy="110" r="70" fill="url(#shieldGlow)" opacity="0.6" />
                 
