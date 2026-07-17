@@ -6,7 +6,7 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   return {
     // Reemplaza 'web_esf' por el nombre exacto de tu repositorio si cambia
-    base: '/web_esf/',
+    base: '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
