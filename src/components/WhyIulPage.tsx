@@ -5,9 +5,10 @@ interface WhyIulPageProps {
   onBackToHome: () => void;
   lang: "en" | "es";
   onExploreServices: (serviceName: string) => void;
+  onScheduleConsultation?: () => void;
 }
 
-export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPageProps) {
+export function WhyIulPage({ onBackToHome, lang, onExploreServices, onScheduleConsultation }: WhyIulPageProps) {
   // Accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -110,7 +111,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                   onClick={() => {
                     const quizElem = document.getElementById("hero-iul-quiz");
                     if (quizElem) {
-                      quizElem.scrollIntoView({ behavior: "smooth" });
+                      quizElem.scrollIntoView({ behavior: "smooth", block: "center" });
                     } else {
                       handleCtaClick();
                     }
@@ -129,7 +130,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
             </div>
 
             {/* Column 2: Quiz Embedded directly inside the Hero! */}
-            <div id="hero-iul-quiz" className="lg:col-span-5 flex justify-center w-full relative z-20">
+            <div id="hero-iul-quiz" className="lg:col-span-5 flex justify-center w-full relative z-20 scroll-mt-24">
               <div className="w-full max-w-md">
                 <div className="text-center mb-4 lg:hidden">
                   <span className="text-xs font-bold uppercase text-accent tracking-wider">
@@ -139,7 +140,7 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
                 <IulInteractiveQuiz 
                   lang={lang} 
                   isLight={true} 
-                  onComplete={handleCtaClick} 
+                  onComplete={onScheduleConsultation || handleCtaClick} 
                 />
               </div>
             </div>
@@ -455,7 +456,13 @@ export function WhyIulPage({ onBackToHome, lang, onExploreServices }: WhyIulPage
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-2">
             <button
-              onClick={handleCtaClick}
+              onClick={() => {
+                if (onScheduleConsultation) {
+                  onScheduleConsultation();
+                } else {
+                  handleCtaClick();
+                }
+              }}
               className="bg-brand-navy hover:bg-brand-navy-light text-white font-semibold py-3.5 px-8 rounded-lg text-xs sm:text-sm transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 text-center cursor-pointer"
             >
               💼 {lang === "en" ? "Analyze My Options" : "Ver mis opciones"}

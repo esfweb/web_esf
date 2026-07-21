@@ -1945,6 +1945,15 @@ export default function App() {
               handlePreFillMessage(serviceName);
             }, 150);
           }}
+          onScheduleConsultation={() => {
+            onBackToHome();
+            setTimeout(() => {
+              const el = document.getElementById("schedule-consultation");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+              }
+            }, 150);
+          }}
         />
       )}
 
