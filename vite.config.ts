@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    // Reemplaza 'web_esf' por el nombre exacto de tu repositorio si cambia
+    // Producción con dominio personalizado: base en la raíz '/'
     base: '/',
     plugins: [react(), tailwindcss()],
     resolve: {

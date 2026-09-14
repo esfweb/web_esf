@@ -1,7 +1,7 @@
 {
   "name": "Eversafe Financial",
   "short_name": "Eversafe",
-  "start_url": "/web_esf/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#8c49b1",

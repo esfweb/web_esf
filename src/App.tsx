@@ -248,81 +248,85 @@ export default function App() {
 
   // Sync SEO Metadata dynamically for excellent crawling
   useEffect(() => {
+    // Sync document language attribute for accessibility and crawlers
+    document.documentElement.lang = lang === "es" ? "es-US" : "en-US";
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (!ogUrl) {
+      ogUrl = document.createElement('meta');
+      ogUrl.setAttribute('property', 'og:url');
+      document.head.appendChild(ogUrl);
+    }
+
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    let ogDesc = document.querySelector('meta[property="og:description"]');
+
     if (currentView === "privacy-policy") {
-      document.title = "Privacy Policy | Eversafe Financial";
-      let metaDesc = document.querySelector('meta[name="description"]');
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        metaDesc.setAttribute('name', 'description');
-        document.head.appendChild(metaDesc);
-      }
-      metaDesc.setAttribute('content', 'Read the Privacy Policy of Eversafe Financial to understand how personal information is collected, used, and protected.');
-      
-      let canonical = document.querySelector('link[rel="canonical"]');
-      if (!canonical) {
-        canonical = document.createElement('link');
-        canonical.setAttribute('rel', 'canonical');
-        document.head.appendChild(canonical);
-      }
-      canonical.setAttribute('href', "https://esfweb.github.io/web_esf/#privacy-policy");
+      const pageTitle = "Privacy Policy | Eversafe Financial";
+      const pageDesc = "Read the Privacy Policy of Eversafe Financial to understand how personal information is collected, used, and protected.";
+      const pageUrl = "https://eversafefinancial.com/#privacy-policy";
+
+      document.title = pageTitle;
+      metaDesc.setAttribute('content', pageDesc);
+      canonical.setAttribute('href', pageUrl);
+      ogUrl.setAttribute('content', pageUrl);
+      if (ogTitle) ogTitle.setAttribute('content', pageTitle);
+      if (ogDesc) ogDesc.setAttribute('content', pageDesc);
     } else if (currentView === "terms-of-service") {
-      document.title = "Terms of Service | Eversafe Financial";
-      let metaDesc = document.querySelector('meta[name="description"]');
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        metaDesc.setAttribute('name', 'description');
-        document.head.appendChild(metaDesc);
-      }
-      metaDesc.setAttribute('content', 'Review the Terms of Service for using the Eversafe Financial website, including site usage, intellectual property, and limitations of liability.');
-      
-      let canonical = document.querySelector('link[rel="canonical"]');
-      if (!canonical) {
-        canonical = document.createElement('link');
-        canonical.setAttribute('rel', 'canonical');
-        document.head.appendChild(canonical);
-      }
-      canonical.setAttribute('href', "https://esfweb.github.io/web_esf/#terms-of-service");
+      const pageTitle = "Terms of Service | Eversafe Financial";
+      const pageDesc = "Review the Terms of Service for using the Eversafe Financial website, including site usage, intellectual property, and limitations of liability.";
+      const pageUrl = "https://eversafefinancial.com/#terms-of-service";
+
+      document.title = pageTitle;
+      metaDesc.setAttribute('content', pageDesc);
+      canonical.setAttribute('href', pageUrl);
+      ogUrl.setAttribute('content', pageUrl);
+      if (ogTitle) ogTitle.setAttribute('content', pageTitle);
+      if (ogDesc) ogDesc.setAttribute('content', pageDesc);
     } else if (currentView === "why-iul") {
-      document.title = lang === "en"
+      const pageTitle = lang === "en"
         ? "Why IUL May Beat 401(k) and Roth IRA for Some Families | Eversafe Financial"
         : "¿Por qué el IUL puede superar al 401(k) y Roth IRA para algunas familias? | Eversafe Financial";
-      let metaDesc = document.querySelector('meta[name="description"]');
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        metaDesc.setAttribute('name', 'description');
-        document.head.appendChild(metaDesc);
-      }
-      metaDesc.setAttribute('content', lang === "en"
+      const pageDesc = lang === "en"
         ? "Compare IUL, 401(k), and Roth IRA strategies and learn when Index Universal Life may offer tax advantages, liquidity, and lifelong protection."
-        : "Compara estrategias de IUL, 401(k) y Roth IRA y descubre cuándo el Index Universal Life ofrece ventajas fiscales, liquidez y protección permanente.");
-      
-      let canonical = document.querySelector('link[rel="canonical"]');
-      if (!canonical) {
-        canonical = document.createElement('link');
-        canonical.setAttribute('rel', 'canonical');
-        document.head.appendChild(canonical);
-      }
-      canonical.setAttribute('href', "https://esfweb.github.io/web_esf/why-iul");
+        : "Compara estrategias de IUL, 401(k) y Roth IRA y descubre cuándo el Index Universal Life ofrece ventajas fiscales, liquidez y protección permanente.";
+      const pageUrl = "https://eversafefinancial.com/#why-iul";
+
+      document.title = pageTitle;
+      metaDesc.setAttribute('content', pageDesc);
+      canonical.setAttribute('href', pageUrl);
+      ogUrl.setAttribute('content', pageUrl);
+      if (ogTitle) ogTitle.setAttribute('content', pageTitle);
+      if (ogDesc) ogDesc.setAttribute('content', pageDesc);
     } else {
-      document.title = lang === "en" 
+      const pageTitle = lang === "en" 
         ? "Eversafe Financial | Health & Financial Protection Made Simple" 
         : "Eversafe Financial | Protección Financiera y de Salud Simplificada";
-      let metaDesc = document.querySelector('meta[name="description"]');
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        metaDesc.setAttribute('name', 'description');
-        document.head.appendChild(metaDesc);
-      }
-      metaDesc.setAttribute('content', lang === "en" 
+      const pageDesc = lang === "en" 
         ? "Eversafe Financial helps individuals and families explore health, life and financial protection solutions with clear, personalized guidance." 
-        : "Eversafe Financial ayuda a personas y familias a explorar soluciones de salud, vida y protección financiera con orientación clara y personalizada.");
-      let canonical = document.querySelector('link[rel="canonical"]');
-      if (!canonical) {
-        canonical = document.createElement('link');
-        canonical.setAttribute('rel', 'canonical');
-        document.head.appendChild(canonical);
-      }
-      canonical.setAttribute('href', "https://esfweb.github.io/web_esf/");
+        : "Eversafe Financial ayuda a personas y familias a explorar soluciones de salud, vida y protección financiera con orientación clara y personalizada.";
+      const pageUrl = "https://eversafefinancial.com/";
+
+      document.title = pageTitle;
+      metaDesc.setAttribute('content', pageDesc);
+      canonical.setAttribute('href', pageUrl);
+      ogUrl.setAttribute('content', pageUrl);
+      if (ogTitle) ogTitle.setAttribute('content', pageTitle);
+      if (ogDesc) ogDesc.setAttribute('content', pageDesc);
     }
   }, [currentView, lang]);
 
@@ -2103,6 +2107,7 @@ export default function App() {
                 e.stopPropagation();
                 setShowNotificationBubble(false);
               }}
+              aria-label={lang === "en" ? "Close notification" : "Cerrar notificación"}
               className="hover:text-accent ml-2 font-bold p-0.5 cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
@@ -2173,6 +2178,7 @@ export default function App() {
           <div className="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-slate-100 relative max-h-[90vh] overflow-y-auto animate-fade-in-up">
             <button
               onClick={() => setChatOpened(false)}
+              aria-label={lang === "en" ? "Close modal" : "Cerrar ventana"}
               className="absolute top-4 right-4 text-brand-slate hover:text-brand-purple transition p-1"
             >
               <X className="w-5 h-5" />
