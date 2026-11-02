@@ -12,6 +12,8 @@ export interface TranslationSet {
     ctaPhone: string;
     ctaIUL: string;
     badge: string;
+    seasonalBadge: string;
+    seasonalCta: string;
   };
   quiz: {
     eyebrow: string;
@@ -221,6 +223,8 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       ctaPhone: "Talk to Mary: (727) 359-6196",
       ctaIUL: "💡 Why IUL Is Better",
       badge: "✅ 4+ Years of Experience  ·  ✅ Licensed in Florida & other states  ·  ✅ Bilingual Service (EN/ES)",
+      seasonalBadge: "ACA 2027 Open Enrollment | Nov 1, 2026 – Jan 15, 2027",
+      seasonalCta: "ACA 2027 Open Enrollment →",
     },
     quiz: {
       eyebrow: "HEALTH COVERAGE",
@@ -528,6 +532,8 @@ export const translations: Record<"en" | "es", TranslationSet> = {
       ctaPhone: "Hablar con Mary: (727) 359-6196",
       ctaIUL: "💡 Por qué IUL es mejor",
       badge: "✅ 4+ años de experiencia  ·  ✅ Licencia en Florida y otros estados  ·  ✅ Servicio bilingüe (EN/ES)",
+      seasonalBadge: "Inscripción Abierta ACA 2027 | 1 nov. 2026 – 15 ene. 2027",
+      seasonalCta: "Inscripción Abierta 2027 →",
     },
     quiz: {
       eyebrow: "Cobertura de salud",

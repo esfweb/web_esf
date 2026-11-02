@@ -758,6 +758,16 @@ export default function App() {
                   ? "“ Your family deserves more than a policy — they deserve a promise. ”" 
                   : "“ Tu familia merece más que una póliza — merece una promesa. ”"}
               </p>
+
+              {/* Insignia estacional ACA 2027 */}
+              <div className="pt-1 flex justify-center lg:justify-start">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-purple/20 border border-purple-400/30 backdrop-blur-sm text-white shadow-sm">
+                  <Calendar className="w-3.5 h-3.5 text-purple-300 flex-shrink-0" />
+                  <span className="text-[11px] sm:text-xs font-semibold text-white/95 tracking-wide">
+                    {t.hero.seasonalBadge}
+                  </span>
+                </div>
+              </div>
             </div>
             
             <p className="text-base md:text-lg text-white/95 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 anim-3 tracking-wide">
@@ -793,6 +803,18 @@ export default function App() {
                   {t.hero.ctaIUL}
                 </button>
               </div>
+
+              {/* Seasonal CTA Button: ACA 2027 */}
+              <div className="flex justify-center lg:justify-start anim-4 pt-1">
+                <a
+                  href={`/aca-2027/?lang=${lang}`}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-purple hover:bg-brand-purple-hover text-white font-semibold py-3.5 px-7 rounded-lg text-sm sm:text-base transition-all transform hover:scale-[1.02] active:scale-95 duration-300 text-center shadow-lg shadow-brand-purple/25 border border-purple-300/25 font-sans group cursor-pointer"
+                >
+                  <Shield className="w-4 h-4 text-white/95 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  <span>{t.hero.seasonalCta}</span>
+                </a>
+              </div>
+
               <p className="text-[11px] text-white/60 text-center lg:text-left pl-2 font-semibold">
                 {lang === "en" 
                   ? "★ Free personalized consultation · No high sales pressure · 100% help in English & Spanish" 

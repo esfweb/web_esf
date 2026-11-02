@@ -404,7 +404,7 @@ export const AcaLandingPage: React.FC = () => {
                   1
                 </div>
                 <h3 className="text-base font-bold text-brand-navy mb-2">
-                  {lang === 'es' ? 'Completa el formulario oficial' : 'Submit the official form'}
+                  {lang === 'es' ? 'Completa el formulario' : 'Complete the form'}
                 </h3>
                 <p className="text-xs text-brand-slate leading-relaxed">
                   {lang === 'es'

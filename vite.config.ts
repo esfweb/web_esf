@@ -6,8 +6,27 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   return {
     // Producción con dominio personalizado: base en la raíz '/'
-    base: '/',
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      react(),
+      tailwindcss(),
+      {
+        name: 'mpa-redirects',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            const url = req.url || '';
+            const [pathname, search] = url.split('?');
+            if (pathname === '/book' || pathname === '/aca-2027') {
+              res.writeHead(301, {
+                Location: `${pathname}/${search ? `?${search}` : ''}`,
+              });
+              res.end();
+              return;
+            }
+            next();
+          });
+        },
+      },
+    ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
@@ -18,6 +37,7 @@ export default defineConfig(() => {
         input: {
           main: path.resolve(__dirname, 'index.html'),
           aca2027: path.resolve(__dirname, 'aca-2027/index.html'),
+          book: path.resolve(__dirname, 'book/index.html'),
         },
       },
     },
