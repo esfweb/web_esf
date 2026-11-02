@@ -93,7 +93,7 @@ export const GhlFormEmbed: React.FC<GhlFormEmbedProps> = ({ lang }) => {
         <div className="flex items-center gap-2">
           <span className="inline-block w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
           <span className="text-xs font-bold uppercase tracking-wider text-brand-purple">
-            {lang === 'es' ? 'Solicitud de asesoría gratuita' : 'Free Consultation Request'}
+            {lang === 'es' ? 'Completa el formulario' : 'Complete the Form'}
           </span>
         </div>
         <div className="flex items-center gap-1.5 text-xs text-brand-slate font-medium">

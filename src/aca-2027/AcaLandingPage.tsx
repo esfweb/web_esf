@@ -49,8 +49,8 @@ export const AcaLandingPage: React.FC = () => {
 
     const pageDesc =
       lang === 'es'
-        ? 'Conoce tus opciones de cobertura ACA (Obamacare) y descubre si podrías calificar para ayuda económica. Asesoría personalizada y gratuita con Mary Rivera.'
-        : 'Explore your ACA (Obamacare) health coverage options and find out if you may qualify for financial assistance. Free, personalized guidance with Mary Rivera.';
+        ? 'Conoce, revisa o renueva tus opciones de cobertura ACA (Obamacare) para 2027 y verifica si calificas para subsidios. Asesoría personalizada y gratuita con Mary Rivera.'
+        : 'Explore, review, or renew your ACA (Obamacare) health coverage for 2027 and check your eligibility for premium tax credits. Free, personalized guidance with Mary Rivera.';
 
     document.title = pageTitle;
 
@@ -197,9 +197,41 @@ export const AcaLandingPage: React.FC = () => {
                 {/* Hero Description */}
                 <p className="text-base sm:text-lg text-brand-slate leading-relaxed mb-6 max-w-xl font-normal">
                   {lang === 'es'
-                    ? 'Conoce tus opciones de cobertura ACA (Obamacare) y descubre si podrías calificar para ayuda económica.'
-                    : 'Explore your ACA (Obamacare) health coverage options and find out if you may qualify for financial assistance.'}
+                    ? 'Conoce, revisa o renueva tus opciones de cobertura ACA (Obamacare) para 2027 y verifica si calificas para subsidios.'
+                    : 'Explore, review, or renew your ACA (Obamacare) health coverage for 2027 and check your eligibility for premium tax credits.'}
                 </p>
+
+                {/* 2027 Open Enrollment Key Dates */}
+                <div className="mb-6 p-4 rounded-2xl bg-white border border-brand-purple/15 shadow-xs">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+                    {/* Date Item 1: Open Enrollment Window */}
+                    <div className="sm:pr-4">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-brand-purple block">
+                        {lang === 'es' ? 'Inscripción Abierta 2027' : '2027 Open Enrollment'}
+                      </span>
+                      <p className="text-xs sm:text-sm font-bold text-brand-navy mt-1">
+                        🗓️ {lang === 'es' ? '1 nov. 2026 – 15 ene. 2027' : 'Nov 1, 2026 – Jan 15, 2027'}
+                      </p>
+                      <p className="text-xs text-brand-slate mt-1 leading-normal">
+                        {lang === 'es'
+                          ? 'Inscríbete, renueva o cambia tu plan de salud.'
+                          : 'Enroll, renew, or change your health plan.'}
+                      </p>
+                    </div>
+
+                    {/* Date Item 2: Dec 15 Deadline */}
+                    <div className="pt-3 sm:pt-0 sm:pl-4">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-brand-purple block">
+                        {lang === 'es' ? 'Fecha límite: 15 dic.' : 'Dec 15 Deadline'}
+                      </span>
+                      <p className="text-xs text-brand-slate mt-1 leading-normal">
+                        {lang === 'es'
+                          ? 'Inscríbete hasta el 15 de diciembre de 2026 para tener cobertura desde el 1 de enero de 2027, sujeto a completar la inscripción y pagar la primera prima.'
+                          : 'Enroll by Dec 15, 2026, for coverage starting Jan 1, 2027, subject to enrollment completion and payment of the first premium.'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
                 {/* Mobile Quick CTA (smooth scroll to form right below) */}
                 <div className="lg:hidden mb-8">
@@ -257,8 +289,8 @@ export const AcaLandingPage: React.FC = () => {
                         </h3>
                         <p className="text-xs text-brand-slate mt-1 leading-normal">
                           {lang === 'es'
-                            ? 'Explicación de las diferencias entre planes Bronce, Plata, Oro y Platino disponibles en tu área.'
-                            : 'Explanation of differences between Bronze, Silver, Gold, and Platinum plans available in your area.'}
+                            ? 'Revisión de planes disponibles, beneficios, costos y opciones de cobertura en tu área.'
+                            : 'Review available plans, benefits, costs, and coverage options in your area.'}
                         </p>
                       </div>
                     </div>
@@ -271,8 +303,8 @@ export const AcaLandingPage: React.FC = () => {
                       <div>
                         <h3 className="text-sm font-bold text-brand-navy leading-tight">
                           {lang === 'es'
-                            ? 'Información sobre posible ayuda económica'
-                            : 'Potential financial assistance info'}
+                            ? 'Elegibilidad para subsidios'
+                            : 'Premium tax credit eligibility'}
                         </h3>
                         <p className="text-xs text-brand-slate mt-1 leading-normal">
                           {lang === 'es'
