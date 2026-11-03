@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { ShieldCheck, Lock, Loader2 } from 'lucide-react';
+import { initGhlSubmissionListener } from '../utils/metaPixel';
 
 interface GhlFormEmbedProps {
   lang: 'en' | 'es';
@@ -42,6 +43,15 @@ export const GhlFormEmbed: React.FC<GhlFormEmbedProps> = ({ lang }) => {
   useEffect(() => {
     setIframeLoaded(false);
   }, [lang]);
+
+  // Listen for verified GHL form submission postMessage
+  useEffect(() => {
+    const cleanup = initGhlSubmissionListener(
+      currentConfig.id,
+      lang === 'es' ? 'ACA 2027 Solicitud Asesoría' : 'ACA 2027 Consultation Request'
+    );
+    return cleanup;
+  }, [currentConfig.id, lang]);
 
   // Construct iframe src with preserved UTM and attribution parameters
   const iframeSrc = useMemo(() => {

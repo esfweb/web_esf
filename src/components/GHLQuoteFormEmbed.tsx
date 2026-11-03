@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { initGhlSubmissionListener } from "../utils/metaPixel";
 
 interface GHLQuoteFormEmbedProps {
   lang: "en" | "es";
@@ -38,6 +39,15 @@ export function GHLQuoteFormEmbed({ lang }: GHLQuoteFormEmbedProps) {
   const title = isEs
     ? "Eversafe - Free Quote Form ES"
     : "Eversafe - Free Quote Form EN";
+
+  // Listen for verified GHL form submission postMessage
+  useEffect(() => {
+    const cleanup = initGhlSubmissionListener(
+      formId,
+      isEs ? "Solicitud Cotización Web" : "Website Quote Request"
+    );
+    return cleanup;
+  }, [formId, isEs]);
 
   return (
     <div className="w-full bg-white rounded-lg shadow-sm p-2 md:p-3 overflow-hidden">

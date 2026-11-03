@@ -36,6 +36,7 @@ import { WhyIulPage, IulInteractiveQuiz } from "./components/WhyIulPage";
 import { TestimonialsMiniSection } from "./components/TestimonialsMiniSection";
 import { GHLQuoteFormEmbed } from "./components/GHLQuoteFormEmbed";
 import PartnerLogosCarousel from "./components/PartnerLogosCarousel";
+import { trackSpaPageView } from "./utils/metaPixel";
 
 // Count-up stats helper component with intersection detection
 interface AnimatedStatProps {
@@ -245,6 +246,16 @@ export default function App() {
 
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
+
+  // Track deduplicated PageView on SPA view transitions (Why IUL, Privacy Policy, Terms)
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    trackSpaPageView();
+  }, [currentView]);
 
   // Sync SEO Metadata dynamically for excellent crawling
   useEffect(() => {
