@@ -145,7 +145,14 @@ export function trackSpaPageView(): void {
  * Strictly checks consent before dispatching.
  */
 export function trackLeadConversion(contentName: string = 'Form Submission'): void {
-  if (typeof window !== 'undefined' && hasMarketingConsent() && typeof window.fbq === 'function') {
+  if (typeof window === 'undefined') return;
+  if (!hasMarketingConsent()) return;
+
+  if (!window.fbq) {
+    loadAndInitMetaPixel();
+  }
+
+  if (typeof window.fbq === 'function') {
     window.fbq('track', 'Lead', {
       content_name: contentName,
     });
@@ -154,13 +161,13 @@ export function trackLeadConversion(contentName: string = 'Form Submission'): vo
 
 /**
  * Sets up a secure window.postMessage listener for GoHighLevel form submissions.
- * To prevent duplicate Lead events (Requirement 6), since the embedded GHL form
- * executes its own Meta Pixel directly inside the iframe upon submission once unblocked,
- * this listener safely validates the event without double-firing the same conversion to Meta.
+ * When a verified submission message is received from the GHL iframe, this fires
+ * a compliant Lead conversion event from the 1st-party host window (where Meta Pixel
+ * has full attribution, cookies, and UTM parameters).
  */
 export function initGhlSubmissionListener(
   targetFormId?: string,
-  _contentName: string = 'ACA 2027 Consultation Request'
+  contentName: string = 'ACA 2027 Consultation Request'
 ): () => void {
   if (typeof window === 'undefined') return () => {};
 
@@ -186,8 +193,17 @@ export function initGhlSubmissionListener(
       try {
         data = JSON.parse(data);
       } catch {
-        // Not a JSON payload, safely ignore
-        return;
+        // In case GHL sends a non-JSON string containing submission signal
+        if (
+          data.includes('form-submit') ||
+          data.includes('form_submit') ||
+          data.includes('form-submitted') ||
+          data.includes('lead_submitted')
+        ) {
+          data = { type: 'form-submit' };
+        } else {
+          return;
+        }
       }
     }
 
@@ -196,7 +212,10 @@ export function initGhlSubmissionListener(
     }
 
     // 3. Ignore non-submission events (resize, init, loaded, ping, height, scroll)
-    const eventType = (data.type || data.action || data.event || data.name || '').toLowerCase();
+    const eventType = String(
+      data.type || data.action || data.event || data.name || data.status || ''
+    ).toLowerCase();
+
     if (
       !eventType ||
       eventType.includes('resize') ||
@@ -208,34 +227,47 @@ export function initGhlSubmissionListener(
       return;
     }
 
-    // 4. Check for verified form submission signature
+    // 4. Check for verified form submission signatures sent by GoHighLevel
     const isSubmissionEvent =
       eventType === 'form-submitted' ||
       eventType === 'form_submission' ||
       eventType === 'form_submit' ||
-      eventType === 'lead_submitted';
+      eventType === 'form-submit' ||
+      eventType === 'formsubmit' ||
+      eventType === 'lead_submitted' ||
+      eventType === 'leadconnector:form_submit' ||
+      eventType === 'formsubmissionsuccess' ||
+      eventType === 'success' ||
+      data.action === 'form_submit' ||
+      data.type === 'form-submit';
 
     if (!isSubmissionEvent) {
       return;
     }
 
     // 5. Match form ID if specified
-    const incomingFormId = data.formId || data.id || data.form_id;
+    const incomingFormId =
+      data.formId ||
+      data.id ||
+      data.form_id ||
+      (data.payload && (data.payload.formId || data.payload.id));
+
     if (targetFormId && incomingFormId && incomingFormId !== targetFormId) {
       return;
     }
 
-    // 6. Deduplicate per submission within 5-second window
-    const submissionKey = `${incomingFormId || targetFormId || 'ghl'}-${Math.floor(Date.now() / 5000)}`;
+    // 6. Deduplicate per submission within 10-second window
+    const submissionKey = `${incomingFormId || targetFormId || 'ghl'}-${Math.floor(Date.now() / 10000)}`;
     if (handledSubmissions.has(submissionKey)) {
       return;
     }
     handledSubmissions.add(submissionKey);
 
-    // 7. GHL embedded form already executes the Lead event natively from within the iframe
-    // via its own embedded pixel script once unblocked by cookie-config consent.
-    // We intentionally do NOT fire a second window.fbq('track', 'Lead') here to strictly
-    // prevent event duplication in Meta Events Manager.
+    // 7. Fire compliant Lead conversion from the 1st-party host window
+    // ONLY when user has granted marketing cookie consent
+    if (hasMarketingConsent()) {
+      trackLeadConversion(contentName);
+    }
   };
 
   window.addEventListener('message', handleMessage);

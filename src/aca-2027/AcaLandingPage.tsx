@@ -18,7 +18,7 @@ import {
 import { GhlFormEmbed } from './GhlFormEmbed';
 import { CookieConsentBanner } from '../components/CookieConsentBanner';
 import { openCookiePreferences } from '../utils/cookieConsent';
-import { initMetaPixelIfConsented } from '../utils/metaPixel';
+import { initMetaPixelIfConsented, trackLeadConversion } from '../utils/metaPixel';
 
 export const AcaLandingPage: React.FC = () => {
   // Language resolution: URL param > localStorage > default 'en'
@@ -38,11 +38,31 @@ export const AcaLandingPage: React.FC = () => {
   });
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [submittedNotice, setSubmittedNotice] = useState(false);
 
   // Initialize Meta Pixel conditionally if marketing consent is granted
   useEffect(() => {
     initMetaPixelIfConsented();
   }, []);
+
+  // Check if user was redirected back after GHL form submission (Alternative Solution B)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const isSubmitted =
+      params.get('submitted') === 'true' ||
+      params.get('status') === 'success' ||
+      params.get('lead') === 'success';
+
+    if (isSubmitted) {
+      setSubmittedNotice(true);
+      trackLeadConversion(
+        lang === 'es'
+          ? 'ACA 2027 Solicitud Asesoría (Redirect)'
+          : 'ACA 2027 Consultation Request (Redirect)'
+      );
+    }
+  }, [lang]);
 
   // Sync document title, description, and html lang attribute dynamically
   useEffect(() => {
@@ -384,6 +404,23 @@ export const AcaLandingPage: React.FC = () => {
               {/* RIGHT COLUMN: GHL FORM CARD (Desktop: 5 cols, Sticky on large screens) */}
               <div className="lg:col-span-5 w-full">
                 <div className="lg:sticky lg:top-24">
+                  {submittedNotice && (
+                    <div className="mb-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 shadow-sm flex items-start gap-3 animate-fade-in">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                      <div>
+                        <h4 className="text-sm font-bold">
+                          {lang === 'es'
+                            ? '¡Solicitud recibida con éxito!'
+                            : 'Consultation request received!'}
+                        </h4>
+                        <p className="text-xs text-emerald-700 mt-1">
+                          {lang === 'es'
+                            ? 'Mary Rivera revisará tus datos y se comunicará contigo a la brevedad. ¡Gracias por confiar en Eversafe Financial!'
+                            : 'Mary Rivera will review your information and get in touch with you shortly. Thank you for choosing Eversafe Financial!'}
+                        </p>
+                      </div>
+                    </div>
+                  )}
                   <GhlFormEmbed lang={lang} />
                 </div>
               </div>
