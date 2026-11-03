@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { GhlFormEmbed } from './GhlFormEmbed';
 import { CookieConsentBanner } from '../components/CookieConsentBanner';
-import { openCookiePreferences, syncInitialConsentToWindow } from '../utils/cookieConsent';
+import { openCookiePreferences } from '../utils/cookieConsent';
 import { initMetaPixelIfConsented } from '../utils/metaPixel';
 
 export const AcaLandingPage: React.FC = () => {
@@ -39,9 +39,8 @@ export const AcaLandingPage: React.FC = () => {
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  // Sync initial consent to GHL bridge and initialize Meta Pixel conditionally
+  // Initialize Meta Pixel conditionally if marketing consent is granted
   useEffect(() => {
-    syncInitialConsentToWindow();
     initMetaPixelIfConsented();
   }, []);
 
