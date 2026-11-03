@@ -77,13 +77,56 @@ export function saveCookieConsent(level: ConsentLevel): void {
     // ignore storage write error
   }
 
-  // Notify components and listeners across the application
+  // Sync to window.Cookiebot bridge and trigger instant GHL event
   if (typeof window !== 'undefined') {
+    const isMarketing = level === 'all';
+    try {
+      (window as any).Cookiebot = {
+        consent: {
+          necessary: true,
+          preferences: false,
+          statistics: isMarketing,
+          marketing: isMarketing,
+        },
+        hasResponse: true,
+      };
+
+      // Dispatch standard GHL CMP events to trigger 50ms re-evaluation in form_embed.js
+      window.dispatchEvent(new Event(isMarketing ? 'CookiebotOnAccept' : 'CookiebotOnDecline'));
+    } catch {
+      // ignore bridge errors
+    }
+
+    // Notify components and listeners across the application
     window.dispatchEvent(
       new CustomEvent('esf_cookie_consent_changed', {
         detail: { level },
       })
     );
+  }
+}
+
+/**
+ * Initializes the window.Cookiebot bridge on startup if consent was previously saved.
+ */
+export function syncInitialConsentToWindow(): void {
+  if (typeof window === 'undefined') return;
+  const current = getCookieConsent();
+  if (current) {
+    const isMarketing = current === 'all';
+    try {
+      (window as any).Cookiebot = {
+        consent: {
+          necessary: true,
+          preferences: false,
+          statistics: isMarketing,
+          marketing: isMarketing,
+        },
+        hasResponse: true,
+      };
+    } catch {
+      // ignore
+    }
   }
 }
 

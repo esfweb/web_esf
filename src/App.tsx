@@ -38,7 +38,7 @@ import { GHLQuoteFormEmbed } from "./components/GHLQuoteFormEmbed";
 import PartnerLogosCarousel from "./components/PartnerLogosCarousel";
 import { trackSpaPageView, initMetaPixelIfConsented } from "./utils/metaPixel";
 import { CookieConsentBanner } from "./components/CookieConsentBanner";
-import { openCookiePreferences } from "./utils/cookieConsent";
+import { openCookiePreferences, syncInitialConsentToWindow } from "./utils/cookieConsent";
 
 // Count-up stats helper component with intersection detection
 interface AnimatedStatProps {
@@ -249,8 +249,9 @@ export default function App() {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  // Initialize Meta Pixel conditionally if marketing consent is granted
+  // Sync initial consent to GHL bridge and initialize Meta Pixel conditionally
   useEffect(() => {
+    syncInitialConsentToWindow();
     initMetaPixelIfConsented();
   }, []);
 
