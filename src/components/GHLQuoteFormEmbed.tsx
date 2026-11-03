@@ -65,6 +65,8 @@ export function GHLQuoteFormEmbed({ lang }: GHLQuoteFormEmbedProps) {
           data-deactivation-value=""
           data-form-name={formName}
           data-height="722"
+          data-cookie-consent="true"
+          data-cookie-consent-provider="auto"
           data-layout-iframe-id={iframeId}
           data-form-id={formId}
           title={title}

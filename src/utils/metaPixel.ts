@@ -4,18 +4,24 @@
  * Domain: https://eversafefinancial.com
  *
  * Strict Compliance & Privacy Standards:
- * 1. Zero PII: No names, emails, phones, or form responses sent to Meta.
- * 2. Zero Health Data: No medical conditions, coverage choices, or sensitive attributes passed.
- * 3. autoConfig Disabled: Prevents Meta from auto-scraping form fields or buttons.
- * 4. Deduplication: Ensures single initialization and clean SPA PageView tracking.
- * 5. Honest Lead Tracking: Listens strictly for verified GHL form submission postMessage
- *    events; explicitly discards resize, scroll, timer, load, and click events.
+ * 1. Consent-Gated Execution: Meta Pixel is NEVER loaded or fired before explicit marketing consent.
+ * 2. Zero PII: No names, emails, phones, or form responses sent to Meta.
+ * 3. Zero Health Data: No medical conditions, coverage choices, or sensitive attributes passed.
+ * 4. autoConfig Disabled: Prevents Meta from auto-scraping form fields or buttons.
+ * 5. Deduplication & No Double-Counting:
+ *    - The embedded GHL form fires its own verified Lead event directly inside the iframe
+ *      once unblocked by the native cookie-config consent protocol.
+ *    - The host does not double-fire a redundant Lead event to prevent duplicate conversions.
  */
+
+import { hasMarketingConsent } from './cookieConsent';
 
 declare global {
   interface Window {
     fbq?: (...args: any[]) => void;
     _fbq?: any;
+    _esfPixelInitialized?: boolean;
+    _esfConsentListenerRegistered?: boolean;
   }
 }
 
@@ -39,19 +45,107 @@ const VALID_GHL_ORIGINS = [
 ];
 
 /**
- * Tracks a PageView event for single-page application navigation.
+ * Dynamically loads and initializes the Meta Pixel ONLY after explicit consent.
+ */
+export function initMetaPixelIfConsented(): void {
+  if (typeof window === 'undefined') return;
+
+  // Register listener for real-time consent changes (only once)
+  if (!window._esfConsentListenerRegistered) {
+    window._esfConsentListenerRegistered = true;
+    window.addEventListener('esf_cookie_consent_changed', ((e: CustomEvent) => {
+      if (e.detail?.level === 'all') {
+        loadAndInitMetaPixel();
+      } else if (e.detail?.level === 'essential') {
+        revokeMetaPixelConsent();
+      }
+    }) as EventListener);
+  }
+
+  // If marketing consent is already active, initialize immediately
+  if (hasMarketingConsent()) {
+    loadAndInitMetaPixel();
+  }
+}
+
+/**
+ * Injects Meta Pixel script safely and registers initial PageView.
+ */
+function loadAndInitMetaPixel(): void {
+  if (typeof window === 'undefined') return;
+  if (window._esfPixelInitialized && window.fbq) {
+    // If already loaded and re-granted, restore consent
+    try {
+      window.fbq('consent', 'grant');
+      window.fbq('track', 'PageView');
+    } catch {
+      // ignore
+    }
+    return;
+  }
+
+  // Setup standard fbq stub
+  if (!window.fbq) {
+    const fbq: any = function (...args: any[]) {
+      if (fbq.callMethod) {
+        fbq.callMethod.apply(fbq, args);
+      } else {
+        fbq.queue.push(args);
+      }
+    };
+    fbq.push = fbq;
+    fbq.loaded = true;
+    fbq.version = '2.0';
+    fbq.queue = [];
+    window.fbq = fbq;
+    window._fbq = fbq;
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    const firstScript = document.getElementsByTagName('script')[0];
+    if (firstScript && firstScript.parentNode) {
+      firstScript.parentNode.insertBefore(script, firstScript);
+    } else {
+      document.head.appendChild(script);
+    }
+  }
+
+  window.fbq('init', META_PIXEL_ID);
+  window.fbq('set', 'autoConfig', false, META_PIXEL_ID);
+  window.fbq('track', 'PageView');
+  window._esfPixelInitialized = true;
+}
+
+/**
+ * Revokes consent in Meta Pixel if user updates preferences to essential only.
+ */
+export function revokeMetaPixelConsent(): void {
+  if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+    try {
+      window.fbq('consent', 'revoke');
+    } catch {
+      // ignore
+    }
+  }
+}
+
+/**
+ * Tracks a PageView event for single-page application navigation,
+ * strictly contingent upon marketing consent.
  */
 export function trackSpaPageView(): void {
-  if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+  if (typeof window !== 'undefined' && hasMarketingConsent() && typeof window.fbq === 'function') {
     window.fbq('track', 'PageView');
   }
 }
 
 /**
  * Tracks a compliant Lead conversion event with ZERO sensitive health data and ZERO PII.
+ * Strictly checks consent before dispatching.
  */
 export function trackLeadConversion(contentName: string = 'Form Submission'): void {
-  if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+  if (typeof window !== 'undefined' && hasMarketingConsent() && typeof window.fbq === 'function') {
     window.fbq('track', 'Lead', {
       content_name: contentName,
     });
@@ -60,11 +154,13 @@ export function trackLeadConversion(contentName: string = 'Form Submission'): vo
 
 /**
  * Sets up a secure window.postMessage listener for GoHighLevel form submissions.
- * Verifies origin, ignores generic resize/init/load events, and prevents duplicate triggers.
+ * To prevent duplicate Lead events (Requirement 6), since the embedded GHL form
+ * executes its own Meta Pixel directly inside the iframe upon submission once unblocked,
+ * this listener safely validates the event without double-firing the same conversion to Meta.
  */
 export function initGhlSubmissionListener(
   targetFormId?: string,
-  contentName: string = 'ACA 2027 Consultation Request'
+  _contentName: string = 'ACA 2027 Consultation Request'
 ): () => void {
   if (typeof window === 'undefined') return () => {};
 
@@ -129,15 +225,17 @@ export function initGhlSubmissionListener(
       return;
     }
 
-    // 6. Deduplicate per submission within 3-second window
-    const submissionKey = `${incomingFormId || targetFormId || 'ghl'}-${Math.floor(Date.now() / 3000)}`;
+    // 6. Deduplicate per submission within 5-second window
+    const submissionKey = `${incomingFormId || targetFormId || 'ghl'}-${Math.floor(Date.now() / 5000)}`;
     if (handledSubmissions.has(submissionKey)) {
       return;
     }
     handledSubmissions.add(submissionKey);
 
-    // 7. Track compliant Lead event with zero PII and zero health parameters
-    trackLeadConversion(contentName);
+    // 7. GHL embedded form already executes the Lead event natively from within the iframe
+    // via its own embedded pixel script once unblocked by cookie-config consent.
+    // We intentionally do NOT fire a second window.fbq('track', 'Lead') here to strictly
+    // prevent event duplication in Meta Events Manager.
   };
 
   window.addEventListener('message', handleMessage);

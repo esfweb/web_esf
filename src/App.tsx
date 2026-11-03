@@ -36,7 +36,9 @@ import { WhyIulPage, IulInteractiveQuiz } from "./components/WhyIulPage";
 import { TestimonialsMiniSection } from "./components/TestimonialsMiniSection";
 import { GHLQuoteFormEmbed } from "./components/GHLQuoteFormEmbed";
 import PartnerLogosCarousel from "./components/PartnerLogosCarousel";
-import { trackSpaPageView } from "./utils/metaPixel";
+import { trackSpaPageView, initMetaPixelIfConsented } from "./utils/metaPixel";
+import { CookieConsentBanner } from "./components/CookieConsentBanner";
+import { openCookiePreferences } from "./utils/cookieConsent";
 
 // Count-up stats helper component with intersection detection
 interface AnimatedStatProps {
@@ -245,6 +247,11 @@ export default function App() {
     handleHashChange();
 
     return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  // Initialize Meta Pixel conditionally if marketing consent is granted
+  useEffect(() => {
+    initMetaPixelIfConsented();
   }, []);
 
   // Track deduplicated PageView on SPA view transitions (Why IUL, Privacy Policy, Terms)
@@ -2107,6 +2114,14 @@ export default function App() {
             >
               Terms of Service
             </a>
+            <span className="text-brand-purple/20 select-none">•</span>
+            <button
+              type="button"
+              onClick={openCookiePreferences}
+              className="hover:text-brand-purple hover:underline transition-colors focus:outline-none focus:underline cursor-pointer"
+            >
+              {lang === "es" ? "Preferencias de Cookies" : "Cookie Preferences"}
+            </button>
           </div>
         </div>
       </footer>
@@ -2331,6 +2346,8 @@ export default function App() {
         </a>
       </div>
 
+      {/* Cookie Consent Management Banner & Preferences Modal */}
+      <CookieConsentBanner lang={lang} />
     </div>
   );
 }

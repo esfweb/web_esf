@@ -16,6 +16,9 @@ import {
   Lock,
 } from 'lucide-react';
 import { GhlFormEmbed } from './GhlFormEmbed';
+import { CookieConsentBanner } from '../components/CookieConsentBanner';
+import { openCookiePreferences } from '../utils/cookieConsent';
+import { initMetaPixelIfConsented } from '../utils/metaPixel';
 
 export const AcaLandingPage: React.FC = () => {
   // Language resolution: URL param > localStorage > default 'en'
@@ -35,6 +38,11 @@ export const AcaLandingPage: React.FC = () => {
   });
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  // Initialize Meta Pixel conditionally if marketing consent is already active
+  useEffect(() => {
+    initMetaPixelIfConsented();
+  }, []);
 
   // Sync document title, description, and html lang attribute dynamically
   useEffect(() => {
@@ -629,6 +637,14 @@ export const AcaLandingPage: React.FC = () => {
                 {lang === 'es' ? 'Términos' : 'Terms of Service'}
               </a>
               <span className="text-slate-600">·</span>
+              <button
+                type="button"
+                onClick={openCookiePreferences}
+                className="hover:text-white transition-colors underline-offset-4 hover:underline focus:outline-none cursor-pointer"
+              >
+                {lang === 'es' ? 'Preferencias de cookies' : 'Cookie Preferences'}
+              </button>
+              <span className="text-slate-600">·</span>
               <a
                 href="https://eversafefinancial.com/"
                 className="hover:text-white transition-colors underline-offset-4 hover:underline"
@@ -648,6 +664,9 @@ export const AcaLandingPage: React.FC = () => {
           </div>
         </div>
       </footer>
+
+      {/* Cookie Consent Management Banner & Preferences Modal */}
+      <CookieConsentBanner lang={lang} />
     </div>
   );
 };
