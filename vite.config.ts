@@ -15,7 +15,11 @@ export default defineConfig(() => {
           server.middlewares.use((req, res, next) => {
             const url = req.url || '';
             const [pathname, search] = url.split('?');
-            if (pathname === '/book' || pathname === '/aca-2027') {
+            if (
+              pathname === '/book' ||
+              pathname === '/aca-2027' ||
+              pathname === '/aca-2027/gracias'
+            ) {
               res.writeHead(301, {
                 Location: `${pathname}/${search ? `?${search}` : ''}`,
               });
@@ -37,6 +41,7 @@ export default defineConfig(() => {
         input: {
           main: path.resolve(__dirname, 'index.html'),
           aca2027: path.resolve(__dirname, 'aca-2027/index.html'),
+          aca2027Gracias: path.resolve(__dirname, 'aca-2027/gracias/index.html'),
           book: path.resolve(__dirname, 'book/index.html'),
         },
       },
