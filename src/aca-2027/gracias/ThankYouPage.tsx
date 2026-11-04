@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { CheckCircle2, Calendar, ShieldCheck, ArrowRight, ArrowLeft, Globe2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { CheckCircle2, Calendar, ShieldCheck, ArrowRight, ArrowLeft } from 'lucide-react';
 import { CookieConsentBanner } from '../../components/CookieConsentBanner';
-import { openCookiePreferences } from '../../utils/cookieConsent';
+import { openCookiePreferences, hasMarketingConsent } from '../../utils/cookieConsent';
 import { initMetaPixelIfConsented } from '../../utils/metaPixel';
 
 export const ThankYouPage: React.FC = () => {
+  // Guard to ensure Lead event is dispatched strictly once per navigation session
+  const leadTrackedRef = useRef(false);
+
   // Language resolution: URL param > localStorage > default 'es'
   const [lang, setLang] = useState<'en' | 'es'>(() => {
     if (typeof window !== 'undefined') {
@@ -21,10 +24,37 @@ export const ThankYouPage: React.FC = () => {
     return 'es';
   });
 
-  // Initialize Meta Pixel conditionally if marketing consent is granted (Standard PageView only)
-  // Per requirements: No automatic Meta Lead event is triggered on this URL.
+  // Initialize Meta Pixel (PageView) and fire Lead conversion strictly once when consented
   useEffect(() => {
+    // 1. Maintain existing PageView initialization gated by consent
     initMetaPixelIfConsented();
+
+    // 2. Dispatches fbq('track', 'Lead') with zero parameters once consent is validated
+    const dispatchLeadIfConsented = () => {
+      if (leadTrackedRef.current) return;
+      if (typeof window === 'undefined') return;
+
+      if (hasMarketingConsent() && typeof window.fbq === 'function') {
+        leadTrackedRef.current = true;
+        // Zero PII, zero medical data, zero form responses, zero custom parameters
+        window.fbq('track', 'Lead');
+      }
+    };
+
+    // Attempt immediately if marketing consent was already active upon navigation
+    dispatchLeadIfConsented();
+
+    // Listen for real-time consent updates if the user accepts cookies while on this page
+    const handleConsentChange = (e: CustomEvent) => {
+      if (e.detail?.level === 'all') {
+        setTimeout(dispatchLeadIfConsented, 100);
+      }
+    };
+
+    window.addEventListener('esf_cookie_consent_changed', handleConsentChange as EventListener);
+    return () => {
+      window.removeEventListener('esf_cookie_consent_changed', handleConsentChange as EventListener);
+    };
   }, []);
 
   // Update document title, description and html lang attribute dynamically
