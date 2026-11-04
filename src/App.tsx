@@ -37,6 +37,7 @@ import { TestimonialsMiniSection } from "./components/TestimonialsMiniSection";
 import { GHLQuoteFormEmbed } from "./components/GHLQuoteFormEmbed";
 import PartnerLogosCarousel from "./components/PartnerLogosCarousel";
 import { trackSpaPageView, initMetaPixelIfConsented } from "./utils/metaPixel";
+import { initMetricool } from "./utils/metricool";
 import { CookieConsentBanner } from "./components/CookieConsentBanner";
 import { openCookiePreferences } from "./utils/cookieConsent";
 
@@ -249,9 +250,10 @@ export default function App() {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  // Initialize Meta Pixel conditionally if marketing consent is granted
+  // Initialize analytics: Meta Pixel (consent-gated) and Metricool (cookieless web traffic tracker)
   useEffect(() => {
     initMetaPixelIfConsented();
+    initMetricool();
   }, []);
 
   // Track deduplicated PageView on SPA view transitions (Why IUL, Privacy Policy, Terms)

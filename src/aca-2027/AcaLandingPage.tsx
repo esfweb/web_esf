@@ -19,6 +19,7 @@ import { GhlFormEmbed } from './GhlFormEmbed';
 import { CookieConsentBanner } from '../components/CookieConsentBanner';
 import { openCookiePreferences } from '../utils/cookieConsent';
 import { initMetaPixelIfConsented } from '../utils/metaPixel';
+import { initMetricool } from '../utils/metricool';
 
 export const AcaLandingPage: React.FC = () => {
   // Language resolution: URL param > localStorage > default 'en'
@@ -39,9 +40,10 @@ export const AcaLandingPage: React.FC = () => {
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  // Initialize Meta Pixel conditionally if marketing consent is granted
+  // Initialize analytics: Meta Pixel (consent-gated) and Metricool (cookieless web traffic tracker)
   useEffect(() => {
     initMetaPixelIfConsented();
+    initMetricool();
   }, []);
 
   // Sync document title, description, and html lang attribute dynamically
@@ -169,16 +171,16 @@ export const AcaLandingPage: React.FC = () => {
 
       {/* 2. MAIN CONVERSION SECTION (HERO + GHL FORM IN 2-COL DESKTOP) */}
       <main className="flex-1">
-        <section className="relative pt-8 pb-16 md:pt-12 md:pb-24 overflow-hidden bg-hero-pattern">
+        <section className="relative pt-4 pb-16 sm:pt-8 md:pt-12 md:pb-24 overflow-hidden bg-hero-pattern">
           {/* Subtle Ambient Background Gradients */}
           <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-brand-purple/10 to-accent/10 blur-3xl pointer-events-none -z-10 rounded-full" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-              {/* LEFT COLUMN: HERO, BENEFITS & TRUST (Desktop: 7 cols) */}
-              <div className="lg:col-span-7 flex flex-col justify-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
+              {/* 1. TOP HERO HEADER (Badge, Title & Description) - Row 1, Col 1-7 on desktop; 1st on mobile */}
+              <div className="lg:col-span-7 lg:col-start-1 lg:row-start-1 flex flex-col justify-center">
                 {/* Micro Badge */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-purple-light border border-brand-purple/20 text-brand-purple text-xs font-semibold w-fit mb-5">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-purple-light border border-brand-purple/20 text-brand-purple text-xs font-semibold w-fit mb-3 sm:mb-5">
                   <Shield className="w-3.5 h-3.5 text-brand-purple" />
                   <span>
                     {lang === 'es'
@@ -188,7 +190,7 @@ export const AcaLandingPage: React.FC = () => {
                 </div>
 
                 {/* Hero Title */}
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-navy tracking-tight leading-[1.15] mb-5 font-display">
+                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-brand-navy tracking-tight leading-[1.15] mb-3 sm:mb-5 font-display">
                   {lang === 'es' ? (
                     <>
                       ¿Buscas seguro médico para{' '}
@@ -203,12 +205,22 @@ export const AcaLandingPage: React.FC = () => {
                 </h1>
 
                 {/* Hero Description */}
-                <p className="text-base sm:text-lg text-brand-slate leading-relaxed mb-6 max-w-xl font-normal">
+                <p className="text-sm sm:text-base lg:text-lg text-brand-slate leading-relaxed mb-4 sm:mb-6 max-w-xl font-normal">
                   {lang === 'es'
                     ? 'Conoce, revisa o renueva tus opciones de cobertura ACA (Obamacare) para 2027 y verifica si calificas para subsidios.'
                     : 'Explore, review, or renew your ACA (Obamacare) health coverage for 2027 and check your eligibility for premium tax credits.'}
                 </p>
+              </div>
 
+              {/* 2. GHL FORM CARD (Order on mobile: directly after title so it is immediately visible on phone; Order on desktop: right column, sticky) */}
+              <div className="lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 w-full mb-8 lg:mb-0">
+                <div className="lg:sticky lg:top-24">
+                  <GhlFormEmbed lang={lang} />
+                </div>
+              </div>
+
+              {/* 3. DATES, BENEFITS & ADVISOR (Order on mobile: follows directly below the form; Order on desktop: left column row 2) */}
+              <div className="lg:col-span-7 lg:col-start-1 lg:row-start-2 flex flex-col justify-center">
                 {/* 2027 Open Enrollment Key Dates */}
                 <div className="mb-6 p-4 rounded-2xl bg-white border border-brand-purple/15 shadow-xs">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
@@ -239,25 +251,6 @@ export const AcaLandingPage: React.FC = () => {
                       </p>
                     </div>
                   </div>
-                </div>
-
-                {/* Mobile Quick CTA (smooth scroll to form right below) */}
-                <div className="lg:hidden mb-8">
-                  <button
-                    type="button"
-                    onClick={scrollToForm}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-brand-purple text-white font-bold text-base shadow-lg shadow-brand-purple/25 hover:bg-brand-purple-hover active:scale-[0.99] transition-all cursor-pointer"
-                  >
-                    <span>
-                      {lang === 'es' ? 'Solicitar asesoría gratuita' : 'Request a Free Consultation'}
-                    </span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                  <p className="text-xs text-brand-slate/80 text-center sm:text-left mt-2">
-                    {lang === 'es'
-                      ? 'Toma menos de 2 minutos · Sin costo para ti'
-                      : 'Takes under 2 minutes · No advisory fees'}
-                  </p>
                 </div>
 
                 {/* BENEFITS GRID (4 key benefits without guaranteed promises) */}
@@ -379,12 +372,24 @@ export const AcaLandingPage: React.FC = () => {
                     </p>
                   </div>
                 </div>
-              </div>
 
-              {/* RIGHT COLUMN: GHL FORM CARD (Desktop: 5 cols, Sticky on large screens) */}
-              <div className="lg:col-span-5 w-full">
-                <div className="lg:sticky lg:top-24">
-                  <GhlFormEmbed lang={lang} />
+                {/* Mobile Quick CTA after reviewing benefits & advisor */}
+                <div className="lg:hidden mt-6 mb-2">
+                  <button
+                    type="button"
+                    onClick={scrollToForm}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-brand-purple text-white font-bold text-base shadow-lg shadow-brand-purple/25 hover:bg-brand-purple-hover active:scale-[0.99] transition-all cursor-pointer"
+                  >
+                    <span>
+                      {lang === 'es' ? 'Completar formulario de asesoría' : 'Complete consultation form'}
+                    </span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <p className="text-xs text-brand-slate/80 text-center sm:text-left mt-2">
+                    {lang === 'es'
+                      ? 'Toma menos de 2 minutos · Sin costo para ti'
+                      : 'Takes under 2 minutes · No advisory fees'}
+                  </p>
                 </div>
               </div>
             </div>

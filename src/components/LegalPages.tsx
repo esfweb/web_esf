@@ -169,7 +169,7 @@ export function PrivacyPolicy({ onBackToHome, lang }: LegalPageProps) {
                   </>
                 )}
               </ul>
-              <div className="pl-0 md:pl-5 pt-2">
+              <div className="pl-0 md:pl-5 pt-2 space-y-3">
                 <div className="bg-slate-50/80 border border-slate-200/70 rounded-xl p-4 text-xs sm:text-sm text-brand-navy space-y-1.5">
                   <p className="font-bold text-brand-purple">
                     {isEs ? "Aclaración sobre Plataformas Tecnológicas (GoHighLevel):" : "Clarification on Technology Platforms (GoHighLevel):"}
@@ -178,6 +178,17 @@ export function PrivacyPolicy({ onBackToHome, lang }: LegalPageProps) {
                     {isEs
                       ? "Eversafe Financial utiliza la plataforma tecnológica GoHighLevel (HighLevel) como sistema de gestión de relaciones con clientes (CRM), administración de formularios y canal de gestión de comunicaciones y citas. GoHighLevel actúa como proveedor de servicios y encargado del tratamiento de datos bajo nuestras instrucciones directas. GoHighLevel no aloja la totalidad de nuestro sitio web independiente, ni está autorizado a utilizar su información personal para sus propios fines comerciales o de marketing."
                       : "Eversafe Financial utilizes the GoHighLevel (HighLevel) platform as a Customer Relationship Management (CRM) system, form management tool, and appointment/communication workflow software under our direct instructions. GoHighLevel acts as a technology service provider and data processor. GoHighLevel does not host our entire independent website, nor is it permitted to use your personal information for its own commercial or marketing purposes."}
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 border border-slate-200/70 rounded-xl p-4 text-xs sm:text-sm text-brand-navy space-y-1.5">
+                  <p className="font-bold text-brand-purple">
+                    {isEs ? "Analítica Web y Medición de Visitas (Metricool y Meta Pixel):" : "Web Analytics & Visit Measurement (Metricool & Meta Pixel):"}
+                  </p>
+                  <p className="text-brand-slate">
+                    {isEs
+                      ? "Utilizamos Metricool como plataforma para el análisis agregado de tráfico web y estadísticas generales de visitas. El tracker de Metricool no utiliza cookies de seguimiento publicitario (tecnología sin cookies o cookieless), no recopila información personal identificable (PII), datos de salud ni respuestas de formularios, limitándose a medir el volumen de visitas y fuentes de referencia para optimizar la experiencia de navegación. Para la medición publicitaria en Meta Pixel, las cookies correspondientes solo se activan cuando usted otorga su consentimiento expreso mediante el panel de cookies, pudiendo revocarlas en cualquier momento."
+                      : "We utilize Metricool as a platform for aggregate web traffic analysis and general visit statistics. The Metricool tracker does not utilize advertising tracking cookies (cookieless technology), does not collect personally identifiable information (PII), health data, or form submissions, and solely measures visit volume and referral sources to optimize website usability. For advertising campaign measurement via Meta Pixel, relevant cookies are strictly activated only upon your explicit prior consent via the cookie settings panel, which you may revoke at any time."}
                   </p>
                 </div>
               </div>
@@ -317,7 +328,7 @@ export function PrivacyPolicy({ onBackToHome, lang }: LegalPageProps) {
                         <strong>Aseguradoras Autorizadas:</strong> Únicamente cuando usted decide formalizar una solicitud o cotización formal de seguro y autoriza expresamente el envío de su solicitud a la aseguradora seleccionada.
                       </li>
                       <li>
-                        <strong>Proveedores de Servicios Tecnológicos:</strong> Proveedores que procesan información bajo estrictos acuerdos de confidencialidad para operar nuestro CRM, formularios y comunicaciones (como GoHighLevel), únicamente para prestar los servicios contratados por nosotros.
+                        <strong>Proveedores de Servicios Tecnológicos:</strong> Proveedores que procesan datos bajo estrictos acuerdos de confidencialidad para operar nuestro CRM, formularios y comunicaciones (como GoHighLevel) o herramientas técnicas de métricas y tráfico web agregado (como Metricool), únicamente para prestar los servicios contratados por nosotros.
                       </li>
                       <li>
                         <strong>Requerimientos Legales:</strong> Cuando sea requerido por mandato judicial, leyes federales o estatales, o autoridades regulatorias competentes.
@@ -329,7 +340,7 @@ export function PrivacyPolicy({ onBackToHome, lang }: LegalPageProps) {
                         <strong>Authorized Insurance Carriers:</strong> Solely when you choose to proceed with a formal insurance quote or application and explicitly authorize submitting your application to the selected carrier.
                       </li>
                       <li>
-                        <strong>Technology Service Providers:</strong> Vendors operating under strict confidentiality obligations to provide our CRM, form processing, and communications infrastructure (such as GoHighLevel), strictly to deliver the services contracted by us.
+                        <strong>Technology Service Providers:</strong> Vendors operating under strict confidentiality obligations to provide our CRM, form processing, and communications infrastructure (such as GoHighLevel) or aggregate web traffic analytics tools (such as Metricool), strictly to deliver the services contracted by us.
                       </li>
                       <li>
                         <strong>Legal & Regulatory Mandates:</strong> When required by court orders, applicable state or federal law, or competent regulatory bodies.
