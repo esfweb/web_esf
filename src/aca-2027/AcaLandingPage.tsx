@@ -262,6 +262,34 @@ export const AcaLandingPage: React.FC = () => {
                     ? 'Conoce, revisa o renueva tus opciones de cobertura ACA (Obamacare) para 2027 y verifica si calificas para subsidios.'
                     : 'Explore, review, or renew your ACA (Obamacare) health coverage for 2027 and check your eligibility for premium tax credits.'}
                 </p>
+
+                {/* Desktop (>= 768px): Compact Direct Booking Conversion Block */}
+                <div className="hidden md:flex items-center justify-between gap-4 p-4 sm:px-5 sm:py-4 rounded-2xl bg-white border border-brand-purple/15 shadow-xs font-sans">
+                  <div className="min-w-0">
+                    <h2 className="text-sm font-bold text-brand-navy leading-snug">
+                      {lang === 'es'
+                        ? '¿Prefieres agendar directamente?'
+                        : 'Prefer to schedule directly?'}
+                    </h2>
+                    <p className="text-xs text-brand-slate mt-0.5 leading-relaxed">
+                      {lang === 'es'
+                        ? 'Habla con una asesora y revisa tus opciones de Obamacare 2027.'
+                        : 'Speak with a licensed insurance advisor and explore your Obamacare 2027 coverage options.'}
+                    </p>
+                  </div>
+
+                  <a
+                    href="https://eversafefinancial.com/book"
+                    className="shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white border-[1.5px] border-[#8C49B1] text-[#8C49B1] font-semibold text-xs sm:text-sm whitespace-nowrap hover:bg-brand-purple-light hover:border-brand-purple-hover hover:text-brand-purple-hover active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C49B1]/40 focus-visible:ring-offset-2 transition-all"
+                  >
+                    <Calendar className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    <span>
+                      {lang === 'es'
+                        ? 'Agendar directamente'
+                        : 'Schedule an Appointment'}
+                    </span>
+                  </a>
+                </div>
               </div>
 
               {/* 2. RIGHT CONTACT BLOCK (Order on mobile: directly after title & subtitle; Order on desktop: right column, sticky) */}
