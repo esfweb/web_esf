@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Shield,
   ShieldCheck,
@@ -14,6 +14,7 @@ import {
   ArrowRight,
   Globe2,
   Lock,
+  Calendar,
 } from 'lucide-react';
 import { GhlFormEmbed } from './GhlFormEmbed';
 import { CookieConsentBanner } from '../components/CookieConsentBanner';
@@ -39,6 +40,14 @@ export const AcaLandingPage: React.FC = () => {
   });
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [isMobileFormOpen, setIsMobileFormOpen] = useState(false);
+  const [isDesktopOrTablet, setIsDesktopOrTablet] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(min-width: 768px)').matches;
+    }
+    return true;
+  });
+  const formPanelRef = useRef<HTMLDivElement | null>(null);
 
   // Initialize analytics: Meta Pixel (consent-gated) and Metricool (cookieless web traffic tracker)
   useEffect(() => {
@@ -92,10 +101,53 @@ export const AcaLandingPage: React.FC = () => {
     }
   };
 
+  // Sync responsive breakpoint (>= 768px) so tablet/desktop always displays the GHL form expanded
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(min-width: 768px)');
+    const updateMatch = () => setIsDesktopOrTablet(mq.matches);
+    updateMatch();
+
+    if (typeof mq.addEventListener === 'function') {
+      mq.addEventListener('change', updateMatch);
+      return () => mq.removeEventListener('change', updateMatch);
+    }
+    mq.addListener(updateMatch);
+    return () => mq.removeListener(updateMatch);
+  }, []);
+
+  const isFormExpanded = isDesktopOrTablet || isMobileFormOpen;
+
+  // Keep collapsed mobile form subtree non-focusable without unmounting the iframe
+  useEffect(() => {
+    if (formPanelRef.current) {
+      formPanelRef.current.inert = !isFormExpanded;
+    }
+    if (isFormExpanded && typeof window !== 'undefined') {
+      const t1 = window.setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
+      const t2 = window.setTimeout(() => window.dispatchEvent(new Event('resize')), 320);
+      return () => {
+        window.clearTimeout(t1);
+        window.clearTimeout(t2);
+      };
+    }
+  }, [isFormExpanded]);
+
+  const handleToggleMobileForm = () => {
+    setIsMobileFormOpen((prev) => !prev);
+  };
+
   const scrollToForm = () => {
-    const formElement = document.getElementById('ghl-form-container');
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setIsMobileFormOpen(true);
+    if (typeof window !== 'undefined') {
+      window.setTimeout(() => {
+        const formElement =
+          document.getElementById('ghl-form-panel') ||
+          document.getElementById('contact-action-block');
+        if (formElement) {
+          formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 80);
     }
   };
 
@@ -212,10 +264,65 @@ export const AcaLandingPage: React.FC = () => {
                 </p>
               </div>
 
-              {/* 2. GHL FORM CARD (Order on mobile: directly after title so it is immediately visible on phone; Order on desktop: right column, sticky) */}
-              <div className="lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 w-full mb-8 lg:mb-0">
+              {/* 2. RIGHT CONTACT BLOCK (Order on mobile: directly after title & subtitle; Order on desktop: right column, sticky) */}
+              <div
+                id="contact-action-block"
+                className="lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 w-full mb-8 lg:mb-0 scroll-mt-24"
+              >
                 <div className="lg:sticky lg:top-24">
-                  <GhlFormEmbed lang={lang} />
+                  {/* MOBILE ONLY (< 768px): Primary Purple Accordion Toggle Button */}
+                  <div className="md:hidden mb-3">
+                    <button
+                      type="button"
+                      onClick={handleToggleMobileForm}
+                      aria-expanded={isMobileFormOpen}
+                      aria-controls="ghl-form-panel"
+                      className="w-full inline-flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl bg-brand-purple text-white font-bold text-base shadow-lg shadow-brand-purple/25 hover:bg-brand-purple-hover active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C49B1]/50 focus-visible:ring-offset-2 transition-all cursor-pointer"
+                    >
+                      <span>
+                        {lang === 'es'
+                          ? 'Solicitar asesoría gratuita'
+                          : 'Request a Free Consultation'}
+                      </span>
+                      <ChevronDown
+                        className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
+                          isMobileFormOpen ? 'rotate-180' : ''
+                        }`}
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </div>
+
+                  {/* SINGLE GHL FORM PANEL: Collapsed initially on < 768px, always visible & expanded on >= 768px */}
+                  <div
+                    id="ghl-form-panel"
+                    ref={formPanelRef}
+                    aria-hidden={!isFormExpanded}
+                    className={`grid transition-[grid-template-rows,opacity,margin] duration-300 ease-out scroll-mt-24 md:grid-rows-[1fr] md:opacity-100 md:pointer-events-auto md:mb-4 ${
+                      isMobileFormOpen
+                        ? 'grid-rows-[1fr] opacity-100 mb-3'
+                        : 'grid-rows-[0fr] opacity-0 mb-0 pointer-events-none'
+                    }`}
+                  >
+                    <div className="overflow-hidden min-h-0">
+                      <GhlFormEmbed lang={lang} />
+                    </div>
+                  </div>
+
+                  {/* SECONDARY BUTTON: Always positioned AFTER the form (and immediately after the primary button when collapsed on mobile) */}
+                  <div className="w-full">
+                    <a
+                      href="https://eversafefinancial.com/book"
+                      className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-white border-[1.5px] border-[#8C49B1] text-[#8C49B1] font-semibold text-sm sm:text-base shadow-xs hover:bg-brand-purple-light hover:border-brand-purple-hover hover:text-brand-purple-hover active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C49B1]/40 focus-visible:ring-offset-2 transition-all"
+                    >
+                      <Calendar className="w-4 h-4 shrink-0" aria-hidden="true" />
+                      <span>
+                        {lang === 'es'
+                          ? 'Agendar directamente'
+                          : 'Schedule an Appointment'}
+                      </span>
+                    </a>
+                  </div>
                 </div>
               </div>
 
